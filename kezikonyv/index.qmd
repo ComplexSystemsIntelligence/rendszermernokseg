@@ -1,11 +1,5 @@
 # Előszó {.unnumbered}
 
-::: {.callout-warning appearance="simple" icon=false}
-## Fejlesztői előzetes – 2026. november
-
-Mind a 26 fejezet elkészült; a szöveg, az ábrák és a példák kipróbálás és lektorálás alatt állnak. Javaslatot, hibajelzést a GitHub-tárhely „Hiba vagy javaslat bejelentése” hivatkozásán keresztül várok.
-:::
-
 Ez a könyv arról szól, hogyan lesz egy homályos igényből működő, biztonságos, használható és gazdaságos rendszer. A rendszer lehet mechatronikai berendezés, gyártócella, informatikai alkalmazás vagy egy szervezet működési folyamata. A rendszermérnökség az a gondolkodásmód és módszertan, amely ezt az utat végigköveti. Az érdekelt felek igényeinek feltárásától a követelményeken, a koncepciókon és a terveken át a megvalósításig, az ellenőrzésig, az üzemeltetésig, sőt a kivonásig tart.
 
 ## Kinek szól a könyv?

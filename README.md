@@ -5,11 +5,11 @@
   </picture></a>
 </p>
 
-# Rendszermérnökség
+# Rendszermérnöki ismeretek és módszerek
 
 <!-- DOI-JELVENY -->
 
-**A rendszerfejlesztés útja a V-modell mentén – kézikönyv és gyakorlati útmutató**  
+**Ötlettől a működő rendszerig a V-modell mentén – kézikönyv és gyakorlati útmutató**  
 Abonyi János · Pannon Egyetem, Veszprém, 2026
 
 Nyílt hozzáférésű, magyar nyelvű rendszermérnöki tankönyv és gyakorlati útmutató mérnöki alapszakos hallgatóknak. A kézikönyv azt mutatja meg, hogyan lesz egy homályos igényből működő, biztonságos, használható és gazdaságos rendszer: az érdekelt felek igényeinek feltárásától a követelményeken, a koncepciókon és a terveken át a megvalósításig, az integrációig, az ellenőrzésig és az üzemeltetésig. Elméleti gerincét a rendszermérnökség nemzetközi szabványai (ISO/IEC/IEEE 15288:2023, 24748-1, 29148), az INCOSE rendszermérnöki kézikönyve és a SEBoK tudástár adják; az egyes módszereket eredeti szakirodalmuk és a rájuk vonatkozó szabványok alapján tárgyalja. A gyakorlati útmutató egységes eszközlapokkal, letölthető Excel-sablonokkal, Google Colab-notebookokkal és mintapromptokkal teszi alkalmazhatóvá a módszereket.

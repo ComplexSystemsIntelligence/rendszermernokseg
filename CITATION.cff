@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "Ha a művet felhasználod, kérlek, így hivatkozz rá. / If you use this work, please cite it as below."
-title: "Rendszermérnökség – A rendszerfejlesztés útja a V-modell mentén (kézikönyv és gyakorlati útmutató)"
+title: "Rendszermérnöki ismeretek és módszerek – Ötlettől a működő rendszerig a V-modell mentén (kézikönyv és gyakorlati útmutató)"
 abstract: >-
   Nyílt hozzáférésű magyar nyelvű rendszermérnöki tankönyv és gyakorlati útmutató mérnöki
   alapszakos hallgatóknak. A V-modell lépései mentén tárgyalja az érdekeltfél-elemzést, a
@@ -30,7 +30,7 @@ keywords:
   - nyílt tankönyv
 preferred-citation:
   type: book
-  title: "Rendszermérnökség – A rendszerfejlesztés útja a V-modell mentén (kézikönyv és gyakorlati útmutató)"
+  title: "Rendszermérnöki ismeretek és módszerek – Ötlettől a működő rendszerig a V-modell mentén (kézikönyv és gyakorlati útmutató)"
   authors:
     - family-names: Abonyi
       given-names: János

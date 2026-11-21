@@ -5,8 +5,8 @@ project:
   post-render: ../_shared/scripts/postrender.py
 
 book:
-  title: "Rendszermérnökség"
-  subtitle: "A rendszerfejlesztés útja a V-modell mentén"
+  title: "Rendszermérnöki ismeretek és módszerek"
+  subtitle: "Ötlettől a működő rendszerig a V-modell mentén"
   author: "Abonyi János"
   date: "2026"
   date-format: "YYYY"
