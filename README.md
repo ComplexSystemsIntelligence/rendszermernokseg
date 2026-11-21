@@ -7,7 +7,7 @@
 
 # Rendszermérnöki ismeretek és módszerek
 
-<!-- DOI-JELVENY -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24414135.svg)](https://doi.org/10.5281/zenodo.24414135)
 
 **Ötlettől a működő rendszerig a V-modell mentén – kézikönyv és gyakorlati útmutató**  
 Abonyi János · Pannon Egyetem, Veszprém, 2026
@@ -151,7 +151,25 @@ Az ábrák forrása a `*/abrak/tikz/*.tex` és a `*/abrak/py/*.py`; a lefordíto
   2. `./kiadas.sh`: fordítás, majd a PDF- és EPUB-fájlok a `kiadas/` mappába kerülnek, és a változtatás feltöltése;
   3. GitHub Releases → új címke (`vX.Y.Z`), magyar kiadási jegyzet → Publish. A munkafolyamat a `kiadas/` fájljait a kiadáshoz csatolja, a Zenodo pedig a kiadás forráscsomagját archiválja, és DOI-t ad (a metaadatok a [`.zenodo.json`](.zenodo.json) fájlban vannak).
 
-<!-- HIVATKOZAS -->
+## Hivatkozás
+
+Abonyi János (2026): *Rendszermérnöki ismeretek és módszerek – Ötlettől a működő rendszerig a V-modell mentén* (kézikönyv és gyakorlati útmutató). Pannon Egyetem, Veszprém. <https://doi.org/10.5281/zenodo.24414135>
+
+```bibtex
+@book{abonyi2026rendszermernoki,
+  author    = {Abonyi, János},
+  title     = {Rendszermérnöki ismeretek és módszerek -- Ötlettől a működő rendszerig a V-modell mentén},
+  subtitle  = {Kézikönyv és gyakorlati útmutató},
+  publisher = {Pannon Egyetem},
+  address   = {Veszprém},
+  year      = {2026},
+  doi       = {10.5281/zenodo.24414135},
+  url       = {https://complexsystemsintelligence.github.io/rendszermernokseg/},
+  language  = {hungarian}
+}
+```
+
+A DOI a kiadások közös azonosítója, mindig a legfrissebb változatra mutat; a 0.3.0 kiadás saját DOI-ja [10.5281/zenodo.24414136](https://doi.org/10.5281/zenodo.24414136).
 
 ## Licenc
 

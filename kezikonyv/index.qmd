@@ -85,7 +85,11 @@ A könyv anyaga a Pannon Egyetem Rendszermérnöki ismeretek tantárgyának töb
 
 ## Szabad felhasználás
 
-A könyv szövege és ábrái a Creative Commons Nevezd meg! – Ne add el! – Így add tovább! 4.0 (CC BY-NC-SA 4.0) licenc alatt használhatók. A forrásállományok és a mellékelt programkódok MIT-licencűek. A könyv minden ábrája vektorgrafika, és a forráskódjuk megtalálható a tárhelyen.
+A könyv szövege és ábrái a Creative Commons Nevezd meg! – Ne add el! – Így add tovább! 4.0 (CC BY-NC-SA 4.0) licenc alatt használhatók. A forrásállományok és a mellékelt programkódok MIT-licencűek. A könyv minden ábrája vektorgrafika, és a forráskódjuk megtalálható a [tárhelyen](https://github.com/ComplexSystemsIntelligence/rendszermernokseg). A Pannon Egyetem neve, címere és logója az egyetem arculati eleme; a licenc ezekre nem terjed ki.
+
+A könyv kiadásait a Zenodo archiválja. Hivatkozáskor ezt az adatot használd:
+
+> Abonyi János (2026): *Rendszermérnöki ismeretek és módszerek – Ötlettől a működő rendszerig a V-modell mentén* (kézikönyv és gyakorlati útmutató). Pannon Egyetem, Veszprém. DOI: [10.5281/zenodo.24414135](https://doi.org/10.5281/zenodo.24414135)
 
 Veszprém, 2026. november
 
