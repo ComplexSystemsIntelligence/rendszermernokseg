@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  fiz/.style={szurkedoboz=26mm, font=\footnotesize\bfseries, minimum height=10mm},
+  dig/.style={doboz=26mm, font=\footnotesize\bfseries, minimum height=10mm},
+  kezi/.style={-{Stealth[length=2.3mm]}, line width=0.9pt, draw=peSzurke, dash pattern=on 3pt off 2pt},
+  autom/.style={-{Stealth[length=2.6mm]}, line width=1.4pt, draw=peKiemel}]
+  \foreach \x/\cim/\fel/\le/\mag in {
+      0/{digitális modell}/kezi/kezi/{nincs automatikus adatkapcsolat; tervezési és elemzési célra},
+      6/{digitális árnyék}/autom/kezi/{a valós rendszer állapota automatikusan frissül; a beavatkozás kézi},
+      12/{digitális iker}/autom/autom/{kétirányú automatikus kapcsolat; a modell alapján a valós rendszer is vezérelhető}} {
+    \begin{scope}[xshift=\x cm]
+      \node[font=\cimbetu\small, text=peSotet] at (0,3.0) {\cim};
+      \node[dig] (d) at (0,1.9) {digitális objektum};
+      \node[fiz] (f) at (0,-0.5) {fizikai objektum};
+      \draw[\fel] ([xshift=-6mm]f.north) -- node[left, font=\scriptsize, align=right] {adat} ([xshift=-6mm]d.south);
+      \draw[\le] ([xshift=6mm]d.south) -- node[right, font=\scriptsize, align=left] {beavat-\\kozás} ([xshift=6mm]f.north);
+      \node[font=\scriptsize, text=peSotet, align=center, text width=48mm] at (0,-1.65) {\mag};
+    \end{scope}}
+  \draw[kezi] (2.6,-2.6) -- ++(1,0); \node[font=\scriptsize, anchor=west] at (3.7,-2.6) {kézi adatátvitel};
+  \draw[autom] (7.6,-2.6) -- ++(1,0); \node[font=\scriptsize, anchor=west] at (8.7,-2.6) {automatikus adatáramlás};
+\end{tikzpicture}
+\end{document}

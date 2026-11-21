@@ -1,0 +1,23 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, v/.style={line width=0.9pt, draw=peSotet}, h/.style={line width=0.9pt, draw=pePiros}]
+  \node[kiemeltdoboz=30mm, font=\footnotesize, minimum height=14mm] (ie) at (0,0) {kiinduló esemény:\\akkumulátor melegedése\\töltés közben (2/év)};
+  \foreach \x/\t in {2.2/{a BMS leállítja\\a töltést}, 5.2/{riasztás az\\üzemeltetőnek}, 8.2/{a fémház megfékezi\\a tüzet}}
+    \node[doboz=24mm, font=\scriptsize, minimum height=11mm] at (\x,3.6) {\t};
+  \node[sotetdoboz=46mm, font=\footnotesize, minimum height=11mm] at (14.0,3.6) {kimenet, gyakoriság};
+  % ágak
+  \draw[v] (ie.east) -- (2.2,0) -- (2.2,1.8) -- (13.0,1.8);
+  \node[felirat, above] at (3.3,1.8) {siker 0,99};
+  \draw[h] (2.2,0) -- (2.2,-0.6) -- (5.2,-0.6);
+  \node[felirat, below, text=pePiros] at (3.5,-0.6) {hiba 0,01};
+  \draw[v] (5.2,-0.6) -- (5.2,0.4) -- (13.0,0.4); \node[felirat, above] at (6.2,0.4) {0,95};
+  \draw[h] (5.2,-0.6) -- (5.2,-1.6) -- (8.2,-1.6); \node[felirat, below, text=pePiros] at (6.5,-1.6) {0,05};
+  \draw[v] (8.2,-1.6) -- (8.2,-1.0) -- (13.0,-1.0); \node[felirat, above] at (9.2,-1.0) {0,9};
+  \draw[h] (8.2,-1.6) -- (8.2,-2.3) -- (13.0,-2.3); \node[felirat, below, text=pePiros] at (9.4,-2.3) {0,1};
+  \node[zolddoboz=46mm, font=\footnotesize, anchor=west] at (13.1,1.8) {biztonságos leállás: 1,98/év};
+  \node[doboz=46mm, font=\footnotesize, anchor=west] at (13.1,0.4) {helyi kár, beavatkozás: 0,019/év};
+  \node[kiemeltdoboz=46mm, font=\footnotesize, anchor=west] at (13.1,-1.0) {a dokkolóhely kára: $9 \cdot 10^{-4}$/év};
+  \node[draw=pePiros, fill=pePirosH, rounded corners=2pt, line width=1pt, text width=46mm, align=center, font=\footnotesize, inner sep=4pt, anchor=west] at (13.1,-2.3) {a tűz átterjed: $1 \cdot 10^{-4}$/év};
+\end{tikzpicture}
+\end{document}

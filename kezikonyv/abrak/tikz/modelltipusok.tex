@@ -1,0 +1,26 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  gy/.style={sotetdoboz=30mm, font=\footnotesize\bfseries},
+  t/.style={doboz=30mm, font=\footnotesize\bfseries, minimum height=9mm},
+  p/.style={font=\scriptsize, text=peSotet, align=left, text width=30mm, anchor=north}]
+  \node[gy] (m) at (0,2.2) {modellek};
+  \foreach \x/\n/\c/\p in {
+     -7.2/f/{fizikai modellek}/{makett, skálamodell, prototípus, próbapad; a valódi fizikai jelenséget hordozza},
+     -3.6/l/{fogalmi, leíró modellek}/{kontextusdiagram, funkcióhierarchia, folyamatábra, SysML-diagramok; szerkezetet és viselkedést ír le},
+     0/a/{matematikai, analitikus modellek}/{egyenletek, képletek, optimalizálás; statikus vagy dinamikus, determinisztikus vagy sztochasztikus},
+     3.6/s/{szimulációs modellek}/{diszkrét eseményes, rendszerdinamikai, ágensalapú, Monte-Carlo; a viselkedést időben játssza le},
+     7.2/d/{adatvezérelt modellek}/{statisztikai és gépi tanulási modellek; a mért adatokból tanulja meg az összefüggést}} {
+    \node[t] (\n) at (\x,0.4) {\c};
+    \draw[nyilv] (m.south) -- (\n.north);
+    \node[p] at (\x,-0.3) {\p};
+  }
+  % fehér-fekete doboz tengely
+  \shade[left color=white, right color=peSotet] (-8.8,-3.4) rectangle (8.8,-3.0);
+  \draw[peSzurke] (-8.8,-3.4) rectangle (8.8,-3.0);
+  \node[font=\scriptsize, anchor=north west] at (-8.8,-3.5) {fehér doboz: a belső mechanizmus ismert (első elvek, fizikai törvények)};
+  \node[font=\scriptsize, anchor=north east] at (8.8,-3.5) {fekete doboz: csak a bemenet–kimenet kapcsolat ismert (mért adatok)};
+  \node[font=\scriptsize, anchor=north] at (0,-3.95) {szürke doboz: ismert szerkezet, adatokból becsült paraméterek};
+\end{tikzpicture}
+\end{document}

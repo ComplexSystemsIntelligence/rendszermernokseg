@@ -1,0 +1,45 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  elem/.style={circle, draw=peKek, fill=white, line width=0.8pt, minimum size=6mm, inner sep=0},
+  be/.style={szurkedoboz=27mm, font=\footnotesize},
+  ki/.style={zolddoboz=27mm, font=\footnotesize}]
+  % környezet
+  \fill[peSzurkeH, rounded corners=8pt] (-7.4,-3.9) rectangle (7.4,3.9);
+  \node[font=\cimbetu\small, text=peSzurke, anchor=north west] at (-7.25,3.8) {KÖRNYEZET};
+  % rendszerhatár
+  \draw[peKek, line width=1.2pt, dash pattern=on 5pt off 3pt, fill=peHalvany, rounded corners=14pt] (-3.3,-2.5) rectangle (3.3,2.5);
+  \node[font=\cimbetu\small, text=peKek, anchor=north west] at (-3.15,2.4) {RENDSZER};
+  \node[font=\scriptsize, text=peKek, anchor=south east] at (3.2,-2.45) {rendszerhatár};
+  % elemek és kapcsolatok
+  \node[elem] (e1) at (-1.8,0.9) {};
+  \node[elem] (e2) at (-0.2,1.4) {};
+  \node[elem] (e3) at (1.6,0.8) {};
+  \node[elem] (e4) at (-1.2,-0.8) {};
+  \node[elem] (e5) at (0.7,-0.6) {};
+  \node[elem] (e6) at (2.0,-1.2) {};
+  \foreach \a/\b in {e1/e2,e2/e3,e1/e4,e4/e5,e2/e5,e3/e5,e5/e6,e3/e6}
+    \draw[peKozep, line width=0.8pt] (\a) -- (\b);
+  \node[font=\scriptsize, text=peSotet, align=center] at (-0.1,-1.75) {elemek, attribútumok, kapcsolatok\\struktúra $\cdot$ állapot $\cdot$ paraméterek};
+  \node[kiemeltdoboz=30mm, font=\scriptsize, inner sep=2pt, minimum height=6mm] (em) at (1.2,3.2) {emergens tulajdonság:\\csak az egészen mérhető};
+  \draw[nyilv, draw=peKiemel] (em.south) -- (1.2,2.55);
+  % bemenetek
+  \node[be] (b1) at (-5.6,1.5) {anyag, energia};
+  \node[be] (b2) at (-5.6,0) {információ};
+  \node[be] (b3) at (-5.6,-1.5) {munkaerő, tudás};
+  \foreach \b/\y in {b1/1.5,b2/0,b3/-1.5} \draw[nyil] (\b.east) -- (-3.3,\y);
+  \node[font=\scriptsize\bfseries, text=peSzurke] at (-5.6,2.35) {BEMENETEK};
+  % kimenetek
+  \node[ki] (k1) at (5.6,1.5) {termékek, szolgáltatások};
+  \node[ki] (k2) at (5.6,0) {érték, információ};
+  \node[ki, draw=pePiros, fill=pePirosH] (k3) at (5.6,-1.5) {melléktermékek, hulladék, kibocsátás};
+  \foreach \k/\y in {k1/1.5,k2/0,k3/-1.5} \draw[nyil] (3.3,\y) -- (\k.west);
+  \node[font=\scriptsize\bfseries, text=peZold] at (5.6,2.35) {KIMENETEK};
+  % zavarok
+  \draw[nyil, draw=pePiros, decorate, decoration={snake, amplitude=1.2pt, segment length=6pt, post length=2.5mm}] (-2.2,3.75) -- (-2.2,2.55);
+  \node[font=\scriptsize, text=pePiros, anchor=east] at (-2.35,3.05) {zavarok: környezet $\to$ rendszer};
+  \draw[nyil, draw=pePiros, decorate, decoration={snake, amplitude=1.2pt, segment length=6pt, post length=2.5mm}] (2.2,-2.55) -- (2.2,-3.75);
+  \node[font=\scriptsize, text=pePiros, anchor=east] at (2.1,-3.5) {hatások: rendszer $\to$ környezet};
+\end{tikzpicture}
+\end{document}

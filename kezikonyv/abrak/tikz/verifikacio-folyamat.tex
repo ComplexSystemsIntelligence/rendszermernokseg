@@ -1,0 +1,42 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{f/.style={doboz=46mm, font=\scriptsize, minimum height=10mm, align=center},
+           be/.style={szurkedoboz=36mm, font=\scriptsize, minimum height=8mm, align=center},
+           d/.style={diamond, aspect=2.2, draw=peKiemel, fill=peKiemelH, line width=1pt, inner sep=1pt, font=\scriptsize, align=center},
+           h/.style={draw=pePiros, fill=pePirosH, rounded corners=2pt, line width=0.8pt, text width=40mm, font=\scriptsize, minimum height=10mm, align=center}}
+  % bemenetek
+  \node[felirat, anchor=south] at (-5.2,0.9) {bemenetek};
+  \node[be] (b1) at (-5.2,0.2) {verifikálandó termék\\(az integrációból)};
+  \node[be] (b2) at (-5.2,-1.0) {követelmény-alapvonal\\sikerkritériumokkal};
+  \node[be] (b3) at (-5.2,-2.2) {verifikációs terv,\\követelmény-verifikációs mátrix};
+  \node[be] (b4) at (-5.2,-3.4) {segédeszközök, mérőeszközök,\\tesztkörnyezet, személyzet};
+  % fő lánc
+  \node[f] (F1) at (0,-0.6) {\textbf{1. Felkészülés}\\eljárások, környezet, kalibrálás,\\tesztkészültségi felülvizsgálat};
+  \node[f] (F2) at (0,-2.4) {\textbf{2. Végrehajtás}\\az eljárás szerint; adatok rögzítése};
+  \node[d] (D1) at (0,-4.25) {eltérés?};
+  \node[f] (F3) at (0,-6.1) {\textbf{3. Az eredmények elemzése}\\minőség, épség, következetesség};
+  \node[f] (F4) at (0,-7.8) {\textbf{4. Jelentés}\\a mátrix frissítése:\\teljesült vagy nem teljesült};
+  \node[f] (F5) at (0,-9.5) {\textbf{5. Munkatermékek rögzítése}\\adatok, döntések, tanulságok};
+  \node[zolddoboz=40mm, font=\scriptsize, minimum height=10mm, align=center] (K) at (0,-11.3) {verifikált termék\\$\rightarrow$ validáció};
+  \foreach \a/\b in {F1/F2,F2/D1,F3/F4,F4/F5,F5/K} \draw[nyil] (\a) -- (\b);
+  \draw[nyil] (D1) -- node[felirat, right] {nem} (F3);
+  \foreach \b in {b1,b2,b3,b4} \draw[peSzurke, line width=0.6pt] (\b.east) -- (\b.east -| -3.0,0);
+  \draw[peSzurke, line width=0.6pt] (-3.0,0.2) -- (-3.0,-3.4);
+  \draw[nyilv] (-3.0,-0.6) -- (F1.west);
+  \draw[nyilv] (-3.0,-2.4) -- (F2.west);
+  % eltérés ág
+  \node[h] (H1) at (5.6,-4.25) {leállítás,\\eltérésjelentés};
+  \node[d] (D2) at (5.6,-6.2) {a termék\\hibás?};
+  \node[h] (H2) at (5.6,-8.3) {nem megfelelőségi jelentés:\\javítás, újratervezés\\vagy eltérési engedély};
+  \node[doboz=40mm, font=\scriptsize, minimum height=10mm, align=center] (H3) at (9.6,-6.2) {az eljárás, a környezet\\vagy az eszköz javítása};
+  \draw[nyil] (D1) -- node[felirat, above] {igen} (H1);
+  \draw[nyil] (H1) -- (D2);
+  \draw[nyil] (D2) -- node[felirat, right] {igen} (H2);
+  \draw[nyil] (D2) -- node[felirat, above] {nem} (H3);
+  \draw[nyil] (H2.south) -- ++(0,-0.6) -| (12.1,-1.4) -- (2.9,-1.4) |- (F2.east);
+  \draw[line width=0.9pt, draw=peSotet] (H3.north) -- (9.6,-1.4);
+  \node[felirat, anchor=south] at (5.6,-1.4) {ismételt verifikáció};
+\end{tikzpicture}
+\end{document}

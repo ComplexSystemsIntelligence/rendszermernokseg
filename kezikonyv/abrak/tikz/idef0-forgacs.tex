@@ -1,0 +1,30 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  fb/.style={doboz=34mm, font=\footnotesize\bfseries, minimum height=17mm, align=center},
+  l/.style={font=\scriptsize, align=center}]
+  \node[fb] (a1) at (0,0) {Gyártási rendelések\\ütemezése};
+  \node[fb] (a2) at (5.2,-2.6) {Megmunkálás\\végrehajtása};
+  \node[fb] (a3) at (10.4,-5.2) {Állapot követése,\\eltérés jelzése};
+  \foreach \n/\k in {a1/A1,a2/A2,a3/A3} \node[font=\scriptsize\bfseries, text=peSotet, anchor=south east] at (\n.south east) {\k};
+  % bemenetek (bal)
+  \draw[nyil] ([xshift=-2.4cm]a1.west) -- node[l, above] {vevői\\rendelések} (a1.west);
+  \draw[nyil] ([xshift=-7.6cm, yshift=-3mm]a2.west) -- node[l, above, pos=0.18] {alapanyag} ([yshift=-3mm]a2.west);
+  % vezérlések (fent)
+  \draw[nyil] ([xshift=-9mm, yshift=1.3cm]a1.north) -- node[l, anchor=south east, pos=0] {határidők} ([xshift=-9mm]a1.north);
+  \draw[nyil] ([xshift=9mm, yshift=1.3cm]a1.north) -- node[l, anchor=south west, pos=0] {kapacitásnaptár} ([xshift=9mm]a1.north);
+  \draw[nyil] ([xshift=6mm, yshift=1.3cm]a2.north) -- node[l, anchor=south west, pos=0, xshift=-2mm] {NC-program,\\technológiai utasítás} ([xshift=6mm]a2.north);
+  \draw[nyil] ([xshift=6mm, yshift=1.3cm]a3.north) -- node[l, above, pos=0] {OEE- és\\határidőcélok} ([xshift=6mm]a3.north);
+  % kimenetek és belső kapcsolatok
+  \draw[nyil] (a1.east) -| node[l, above, pos=0.25] {gépenkénti ütemterv} ([xshift=-8mm]a2.north);
+  \draw[nyil] ([yshift=-3mm]a2.east) -| node[l, above, pos=0.25] {gépállapot-adat} ([xshift=-8mm]a3.north);
+  \draw[nyil] ([yshift=4mm]a2.east) -- ++(6.9,0) node[l, right] {kész\\alkatrész};
+  \draw[nyil] ([yshift=-4mm]a3.east) -- ++(1.5,0) node[l, right] {teljesítési\\jelentés};
+  \draw[nyil, draw=peKiemel] ([yshift=4mm]a3.east) -- ++(0.7,0) |- node[l, above, pos=0.6, text=peKiemel] {eltérésjelzés (visszacsatolás vezérlésként)} ([yshift=2.0cm]a1.north) -- (a1.north);
+  % mechanizmusok (lent)
+  \draw[nyil] ([yshift=-1.2cm]a1.south) -- node[l, below, pos=0] {termeléstervező,\\MES ütemezőmodul} (a1.south);
+  \draw[nyil] ([yshift=-1.2cm]a2.south) -- node[l, below, pos=0] {CNC-gép,\\gépkezelő} (a2.south);
+  \draw[nyil] ([yshift=-1.2cm]a3.south) -- node[l, below, pos=0] {MES digitális árnyék,\\műszakvezető} (a3.south);
+\end{tikzpicture}
+\end{document}

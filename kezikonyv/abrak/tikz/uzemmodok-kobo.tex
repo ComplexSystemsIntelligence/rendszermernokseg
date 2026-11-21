@@ -1,0 +1,32 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  all/.style={draw=peKek, fill=peHalvany, rounded corners=7pt, line width=0.9pt, align=center, font=\footnotesize, text width=28mm, minimum height=11mm},
+  allk/.style={all, draw=peZold, fill=peZoldH},
+  allh/.style={all, draw=pePiros, fill=pePirosH},
+  allr/.style={all, draw=peKiemel, fill=peKiemelH},
+  atm/.style={-{Stealth[length=2.2mm]}, line width=0.8pt, draw=peSotet},
+  l/.style={font=\scriptsize, fill=white, inner sep=1pt, align=center}]
+  \node[all] (ki) at (-7.2,0) {kikapcsolt};
+  \node[all] (in) at (-3.6,0) {indítás, önteszt};
+  \node[allk] (no) at (0.6,0) {\textbf{normál üzem}\\(együttműködő)};
+  \node[allr] (cs) at (0.6,3.0) {csökkentett sebesség\\(ember a közelben)};
+  \node[allh] (le) at (5.2,0) {leromlott üzem:\\kézi szerelés, robot áll};
+  \node[allh] (ve) at (5.2,3.0) {vészleállítás};
+  \node[all] (ka) at (0.6,-3.0) {karbantartás, beállítás, típusváltás};
+  \draw[atm] (ki) -- node[l, above] {bekapcsolás} (in);
+  \draw[atm] (in) -- node[l, above] {önteszt rendben} (no);
+  \draw[atm] ([xshift=-5mm]no.north) -- node[l, left] {kéz a védőzónában} ([xshift=-5mm]cs.south);
+  \draw[atm] ([xshift=5mm]cs.south) -- node[l, right] {zóna szabad} ([xshift=5mm]no.north);
+  \draw[atm] ([yshift=2mm]no.east) -- node[l, above] {robothiba} ([yshift=2mm]le.west);
+  \draw[atm] ([yshift=-2mm]le.west) -- node[l, below] {hiba elhárítva} ([yshift=-2mm]no.east);
+  \draw[atm] (cs.east) -- node[l, above] {vészgomb} (ve.west);
+  \draw[atm] (no.north east) -- node[l, pos=0.55] {vészgomb} (ve.south west);
+  \draw[atm] (ve.south) -- node[l, right, align=left] {nyugtázás,\\ellenőrzés} (le.north);
+  \draw[atm] ([xshift=-5mm]no.south) -- node[l, left] {tervezett leállás} ([xshift=-5mm]ka.north);
+  \draw[atm] ([xshift=5mm]ka.north) -- node[l, right] {átadás, próbaciklus} ([xshift=5mm]no.south);
+  \draw[atm] (no.south west) .. controls (-3.0,-1.6) .. node[l, below, pos=0.6] {műszak vége} (ki.south east);
+  \node[felirat, text width=70mm, align=left, anchor=north west] at (-7.9,-4.0) {zöld: névleges üzem $\cdot$ narancs: korlátozott üzem $\cdot$ piros: rendellenes vagy leromlott üzem};
+\end{tikzpicture}
+\end{document}

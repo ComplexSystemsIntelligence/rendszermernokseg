@@ -1,0 +1,37 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  ok/.style={doboz=27mm, font=\scriptsize, minimum height=10mm, inner sep=2pt},
+  hat/.style={szurkedoboz=27mm, font=\scriptsize, minimum height=10mm, inner sep=2pt},
+  fo/.style={kiemeltdoboz=50mm, font=\footnotesize\bfseries, minimum height=11mm}]
+  \node[fo] (p) at (0,0) {a rendelések 38\%-a késve teljesül};
+  % hatások
+  \node[hat] (h1) at (-4.5,2.3) {kötbér, árengedmény};
+  \node[hat] (h2) at (-1.5,2.3) {vevők elpártolása};
+  \node[hat] (h3) at (1.5,2.3) {rendszeres túlóra, kimerülés};
+  \node[hat] (h4) at (4.5,2.3) {sürgős rendelések felborítják a tervet};
+  \node[hat] (h5) at (-3.0,4.3) {csökkenő árbevétel és nyereség};
+  \node[hat] (h6) at (3.0,4.3) {fluktuáció a gépkezelők között};
+  \foreach \h in {h1,h2,h3,h4} \draw[nyilv] (p.north) -- (\h.south);
+  \draw[nyilv] (h1.north) -- (h5.south); \draw[nyilv] (h2.north) -- (h5.south);
+  \draw[nyilv] (h3.north) -- (h6.south);
+  \draw[nyilv] (h4.north) to[bend right=20] (h3.east);
+  % okok
+  \node[ok] (o1) at (-4.5,-2.3) {a terv nem a valós gépállapotra épül};
+  \node[ok] (o2) at (-1.5,-2.3) {anyaghiány derül ki a gyártás indulásakor};
+  \node[ok] (o3) at (1.5,-2.3) {a beállítási idők nem ismertek és nem csökkennek};
+  \node[ok] (o4) at (4.5,-2.3) {a határidőt a kapacitás ismerete nélkül vállalják};
+  \foreach \o in {o1,o2,o3,o4} \draw[nyilv] (\o.north) -- (p.south);
+  \node[ok] (g1) at (-4.5,-4.3) {papíralapú, heti ütemezés};
+  \node[ok] (g2) at (-1.5,-4.3) {nincs készlet- és anyagnyilvántartás};
+  \node[ok] (g3) at (1.5,-4.3) {nincs gépidő- és állásidőmérés};
+  \node[ok] (g4) at (4.5,-4.3) {az értékesítés és a gyártás nem egyeztet};
+  \draw[nyilv] (g1) -- (o1); \draw[nyilv] (g2) -- (o2); \draw[nyilv] (g3) -- (o3); \draw[nyilv] (g4) -- (o4);
+  \draw[nyilv] (g3.north west) -- (o1.south east);
+  \draw[nyilv] (g3.north east) -- (o4.south west);
+  \node[font=\cimbetu\small, text=peSzurke, anchor=west] at (6.3,3.3) {HATÁSOK};
+  \node[font=\cimbetu\small, text=peKiemel, anchor=west] at (6.3,0) {FŐ PROBLÉMA};
+  \node[font=\cimbetu\small, text=peKek, anchor=west] at (6.3,-3.3) {OKOK};
+\end{tikzpicture}
+\end{document}

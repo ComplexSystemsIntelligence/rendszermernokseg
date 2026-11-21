@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  o/.style={doboz=25mm, font=\scriptsize, minimum height=13mm, inner sep=2pt},
+  h/.style={font=\cimbetu\scriptsize, text=peSotet, align=center},
+  le/.style={-{Stealth[length=2.2mm]}, line width=0.9pt, draw=peKek},
+  fel/.style={-{Stealth[length=2.2mm]}, line width=0.9pt, draw=peKiemel, dash pattern=on 3pt off 2pt}]
+  \foreach \x/\n/\c/\t in {0/a/{érdekelt fél\\elvárása}/{EF-03: „ne hajolgassak”},
+                          3.3/b/{rendszer-\\követelmény}/{R-05: törzshajlítás ≤ 20°},
+                          6.6/c/{alrendszer-\\követelmény}/{MA-02: munkamagasság 950–1150 mm},
+                          9.9/d/{tervelem}/{állítható munkaasztal, motoros emelő},
+                          13.2/e/{verifikáció}/{V-14: mérés és ergonómiai elemzés (RULA)}} {
+    \node[h] at (\x,1.35) {\c};
+    \node[o] (\n) at (\x,0) {\t};
+  }
+  \foreach \a/\b in {a/b,b/c,c/d,d/e} {
+    \draw[le] ([yshift=2.5mm]\a.east) -- ([yshift=2.5mm]\b.west);
+    \draw[fel] ([yshift=-2.5mm]\b.west) -- ([yshift=-2.5mm]\a.east);
+  }
+  \draw[le] (0.5,-1.6) -- ++(1.2,0); \node[font=\scriptsize, anchor=west] at (1.8,-1.6) {előre: miből mi lett? (lefedettség: minden elvárásnak van követelménye?)};
+  \draw[fel] (0.5,-2.15) -- ++(1.2,0); \node[font=\scriptsize, anchor=west] at (1.8,-2.15) {visszafelé: miért van ez? (nincs-e „árva”, forrás nélküli követelmény vagy tervelem?)};
+\end{tikzpicture}
+\end{document}

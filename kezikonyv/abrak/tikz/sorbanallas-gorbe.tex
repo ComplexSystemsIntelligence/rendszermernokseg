@@ -1,0 +1,20 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=11cm, height=6.6cm, xmin=0, xmax=1, ymin=0, ymax=20, axis lines=left,
+      xlabel={kihasználtság $\rho$}, ylabel={átlagos várakozás / kiszolgálási idő},
+      xtick={0,0.2,0.4,0.6,0.8,0.9,1}, xticklabel style={/pgf/number format/fixed},
+      legend style={draw=none, font=\footnotesize, at={(0.03,0.97)}, anchor=north west}, clip=false]
+    \addplot[peKek, line width=1.4pt, domain=0:0.952, samples=120] {x/(1-x)};
+    \addplot[peZold, line width=1.4pt, dash pattern=on 5pt off 2pt, domain=0:0.97, samples=120] {0.625*x/(1-x)};
+    \legend{{véletlen érkezés és kiszolgálás ($c_a = c_s = 1$, M/M/1)}, {egyenletesebb kiszolgálás ($c_s = 0{,}5$)}}
+    \addplot[only marks, mark=*, mark size=2.4pt, peKiemel] coordinates {(0.8,4) (0.8,2.5)};
+    \node[font=\scriptsize, text=peKiemel, anchor=east, align=right] (a1) at (axis cs:0.62,9.5) {VárosiBringa hajtáslánc ($\rho = 0{,}8$):\\M/M/1: 36 perc várakozás};
+    \node[font=\scriptsize, text=peKiemel, anchor=east, align=right] (a2) at (axis cs:0.62,6.6) {$c_s = 0{,}5$: 22,5 perc};
+    \draw[peKiemel, line width=0.5pt] (a1.east) -- (axis cs:0.8,4);
+    \draw[peKiemel, line width=0.5pt] (a2.east) -- (axis cs:0.8,2.5);
+    \draw[peSzurke, dash pattern=on 2pt off 2pt] (axis cs:0.8,0) -- (axis cs:0.8,4);
+  \end{axis}
+\end{tikzpicture}
+\end{document}

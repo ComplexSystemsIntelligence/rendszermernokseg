@@ -1,0 +1,21 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  k/.style={doboz=31mm, font=\scriptsize, minimum height=11mm, align=center},
+  a/.style={zolddoboz=38mm, font=\scriptsize, minimum height=11mm, align=center}]
+  \node[sotetdoboz=60mm, font=\footnotesize\bfseries, minimum height=10mm] (c) at (0,3.2) {CÉL: a rendelésteljesítés javítása};
+  \node[k] (k1) at (-5.4,1.2) {\textbf{K1} határidő-teljesítés\\javulása\\$w = 0{,}522$};
+  \node[k] (k2) at (-1.8,1.2) {\textbf{K2} beruházási\\költség\\$w = 0{,}200$};
+  \node[k] (k3) at (1.8,1.2) {\textbf{K3} bevezetési\\kockázat\\$w = 0{,}200$};
+  \node[k] (k4) at (5.4,1.2) {\textbf{K4} bővíthetőség\\[2pt]$w = 0{,}078$};
+  \node[a] (m1) at (-4.4,-1.4) {\textbf{M1} teljes MES\\egy beszállítótól\\$P = 0{,}417$};
+  \node[a] (m2) at (0,-1.4) {\textbf{M2} gépgyártói\\adatgyűjtés + MES\\$P = 0{,}182$};
+  \node[a] (m3) at (4.4,-1.4) {\textbf{M3} fokozatos\\bevezetés\\$P = 0{,}401$};
+  \foreach \k in {k1,k2,k3,k4} {\draw[nyilv] (c.south) -- (\k.north); \foreach \m in {m1,m2,m3} \draw[peVilagos, line width=0.5pt] (\k.south) -- (\m.north);}
+  \node[felirat, anchor=east] at (-6.9,3.2) {1. szint};
+  \node[felirat, anchor=east] at (-6.9,1.2) {2. szint};
+  \node[felirat, anchor=east] at (-6.9,-1.4) {3. szint};
+  \node[felirat, text width=140mm, align=center] at (0,-2.75) {$w$: a kritériumok súlya a páros összehasonlításból ($\mathrm{CR} = 0{,}016$) $\cdot$ $P$: az alternatívák globális prioritása};
+\end{tikzpicture}
+\end{document}

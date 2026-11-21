@@ -1,0 +1,34 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  lep/.style={draw=peKek, fill=peHalvany, rounded corners=2pt, line width=0.8pt, align=center,
+    font=\footnotesize, text width=30mm, minimum height=13mm, inner sep=3pt},
+  szam/.style={circle, fill=peKiemel, text=white, font=\scriptsize\bfseries, inner sep=0, minimum size=5mm}]
+
+  \node[lep] (l1) at (0.00,0.00) {Célok és követelmények rangsora};
+  \node[szam] at (l1.north west) {1};
+  \node[lep] (l2) at (3.90,0.00) {Hiteles alternatívák, kizáró szűrés};
+  \node[szam] at (l2.north west) {2};
+  \node[lep] (l3) at (7.80,0.00) {Kritériumok (mérhető, független)};
+  \node[szam] at (l3.north west) {3};
+  \node[lep] (l4) at (11.70,0.00) {Súlyok rögzítése a pontozás előtt};
+  \node[szam] at (l4.north west) {4};
+  \node[lep] (l5) at (0.00,-2.20) {Hasznossági függvények};
+  \node[szam] at (l5.north west) {5};
+  \node[lep] (l6) at (3.90,-2.20) {Értékelés és súlyozott összpontszám};
+  \node[szam] at (l6.north west) {6};
+  \node[lep] (l7) at (7.80,-2.20) {Érzékenységvizsgálat};
+  \node[szam] at (l7.north west) {7};
+  \node[lep] (l8) at (11.70,-2.20) {Javaslat a robusztussággal együtt};
+  \node[szam] at (l8.north west) {8};
+  \draw[nyil, line width=0.7pt] (l1.east) -- (l2.west);
+  \draw[nyil, line width=0.7pt] (l2.east) -- (l3.west);
+  \draw[nyil, line width=0.7pt] (l3.east) -- (l4.west);
+  \draw[nyil, line width=0.7pt] (l4.south) -- ++(0,-0.38) -| (l5.north);
+  \draw[nyil, line width=0.7pt] (l5.east) -- (l6.west);
+  \draw[nyil, line width=0.7pt] (l6.east) -- (l7.west);
+  \draw[nyil, line width=0.7pt] (l7.east) -- (l8.west);
+  \draw[-{Stealth[length=2mm]}, draw=pePiros, line width=0.7pt, dash pattern=on 3pt off 2pt] ($(l7.north)+(-0.55,0)$) to[bend left=18] node[midway, left=1pt, font=\scriptsize, text=pePiros, align=right] {szoros eredmény} ($(l3.south)+(-0.55,0)$);
+\end{tikzpicture}
+\end{document}

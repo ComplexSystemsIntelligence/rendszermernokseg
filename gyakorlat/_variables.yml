@@ -1,0 +1,4 @@
+# A notebookok Google Colab-hivatkozásainak alapcíme. Ha a repó máshová kerül,
+# elég itt átírni (lásd README).
+colab: "https://colab.research.google.com/github/ComplexSystemsIntelligence/rendszermernokseg/blob/main/gyakorlat/notebookok/"
+sablonok: "https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/sablonok/"

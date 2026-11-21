@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=11.5cm, height=6.6cm, xmin=0, xmax=20, ymin=0, ymax=100,
+      xlabel={résztvevők száma ($n$)}, ylabel={a feltárt problémák aránya [\%]},
+      xtick={0,5,10,15,20}, ytick={0,20,40,60,80,100}, tick label style={font=\scriptsize},
+      axis lines=left, grid=major, grid style={peSzurkeH}, clip=false,
+      legend style={font=\scriptsize, draw=none, fill=none, at={(0.97,0.03)}, anchor=south east}, legend cell align=left]
+    \addplot[peKozep, line width=1.1pt, domain=0:20, samples=81] {100*(1-(1-0.1)^x)};
+    \addplot[peKek, line width=1.6pt, domain=0:20, samples=81] {100*(1-(1-0.31)^x)};
+    \addplot[peSotet, line width=1.1pt, dash pattern=on 4pt off 2pt, domain=0:20, samples=81] {100*(1-(1-0.5)^x)};
+    \legend{$p = 0{,}10$, $p = 0{,}31$, $p = 0{,}50$}
+    \draw[peKiemel, line width=0.7pt, dash pattern=on 2pt off 2pt] (axis cs:5,0) -- (axis cs:5,84.4) -- (axis cs:0,84.4);
+    \fill[peKiemel] (axis cs:5,84.4) circle (2.2pt);
+    \node[font=\scriptsize, anchor=north west, text=peKiemel] at (axis cs:5.4,82.5) {5 résztvevő, $p = 0{,}31$: 84\%};
+    \draw[peKiemel, line width=0.7pt, dash pattern=on 2pt off 2pt] (axis cs:5,41.0) -- (axis cs:0,41.0);
+    \fill[peKiemel] (axis cs:5,41.0) circle (2.2pt);
+    \node[font=\scriptsize, anchor=north west, text=peKiemel] at (axis cs:5.2,41.0) {5 résztvevő, $p = 0{,}10$: 41\%};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

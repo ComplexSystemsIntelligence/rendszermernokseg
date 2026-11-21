@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  dok/.style={draw=peSzurke, fill=white, minimum width=17mm, minimum height=11mm, font=\scriptsize, align=center, inner sep=1pt,
+     tape, tape bend top=none},
+  nez/.style={doboz=19mm, font=\scriptsize, minimum height=9mm, inner sep=1pt}]
+  \node[font=\cimbetu\small, text=peSotet] at (-4.4,4.1) {dokumentumközpontú};
+  \node[font=\cimbetu\small, text=peSotet] at (4.4,4.1) {modellközpontú (MBSE)};
+  % dokumentumok
+  \foreach \n/\x/\y/\t in {d1/-6.6/1.6/{követelmény-\\specifikáció}, d2/-4.4/1.9/{rendszer-\\terv}, d3/-2.2/1.6/{interfész-\\leírás},
+                         d4/-6.6/-0.6/{elemzési\\jelentés}, d5/-4.4/-0.9/{tesztterv}, d6/-2.2/-0.6/{táblázatok,\\rajzok}} {
+    \node[draw=peSzurke, fill=white, minimum width=18mm, minimum height=11mm, font=\scriptsize, align=center, inner sep=1pt] (\n) at (\x,\y) {\t};
+    \draw[peSzurke] ([xshift=-2.5mm]\n.north east) -- ([yshift=-2.5mm]\n.north east);
+  }
+  \foreach \a/\b in {d1/d2,d2/d3,d1/d4,d2/d5,d3/d6,d4/d5,d5/d6,d1/d5,d3/d5}
+    \draw[pePiros, line width=0.6pt, dash pattern=on 2pt off 1.5pt, {Stealth[length=1.6mm]}-{Stealth[length=1.6mm]}] (\a) -- (\b);
+  \node[felirat, text width=70mm, text=pePiros] at (-4.4,-3.45) {kézi szinkronizálás: a változás minden érintett dokumentumban külön átvezetendő, könnyen ellentmondás keletkezik};
+  % modell
+  \node[cylinder, shape border rotate=90, aspect=0.25, draw=peKek, fill=peKek, text=white, minimum width=26mm, minimum height=20mm, font=\footnotesize\bfseries, align=center] (m) at (4.4,0.5) {közös\\rendszermodell};
+  \foreach \n/\a/\t in {n1/90/{követelmények}, n2/30/{szerkezet}, n3/-30/{viselkedés}, n4/-90/{paraméterek, elemzés}, n5/-150/{verifikáció}, n6/150/{generált dokumentumok}} {
+    \node[nez] (\n) at ($(m)+(\a:2.7)$) {\t};
+    \draw[peKozep, line width=0.8pt, {Stealth[length=1.8mm]}-{Stealth[length=1.8mm]}] (m) -- (\n);
+  }
+  \node[felirat, text width=70mm, text=peZold] at (4.4,-3.45) {egyetlen hiteles forrás: a nézetek ugyanabból a modellből készülnek, a változás egy helyen történik};
+\end{tikzpicture}
+\end{document}

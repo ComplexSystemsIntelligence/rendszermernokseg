@@ -1,0 +1,26 @@
+{
+  "cim": "KoboCella koncepció-kiválasztás",
+  "alternativak": {"A": "együttműködő cella", "B": "fix állomás", "C": "kézi plusz", "D": "zárt robotcella"},
+  "pugh": {
+    "datum": "jelenlegi kézi szerelés",
+    "kriteriumok": ["ciklusidő-képesség", "kötésminőség, utómunka", "ergonómia", "beruházási költség", "átállási rugalmasság", "helyigény", "technikai kockázat", "bővíthetőség 140 ezer db/évig"],
+    "ertekek": {
+      "A": [1, 1, 1, -1, 0, 0, -1, 1],
+      "B": [1, 1, 1, -1, -1, -1, 0, 1],
+      "C": [1, 1, 0, 0, 0, 0, 0, 0],
+      "D": [1, 1, 1, -1, -1, -1, -1, 1]
+    }
+  },
+  "kizaro": {"C": "R-05: a becsült legnagyobb törzshajlítás 25°, a követelmény legfeljebb 20°"},
+  "sulyozott": {
+    "alternativak": ["A", "B", "D"],
+    "kriteriumok": [
+      {"kod": "K1", "nev": "ciklusidő", "egyseg": "s", "suly": 20, "rossz": 90, "jo": 45, "ertekek": [58.6, 52, 48]},
+      {"kod": "K2", "nev": "utómunka-arány", "egyseg": "%", "suly": 20, "rossz": 3.5, "jo": 0.5, "ertekek": [0.8, 0.7, 0.6]},
+      {"kod": "K3", "nev": "legnagyobb törzshajlítás", "egyseg": "°", "suly": 15, "rossz": 45, "jo": 10, "ertekek": [15, 15, 10]},
+      {"kod": "K4", "nev": "beruházási költség", "egyseg": "MFt", "suly": 15, "rossz": 120, "jo": 0, "ertekek": [78, 95, 110]},
+      {"kod": "K5", "nev": "átállási idő változatváltáskor", "egyseg": "perc", "suly": 15, "rossz": 30, "jo": 0, "ertekek": [5, 30, 20]},
+      {"kod": "K6", "nev": "technikai kockázat", "egyseg": "szóbeli", "suly": 15, "skala": {"alacsony": 9, "közepes": 6, "magas": 2}, "ertekek": ["közepes", "alacsony", "magas"]}
+    ]
+  }
+}

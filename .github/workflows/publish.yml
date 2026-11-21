@@ -1,0 +1,97 @@
+# A két könyv fordítása (HTML, PDF, EPUB) és közzététele a GitHub Pages-en a gh-pages ágon.
+# - minden feltöltés a main ágra (vagy kézi indítás): a webhely frissül;
+# - új GitHub Release: a kiadás címkéjén lévő kiadas/ mappa PDF- és EPUB-fájljai a kiadáshoz csatolódnak
+#   (kézzel is indítható egy meglévő kiadásra a „kiadas” bemenettel).
+#   A Zenodo a GitHub-integráción keresztül a kiadás forráscsomagját archiválja és DOI-t ad.
+name: Könyvek fordítása és közzététele
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - "gyakorlat/sablonok/README.md"
+      - "gyakorlat/notebookok/README.md"
+      - ".github/readme/**"
+      - "kiadas/**"
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      kiadas:
+        description: "Meglévő kiadás címkéje (például v0.3.0), amelyhez a kiadas/ mappa fájljait csatolni kell; üresen hagyva a webhely fordul újra"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.kiadas == '')
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: TeX Live (LuaLaTeX), betűk és segédprogramok
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-base texlive-binaries texlive-latex-base texlive-latex-recommended \
+            texlive-luatex texlive-latex-extra texlive-pictures texlive-science \
+            texlive-fonts-recommended texlive-fonts-extra texlive-lang-european lmodern \
+            fonts-ibm-plex poppler-utils fontconfig
+
+      - name: Betűkészletek (Raleway, IBM Plex)
+        run: |
+          mkdir -p ~/.fonts
+          cp _shared/fonts/ttf/*.ttf ~/.fonts/
+          fc-cache -f
+          fc-list | grep -E "IBM Plex Serif|Raleway" | head -3
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python-csomagok
+        run: pip install pyyaml
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.8.25
+
+      - name: Renderelés (a verziókövetett ábrákkal)
+        env:
+          ABRAK_KIHAGY: "1"
+        run: ./build.sh
+
+      - name: Közzététel a gh-pages ágon
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd _site
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Közzététel: ${GITHUB_SHA::7}"
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" gh-pages
+
+  kiadas-mellekletek:
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.kiadas != '')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.kiadas }}
+
+      - name: A kiadas/ mappa PDF- és EPUB-fájljainak csatolása a kiadáshoz
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CIMKE: ${{ github.event.release.tag_name || inputs.kiadas }}
+        run: |
+          ls -la kiadas
+          gh release upload "$CIMKE" kiadas/*.pdf kiadas/*.epub --clobber

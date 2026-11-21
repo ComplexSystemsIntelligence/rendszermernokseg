@@ -1,0 +1,28 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  sz/.style={szurkedoboz=26mm, font=\footnotesize, minimum height=9mm},
+  he/.style={ellipse, draw=peKek, fill=peHalvany, line width=0.8pt, font=\footnotesize, align=center, minimum width=40mm, minimum height=10mm, inner sep=1pt},
+  hek/.style={he, draw=peKiemel, fill=peKiemelH},
+  k/.style={line width=0.7pt, draw=peSotet},
+  inc/.style={-{Stealth[length=2mm]}, line width=0.6pt, draw=peSzurke, dash pattern=on 3pt off 2pt}]
+  \draw[peKek, line width=1pt, rounded corners=6pt] (-3.2,-4.2) rectangle (3.2,4.0);
+  \node[font=\cimbetu\small, text=peKek, anchor=north] at (0,3.9) {VárosiBringa szolgáltatás};
+  \node[he] (u1) at (0,2.7) {kerékpár kölcsönzése};
+  \node[he] (u2) at (0,1.3) {kerékpár visszaadása};
+  \node[he] (u3) at (0,-0.1) {hiba bejelentése};
+  \node[hek] (u4) at (0,-1.5) {fizetés};
+  \node[he] (u5) at (0,-2.9) {kerékpárok áthelyezése};
+  \node[sz] (a1) at (-6.0,2.0) {«szereplő»\\felhasználó};
+  \node[sz] (a2) at (-6.0,-2.0) {«szereplő»\\ügyfélszolgálat};
+  \node[sz] (a3) at (6.0,1.4) {«szereplő»\\fizetési szolgáltató};
+  \node[sz] (a4) at (6.0,-2.4) {«szereplő»\\áthelyező munkatárs};
+  \draw[k] (a1.east) -- (u1.west); \draw[k] (a1.east) -- (u2.west); \draw[k] (a1.east) -- (u3.west);
+  \draw[k] (a2.east) -- (u3.west);
+  \draw[k] (a3.west) -- (u4.east);
+  \draw[k] (a4.west) -- (u5.east);
+  \draw[inc] (u1.east) to[bend left=40] node[font=\scriptsize, right, pos=0.5] {«tartalmaz»} (u4.east);
+  \draw[inc] (u2.east) to[bend left=25] (u4.north east);
+\end{tikzpicture}
+\end{document}

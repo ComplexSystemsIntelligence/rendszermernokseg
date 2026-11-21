@@ -1,0 +1,25 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  r/.style={sotetdoboz=40mm, font=\footnotesize\bfseries},
+  f1/.style={doboz=27mm, font=\scriptsize\bfseries, minimum height=10mm, inner sep=2pt},
+  f2/.style={szurkedoboz=24mm, font=\scriptsize, minimum height=7mm, inner sep=1.5pt}]
+  \node[r] (r) at (0,2.2) {0 motor összeszerelése};
+  \foreach \x/\n/\t in {-7.2/a/{1 alkatrészek előkészítése}, -3.6/b/{2 csavarkötés létrehozása}, 0/c/{3 minőség igazolása}, 3.6/d/{4 ember védelme}, 7.2/e/{5 termék továbbítása}} {
+    \node[f1] (\n) at (\x,0.6) {\t};
+    \draw[nyilv] (r.south) -- (\n.north);
+  }
+  \foreach \n/\x/\lista in {a/-7.2/{1.1 motorház befogása,1.2 fedél pozicionálása}, b/-3.6/{2.1 csavar adagolása,2.2 csavar meghúzása,2.3 nyomaték mérése}, c/0/{3.1 adatok naplózása,3.2 hibás darab jelölése,3.3 adatátadás a MES-nek}, d/3.6/{4.1 védőzóna figyelése,4.2 mozgás korlátozása,4.3 vészleállítás}, e/7.2/{5.1 kész motor kivétele,5.2 elhelyezés a kiadóban}} {
+    \foreach \t [count=\i] in \lista {
+      \node[f2] (\n\i) at (\x+0.2,0.6-0.95*\i) {\t};
+    }
+    \draw[peSzurke, line width=0.6pt] ([xshift=-14.5mm]\n.south) -- ([xshift=-14.5mm]\n.south |- \n1.west);
+  }
+  \foreach \n/\m in {a/2,b/3,c/3,d/3,e/2} {
+    \foreach \i in {1,...,\m} \draw[peSzurke, line width=0.6pt] ([xshift=-14.5mm]\n.south |- \n\i.west) -- (\n\i.west);
+    \draw[peSzurke, line width=0.6pt] ([xshift=-14.5mm]\n.south) -- ([xshift=-14.5mm]\n.south |- \n\m.west);
+  }
+  \node[felirat, text width=150mm] at (0,-3.4) {Igei szerkezetű funkciók, megoldásmentesen: a fa azt mutatja, mit kell a cellának tennie, nem azt, hogy melyik elem teszi.};
+\end{tikzpicture}
+\end{document}

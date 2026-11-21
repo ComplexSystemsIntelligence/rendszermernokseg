@@ -1,0 +1,20 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[peHalvany] (0,0) -- (5.2,2.3) -- (5.2,-2.3) -- cycle;
+  \fill[peKiemelH] (5.2,2.3) -- (10.4,0) -- (5.2,-2.3) -- cycle;
+  \draw[peKozep, line width=1pt] (0,0) -- (5.2,2.3) -- (10.4,0) -- (5.2,-2.3) -- cycle;
+  \draw[peSzurke, dash pattern=on 2pt off 2pt] (5.2,2.3) -- (5.2,-2.3);
+  \node[font=\cimbetu\small, text=peKek] at (2.6,3.4) {DIVERGENS SZAKASZ};
+  \node[font=\cimbetu\small, text=peKiemel] at (7.8,3.4) {KONVERGENS SZAKASZ};
+  \node[felirat, text width=40mm, align=center] at (2.9,0) {sok, változatos ötlet; ítélet felfüggesztése};
+  \node[felirat, text width=34mm, align=center] at (7.5,0) {tisztázás, szűrés, értékelés, választás};
+  \node[doboz=26mm, font=\scriptsize, minimum height=8mm] (p) at (-1.9,0) {megoldássemleges funkció, követelmények};
+  \node[sotetdoboz=24mm, font=\scriptsize, minimum height=8mm] (k) at (12.3,0) {kiválasztott koncepció(k)};
+  \draw[nyil] (p) -- (0,0); \draw[nyil] (10.4,0) -- (k);
+  \node[felirat, text width=52mm, align=left, anchor=north west] at (0,-2.55) {Eszközök: ötletroham, 6-3-5, névleges csoport, morfológiai doboz, TRIZ, természet ihlette tervezés, számítógépes keresés (9. fejezet)};
+  \node[felirat, text width=52mm, align=left, anchor=north west] at (5.6,-2.55) {Eszközök: kizáró szűrés, Pugh-módszer, súlyozott értékelés, AHP, Pareto-front, költség–haszon (10. fejezet)};
+  \draw[nyil, draw=peSzurke, dash pattern=on 3pt off 2pt] (10.0,1.0) to[bend right=35] node[felirat, above] {ha egyik koncepció sem elég jó: újabb divergens kör} (1.5,1.4);
+\end{tikzpicture}
+\end{document}

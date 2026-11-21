@@ -1,0 +1,21 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, b/.style={doboz=22mm, font=\footnotesize, minimum height=12mm}]
+  \foreach \i/\t/\a in {1/{kobot}/{0,99950}, 2/{csavarozó\\egység}/{0,99950}, 3/{csavar-\\adagoló}/{0,99967}, 4/{lézer-\\szkenner}/{0,99990}, 5/{cella-\\vezérlő}/{0,99990}} {
+    \node[b] (b\i) at ({\i*2.7},1.2) {\t};
+    \node[felirat] at ({\i*2.7},0.25) {$A = \a$};
+  }
+  \foreach \a/\b in {1/2,2/3,3/4,4/5} \draw[line width=0.9pt, draw=peSotet] (b\a) -- (b\b);
+  \node[kiemeltdoboz=62mm, font=\footnotesize, minimum height=10mm] (m) at (8.1,-1.5) {UM-7: kézi szerelés tartalékként};
+  \node[felirat] at (8.1,-2.35) {$A = 0{,}98$ (kisebb kapacitással)};
+  \coordinate (be) at (0.9,1.2); \coordinate (ki) at (15.3,1.2);
+  \draw[line width=0.9pt, draw=peSotet] (be) -- (b1); \draw[line width=0.9pt, draw=peSotet] (b5) -- (ki);
+  \draw[line width=0.9pt, draw=peKiemel] (be) |- (m); \draw[line width=0.9pt, draw=peKiemel] (m) -| (ki);
+  \fill[peSotet] (be) circle (2pt); \fill[peSotet] (ki) circle (2pt);
+  \draw[nyil] (0,1.2) -- (be); \draw[nyil] (ki) -- (16.2,1.2);
+  \node[felirat, anchor=west, align=left] at (16.3,1.2) {motor};
+  \node[felirat, align=center, text=peKek] at (8.1,2.45) {soros ág: $A_{\mathrm{cella}} = \prod A_i = 0{,}99847$ (évi kb. 5 óra műszaki állásidő)};
+  \node[felirat, align=center, text=peKiemel] at (8.1,-3.1) {párhuzamos tartalékkal: $A = 1 - (1 - 0{,}99847)(1 - 0{,}98) \approx 0{,}99997$};
+\end{tikzpicture}
+\end{document}

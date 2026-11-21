@@ -1,0 +1,20 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{k/.style={doboz=34mm, font=\scriptsize, minimum height=10mm, align=center},
+           l/.style={szurkedoboz=34mm, font=\scriptsize, minimum height=13mm, align=center}}
+  \node[sotetdoboz=40mm, font=\scriptsize\bfseries, minimum height=9mm] (K) at (0,0) {karbantartás};
+  \node[k] (M) at (-4.2,-1.8) {\textbf{megelőző}\\a hiba bekövetkezése előtt};
+  \node[k] (H) at (4.2,-1.8) {\textbf{hibát követő (korrektív)}\\a hiba felismerése után};
+  \node[l] (E) at (-6.2,-3.9) {\textbf{előre meghatározott}\\rögzített időközönként\\vagy darabszám után};
+  \node[l] (A) at (-2.2,-3.9) {\textbf{állapotalapú}\\az állapot mérése és\\értékelése alapján};
+  \node[zolddoboz=38mm, font=\scriptsize, minimum height=13mm, align=center] (P) at (-2.2,-6.0) {\textbf{előrejelző (prediktív)}\\az állapot jövőbeli\\alakulásának előrejelzése\\alapján};
+  \node[l] (I) at (2.2,-3.9) {\textbf{azonnali}\\a hibát követően\\haladéktalanul};
+  \node[l] (D) at (6.2,-3.9) {\textbf{halasztott}\\a hibát követően,\\ütemezett időpontban};
+  \draw[nyil] (K) -- (M); \draw[nyil] (K) -- (H);
+  \draw[nyil] (M) -- (E); \draw[nyil] (M) -- (A); \draw[nyil] (A) -- (P);
+  \draw[nyil] (H) -- (I); \draw[nyil] (H) -- (D);
+  \node[felirat, align=left, anchor=west] at (0.6,-6.0) {KoboCella: a csavarozó bitbetétjét\\a nyomaték szórása és átlaga alapján\\cserélik (állapotalapú),\\a kobot hajtóműveit a gyártói\\ütemterv szerint (előre meghatározott).};
+\end{tikzpicture}
+\end{document}

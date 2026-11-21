@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{l1/.style={doboz=40mm, font=\scriptsize\bfseries, minimum height=11mm, align=center},
+           l2/.style={szurkedoboz=38mm, font=\scriptsize, minimum height=6.5mm, align=left, anchor=west}}
+  \node[sotetdoboz=52mm, font=\small\bfseries, minimum height=10mm, align=center] (P) at (6.75,2.2) {KoboCella-projekt\\[-1pt]{\scriptsize\mdseries 78 MFt}};
+  \foreach \i/\x/\t/\c in {1/0/{1 Projektirányítás és\\rendszermérnökség · 8 MFt}/x, 2/4.5/{2 A cella (termék)\\52 MFt}/x, 3/9.0/{3 Integráció, verifikáció,\\validáció · 10 MFt}/x, 4/13.5/{4 Telepítés és átadás\\8 MFt}/x}{
+    \node[l1] (L\i) at (\x,0) {\t};
+    \draw[peSotet, line width=0.8pt] (P.south) -- ++(0,-0.55) -| (L\i.north);
+  }
+  \foreach \i/\lista in {
+     1/{{1.1 tervezés és követés}, {1.2 követelmények, konfiguráció}, {1.3 kockázat, biztonság}, {1.4 felülvizsgálatok}},
+     2/{{2.1 vezérlés, biztonsági rendszer}, {2.2 kobot, befogó készülék}, {2.3 csavarozó egység}, {2.4 kezelőfelület}, {2.5 MES-kapcsolat}, {2.6 cellakeret, védőrács}},
+     3/{{3.1 integráció}, {3.2 gyári átvétel (FAT)}, {3.3 helyszíni átvétel (SAT)}, {3.4 validáció kezelőkkel}},
+     4/{{4.1 helyszín előkészítése}, {4.2 szállítás, telepítés}, {4.3 képzés}, {4.4 dokumentáció}}}{
+    \foreach \e [count=\k] in \lista {
+      \node[l2] (E\i\k) at ($(L\i.south west)+(0.25,-0.3-0.72*\k)$) {\e};
+      \draw[peSzurke, line width=0.6pt] ($(L\i.south west)+(0.12,0)$) |- (E\i\k.west);
+    }
+  }
+  \node[felirat, anchor=west, align=left] at (-1.9,-6.3) {100\%-szabály: minden szint pontosan a felette álló elem teljes munkáját tartalmazza\\(8 + 52 + 10 + 8 = 78 MFt); a legalsó szint elemei a munkacsomagok.};
+\end{tikzpicture}
+\end{document}

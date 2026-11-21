@@ -1,0 +1,177 @@
+/*-- scss:defaults --*/
+// Pannon Egyetem-arculathoz illeszkedő webes megjelenés
+$pe-kek: #285780;
+$pe-sotet: #1B3A57;
+$pe-kozep: #4F7FAD;
+$pe-halvany: #E6EEF6;
+$pe-kiemel: #E07B39;
+$pe-zold: #3E8E63;
+$pe-piros: #B83A3A;
+$pe-lila: #7A5C99;
+$pe-szurke: #6B7280;
+
+$primary: $pe-kek;
+$link-color: $pe-kek;
+$body-color: #1F2933;
+$font-family-sans-serif: "IBM Plex Sans", system-ui, sans-serif;
+$font-family-serif: "IBM Plex Serif", Georgia, serif;
+$font-family-monospace: "IBM Plex Mono", ui-monospace, monospace;
+$font-family-base: $font-family-serif;
+$headings-font-family: "Raleway", $font-family-sans-serif;
+$headings-color: $pe-sotet;
+$headings-font-weight: 800;
+$font-size-base: 1.06rem;
+$line-height-base: 1.62;
+$sidebar-bg: #F7F9FC;
+$sidebar-fg: #2B3A4A;
+$code-color: $pe-sotet;
+$border-radius: 3px;
+
+/*-- scss:rules --*/
+// Betűkészletek (IBM Plex, Raleway – SIL OFL)
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-mono-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 500; src: url(assets/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-sans-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-sans-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-sans-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 500; src: url(assets/fonts/ibm-plex-sans-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-sans-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-sans-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-serif-latin-400-italic.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-serif-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-serif-latin-600-italic.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-serif-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-serif-latin-700-italic.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-serif-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-serif-latin-ext-400-italic.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/ibm-plex-serif-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-serif-latin-ext-600-italic.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 600; src: url(assets/fonts/ibm-plex-serif-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: italic; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-serif-latin-ext-700-italic.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'IBM Plex Serif'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/ibm-plex-serif-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Raleway'; font-style: italic; font-display: swap; font-weight: 400; src: url(assets/fonts/raleway-latin-400-italic.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/raleway-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/raleway-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 800; src: url(assets/fonts/raleway-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 900; src: url(assets/fonts/raleway-latin-900-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Raleway'; font-style: italic; font-display: swap; font-weight: 400; src: url(assets/fonts/raleway-latin-ext-400-italic.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 400; src: url(assets/fonts/raleway-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 700; src: url(assets/fonts/raleway-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 800; src: url(assets/fonts/raleway-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Raleway'; font-style: normal; font-display: swap; font-weight: 900; src: url(assets/fonts/raleway-latin-ext-900-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+
+body { font-feature-settings: "kern", "liga"; hyphens: auto; }
+h1, h2, h3, h4, .title, .quarto-title .title { letter-spacing: -0.01em; }
+h1.title, .quarto-title h1.title { font-weight: 900; color: $pe-sotet; }
+h2 { font-weight: 800; border-bottom: 2px solid $pe-halvany; padding-bottom: .25rem; margin-top: 2.2rem; }
+h3 { font-weight: 700; color: $pe-kek; }
+.chapter-number { color: $pe-kiemel; font-weight: 900; }
+
+#quarto-header, .quarto-title-banner { border-bottom: 0; }
+
+// Kék címsáv a fejezetek élén: ferde alsó él narancs csíkkal, P+e vízjel
+// (a PDF-címoldal és a részcímoldalak sávjának webes párja)
+.quarto-title-banner {
+  position: relative; overflow: hidden;
+  padding-top: 2.4rem !important; padding-bottom: 4.6rem !important; margin-bottom: 1.2rem;
+  color: #fff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 56' preserveAspectRatio='none'%3E%3Cpath d='M0 40 L100 10 L100 56 L0 56 Z' fill='%23fff'/%3E%3Cpath d='M0 45 L100 15 L100 21 L0 51 Z' fill='%23E07B39'/%3E%3C/svg%3E")
+      no-repeat left bottom / 100% 56px,
+    $pe-kek !important;
+}
+.quarto-title-banner::after {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  right: 3%; top: -1.6rem; bottom: 3rem; width: 13rem;
+  background: url(assets/logo/PE_betulogo_feher.svg) no-repeat right top / contain;
+  opacity: .12;
+}
+.quarto-title-banner > * { position: relative; z-index: 1; }
+.quarto-title-banner h1.title, .quarto-title-banner .title, .quarto-title-banner .subtitle,
+.quarto-title-banner .quarto-title-meta-heading, .quarto-title-banner .quarto-title-meta-contents,
+.quarto-title-banner .quarto-title-meta-contents a { color: #fff; }
+.quarto-title-banner .chapter-number { color: #F2A066; }
+// A szerző a borítón és a láblécben szerepel; a sáv alatti adatsort elrejtjük
+#title-block-header .quarto-title-meta { display: none !important; }
+.quarto-title-banner .subtitle { font-family: "Raleway", sans-serif; font-weight: 700; opacity: .92; hyphens: manual; }
+.quarto-title-banner .breadcrumb, .quarto-title-banner .breadcrumb a,
+.quarto-title-banner .breadcrumb-item.active, .quarto-title-banner .breadcrumb-item + .breadcrumb-item::before,
+.quarto-title-banner .breadcrumb li:last-of-type a { color: rgba(255, 255, 255, .82) !important; }
+.quarto-title-banner .breadcrumb .chapter-number { color: #F2A066; }
+// Mobilnézet: világos eszközsor a kék címsáv fölött
+.quarto-secondary-nav { background-color: #F7F9FC !important; border-bottom: 1px solid #E4E9F0; }
+.quarto-secondary-nav .breadcrumb, .quarto-secondary-nav .breadcrumb a,
+.quarto-secondary-nav .quarto-btn-toggle, .quarto-secondary-nav .breadcrumb-item + .breadcrumb-item::before { color: $pe-sotet !important; }
+
+// A Pannon Egyetem logója az oldalsáv tetején és a láblécben
+.sidebar-logo { max-width: 100%; max-height: none; padding: .3rem .2rem .6rem; }
+.sidebar-logo-link { display: block; border-bottom: 2px solid $pe-halvany; margin-bottom: .4rem; }
+.nav-footer-center {
+  min-height: 46px; min-width: 170px;
+  background: url(assets/logo/PE_cimer_nevjel_fekvo_kek.svg) no-repeat center / auto 40px;
+}
+.quarto-cover-image { max-width: 300px; box-shadow: 0 2px 14px rgba(27, 58, 87, .18); }
+@media (max-width: 767.98px) {
+  .quarto-cover-image { float: none !important; display: block; max-width: 62%; margin: 0 auto 1.4rem !important; }
+}
+
+.sidebar-title, .sidebar, h1.title, .quarto-title .title, h1, h2 { hyphens: manual; }
+.sidebar-title, .sidebar-title a { font-family: "Raleway", sans-serif; font-weight: 900; color: $pe-sotet; font-size: 1.04rem; line-height: 1.25; }
+.sidebar nav[role=doc-toc] ul > li > a.active, .sidebar-item .active { color: $pe-kek !important; font-weight: 600; }
+.sidebar-item-section > .sidebar-item-container .sidebar-item-text { font-family: "Raleway", sans-serif; font-weight: 800; }
+.sidebar, #TOC, .quarto-title-meta, figcaption, .table, .doboz, nav, .nav-footer { font-family: "IBM Plex Sans", sans-serif; }
+
+figure { margin: 1.6rem 0; }
+figure img { max-width: 100%; height: auto; }
+figcaption, .figure-caption { font-size: .9rem; color: #3E4C59; }
+figcaption .abraszam, .table-caption .abraszam { font-weight: 700; color: $pe-kek; }
+.table { font-size: .93rem; }
+.table thead th { border-bottom: 2px solid $pe-kek; color: $pe-sotet; }
+
+// --- Kiemelődobozok -------------------------------------------------
+.doboz {
+  --szin: #{$pe-kek}; --hatter: #{$pe-halvany};
+  border-left: 4px solid var(--szin); background: var(--hatter);
+  border-radius: 2px; margin: 1.4rem 0; padding: .1rem 1rem .4rem 1rem;
+  font-size: .97rem;
+}
+.doboz-cim {
+  font-family: "Raleway", sans-serif; font-weight: 800; color: var(--szin);
+  font-size: .98rem; margin: .55rem 0 .35rem 0; letter-spacing: .01em;
+}
+.doboz-tartalom > :last-child { margin-bottom: .3rem; }
+.doboz-cel        { --szin: #{$pe-kek};    --hatter: #EEF3F9; }
+.doboz-fogalom    { --szin: #{$pe-sotet};  --hatter: #F1F4F8; }
+.doboz-esetA      { --szin: #{$pe-kek};    --hatter: #EDF3FA; }
+.doboz-esetB      { --szin: #{$pe-zold};   --hatter: #EBF5EF; }
+.doboz-esetC      { --szin: #{$pe-lila};   --hatter: #F3EFF8; }
+.doboz-eset       { --szin: #{$pe-kozep};  --hatter: #EEF3F9; }
+.doboz-pelda      { --szin: #{$pe-kozep};  --hatter: #F4F7FB; }
+.doboz-kitekintes { --szin: #{$pe-lila};   --hatter: #F5F1F9; }
+.doboz-hiba       { --szin: #{$pe-piros};  --hatter: #FBF0F0; }
+.doboz-onell      { --szin: #{$pe-zold};   --hatter: #F0F7F3; }
+.doboz-projekt    { --szin: #{$pe-kiemel}; --hatter: #FDF3EC; }
+.doboz-prompt     { --szin: #{$pe-szurke}; --hatter: #F5F6F8; }
+.doboz-osszefoglalo { --szin: #{$pe-kek};  --hatter: #EEF3F9; }
+.doboz-forras     { --szin: #{$pe-szurke}; --hatter: #F7F7F8; }
+.doboz pre, .doboz div.sourceCode { background: #fff; }
+details.megoldas { margin: .6rem 0 .4rem; padding: .3rem .7rem; background: #fff; border: 1px solid #D5E5DB; border-radius: 3px; }
+details.megoldas > summary { cursor: pointer; font-family: "IBM Plex Sans", sans-serif; font-weight: 600; color: $pe-zold; }
+
+// V-térkép a fejezet elején
+.vterkep { max-width: 420px; margin: .4rem 0 1.4rem 0; }
+.vterkep img { width: 100%; }
+
+// Interaktív demó keret
+.demo { border: 1px dashed $pe-kozep; border-radius: 4px; padding: .8rem 1rem; margin: 1.4rem 0; background: #FAFCFE; font-family: "IBM Plex Sans", sans-serif; }
+.demo-cim { font-family: "Raleway", sans-serif; font-weight: 800; color: $pe-kozep; }
+
+.nav-footer { font-size: .85rem; }
+
+.kano-kalk .kk-racs { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: .3rem 1.2rem; margin: .6rem 0; }
+.kano-kalk label { font-size: .9rem; display: flex; align-items: center; gap: .5rem; white-space: nowrap; hyphens: manual; }
+.kano-kalk input[type=range] { flex: 1; accent-color: #285780; }
+.kano-kalk output { min-width: 2.2em; text-align: right; font-weight: 600; color: #285780; }
+.kano-kalk svg text { font-family: "IBM Plex Sans", sans-serif; }

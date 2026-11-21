@@ -1,0 +1,29 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{f/.style={doboz=W, font=\scriptsize, minimum height=11mm, align=center},
+           W/.style={text width=#1}}
+  % PDCA kör
+  \foreach \a/\t/\c in {90/{\textbf{P}\\tervezés}/peKek, 0/{\textbf{D}\\végrehajtás}/peKozep, -90/{\textbf{C}\\ellenőrzés}/peZold, 180/{\textbf{A}\\beavatkozás}/peKiemel}{
+    \fill[\c!25] (0,0) -- (\a+45:1.8) arc (\a+45:\a-45:1.8) -- cycle;
+    \node[font=\scriptsize, align=center, text=peSotet] at (\a:0.98) {\t};
+  }
+  \draw[peSotet, line width=0.8pt] (0,0) circle (1.8);
+  \draw[peSotet, line width=1pt, -{Stealth[length=2.4mm]}] (100:2.05) arc (100:-240:2.05);
+  \node[font=\scriptsize\bfseries, text=peSotet] at (0,-2.55) {PDCA (Shewhart–Deming)};
+  % oszlopok fejléc
+  \node[font=\scriptsize\bfseries, text=peSotet] at (4.9,2.6) {PDCA};
+  \node[font=\scriptsize\bfseries, text=peSotet] at (7.6,2.6) {DMAIC};
+  \node[font=\scriptsize\bfseries, text=peSotet] at (11.3,2.6) {8D};
+  \foreach \y/\p/\d/\e/\c in {
+     1.75/{P: tervezés}/{D: meghatározás\\M: mérés\\A: elemzés}/{D1 csapat, D2 problémaleírás,\\D3 azonnali intézkedés,\\D4 gyökérok, D5 megoldás kiválasztása}/peKek,
+     0.15/{D: végrehajtás}/{I: fejlesztés}/{D6 a megoldás bevezetése}/peKozep,
+     -1.05/{C: ellenőrzés}/{I: a javulás igazolása}/{D6 a hatékonyság igazolása}/peZold,
+     -2.25/{A: beavatkozás}/{C: szabályozás}/{D7 a megismétlődés megelőzése,\\D8 a csapat elismerése}/peKiemel}{
+    \node[draw=\c, fill=\c!15, rounded corners=2pt, line width=0.8pt, text width=22mm, font=\scriptsize, align=center, minimum height=10mm] at (4.9,\y) {\p};
+    \node[draw=\c, fill=\c!15, rounded corners=2pt, line width=0.8pt, text width=26mm, font=\scriptsize, align=center, minimum height=10mm] at (7.6,\y) {\d};
+    \node[draw=\c, fill=\c!15, rounded corners=2pt, line width=0.8pt, text width=44mm, font=\scriptsize, align=center, minimum height=10mm] at (11.3,\y) {\e};
+  }
+\end{tikzpicture}
+\end{document}

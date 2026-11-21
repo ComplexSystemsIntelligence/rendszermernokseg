@@ -1,0 +1,160 @@
+% preamble.tex -- PDF-arculat a Rendszermérnökség könyvekhez
+\usepackage{xcolor}
+\definecolor{peKek}{HTML}{285780}
+\definecolor{peSotet}{HTML}{1B3A57}
+\definecolor{peKozep}{HTML}{4F7FAD}
+\definecolor{peHalvany}{HTML}{E6EEF6}
+\definecolor{peKiemel}{HTML}{E07B39}
+\definecolor{peZold}{HTML}{3E8E63}
+\definecolor{pePiros}{HTML}{B83A3A}
+\definecolor{peLila}{HTML}{7A5C99}
+\definecolor{peSzurke}{HTML}{6B7280}
+\definecolor{peSzoveg}{HTML}{1F2933}
+
+% Betűk: címek Raleway (OFL), a többi IBM Plex a Quarto-beállításokból
+\newfontfamily\ralewayfekete{Raleway}[Path=../_shared/fonts/ttf/, Extension=.ttf, Ligatures=TeX,
+  UprightFont=*-Black, BoldFont=*-Black, ItalicFont=*-BlackItalic]
+\newfontfamily\ralewayextra{Raleway}[Path=../_shared/fonts/ttf/, Extension=.ttf, Ligatures=TeX,
+  UprightFont=*-ExtraBold, BoldFont=*-Black, ItalicFont=*-ExtraBoldItalic]
+\newfontfamily\ralewaynormal{Raleway}[Path=../_shared/fonts/ttf/, Extension=.ttf, Ligatures=TeX,
+  UprightFont=*-SemiBold, BoldFont=*-Bold, ItalicFont=*-SemiBoldItalic]
+
+% KOMA-címsorok
+\KOMAoptions{numbers=enddot}
+\setkomafont{disposition}{\ralewayextra\color{peSotet}}
+\setkomafont{chapter}{\ralewayfekete\huge}
+\setkomafont{part}{\ralewayfekete\Huge}
+\setkomafont{partnumber}{\ralewayextra\Large\color{peKiemel}}
+\addtokomafont{section}{\color{peSotet}}
+\addtokomafont{subsection}{\color{peKek}}
+\addtokomafont{subsubsection}{\color{peKek}}
+\renewcommand*{\chapterformat}{\mbox{\color{peKiemel}\thechapter\autodot}\enskip}
+\renewcommand*{\chaptermarkformat}{\thechapter.\enskip}
+\renewcommand*{\sectionmarkformat}{\thesection.\enskip}
+\renewcommand*{\partformat}{}
+\RedeclareSectionCommand[tocnumwidth=2.4em]{chapter}
+\RedeclareSectionCommand[tocnumwidth=3.0em]{section}
+\renewcommand*{\addparttocentry}[2]{\addtocentrydefault{part}{}{#2}}
+\setkomafont{captionlabel}{\sffamily\bfseries\color{peKek}}
+\setkomafont{caption}{\sffamily\small}
+\setkomafont{pageheadfoot}{\sffamily\footnotesize\color{peSzurke}}
+\setkomafont{pagenumber}{\sffamily\footnotesize\color{peSotet}}
+
+% Kiemelődobozok (a dobozok.lua szűrő hívja)
+\usepackage[most]{tcolorbox}
+\colorlet{dobozF-cel}{peKek}        \colorlet{dobozH-cel}{peKek!7}
+\colorlet{dobozF-fogalom}{peSotet}  \colorlet{dobozH-fogalom}{peSotet!6}
+\colorlet{dobozF-eset}{peKozep}     \colorlet{dobozH-eset}{peKozep!8}
+\colorlet{dobozF-esetA}{peKek}      \colorlet{dobozH-esetA}{peKek!7}
+\colorlet{dobozF-esetB}{peZold}     \colorlet{dobozH-esetB}{peZold!9}
+\colorlet{dobozF-esetC}{peLila}     \colorlet{dobozH-esetC}{peLila!9}
+\colorlet{dobozF-pelda}{peKozep}    \colorlet{dobozH-pelda}{peKozep!6}
+\colorlet{dobozF-kitekintes}{peLila}\colorlet{dobozH-kitekintes}{peLila!7}
+\colorlet{dobozF-hiba}{pePiros}     \colorlet{dobozH-hiba}{pePiros!7}
+\colorlet{dobozF-onell}{peZold}     \colorlet{dobozH-onell}{peZold!7}
+\colorlet{dobozF-projekt}{peKiemel} \colorlet{dobozH-projekt}{peKiemel!9}
+\colorlet{dobozF-prompt}{peSzurke}  \colorlet{dobozH-prompt}{peSzurke!7}
+\colorlet{dobozF-osszefoglalo}{peKek}\colorlet{dobozH-osszefoglalo}{peKek!7}
+\colorlet{dobozF-forras}{peSzurke}  \colorlet{dobozH-forras}{peSzurke!5}
+\newtcolorbox{pedoboz}[2]{enhanced, breakable, sharp corners,
+  boxrule=0pt, leftrule=2.6pt, toprule=0pt, rightrule=0pt, bottomrule=0pt,
+  colframe=dobozF-#1, colback=dobozH-#1, colbacktitle=dobozH-#1, coltitle=dobozF-#1,
+  title={#2}, fonttitle=\ralewayextra\small, titlerule=0pt,
+  toptitle=1.6mm, bottomtitle=-0.4mm, left=3.2mm, right=3.2mm, top=1mm, bottom=1.8mm,
+  before skip=3.5mm, after skip=3.5mm, fontupper=\small,
+  before upper={\let\figure\pedobozabra\let\endfigure\endpedobozabra}}
+% A dobozokon belüli ábrák nem úsznak: helyben, saját felirattal jelennek meg
+\makeatletter
+\newenvironment{pedobozabra}[1][]{\par\medskip\noindent\begin{minipage}{\linewidth}\def\@captype{figure}\centering}%
+  {\end{minipage}\par\medskip}
+\makeatother
+\newenvironment{pemegoldas}{\par\smallskip\noindent\begingroup\footnotesize
+  {\sffamily\bfseries\color{peZold}Megoldás.}\ }{\par\endgroup}
+
+% Egyéb
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\AtBeginDocument{\hypersetup{linkcolor=peKek, urlcolor=peKek, citecolor=peKek}}
+\setlength{\emergencystretch}{3em}
+
+% Pannon Egyetem logók (hivatalos 2026-os készlet, _shared/logo/pdf)
+\newcommand*{\pelogo}[1]{../_shared/logo/pdf/#1.pdf}
+\newcommand*{\peValtozat}{0.3.0, 2026. november}
+\newcommand*{\peWeb}{https://complexsystemsintelligence.github.io/rendszermernokseg/}
+\newcommand*{\peTarolo}{https://github.com/ComplexSystemsIntelligence/rendszermernokseg}
+% A Zenodo közös (concept) DOI-azonosítója; üresen a sor nem jelenik meg
+\newcommand*{\peDOI}{}
+
+% Ferde arculati sáv: #1 = bal oldali magasság, #2 = jobb oldali magasság
+\newcommand*{\pesav}[2]{%
+  \fill[peKek] (current page.south west) -- (current page.south east)
+    -- ($(current page.south east)+(0,#2)$) -- ($(current page.south west)+(0,#1)$) -- cycle;
+  \fill[peKiemel] ($(current page.south west)+(0,#1+0.35cm)$) -- ($(current page.south east)+(0,#2+0.35cm)$)
+    -- ($(current page.south east)+(0,#2+0.65cm)$) -- ($(current page.south west)+(0,#1+0.65cm)$) -- cycle;
+  \begin{scope}
+    \clip (current page.south west) -- (current page.south east)
+      -- ($(current page.south east)+(0,#2)$) -- ($(current page.south west)+(0,#1)$) -- cycle;
+    \node[anchor=south east, inner sep=0, opacity=0.13]
+      at ($(current page.south east)+(-1.4cm,-1.3cm)$)
+      {\includegraphics[height=\dimexpr #2*84/100\relax]{\pelogo{PE_betulogo_feher}}};
+  \end{scope}}
+
+% Arculatos címoldal és impresszum
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture, overlay]
+    \pesav{7cm}{10.5cm}
+    \node[anchor=north west, text width=16.5cm, align=left, inner sep=0]
+      at ($(current page.north west)+(2.4cm,-5.2cm)$) {%
+      {\ralewayfekete\fontsize{38}{44}\selectfont\color{peSotet}\hyphenpenalty=10000\exhyphenpenalty=10000\@title\par}
+      \vspace{7mm}
+      {\ralewayextra\fontsize{18}{23}\selectfont\color{peKek}\@subtitle\par}
+      \vspace{16mm}
+      {\ralewaynormal\Large\color{peSzoveg}\@author\par}};
+    \node[anchor=south west, inner sep=0]
+      at ($(current page.south west)+(2.4cm,2.3cm)$)
+      {\includegraphics[height=2.5cm]{\pelogo{PE_cimer_nevjel_fekvo_feher}}};
+    \node[anchor=south east, inner sep=0, text=white, align=right]
+      at ($(current page.south east)+(-2.4cm,2.45cm)$)
+      {\ralewaynormal\normalsize Veszprém, \@date};
+  \end{tikzpicture}
+  \newpage
+  \thispagestyle{empty}
+  \raggedright\small\sffamily\color{peSzoveg}
+  \vspace*{\fill}
+  \includegraphics[height=1.55cm]{\pelogo{PE_cimer_nevjel_fekvo_kek}}\par
+  \vspace{9mm}
+  {\bfseries\@author: \@title}\\\@subtitle\par
+  \vspace{2mm}
+  Pannon Egyetem, Veszprém, \@date\par
+  Változat: \peValtozat\par
+  Online: \href{\peWeb}{complexsystemsintelligence.github.io/rendszermernokseg}\par
+  Forrás: \href{\peTarolo}{github.com/ComplexSystemsIntelligence/rendszermernokseg}\par
+  \ifx\peDOI\empty\else DOI: \href{https://doi.org/\peDOI}{\peDOI}\par\fi
+  \vspace{6mm}
+  {\color{peKek}\rule{\linewidth}{0.5pt}}\par
+  \vspace{3mm}
+  \footnotesize
+  \textcopyright\ \@date\ \@author. A mű a Creative Commons Nevezd meg! – Ne add el! – Így add tovább! 4.0 Nemzetközi
+  (CC BY-NC-SA 4.0) licenc feltételeivel szabadon másolható, terjeszthető és átdolgozható.\par
+  \vspace{2mm}
+  A Pannon Egyetem neve, címere és logója az egyetem arculati eleme; a licenc ezekre nem terjed ki.\par
+  \vspace{2mm}
+  Szedés: LuaLaTeX, IBM Plex és Raleway betűkkel; ábrák: TikZ.\par
+  \end{titlepage}%
+}
+\makeatother
+
+% Részcímoldalak: ferde kék sáv a fehér címer- és névjellel
+\usepackage{scrlayer}
+\DeclareNewLayer[background, page, contents={%
+  \begin{tikzpicture}[remember picture, overlay]
+    \pesav{5.2cm}{8cm}
+    \node[anchor=south west, inner sep=0]
+      at ($(current page.south west)+(2.4cm,1.9cm)$)
+      {\includegraphics[height=1.8cm]{\pelogo{PE_cimer_nevjel_fekvo_feher}}};
+  \end{tikzpicture}}]{pe.resz.hatter}
+\DeclareNewPageStyleByLayers{peresz}{pe.resz.hatter}
+\renewcommand*{\partpagestyle}{peresz}

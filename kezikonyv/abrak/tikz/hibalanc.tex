@@ -1,0 +1,17 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, e/.style={doboz=52mm, font=\footnotesize, minimum height=10mm}]
+  \node[alcim, anchor=east] at (-3.3,3.0) {rendszer};
+  \node[alcim, anchor=east] at (-3.3,1.5) {alrendszer};
+  \node[alcim, anchor=east] at (-3.3,0.0) {komponens};
+  \node[e] (r1) at (0,3.0) {KoboCella: tömítetlen motor kerül a vevőhöz};
+  \node[kiemeltdoboz=52mm, font=\footnotesize, minimum height=10mm] (a1) at (0,1.5) {csavarozó egység: alacsony a nyomaték};
+  \node[e] (k1) at (0,0.0) {bitbetét: elkopott (nincs bitcsere-terv)};
+  \draw[nyil] (k1) -- (a1); \draw[nyil] (a1) -- (r1);
+  \node[felirat, anchor=west, align=left, text width=60mm] at (3.4,3.0) {\textbf{hibahatás}: a következmény a fölötte lévő szinten, ahogyan a vevő érzékeli};
+  \node[felirat, anchor=west, align=left, text width=60mm, text=peKiemel] at (3.4,1.5) {\textbf{hibamód}: ahogyan a vizsgált elem nem teljesíti a funkcióját};
+  \node[felirat, anchor=west, align=left, text width=60mm] at (3.4,0.0) {\textbf{hibaok}: az alatta lévő szint hibája, amiért a hibamód létrejön};
+  \draw[peKiemel, line width=0.7pt, decorate, decoration={brace, amplitude=6pt}] (9.9,3.5) -- (9.9,-0.5) node[midway, right=8pt, felirat, text=peKiemel, align=left] {a csavarozó\\egység FMEA-\\jának hibalánca};
+\end{tikzpicture}
+\end{document}

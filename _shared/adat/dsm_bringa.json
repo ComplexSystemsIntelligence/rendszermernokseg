@@ -1,0 +1,22 @@
+{
+  "leiras": "A VárosiBringa komponens-DSM-je (kézikönyv 8. fejezet, N2/DSM sablon és notebook közös adatai)",
+  "elemek": [
+    {"kod": "APP", "nev": "mobilalkalmazás"},
+    {"kod": "V", "nev": "váz és hajtás"},
+    {"kod": "D", "nev": "dokkoló mechanika"},
+    {"kod": "H", "nev": "háttérrendszer"},
+    {"kod": "A", "nev": "akkumulátor"},
+    {"kod": "Z", "nev": "kerékpárzár"},
+    {"kod": "F", "nev": "fizetési modul"},
+    {"kod": "TÖ", "nev": "töltőegység"},
+    {"kod": "M", "nev": "motor és vezérlő"},
+    {"kod": "DV", "nev": "dokkolóvezérlő, kijelző"},
+    {"kod": "T", "nev": "fedélzeti telematika"},
+    {"kod": "ÁT", "nev": "áthelyezés-tervező"}
+  ],
+  "kapcsolatok": [
+    ["V", "A"], ["V", "M"], ["V", "Z"], ["V", "D"], ["A", "M"], ["A", "T"], ["A", "TÖ"],
+    ["M", "T"], ["Z", "T"], ["Z", "D"], ["T", "H"], ["D", "TÖ"], ["D", "DV"], ["TÖ", "DV"],
+    ["DV", "H"], ["H", "APP"], ["H", "F"], ["H", "ÁT"], ["APP", "F"]
+  ]
+}

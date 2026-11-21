@@ -1,0 +1,40 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  lep/.style={draw=peKek, fill=peHalvany, rounded corners=2pt, line width=0.8pt, align=center,
+    font=\footnotesize, text width=58mm, minimum height=8.5mm, inner sep=2pt},
+  be/.style={draw=peSzurke, fill=peSzurkeH, rounded corners=2pt, align=center, font=\scriptsize, text width=28mm, minimum height=10mm},
+  ki/.style={draw=peZold, fill=peZoldH, rounded corners=2pt, align=center, font=\scriptsize, text width=30mm, minimum height=10mm},
+  szam/.style={circle, fill=peKiemel, text=white, font=\scriptsize\bfseries, inner sep=0, minimum size=4.6mm}]
+  \foreach \i/\t in {
+      1/{Az érdekelt felek listájának összeállítása},
+      2/{Az elvárások feltárása (interjú, megfigyelés, workshop\ldots)},
+      3/{A működési és a többi életciklus-koncepció kialakítása},
+      4/{Az elvárások egyértelmű, elfogadható megfogalmazása},
+      5/{A hatékonyság mérőszámainak (MOE) azonosítása},
+      6/{Validálás: teljesség és kétirányú nyomonkövethetőség},
+      7/{Az érdekelt felek jóváhagyásának megszerzése},
+      8/{Az elvárások alapvonalba foglalása és dokumentálása}} {
+    \node[lep] (l\i) at (0,-1.18*\i) {\t};
+    \node[szam] at (l\i.west) {\i};
+  }
+  \foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/7,7/8} \draw[nyil, line width=0.7pt] (l\a) -- (l\b);
+  \draw[-{Stealth[length=2mm]}, draw=pePiros, line width=0.7pt, dash pattern=on 3pt off 2pt]
+    (l6.east) -- ++(0.35,0) |- node[pos=0.25, right, font=\scriptsize, text=pePiros, align=left] {hiány vagy\\ellentmondás} (l2.east);
+  % bemenetek
+  \node[be] (b1) at (-5.6,-2.0) {a megrendelő\\kezdeti elvárásai};
+  \node[be] (b2) at (-5.6,-4.4) {más érdekelt felek\\elvárásai};
+  \node[be] (b3) at (-5.6,-6.8) {felsőbb szintről\\lebontott követelmények};
+  \foreach \b/\l in {b1/2,b2/2,b3/4} \draw[nyilv] (\b.east) -- (l\l.west);
+  % kimenetek
+  \node[ki] (k1) at (6.1,-3.55) {működési koncepció\\(ConOps)};
+  \node[ki] (k2) at (6.1,-5.9) {a hatékonyság\\mérőszámai (MOE)};
+  \node[ki] (k3) at (6.1,-8.25) {validált érdekelt\\féli elvárások};
+  \draw[nyilv] (l3.east) -- (k1.west);
+  \draw[nyilv] (l5.east) -- (k2.west);
+  \draw[nyilv] (l8.east) -- (k3.west);
+  \node[font=\scriptsize\bfseries, text=peSzurke] at (-5.6,-1.0) {BEMENETEK};
+  \node[font=\scriptsize\bfseries, text=peZold] at (6.1,-2.55) {KIMENETEK};
+\end{tikzpicture}
+\end{document}

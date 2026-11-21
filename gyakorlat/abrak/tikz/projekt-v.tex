@@ -1,0 +1,35 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+    st/.style={draw=peVilagos, fill=peHalvany, text=peSotet, rounded corners=1.5pt,
+      font=\scriptsize\bfseries, align=center, inner sep=2pt, minimum height=7mm, text width=21mm, line width=0.6pt},
+    stj/.style={st, draw=peZold!45, fill=peZoldH},
+    pl/.style={draw=peKiemel, fill=peKiemelH, rounded corners=1.5pt, font=\scriptsize, align=left,
+      text width=34mm, inner sep=2.5pt, line width=0.7pt},
+    num/.style={circle, fill=peKiemel, text=white, font=\scriptsize\bfseries, inner sep=0, minimum size=4.6mm}]
+  \def\dy{1.05}
+  \foreach \n/\x/\y/\t/\s in {
+      1/3.0/0/{Probléma,\\koncepció}/st, 2/3.6/-1/{Érdekelt\\felek}/st, 3/4.2/-2/{Követel-\\mények}/st,
+      4/4.8/-3/{Architektúra}/st, 5/5.4/-4/{Részletes\\tervezés}/st, 6/7.5/-5/{Megvalósítás}/st,
+      7/9.6/-4/{Komponens-\\verifikáció}/stj, 8/10.2/-3/{Integráció}/stj, 9/10.8/-2/{Rendszer-\\verifikáció}/stj,
+      10/11.4/-1/{Validáció}/stj, 11/12.0/0/{Üzemeltetés}/stj} {
+    \node[\s] (s\n) at (\x,\y*\dy) {\t};
+  }
+  \foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/7,7/8,8/9,9/10,10/11}
+    \draw[-{Stealth[length=1.5mm]}, draw=peSzurke, line width=0.5pt] (s\a) -- (s\b);
+  % projektlépések
+  \node[pl, anchor=east] (p1) at (1.55,0.15) {\textbf{1.} Csapat, téma, problémafelvetés, relevancia, várható haszon};
+  \node[pl, anchor=east] (p2) at (2.15,-1.05) {\textbf{2.} Érdekelt felek, elvárások, Kano};
+  \node[pl, anchor=east] (p3) at (2.75,-2.15) {\textbf{3.} Mérhető követelmények (MOE/MOP/TPM), QFD};
+  \node[pl, anchor=east] (p4) at (3.35,-3.3) {\textbf{4.} Funkció–forma, koncepciók, TRIZ; \textbf{5.} Pugh, hasznosság, költség–haszon};
+  \node[pl, anchor=east] (p5) at (3.95,-4.5) {\textbf{6.} Emberi tényezők, funkciómegosztás, FMEA};
+  \node[pl, anchor=north] (p6) at (7.5,-6.05) {\textbf{7.} Folyamatmodell (BPMN), kapacitás, szűk keresztmetszet, OEE};
+  \node[pl, anchor=west] (p7) at (11.05,-3.55) {\textbf{8.} Verifikációs terv: követelményenként a vizsgálat módja};
+  \node[pl, anchor=west] (p8) at (12.85,-1.05) {\textbf{9.} Validációs terv a fő érdekeltekkel};
+  \node[pl, anchor=west] (p9) at (13.45,0.15) {\textbf{10.} Zárójelentés és bemutató};
+  \foreach \p/\s in {p1/s1,p2/s2,p3/s3,p4/s4,p5/s5,p7/s8,p8/s10,p9/s11}
+    \draw[draw=peKiemel, line width=0.5pt, dash pattern=on 2pt off 1.5pt] (\p) -- (\s);
+  \draw[draw=peKiemel, line width=0.5pt, dash pattern=on 2pt off 1.5pt] (p6) -- (s6);
+\end{tikzpicture}
+\end{document}

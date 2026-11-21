@@ -1,0 +1,81 @@
+# A futó esettanulmányok {#sec-esettanulmanyok}
+
+A könyv minden módszert ugyanazon a három rendszeren mutat be. Az esetek szándékosan különböző világokból valók: egy mechatronikai gyártóberendezés, egy városi szolgáltatás alkalmazással és infrastruktúrával, valamint egy gyártóüzem működési folyamatai. Így ugyanaz a technika háromféle környezetben is látható, és kiderül, mi benne az általános, és mi múlik a rendszer természetén.
+
+Mindhárom cég, város és szereplő kitalált. A számadatok szemléltető jellegűek: nagyságrendjük életszerű, de nem valós vállalatoktól származnak. Az esetek a fejezetekben színes dobozokban térnek vissza. A kék doboz az A, a zöld a B, a lila a C esetet jelöli.
+
+## A eset – KoboCella: kollaboratív robotos összeszerelő cella {#sec-eset-a}
+
+::: {.eset eset="A" title="Esetkártya: KoboCella"}
+**Szervezet:** Kobold Hajtástechnika Kft., 180 fős beszállító, elektromos kerékpárok agymotorjait szereli össze.
+
+**Kiinduló helyzet:** a motorfedél felhelyezése és a nyolc csavar meghúzása jelenleg kézi munkaállomáson zajlik. Az éves igény két év alatt várhatóan 90 ezerről 140 ezer darabra nő. Az operátorok csukló- és vállpanaszokra panaszkodnak. A nem megfelelő nyomatékkal meghúzott csavarok miatt a darabok mintegy 3,5%-a utómunkára kerül.
+
+**Fejlesztési cél:** olyan kollaboratív robotos cella kialakítása, amelyben az operátor és egy kobot (együttműködő robot) megosztva végzi a munkát. A cellának a növekvő igényt ki kell szolgálnia, csökkentenie kell az ergonómiai terhelést és a selejtet, és illeszkednie kell a gyár gyártásirányítási (MES) rendszeréhez.
+
+**Miért tanulságos?** Mechatronikai rendszer, amelyben a mechanika, az irányítás, a szoftver és az ember együtt határozza meg a teljesítményt. Kiemelten jól mutatja az emberi rendszerintegrációt, a funkciómegosztást, a biztonságkritikus tervezést, az FMEA-t és a berendezéshatékonyságot (OEE).
+:::
+
+**Fő érdekelt felek:**
+- az operátorok és a műszakvezetők;
+- a karbantartás és a minőségügy;
+- a munkavédelem;
+- az üzemi tanács;
+- a gyár vezetése és pénzügye;
+- a kerékpárgyártó vevő;
+- a robotintegrátor;
+- az informatika.
+
+**A könyvben feldolgozott kérdések** (példák): ki mit csináljon a cellában, az ember vagy a robot? Hogyan mérjük, hogy a cella „jó”? Milyen hibamódok fenyegetnek? Mekkora a cella valódi kapacitása, ha a robot időnként leáll?
+
+## B eset – VárosiBringa: közösségi elektromos kerékpárrendszer {#sec-eset-b}
+
+::: {.eset eset="B" title="Esetkártya: VárosiBringa"}
+**Szervezet:** Bakonyvár megyei jogú város önkormányzata és az üzemeltetésre kiválasztott konzorcium. Bakonyvár kitalált, mintegy 60 ezer lakosú, dombos fekvésű egyetemi város.
+
+**Kiinduló helyzet:** a belváros zsúfolt, a parkolóhelyek szűkösek. A város klímastratégiája csökkenteni kívánja a rövid autós utak számát. A domborzat miatt a hagyományos kerékpár nem vonzó a lakosság jelentős része számára.
+
+**Fejlesztési cél:** 300 elektromos rásegítésű kerékpárból, 30 dokkolóállomásból és mobilalkalmazásból álló közösségi rendszer. A rendszert be kell illeszteni a helyi közösségi közlekedésbe, gazdaságosan kell üzemeltetni, és vonzónak kell lennie diákok, ingázók, turisták és idősebb lakók számára egyaránt.
+
+**Miért tanulságos?** Termék, infrastruktúra, szoftver és szolgáltatás egyben. Sok, egymásnak sokszor ellentmondó érdekelt fél van benne, a siker pedig a felhasználói viselkedésen múlik. Kiválóan szemlélteti az érdekeltfél-elemzést, a Kano-modellt, a QFD-t, a többszempontú döntést és a szolgáltatásfolyamatok modellezését.
+:::
+
+**Fő érdekelt felek:**
+- a lakosok, köztük a felhasználók és a nem felhasználók (gyalogosok, üzlettulajdonosok);
+- az önkormányzat;
+- az üzemeltető konzorcium;
+- a helyi közlekedési társaság;
+- az egyetem;
+- a karbantartók és a „töltő-áthelyező” szerviz;
+- az alkalmazásfejlesztő;
+- az energiaszolgáltató;
+- a rendőrség;
+- a fogyatékossággal élők érdekképviselete;
+- a környezetvédő civil szervezetek.
+
+**A könyvben feldolgozott kérdések** (példák): kinek a hangja számít, és mennyire? Mely szolgáltatásjellemzők elvártak, és melyek okoznak meglepetésszerű elégedettséget? Hány állomás és hol? Hogyan alakul az áthelyezési folyamat költsége?
+
+## C eset – ForgácsTech: egy alkatrészgyártó üzem digitális átállása {#sec-eset-c}
+
+::: {.eset eset="C" title="Esetkártya: ForgácsTech"}
+**Szervezet:** ForgácsTech Kft., 85 fős, egyedi és kis sorozatú CNC-megmunkálással foglalkozó alkatrészgyártó. Vevői főként járműipari és gépipari beszállítók.
+
+**Kiinduló helyzet:** a rendelések útja a nyersanyag darabolásától a kész munkadarabig papíralapú műhelyrajzokon és szóbeli egyeztetéseken alapul. A határidő-csúszások gyakoriak. Senki sem tudja pontosan, mennyi ideig állnak a gépek. A vevők egyre gyakrabban kérnek nyomonkövethetőséget és rövidebb átfutást.
+
+**Fejlesztési cél:** a folyamatok feltárása és modellezése, gyártásirányítási rendszer (MES) bevezetése, a gépek hatékonyságának mérése, átláthatóbb ütemezés és digitális munkautasítások.
+
+**Miért tanulságos?** Itt a rendszer maga a szervezet és a folyamat. Ebben az esetben a folyamatelemzés, a Little-törvény, a szűk keresztmetszet, az OEE, a BPMN-modellezés, az ütemezés és a folyamatos fejlesztés eszközei kerülnek előtérbe.
+:::
+
+**Fő érdekelt felek:**
+- a tulajdonos-ügyvezető;
+- a termelésvezető;
+- a CNC-gépkezelők és -programozók;
+- a gyártáselőkészítés;
+- a minőségügy;
+- a logisztika;
+- a vevők;
+- a MES-szállító;
+- a könyvelés.
+
+**A könyvben feldolgozott kérdések** (példák): hogyan halad valójában egy rendelés az üzemen át? Hol a szűk keresztmetszet? Mekkora a gépek valós hatékonysága? Hogyan lehet a változtatást úgy bevezetni, hogy a gépkezelők támogassák?

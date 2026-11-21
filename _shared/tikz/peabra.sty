@@ -1,0 +1,71 @@
+% peabra.sty -- közös TikZ-stílus a Rendszermérnökség könyvekhez
+% Pannon Egyetem-arculathoz illeszkedő színek és betűk.
+% Minden ábra önálló standalone dokumentum, amely ezt a csomagot tölti be.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{peabra}[2026/11/20 PE abrastilus]
+
+\RequirePackage{fontspec}
+\setmainfont{IBM Plex Sans}
+\setsansfont{IBM Plex Sans}
+\newfontfamily\cimbetu{Raleway}[
+  Path=\peFontPath, Extension=.ttf,
+  UprightFont=*-ExtraBold, BoldFont=*-Black]
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+\pgfkeys{/pgf/number format/.cd, use comma, 1000 sep={\,}}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,shapes.misc,
+  backgrounds,fit,decorations.pathreplacing,matrix,shadows.blur,patterns,shapes.symbols}
+
+% --- Színpaletta -----------------------------------------------------
+\definecolor{peKek}{HTML}{285780}      % PE elsődleges kék
+\definecolor{peSotet}{HTML}{1B3A57}    % sötét változat
+\definecolor{peKozep}{HTML}{4F7FAD}    % középkék
+\definecolor{peVilagos}{HTML}{A9C4DE}  % világoskék
+\definecolor{peHalvany}{HTML}{E6EEF6}  % háttérárnyalat
+\definecolor{peKiemel}{HTML}{E07B39}   % kiemelés (narancs)
+\definecolor{peKiemelH}{HTML}{FBE7D9}  % halvány narancs
+\definecolor{peZold}{HTML}{3E8E63}     % ellenőrzés, jóváhagyás
+\definecolor{peZoldH}{HTML}{DDEFE4}
+\definecolor{pePiros}{HTML}{B83A3A}    % kockázat, hiba
+\definecolor{pePirosH}{HTML}{F6DEDE}
+\definecolor{peLila}{HTML}{7A5C99}
+\definecolor{peLilaH}{HTML}{ECE5F3}
+\definecolor{peSzurke}{HTML}{6B7280}
+\definecolor{peSzurkeH}{HTML}{F1F2F4}
+\definecolor{peSzoveg}{HTML}{1F2933}
+% Esettanulmány-színek
+\colorlet{esetA}{peKek}     % KoboCella
+\colorlet{esetB}{peZold}    % VárosiBringa
+\colorlet{esetC}{peLila}    % ForgácsTech
+
+% --- Alapstílusok ----------------------------------------------------
+\tikzset{
+  every picture/.style={line cap=round, line join=round, font=\small, text=peSzoveg},
+  nyil/.style={-{Stealth[length=2.6mm,width=2mm]}, line width=0.9pt, draw=peSotet},
+  nyilv/.style={-{Stealth[length=2.2mm,width=1.7mm]}, line width=0.6pt, draw=peSzurke},
+  ketnyil/.style={{Stealth[length=2.4mm]}-{Stealth[length=2.4mm]}, line width=0.8pt, draw=peSotet},
+  szaggatott/.style={dash pattern=on 3pt off 2pt},
+  doboz/.style={draw=peKek, fill=peHalvany, rounded corners=2pt, line width=0.8pt,
+    align=center, inner sep=4pt, minimum height=8mm, text width=#1},
+  doboz/.default=30mm,
+  sotetdoboz/.style={draw=peSotet, fill=peKek, text=white, rounded corners=2pt,
+    line width=0.8pt, align=center, inner sep=4pt, minimum height=8mm, text width=#1,
+    font=\small\bfseries},
+  sotetdoboz/.default=30mm,
+  kiemeltdoboz/.style={draw=peKiemel, fill=peKiemelH, rounded corners=2pt, line width=1.1pt,
+    align=center, inner sep=4pt, minimum height=8mm, text width=#1},
+  kiemeltdoboz/.default=30mm,
+  zolddoboz/.style={draw=peZold, fill=peZoldH, rounded corners=2pt, line width=0.8pt,
+    align=center, inner sep=4pt, minimum height=8mm, text width=#1},
+  zolddoboz/.default=30mm,
+  szurkedoboz/.style={draw=peSzurke, fill=peSzurkeH, rounded corners=2pt, line width=0.6pt,
+    align=center, inner sep=4pt, minimum height=8mm, text width=#1},
+  szurkedoboz/.default=30mm,
+  felirat/.style={font=\footnotesize, text=peSzurke, align=center},
+  cim/.style={font=\cimbetu\large, text=peSotet},
+  alcim/.style={font=\cimbetu\normalsize, text=peKek},
+}
+\endinput

@@ -1,0 +1,32 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, k/.style={doboz=32mm, font=\footnotesize, minimum height=11mm},
+    ca/.style={nyil}, fb/.style={nyil, draw=peKiemel, dash pattern=on 3pt off 2pt},
+    c/.style={font=\scriptsize, text=peSotet, align=center}, f/.style={font=\scriptsize, text=peKiemel, align=center}]
+  \node[k] (tv) at (-1.2,6.6) {termelésirányítás, MES};
+  \node[k] (ke) at (-7.4,3.6) {kezelő};
+  \node[k] (cv) at (-1.2,3.6) {cellavezérlő};
+  \node[kiemeltdoboz=32mm, font=\footnotesize, minimum height=11mm] (bv) at (3.6,3.6) {biztonsági vezérlés};
+  \node[sotetdoboz=152mm, font=\footnotesize, minimum height=11mm] (fo) at (0,0.4) {szabályozott folyamat: kobot, csavarozó egység, befogó, motor};
+  \node[szurkedoboz=24mm, font=\footnotesize] (sz) at (9.2,2.0) {lézerszkenner};
+  % MES - cellavezérlő
+  \draw[ca] ([xshift=-4mm]tv.south) -- node[c, left] {rendelés,\\típusprogram} ([xshift=-4mm]cv.north);
+  \draw[fb] ([xshift=4mm]cv.north) -- node[f, right] {gyártási\\adatok} ([xshift=4mm]tv.south);
+  % cellavezérlő - folyamat
+  \draw[ca] ([xshift=-4mm]cv.south) -- node[c, left] {ciklus indítása,\\mozgásparancsok} ([xshift=-4mm]cv.south |- fo.north);
+  \draw[fb] ([xshift=4mm]cv.south |- fo.north) -- node[f, right] {nyomaték,\\állapot} ([xshift=4mm]cv.south);
+  % biztonsági vezérlés - folyamat
+  \draw[ca] (bv.south) -- node[c, left] {sebességkorlát,\\biztonsági leállítás} (bv.south |- fo.north);
+  \draw[fb] ([yshift=-1mm]bv.west) -- node[f, below] {biztonsági\\állapot} ([yshift=-1mm]cv.east);
+  % kezelő
+  \draw[ca] ([yshift=2mm]ke.east) -- node[c, above] {nyugtázás, indítás} ([yshift=2mm]cv.west);
+  \draw[fb] ([yshift=-2mm]cv.west) -- node[f, below] {HMI-jelzések} ([yshift=-2mm]ke.west -| ke.east);
+  \draw[ca] (ke.south) -- node[c, left] {vészleállítás,\\alkatrész behelyezése} (ke.south |- fo.north);
+  % szkenner
+  \draw[fb] (fo.east) -| node[f, pos=0.75, right] {a kezelő\\helyzete} (sz.south);
+  \draw[fb] (sz.north) |- node[f, pos=0.25, right] {zónajel} (bv.east);
+  \node[felirat, anchor=west] at (-7.6,-0.75) {folytonos nyíl: beavatkozás (control action)};
+  \node[felirat, anchor=west, text=peKiemel] at (0.6,-0.75) {szaggatott nyíl: visszacsatolás (feedback)};
+\end{tikzpicture}
+\end{document}

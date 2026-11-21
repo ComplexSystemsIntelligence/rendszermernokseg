@@ -1,0 +1,38 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=0.17cm,y=1cm]
+  % \sav{x0}{x1}{szín}{y}{magasság}
+  \def\sav#1#2#3#4#5{\fill[#3] (#1,#4) rectangle (#2,#4+#5); \node[font=\scriptsize, text=peSotet] at ({(#1+#2)/2},#4+#5/2) {\pgfmathparse{int(#2-#1)}\pgfmathresult};}
+  % sorcímkék
+  \node[font=\footnotesize, anchor=east, align=right] at (-1,3.2) {kiindulás};
+  \node[font=\footnotesize, anchor=east, align=right] at (-1,2.0) {1. belső és külső\\szétválasztása};
+  \node[font=\footnotesize, anchor=east, align=right] at (-1,0.8) {2. belsőből külső:\\szerszám-előbeállítás};
+  \node[font=\footnotesize, anchor=east, align=right] at (-1,-0.4) {3. a belső műveletek\\egyszerűsítése};
+  % kiindulás: minden állás alatt
+  \sav{0}{29}{pePirosH}{3.0}{0.45}
+  \sav{29}{48}{peKiemelH}{3.0}{0.45}
+  % 1. lépés
+  \sav{0}{19}{peKiemelH}{2.05}{0.45}
+  \sav{0}{29}{peZoldH}{1.6}{0.35}
+  % 2. lépés
+  \sav{0}{11}{peKiemelH}{0.85}{0.45}
+  \sav{0}{37}{peZoldH}{0.4}{0.35}
+  % 3. lépés
+  \sav{0}{8}{peKiemelH}{-0.35}{0.45}
+  \sav{0}{35}{peZoldH}{-0.8}{0.35}
+  % gépállás összegzés
+  \foreach \y/\t in {3.2/48, 2.27/19, 1.07/11, -0.13/8}
+    \node[font=\scriptsize\bfseries, text=peKiemel, anchor=west] at (50,\y) {gépállás: \t\ perc};
+  % tengely
+  \draw[peSzurke] (0,-1.1) -- (60,-1.1);
+  \foreach \x in {0,10,...,60} \node[font=\scriptsize, anchor=north] at (\x,-1.1) {\x};
+  \node[font=\footnotesize] at (30,-1.7) {perc / átállás};
+  % jelmagyarázat
+  \begin{scope}[shift={(0,4.1)}]
+    \fill[peKiemelH] (0,0) rectangle (2,0.3); \node[font=\scriptsize, anchor=west] at (2.5,0.15) {belső: a gép áll};
+    \fill[pePirosH] (17,0) rectangle (19,0.3); \node[font=\scriptsize, anchor=west] at (19.5,0.15) {külsővé tehető, de állás alatt végzik};
+    \fill[peZoldH] (47,0) rectangle (49,0.3); \node[font=\scriptsize, anchor=west] at (49.5,0.15) {külső: a gép fut};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

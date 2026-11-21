@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  chev/.style={signal, signal to=east, signal from=west, draw=white, line width=1.2pt,
+    minimum height=11mm, text width=18mm, align=center, font=\small\bfseries, text=white, inner xsep=4mm},
+  kerdes/.style={font=\scriptsize, text=peSzoveg, align=center, text width=24mm, anchor=north}]
+  % fő szakaszok
+  \node[chev, fill=peSotet, signal from=nowhere] (k) at (0,0) {Koncepció};
+  \node[chev, fill=peKek] (f) at (2.95,0) {Fejlesztés};
+  \node[chev, fill=peKozep] (g) at (5.9,0) {Gyártás};
+  \node[chev, fill=peZold, minimum height=9mm] (h) at (8.85,0.55) {Használat};
+  \node[chev, fill=peZold!75!black, minimum height=9mm] (t) at (8.85,-0.55) {Támogatás};
+  \node[chev, fill=peSzurke, signal to=nowhere] (x) at (11.8,0) {Kivonás};
+  % kérdések
+  \node[kerdes] at ($(k.south)+(0,-0.6)$) {Mi a probléma?\\Megéri-e?\\Milyen koncepció?};
+  \node[kerdes] at ($(f.south)+(0,-0.6)$) {Mit és hogyan\\építünk? Megfelel-e\\a követelményeknek?};
+  \node[kerdes] at ($(g.south)+(0,-0.6)$) {Előállítható-e\\jó minőségben\\és gazdaságosan?};
+  \node[kerdes] at ($(t.south)+(0,-0.12)$) {Működik-e a valós\\környezetben? Fenn-\\tartható-e?};
+  \node[kerdes] at ($(x.south)+(0,-0.6)$) {Hogyan vonjuk ki\\biztonságosan,\\körforgásosan?};
+  % átfogó zárójel
+  \draw[decorate, decoration={brace, amplitude=6pt}, draw=peKiemel, line width=1pt]
+    ($(k.north west)+(0,1.25)$) -- ($(x.north east)+(0,1.25)$)
+    node[midway, above=7pt, font=\small\bfseries, text=peKiemel]
+    {a rendszermérnök felelőssége a teljes életciklusra kiterjed};
+\end{tikzpicture}
+\end{document}

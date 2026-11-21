@@ -1,0 +1,38 @@
+{
+  "leiras": "A VárosiBringa minőségháza (kézikönyv 7. fejezet, sablon, notebook közös adatai)",
+  "elvarasok": [
+    {"kod": "E1", "nev": "Mindig legyen kerékpár a közelben", "fontossag": 5, "sajat": 2, "A": 3, "B": 4},
+    {"kod": "E2", "nev": "Gyors, egyszerű kölcsönzés", "fontossag": 4, "sajat": 3, "A": 2, "B": 5},
+    {"kod": "E3", "nev": "Megbízható zár, ne lopják el", "fontossag": 4, "sajat": 4, "A": 3, "B": 2},
+    {"kod": "E4", "nev": "Fáradság nélkül fel lehessen jutni a dombra", "fontossag": 5, "sajat": 3, "A": 1, "B": 5},
+    {"kod": "E5", "nev": "Megfizethető díj, közös bérlet", "fontossag": 3, "sajat": 4, "A": 5, "B": 2},
+    {"kod": "E6", "nev": "Biztonságos kerékpár (fékek, világítás)", "fontossag": 4, "sajat": 3, "A": 4, "B": 2}
+  ],
+  "jellemzok": [
+    {"kod": "M1", "nev": "Állomássűrűség a belvárosban", "egyseg": "állomás/km²", "irany": "max", "cel": "≥ 3"},
+    {"kod": "M2", "nev": "Kerékpár állomásonként", "egyseg": "db", "irany": "max", "cel": "≥ 10"},
+    {"kod": "M3", "nev": "A kölcsönzés átfutási ideje", "egyseg": "s", "irany": "min", "cel": "≤ 20"},
+    {"kod": "M4", "nev": "Akkumulátor-hatótáv", "egyseg": "km", "irany": "max", "cel": "≥ 50"},
+    {"kod": "M5", "nev": "A rásegítés nyomatéka", "egyseg": "Nm", "irany": "max", "cel": "≥ 50"},
+    {"kod": "M6", "nev": "Áthelyezési körök naponta", "egyseg": "kör/nap", "irany": "max", "cel": "≥ 4"},
+    {"kod": "M7", "nev": "A zár feltörési ellenállása", "egyseg": "perc", "irany": "max", "cel": "≥ 5"},
+    {"kod": "M8", "nev": "A kerékpár tömege", "egyseg": "kg", "irany": "min", "cel": "≤ 25"},
+    {"kod": "M9", "nev": "Fékút 25 km/h-ról", "egyseg": "m", "irany": "min", "cel": "≤ 5"}
+  ],
+  "kapcsolat": [
+    [9, 9, 0, 3, 0, 9, 0, 0, 0],
+    [3, 0, 9, 0, 0, 0, 1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 9, 0, 0],
+    [0, 0, 0, 9, 9, 0, 0, 3, 0],
+    [1, 3, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 3, 9]
+  ],
+  "tetokapcsolat": [
+    {"a": "M1", "b": "M6", "jel": "+"},
+    {"a": "M3", "b": "M7", "jel": "-"},
+    {"a": "M4", "b": "M5", "jel": "-"},
+    {"a": "M4", "b": "M8", "jel": "--"},
+    {"a": "M5", "b": "M8", "jel": "-"},
+    {"a": "M8", "b": "M9", "jel": "+"}
+  ]
+}

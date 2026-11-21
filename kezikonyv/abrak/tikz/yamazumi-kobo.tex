@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=12cm, height=6.4cm, ybar stacked, bar width=16mm, ymin=0, ymax=100, axis lines=left,
+      symbolic x coords={S1,S2,S3,S4,S5}, xtick=data,
+      xticklabels={{S1 állórész-\\előszerelés}, {S2 rotor\\beszerelése}, {S3 KoboCella}, {S4 elektromos\\teszt}, {S5 csomagolás}},
+      x tick label style={font=\footnotesize, align=center}, ylabel={idő [s]},
+      legend style={draw=none, font=\footnotesize, at={(1.02,0.35)}, anchor=west}, clip=false, enlarge x limits=0.14]
+    \addplot[fill=peKek, draw=white] coordinates {(S1,70) (S2,62) (S3,18) (S4,12) (S5,35)};
+    \addplot[fill=peKiemel, draw=white] coordinates {(S1,0) (S2,0) (S3,56.1) (S4,60) (S5,0)};
+    \legend{kézi munka, gépi idő}
+    \draw[pePiros, line width=1.2pt, dash pattern=on 5pt off 3pt] ({rel axis cs:0,0} |- {axis cs:S1,88.7}) -- ({rel axis cs:1,0} |- {axis cs:S1,88.7});
+    \node[font=\footnotesize, text=pePiros, anchor=west] at ({rel axis cs:1,0} |- {axis cs:S1,90}) {ütemidő 88,7 s};
+    \draw[peLila, line width=1.0pt, dash pattern=on 2pt off 2pt] ({rel axis cs:0,0} |- {axis cs:S1,75}) -- ({rel axis cs:1,0} |- {axis cs:S1,75});
+    \node[font=\footnotesize, text=peLila, anchor=west, align=left] at ({rel axis cs:1,0} |- {axis cs:S1,73}) {ciklusidő-korlát 75 s\\(OEE 85\%)};
+    \node[font=\footnotesize, anchor=south, fill=white, inner sep=1pt] at (axis cs:S4,72) {72 s};
+    \node[font=\footnotesize, anchor=south, fill=white, inner sep=1pt] at (axis cs:S1,70) {70 s};
+    \node[font=\footnotesize, anchor=south, fill=white, inner sep=1pt] at (axis cs:S2,62) {62 s};
+    \node[font=\footnotesize, anchor=south, fill=white, inner sep=1pt] at (axis cs:S3,74.1) {74,1 s};
+    \node[font=\footnotesize, anchor=south, fill=white, inner sep=1pt] at (axis cs:S5,35) {35 s};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

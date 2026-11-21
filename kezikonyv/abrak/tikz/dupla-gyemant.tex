@@ -1,0 +1,30 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[peHalvany, draw=peKek, line width=1pt] (0,0) -- (3,1.8) -- (6,0) -- (3,-1.8) -- cycle;
+  \fill[peZoldH, draw=peZold, line width=1pt] (6,0) -- (9,1.8) -- (12,0) -- (9,-1.8) -- cycle;
+  \draw[peKek, dash pattern=on 2pt off 2pt] (3,1.8) -- (3,-1.8);
+  \draw[peZold, dash pattern=on 2pt off 2pt] (9,1.8) -- (9,-1.8);
+  \node[font=\cimbetu\small, text=peSotet] at (3,2.35) {PROBLÉMATÉR};
+  \node[font=\cimbetu\small, text=peZold] at (9,2.35) {MEGOLDÁSTÉR};
+  \node[font=\footnotesize\bfseries, text=peSotet] at (1.6,0.25) {feltárás};
+  \node[font=\scriptsize, text=peSotet] at (1.6,-0.25) {széttartó};
+  \node[font=\footnotesize\bfseries, text=peSotet] at (4.4,0.25) {meghatározás};
+  \node[font=\scriptsize, text=peSotet] at (4.4,-0.25) {összetartó};
+  \node[font=\footnotesize\bfseries, text=peZold] at (7.6,0.25) {fejlesztés};
+  \node[font=\scriptsize, text=peZold] at (7.6,-0.25) {széttartó};
+  \node[font=\footnotesize\bfseries, text=peZold] at (10.4,0.25) {megvalósítás};
+  \node[font=\scriptsize, text=peZold] at (10.4,-0.25) {összetartó};
+  \node[kiemeltdoboz=22mm, font=\scriptsize, inner sep=2pt] (pm) at (6,-2.75) {problémameg-\\fogalmazás, ConOps};
+  \draw[nyilv, draw=peKiemel] (pm.north) -- (6,-0.08);
+  \node[szurkedoboz=20mm, font=\scriptsize, inner sep=2pt] at (-1.4,0) {kiinduló\\helyzet, igény};
+  \draw[nyilv] (-0.35,0) -- (0,0);
+  \node[szurkedoboz=20mm, font=\scriptsize, inner sep=2pt] at (13.4,0) {bevezetett\\megoldás};
+  \draw[nyilv] (12,0) -- (12.35,0);
+  \node[felirat, text width=56mm, align=left, anchor=north west] at (-0.2,-1.95) {Mit? Kinek? Miért? Milyen feltételekkel?\\Jó problémát oldunk-e meg?};
+  \node[felirat, text width=56mm, align=right, anchor=north east] at (12.2,-1.95) {Hogyan? Milyen változatokban?\\Jól oldjuk-e meg a problémát?};
+  \draw[-{Stealth[length=2.2mm]}, draw=pePiros, line width=0.7pt, dash pattern=on 3pt off 2pt]
+     (9,1.85) to[bend right=35] node[above, font=\scriptsize, text=pePiros] {új tudás: vissza a problémához} (3,1.85);
+\end{tikzpicture}
+\end{document}

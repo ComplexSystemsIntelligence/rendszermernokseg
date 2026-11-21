@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  be/.style={font=\scriptsize, align=right, anchor=east, text=peSotet},
+  ki/.style={font=\scriptsize, align=left, anchor=west, text=peSotet},
+  al/.style={doboz=34mm, font=\footnotesize, minimum height=9mm}]
+  \foreach \x/\cim/\betu in {0/{a) a tevékenység jellege szerint}/a, 10.8/{b) irányítási szempontból}/b} {
+    \begin{scope}[xshift=\x cm]
+      \draw[peKek, line width=1pt, dash pattern=on 4pt off 2pt, fill=peHalvany!50, rounded corners=8pt] (-2.4,-2.3) rectangle (2.4,2.3);
+      \node[font=\cimbetu\small, text=peSotet] at (0,3.05) {\cim};
+      \draw[nyil] (-3.6,1.2) -- (-2.4,1.2); \node[be] at (-3.65,1.2) {anyag,\\energia};
+      \draw[nyil] (-3.6,0) -- (-2.4,0); \node[be] at (-3.65,0) {információ};
+      \draw[nyil] (-3.6,-1.2) -- (-2.4,-1.2); \node[be] at (-3.65,-1.2) {munkaerő};
+      \draw[nyil] (2.4,1.2) -- (3.6,1.2); \node[ki] at (3.65,1.2) {termékek};
+      \draw[nyil] (2.4,0) -- (3.6,0); \node[ki] at (3.65,0) {értékek};
+      \draw[nyil] (2.4,-1.2) -- (3.6,-1.2); \node[ki] at (3.65,-1.2) {mellék-\\termékek};
+      \draw[nyil, draw=pePiros] (0,3.0-0.35) -- (0,2.3); \node[font=\scriptsize, text=pePiros, anchor=west] at (0.1,2.55) {zavarok};
+    \end{scope}}
+  % a) műszaki, gazdasági, információs
+  \node[al] (m) at (0,1.35) {műszaki alrendszer};
+  \node[al] (g) at (0,0) {gazdasági alrendszer};
+  \node[al] (i) at (0,-1.35) {információs alrendszer};
+  \draw[ketnyil, line width=0.6pt] (m) -- (g); \draw[ketnyil, line width=0.6pt] (g) -- (i);
+  % b) irányítási, irányított
+  \node[sotetdoboz=34mm, font=\footnotesize\bfseries] (ir) at (10.8,1.05) {irányítási alrendszer};
+  \node[al] (id) at (10.8,-1.05) {irányított alrendszer};
+  \draw[nyil] ([xshift=-6mm]ir.south) -- node[left, font=\scriptsize] {beavatkozás} ([xshift=-6mm]id.north);
+  \draw[nyil, draw=peKiemel] ([xshift=6mm]id.north) -- node[right, font=\scriptsize, text=peKiemel] {visszajelzés} ([xshift=6mm]ir.south);
+\end{tikzpicture}
+\end{document}

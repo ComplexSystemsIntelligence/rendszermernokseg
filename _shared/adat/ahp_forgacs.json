@@ -1,0 +1,13 @@
+{
+  "cim": "ForgácsTech MES-koncepció kiválasztása AHP-val",
+  "cel": "a rendelésteljesítés javítása",
+  "kriteriumok": ["K1 határidő-teljesítés javulása", "K2 beruházási költség", "K3 bevezetési kockázat", "K4 bővíthetőség"],
+  "alternativak": ["M1 teljes MES egy beszállítótól", "M2 gépgyártói adatgyűjtés + MES", "M3 fokozatos bevezetés"],
+  "kriterium_matrix": [[1, 3, 3, 5], [0.3333333333, 1, 1, 3], [0.3333333333, 1, 1, 3], [0.2, 0.3333333333, 0.3333333333, 1]],
+  "alternativa_matrixok": {
+    "K1": [[1, 3, 2], [0.3333333333, 1, 0.5], [0.5, 2, 1]],
+    "K2": [[1, 0.5, 0.25], [2, 1, 0.3333333333], [4, 3, 1]],
+    "K3": [[1, 3, 0.5], [0.3333333333, 1, 0.25], [2, 4, 1]],
+    "K4": [[1, 2, 4], [0.5, 1, 3], [0.25, 0.3333333333, 1]]
+  }
+}

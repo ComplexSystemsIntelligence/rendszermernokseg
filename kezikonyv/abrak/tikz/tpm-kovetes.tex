@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[width=15cm, height=8cm,
+  xmin=-0.3, xmax=6.3, ymin=66, ymax=90,
+  xtick={0,1,2,3,4,5,6}, xticklabels={SRR,PDR,CDR,FAT,SAT,TRR,ORR},
+  ylabel={ciklusidő [s]}, ylabel style={font=\small},
+  tick label style={font=\scriptsize}, grid=major, grid style={peSzurkeH},
+  axis line style={peSzurke}, legend style={font=\scriptsize, at={(0.98,0.98)}, anchor=north east, draw=peSzurke}]
+  % tervezett lefutás és tűrés
+  \addplot[name path=fel, draw=none, forget plot] coordinates {(0,86) (1,82) (2,79) (3,76.5) (4,75.5) (5,75) (6,75)};
+  \addplot[name path=al, draw=none, forget plot] coordinates {(0,80) (1,77) (2,74.5) (3,72.5) (4,72) (5,71.5) (6,71.5)};
+  \addplot[peZoldH, forget plot] fill between[of=fel and al];
+  \addplot[peZold, thick, dashed] coordinates {(0,83) (1,79.5) (2,76.8) (3,74.5) (4,73.8) (5,73.2) (6,73.2)};
+  \addlegendentry{tervezett lefutás (tűrésmezővel)}
+  % küszöb és cél
+  \addplot[pePiros, thick, domain=-0.3:6.3] {75}; \addlegendentry{követelmény (küszöb): 75 s}
+  \addplot[peKek, thick, dotted, domain=-0.3:6.3] {70}; \addlegendentry{célérték: 70 s}
+  % aktuális becslések
+  \addplot[peKiemel, very thick, mark=*, mark options={fill=peKiemel}] coordinates {(0,84) (1,81.5) (2,78.2) (3,77.4)};
+  \addlegendentry{becsült / mért érték}
+  \node[font=\scriptsize, text=peKiemel, anchor=west] at (axis cs:3.1,78.4) {FAT: 77,4 s — a tűrésmezőn kívül, beavatkozás kell};
+  \node[font=\scriptsize, text=pePiros, anchor=south west] at (axis cs:-0.2,75.1) {küszöb};
+\end{axis}
+\end{tikzpicture}
+\end{document}

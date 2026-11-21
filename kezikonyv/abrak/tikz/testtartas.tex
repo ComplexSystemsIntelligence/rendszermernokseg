@@ -1,0 +1,24 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \def\R{4.2}
+  \fill[peZoldH] (0,0) -- (90:\R) arc (90:70:\R) -- cycle;
+  \fill[peKiemelH] (0,0) -- (70:\R) arc (70:30:\R) -- cycle;
+  \fill[pePirosH] (0,0) -- (30:\R) arc (30:-10:\R) -- cycle;
+  \draw[peSzurke] (0,0) -- (90:\R+0.2); \draw[peSzurke] (0,0) -- (30:\R+0.2);
+  \draw[pePiros, line width=1.4pt] (0,0) -- (70:\R+0.2);
+  \node[font=\scriptsize, anchor=south] at (90:\R+0.25) {0°};
+  \node[font=\scriptsize\bfseries, text=pePiros, anchor=south west] at (70:\R+0.2) {20° (R-05)};
+  \node[font=\scriptsize, anchor=west] at (30:\R+0.2) {60°};
+  \node[font=\footnotesize\bfseries, text=peZold, anchor=east] at (100:3.2) {elfogadható};
+  \node[font=\footnotesize\bfseries, text=peKiemel, align=center] at (42:3.55) {feltételesen\\elfogadható};
+  \node[font=\footnotesize\bfseries, text=pePiros, align=center] at (10:3.2) {nem\\elfogadható};
+  \draw[peKek, line width=2.4pt] (0,0) -- (75:2.6);
+  \node[font=\scriptsize\bfseries, text=peKek, anchor=east] at (77:2.65) {A: 15°};
+  \draw[peSotet, line width=2.4pt, dash pattern=on 4pt off 2pt] (0,0) -- (65:2.6);
+  \node[font=\scriptsize\bfseries, text=peSotet, anchor=north west] at (64:2.6) {C: 25°};
+  \fill[peSotet] (0,0) circle (1.2mm);
+  \node[felirat, text width=78mm, align=left, anchor=north west] at (5.2,3.4) {A törzs előrehajlásának értékelési zónái statikus testtartásnál (ISO 11226 alapján; a középső zóna elfogadhatósága a tartási időtől függ). A KoboCella R-05 követelménye a 20°-os határt rögzíti. Kék: az együttműködő cella becsült legnagyobb törzshajlítása; szaggatott: a kézi plusz koncepcióé.};
+\end{tikzpicture}
+\end{document}

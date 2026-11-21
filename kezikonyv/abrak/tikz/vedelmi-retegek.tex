@@ -1,0 +1,18 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \r/\c/\t/\a in {5.6/peSzurkeH/{vészhelyzeti reagálás (mentés, tűzoltás, kiürítés)}/5.25,
+                           4.7/peZoldH/{fizikai védelem, következménycsökkentés (burkolat, fémház, gát)}/4.35,
+                           3.8/pePirosH/{független biztonsági funkció (biztonsági vezérlés, SIL/PL)}/3.45,
+                           2.9/peKiemelH/{riasztás és kezelői beavatkozás}/2.55,
+                           2.0/peVilagos/{alapvezérlés és felügyelet}/1.65,
+                           1.1/peHalvany/{}/0} {
+    \fill[\c, draw=white, line width=1.2pt] (-\r,0) arc (180:0:\r) -- cycle;
+    \node[font=\footnotesize, text=peSotet] at (0,\a) {\t};
+  }
+  \node[font=\footnotesize\bfseries, text=peSotet, align=center] at (0,0.45) {folyamat\\(eredendően biztonságos tervezés)};
+  \draw[peSotet, line width=0.8pt] (-6.0,0) -- (6.0,0);
+  \node[felirat, align=center, text width=120mm] at (0,-0.6) {minden réteg csak akkor számít független védelmi rétegnek, ha hatékony, független a kiinduló eseménytől és a többi rétegtől, és működése ellenőrizhető};
+\end{tikzpicture}
+\end{document}

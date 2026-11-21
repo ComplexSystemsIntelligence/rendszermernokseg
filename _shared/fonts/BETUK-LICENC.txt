@@ -1,0 +1,2 @@
+A Raleway (Matt McInerney, Pablo Impallari, Rodrigo Fuenzalida) és az IBM Plex (IBM Corp.) betűkészletek a SIL Open Font License 1.1 alatt állnak.
+A Raleway TTF-fájlok a Fontsource webes betűiből (latin és latin-ext részhalmaz) összevonva készültek a PDF-kimenethez.

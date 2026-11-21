@@ -1,0 +1,33 @@
+% BPMN-jelölések a Pannon Egyetem arculatú ábrákhoz
+\ProvidesPackage{pebpmn}
+\usetikzlibrary{shapes.geometric, shapes.misc, positioning, calc, arrows.meta}
+\tikzset{
+  bt/.style={draw=peKek, fill=peHalvany, rounded corners=3pt, line width=0.8pt, minimum width=21mm,
+    minimum height=10mm, align=center, font=\scriptsize, text width=19mm, inner sep=1.5pt},
+  bstart/.style={circle, draw=peZold, fill=white, line width=0.9pt, minimum size=7mm, inner sep=0pt},
+  bvege/.style={circle, draw=pePiros, fill=white, line width=2.3pt, minimum size=7mm, inner sep=0pt},
+  bkoztes/.style={circle, draw=peKek, fill=white, line width=0.6pt, double=white, double distance=1.1pt, minimum size=7mm, inner sep=0pt},
+  bgw/.style={diamond, draw=peKiemel, fill=peKiemelH, line width=0.8pt, minimum size=9.5mm, inner sep=0pt, aspect=1},
+  bsz/.style={-{Triangle[length=2.2mm,width=1.8mm]}, line width=0.7pt, draw=peSotet},
+  buz/.style={{Circle[open, length=1.6mm]}-{Triangle[open, length=2.2mm,width=1.8mm]}, line width=0.6pt, draw=peSzurke, dash pattern=on 3pt off 2pt},
+  bas/.style={line width=0.6pt, draw=peSzurke, dash pattern=on 1pt off 1.5pt},
+  bfel/.style={font=\scriptsize, text=peSotet},
+  % jelek
+  pics/xor/.style={code={\draw[line width=1.4pt, peSotet] (-1.6mm,-1.6mm) -- (1.6mm,1.6mm) (-1.6mm,1.6mm) -- (1.6mm,-1.6mm);}},
+  pics/and/.style={code={\draw[line width=1.4pt, peSotet] (-2.0mm,0) -- (2.0mm,0) (0,-2.0mm) -- (0,2.0mm);}},
+  pics/or/.style={code={\draw[line width=1.2pt, peSotet] (0,0) circle (1.8mm);}},
+  pics/esemenyalapu/.style={code={\draw[line width=0.5pt, peSotet] (0,0) circle (2.4mm) (0,0) circle (1.9mm);
+     \draw[line width=0.5pt, peSotet] (90:1.4mm) -- (162:1.4mm) -- (234:1.4mm) -- (306:1.4mm) -- (18:1.4mm) -- cycle;}},
+  pics/boritek/.style={code={\draw[line width=0.5pt, peSotet, fill=white] (-1.7mm,-1.15mm) rectangle (1.7mm,1.15mm);
+     \draw[line width=0.5pt, peSotet] (-1.7mm,1.15mm) -- (0,-0.1mm) -- (1.7mm,1.15mm);}},
+  pics/ora/.style={code={\draw[line width=0.5pt, peSotet, fill=white] (0,0) circle (1.9mm);
+     \draw[line width=0.5pt, peSotet] (0,1.3mm) -- (0,0) -- (1.0mm,0.3mm);}},
+  pics/hurok/.style={code={\draw[line width=0.6pt, peSotet, -{Stealth[length=1.1mm]}] (-60:1.2mm) arc (-60:220:1.2mm);}},
+  pics/plusz/.style={code={\draw[line width=0.5pt, peSotet] (-1.3mm,-1.3mm) rectangle (1.3mm,1.3mm) (-0.8mm,0) -- (0.8mm,0) (0,-0.8mm) -- (0,0.8mm);}},
+  pics/tobbszoros/.style={code={\draw[line width=0.8pt, peSotet] (-0.9mm,-1.2mm) -- (-0.9mm,1.2mm) (0,-1.2mm) -- (0,1.2mm) (0.9mm,-1.2mm) -- (0.9mm,1.2mm);}},
+  pics/adat/.style={code={\draw[line width=0.6pt, peSotet, fill=white] (-2.6mm,-3.4mm) -- (2.6mm,-3.4mm) -- (2.6mm,2.0mm) -- (1.2mm,3.4mm) -- (-2.6mm,3.4mm) -- cycle;
+     \draw[line width=0.6pt, peSotet] (1.2mm,3.4mm) -- (1.2mm,2.0mm) -- (2.6mm,2.0mm);}},
+  pics/ember/.style={code={\draw[line width=0.5pt, peSotet] (0,0.9mm) circle (0.55mm) (-1.0mm,-1.0mm) .. controls (-1.0mm,0.2mm) and (1.0mm,0.2mm) .. (1.0mm,-1.0mm);}},
+  pics/fogaskerek/.style={code={\draw[line width=0.5pt, peSotet] (0,0) circle (0.7mm);
+     \foreach \a in {0,45,...,315} \draw[line width=0.6pt, peSotet] (\a:0.9mm) -- (\a:1.4mm);}},
+}

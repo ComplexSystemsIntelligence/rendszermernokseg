@@ -1,0 +1,17 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \foreach \x/\t/\h in {0/{tervezés:\\befogó}/0.4, 2.6/{eljárás:\\munkautasítás}/0.15, 5.2/{ellenőrzés:\\nyomatékmérés}/0.55, 7.8/{felügyelet:\\műszakvezető}/0.3} {
+    \fill[peKiemelH, draw=peKiemel, line width=0.8pt] (\x,-1.6) -- (\x+0.7,-1.1) -- (\x+0.7,2.1) -- (\x,1.6) -- cycle;
+    \fill[white, draw=peKiemel] (\x+0.35,\h) ellipse (0.16 and 0.26);
+    \fill[white, draw=peKiemel] (\x+0.35,\h+1.0) ellipse (0.12 and 0.2);
+    \fill[white, draw=peKiemel] (\x+0.35,\h-0.9) ellipse (0.1 and 0.16);
+    \node[felirat, align=center, anchor=north] at (\x+0.35,-1.75) {\t};
+  }
+  \draw[pePiros, line width=1.6pt, -{Stealth[length=3mm]}] (-1.6,0.55) -- (0.35,0.4) -- (2.95,0.15) -- (5.55,0.55) -- (8.15,0.3) -- (10.3,0.3);
+  \node[font=\footnotesize, text=pePiros, anchor=east] at (-1.65,0.55) {veszély};
+  \node[font=\footnotesize, text=pePiros, anchor=west, align=left] at (10.35,0.3) {hibás motor\\a vevőnél};
+  \node[felirat, text width=140mm, align=center] at (4.3,-3.1) {Reason modelljében minden védelmi réteg „lyukas”: a lyukak a tervezés, az eljárások és a szervezet rejtett hiányosságai. Baj akkor történik, ha a lyukak egy vonalba kerülnek. A megelőzés a rétegek javításáról szól, nem az utolsó ember hibáztatásáról.};
+\end{tikzpicture}
+\end{document}

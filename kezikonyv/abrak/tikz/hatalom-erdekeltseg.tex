@@ -1,0 +1,44 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=2.3cm,y=1.75cm,
+  pont/.style={circle, fill=esetB, draw=white, line width=0.8pt, inner sep=0, minimum size=2.6mm},
+  cimke/.style={font=\scriptsize, text=peSzoveg, inner sep=1.5pt},
+  kvad/.style={font=\cimbetu\small, text=#1, anchor=north west},
+  strat/.style={font=\scriptsize\itshape, text=#1, anchor=north west}]
+  % kvadránsok
+  \fill[peZoldH!60] (0.5,3) rectangle (3,5.5);
+  \fill[peKiemelH!70] (3,3) rectangle (5.5,5.5);
+  \fill[peSzurkeH] (0.5,0.5) rectangle (3,3);
+  \fill[peHalvany] (3,0.5) rectangle (5.5,3);
+  \draw[draw=white, line width=1.5pt] (3,0.5) -- (3,5.5) (0.5,3) -- (5.5,3);
+  \node[kvad=peZold] at (0.56,5.45) {Érintettek (subjects)};
+  \node[strat=peZold] at (0.56,5.15) {tájékoztatás, bevonás, szövetségépítés};
+  \node[kvad=peKiemel] at (3.06,5.45) {Kulcsszereplők (players)};
+  \node[strat=peKiemel] at (3.06,5.15) {szoros együttműködés, közös döntés};
+  \node[kvad=peSzurke] at (0.56,2.95) {Tömeg (crowd)};
+  \node[strat=peSzurke] at (0.56,2.65) {figyelemmel kísérés};
+  \node[kvad=peKek] at (3.06,2.95) {Keretadók (context setters)};
+  \node[strat=peKek] at (3.06,2.65) {elégedettség fenntartása, érdeklődés felkeltése};
+  % tengelyek
+  \draw[nyil] (0.5,0.5) -- (5.65,0.5) node[anchor=north east, font=\footnotesize, text=peSotet] at (5.6,0.38) {hatalom, befolyás $\rightarrow$};
+  \draw[nyil] (0.5,0.5) -- (0.5,5.65) node[anchor=south east, font=\footnotesize, text=peSotet, rotate=90] at (0.38,5.6) {érdekeltség $\rightarrow$};
+  \foreach \v in {1,...,5} {
+    \node[font=\tiny, text=peSzurke] at (\v,0.36) {\v};
+    \node[font=\tiny, text=peSzurke] at (0.38,\v) {\v};
+  }
+  % érdekelt felek (hatalom, érdekeltség)
+  \node[pont] (p1) at (5.0,4.8) {}; \node[cimke, anchor=east] at (p1.west) {önkormányzat};
+  \node[pont] (p2) at (4.3,4.6) {}; \node[cimke, anchor=north] at (p2.south) {üzemeltető konzorcium};
+  \node[pont] (p3) at (3.6,3.3) {}; \node[cimke, anchor=west] at (p3.east) {közlekedési társaság};
+  \node[pont] (p4) at (3.2,3.9) {}; \node[cimke, anchor=west] at (p4.east) {egyetem};
+  \node[pont] (p5) at (1.9,4.5) {}; \node[cimke, anchor=west] at (p5.east) {diák felhasználók};
+  \node[pont] (p6) at (1.6,4.1) {}; \node[cimke, anchor=west] at (p6.east) {akadálymentességi érdekképviselet};
+  \node[pont] (p7) at (1.25,3.45) {}; \node[cimke, anchor=west] at (p7.east) {környezetvédő civilek};
+  \node[pont] (p8) at (1.7,2.6) {}; \node[cimke, anchor=west] at (p8.east) {gyalogosok, boltosok};
+  \node[pont] (p9) at (2.3,1.6) {}; \node[cimke, anchor=west] at (p9.east) {helyi média};
+  \node[pont] (p10) at (3.4,1.4) {}; \node[cimke, anchor=west] at (p10.east) {energiaszolgáltató};
+  \node[pont] (p11) at (4.5,1.9) {}; \node[cimke, anchor=south] at (p11.north) {közlekedési hatóság};
+  \node[pont] (p12) at (3.5,2.1) {}; \node[cimke, anchor=south] at (p12.north) {rendőrség};
+\end{tikzpicture}
+\end{document}

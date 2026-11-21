@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  g/.style={sotetdoboz=30mm, font=\footnotesize\bfseries},
+  k/.style={doboz=27mm, font=\footnotesize\bfseries, minimum height=8mm},
+  d/.style={szurkedoboz=27mm, font=\scriptsize, minimum height=7mm, inner sep=2pt},
+  dk/.style={kiemeltdoboz=27mm, font=\scriptsize, minimum height=7mm, inner sep=2pt}]
+  \node[g] (s) at (0,2.4) {SysML-diagram};
+  \node[k] (r) at (-6.3,0.9) {követelmény};
+  \node[k] (v) at (-2.1,0.9) {viselkedés};
+  \node[k] (sz) at (2.1,0.9) {szerkezet};
+  \node[k] (p) at (6.3,0.9) {paraméteres};
+  \foreach \n in {r,v,sz,p} \draw[nyilv] (s.south) -- (\n.north);
+  \node[dk] (r1) at (-6.3,-0.4) {követelmény-diagram};
+  \draw[nyilv] (r) -- (r1);
+  \foreach \i/\t in {1/{tevékenységdiagram}, 2/{szekvenciadiagram}, 3/{állapotgép-diagram}, 4/{használatieset-diagram}} {
+    \node[d] (v\i) at (-2.1,-0.4-0.95*\i+0.95) {\t}; }
+  \draw[nyilv] (v) -- (v1);
+  \foreach \i/\t in {1/{blokkdefiníciós diagram}, 2/{belső blokkdiagram}, 3/{csomagdiagram}} {
+    \node[d] (s\i) at (2.1,-0.4-0.95*\i+0.95) {\t}; }
+  \draw[nyilv] (sz) -- (s1);
+  \node[dk] (p1) at (6.3,-0.4) {paraméteres diagram};
+  \draw[nyilv] (p) -- (p1);
+  \node[felirat, text width=150mm] at (0,-4.6) {A SysML 1.x kilenc diagramtípusa. Narancs: a SysML-nek az UML-hez képest új diagramtípusai. A SysML v2 ugyanezeket a nézeteket egységes szemantikájú modellből, grafikus és szöveges jelöléssel, szabványos programozói felülettel (API) állítja elő.};
+\end{tikzpicture}
+\end{document}

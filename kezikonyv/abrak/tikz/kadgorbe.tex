@@ -1,0 +1,23 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[name=a, width=8.6cm, height=6.2cm, xmin=0, xmax=10, ymin=0, ymax=2.2, xtick=\empty, ytick=\empty,
+      xlabel={idő}, ylabel={meghibásodási ráta $\lambda(t)$}, axis lines=left, title={\cimbetu kádgörbe}, title style={text=peKek}]
+    \addplot[peKek, line width=1.4pt, domain=0.05:9.6, samples=150] {0.35 + 1.4*exp(-1.6*x) + 0.0012*exp(0.75*x)};
+    \draw[peSzurke, dash pattern=on 2pt off 2pt] (axis cs:2.2,0) -- (axis cs:2.2,2.1);
+    \draw[peSzurke, dash pattern=on 2pt off 2pt] (axis cs:7.4,0) -- (axis cs:7.4,2.1);
+    \node[felirat, align=center] at (axis cs:1.9,1.9) {beüzemelési\\(korai) hibák};
+    \node[felirat, align=center] at (axis cs:4.8,1.0) {véletlen hibák\\($\lambda \approx$ állandó)};
+    \node[felirat, align=center] at (axis cs:8.3,1.9) {elhasználódás,\\öregedés};
+  \end{axis}
+  \begin{axis}[at={(a.east)}, anchor=west, xshift=1.6cm, width=8.6cm, height=6.2cm, xmin=0, xmax=2, ymin=0, ymax=3, xtick={0,1,2}, ytick={0,1,2,3},
+      xlabel={$t/\eta$}, ylabel={$\eta \cdot \lambda(t)$}, axis lines=left, title={\cimbetu Weibull-eloszlás}, title style={text=peKek},
+      legend style={draw=none, font=\footnotesize, at={(0.98,0.97)}, anchor=north east}]
+    \addplot[peZold, line width=1.3pt, domain=0.02:2, samples=120] {0.5*x^(-0.5)};
+    \addplot[peKek, line width=1.3pt, domain=0:2] {1};
+    \addplot[peKiemel, line width=1.3pt, domain=0:2, samples=60] {3*x^2};
+    \legend{$\beta = 0{,}5$: korai hibák, $\beta = 1$: exponenciális, $\beta = 3$: elhasználódás}
+  \end{axis}
+\end{tikzpicture}
+\end{document}

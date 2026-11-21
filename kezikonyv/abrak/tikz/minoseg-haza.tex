@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  sz/.style={font=\scriptsize, align=center, text=peSotet},
+  szb/.style={font=\scriptsize\bfseries, align=center, text=peSotet}]
+  % szobák
+  \fill[peKiemelH, draw=peKiemel, line width=0.8pt] (0,2.2) -- (2.6,4.8) -- (5.2,2.2) -- cycle;
+  \fill[peHalvany, draw=peKek, line width=0.8pt] (0,0.6) rectangle (5.2,2.2);
+  \fill[peZoldH, draw=peZold, line width=0.8pt] (-3.4,-3.0) rectangle (0,0.6);
+  \fill[white, draw=peKek, line width=0.8pt] (0,-3.0) rectangle (5.2,0.6);
+  \fill[peLilaH, draw=peLila, line width=0.8pt] (5.2,-3.0) rectangle (7.8,0.6);
+  \fill[peSzurkeH, draw=peSzurke, line width=0.8pt] (0,-3.0) rectangle (5.2,-4.6);
+  \fill[peSzurkeH, draw=peSzurke, line width=0.8pt] (-3.4,0.6) rectangle (0,2.2);
+  % feliratok
+  \node[szb] at (2.6,3.1) {5. tető:\\a műszaki jellemzők\\kölcsönhatása};
+  \node[szb] at (2.6,1.4) {2. műszaki jellemzők (HOGYAN?)\\mértékegységgel, iránnyal};
+  \node[szb] at (-1.7,-1.2) {1. vevői elvárások\\(MIT?)\\és fontosságuk};
+  \node[szb] at (2.6,-1.2) {3. kapcsolati mátrix\\(erős 9, közepes 3,\\gyenge 1)};
+  \node[szb] at (6.5,-1.2) {4. versenytársak\\vevői értékelése,\\stratégiai célok};
+  \node[szb] at (2.6,-3.8) {6. műszaki fontosság $\cdot$ műszaki\\összevetés $\cdot$ 7. célértékek};
+  \node[sz] at (-1.7,1.4) {(a „ház” bal felső\\sarka üres)};
+  % nyilak a logikához
+  \draw[nyil, draw=peKiemel] (-1.7,-3.2) .. controls (-1.7,-4.2) and (-0.5,-4.4) .. (-0.05,-4.0);
+  \node[font=\scriptsize, text=peKiemel, anchor=north west, text width=34mm] at (-3.4,-4.25) {fontosság $\times$ kapcsolat, oszloponként összegezve};
+\end{tikzpicture}
+\end{document}

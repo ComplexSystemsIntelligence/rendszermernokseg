@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \def\w{0.55}
+  \foreach \s/\t [count=\i] in {1/{információ-\\gyűjtés},2/{információ-\\elemzés},3/{döntés,\\választás},4/{végrehajtás}} {
+    \node[font=\footnotesize\bfseries, align=center, text=peSotet] at (\i*3.0-1.0,-0.65) {\t};
+  }
+  \foreach \y in {0,2,...,10} {
+    \draw[peVilagos, line width=0.3pt] (0.2,\y*0.42) -- (12.2,\y*0.42);
+    \node[font=\scriptsize, anchor=east] at (0.15,\y*0.42) {\y};
+  }
+  \node[font=\footnotesize, rotate=90] at (-0.55,2.1) {automatizálási szint (1--10)};
+  % esetek: A KoboCella (kék), C ForgácsTech (narancs), B VárosiBringa (zöld)
+  \foreach \i/\a/\c/\b in {1/9/9/8, 2/7/8/7, 3/7/4/5, 4/8/3/1} {
+    \fill[peKek] (\i*3.0-1.0-1.5*\w,0) rectangle ++(\w,\a*0.42);
+    \fill[peKiemel] (\i*3.0-1.0-0.5*\w,0) rectangle ++(\w,\c*0.42);
+    \fill[peZold] (\i*3.0-1.0+0.5*\w,0) rectangle ++(\w,\b*0.42);
+    \node[font=\tiny, text=white] at (\i*3.0-1.0-\w,\a*0.42-0.18) {\a};
+    \node[font=\tiny, text=white] at (\i*3.0-1.0,\c*0.42-0.18) {\c};
+    \node[font=\tiny, text=white] at (\i*3.0-1.0+\w,\b*0.42-0.18) {\b};
+  }
+  \fill[peKek] (0.4,5.0) rectangle ++(0.3,0.25); \node[font=\scriptsize, anchor=west] at (0.75,5.12) {KoboCella: csavarozás};
+  \fill[peKiemel] (4.4,5.0) rectangle ++(0.3,0.25); \node[font=\scriptsize, anchor=west] at (4.75,5.12) {ForgácsTech: ütemezés};
+  \fill[peZold] (8.4,5.0) rectangle ++(0.3,0.25); \node[font=\scriptsize, anchor=west] at (8.75,5.12) {VárosiBringa: áthelyezés};
+\end{tikzpicture}
+\end{document}

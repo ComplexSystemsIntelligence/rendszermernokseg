@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=10cm, height=8.6cm, xmin=0, xmax=1, ymin=0, ymax=1,
+  xlabel={$|CS^{-}|$: a hiány okozta elégedetlenség}, ylabel={$CS^{+}$: a megléttel járó elégedettség},
+  xlabel style={font=\footnotesize}, ylabel style={font=\footnotesize},
+  xtick={0,0.25,0.5,0.75,1}, ytick={0,0.25,0.5,0.75,1},
+  ticklabel style={font=\scriptsize}, axis line style={draw=peSzurke}, clip=false]
+  \fill[peZoldH!60] (axis cs:0,0.5) rectangle (axis cs:0.5,1);
+  \fill[peHalvany] (axis cs:0.5,0.5) rectangle (axis cs:1,1);
+  \fill[pePirosH!60] (axis cs:0.5,0) rectangle (axis cs:1,0.5);
+  \fill[peSzurkeH] (axis cs:0,0) rectangle (axis cs:0.5,0.5);
+  \node[font=\scriptsize\bfseries, text=peZold, anchor=north west] at (axis cs:0.01,0.99) {vonzó};
+  \node[font=\scriptsize\bfseries, text=peKek, anchor=north east] at (axis cs:0.99,0.99) {egydimenziós};
+  \node[font=\scriptsize\bfseries, text=pePiros, anchor=south east] at (axis cs:0.99,0.01) {alapvető};
+  \node[font=\scriptsize\bfseries, text=peSzurke, anchor=south west] at (axis cs:0.01,0.01) {közömbös};
+  \addplot[only marks, mark=*, mark size=3pt, color=peKek] coordinates {(0.79,0.38) (0.29,0.67) (0.625,0.54) (0.06,0.33) (0.27,0.40)};
+  \node[font=\scriptsize, anchor=south] at (axis cs:0.79,0.40) {J1 munkaasztal};
+  \node[font=\scriptsize, anchor=south] at (axis cs:0.29,0.69) {J2 fényjelzés};
+  \node[font=\scriptsize, anchor=south] at (axis cs:0.625,0.56) {J3 állapotkijelzés};
+  \node[font=\scriptsize, anchor=west] at (axis cs:0.075,0.33) {J4 hangvezérlés};
+  \node[font=\scriptsize, anchor=west, align=left] at (axis cs:0.285,0.395) {J5 teljesítménykijelző\\(sok fordított válasz)};
+\end{axis}
+\end{tikzpicture}
+\end{document}

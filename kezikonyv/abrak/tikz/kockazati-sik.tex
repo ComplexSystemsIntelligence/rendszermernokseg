@@ -1,0 +1,40 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % bal: kockázati sík izokockázati görbékkel
+  \begin{scope}
+    \fill[peZoldH] (0,0) -- (5,0) -- plot[domain=5:0.5,samples=40] (\x,{2.5/\x}) -- (0.5,5) -- (0,5) -- cycle;
+    \fill[peKiemelH] plot[domain=0.5:5,samples=40] (\x,{2.5/\x}) -- plot[domain=5:1.2,samples=40] (\x,{6/\x}) -- (1.2,5) -- (0.5,5) -- cycle;
+    \fill[pePirosH] plot[domain=1.2:5,samples=40] (\x,{6/\x}) -- (5,5) -- (1.2,5) -- cycle;
+    \draw[peZold, line width=0.9pt] plot[domain=0.5:5,samples=60] (\x,{2.5/\x});
+    \draw[pePiros, line width=0.9pt] plot[domain=1.2:5,samples=60] (\x,{6/\x});
+    \draw[peSzurke, line width=0.5pt, dash pattern=on 2pt off 2pt] plot[domain=0.25:5,samples=60] (\x,{1.1/\x});
+    \draw[nyil] (0,0) -- (5.4,0) node[below left, font=\footnotesize] {valószínűség (gyakoriság)};
+    \draw[nyil] (0,0) -- (0,5.4) node[above, font=\footnotesize] {súlyosság};
+    \node[font=\footnotesize, text=peZold] at (1.4,0.9) {elfogadható};
+    \node[font=\footnotesize, text=peKiemel, align=center] at (2.6,1.9) {ALARP-\\tartomány};
+    \node[font=\footnotesize, text=pePiros] at (3.8,3.9) {elfogadhatatlan};
+    \node[felirat, anchor=west] at (5.05,0.25) {$R = P\cdot S$ = állandó};
+    \node[alcim] at (2.5,6.0) {kockázati sík};
+  \end{scope}
+  % jobb: 5x5 mátrix
+  \begin{scope}[xshift=9.2cm]
+    \foreach \s in {1,...,5} { \foreach \p in {1,...,5} {
+      \pgfmathtruncatemacro{\osz}{\s+\p}
+      \ifnum\osz>7 \def\zsz{pePirosH}\else\ifnum\osz>5 \def\zsz{peKiemelH}\else\def\zsz{peZoldH}\fi\fi
+      \fill[\zsz, draw=white, line width=1pt] (\p-1,\s-1) rectangle (\p,\s);
+    }}
+    \foreach \p/\t in {1/P1,2/P2,3/P3,4/P4,5/P5} \node[font=\footnotesize] at (\p-0.5,-0.3) {\t};
+    \foreach \s/\t in {1/S1,2/S2,3/S3,4/S4,5/S5} \node[font=\footnotesize, anchor=east] at (-0.1,\s-0.5) {\t};
+    \node[font=\footnotesize] at (2.5,-0.8) {valószínűségi kategória};
+    \node[font=\footnotesize, rotate=90] at (-1.25,2.5) {súlyossági kategória};
+    \node[alcim] at (2.5,6.0) {kockázati mátrix};
+    \node[felirat, align=left, anchor=west] at (5.3,4.5) {piros: elfogadhatatlan};
+    \node[felirat, align=left, anchor=west] at (5.3,4.0) {narancs: ALARP};
+    \node[felirat, align=left, anchor=west] at (5.3,3.5) {zöld: elfogadható};
+    \node[felirat, align=left, anchor=west, text width=34mm] at (5.3,1.7) {a cellák a folytonos görbéket közelítik; egy lépés legfeljebb egy határt lép át};
+  \end{scope}
+  \draw[nyil, draw=peKek] (5.8,3) -- node[above, felirat] {zónákra bontás} (7.4,3);
+\end{tikzpicture}
+\end{document}

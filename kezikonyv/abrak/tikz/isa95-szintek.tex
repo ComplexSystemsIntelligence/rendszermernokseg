@@ -1,0 +1,25 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{szint/.style={draw=peKek, line width=0.8pt, rounded corners=2pt, minimum height=11mm, align=left, font=\footnotesize, text width=58mm, inner sep=4pt},
+           pelda/.style={font=\scriptsize, text=peSotet, align=left, anchor=west, text width=50mm},
+           ido/.style={font=\scriptsize, text=peSzurke, align=right, anchor=east}}
+  \foreach \y/\s/\n/\f/\e/\t in {
+     5.6/4/{4. szint: üzleti tervezés és logisztika}/peHalvany/{ERP: rendelések, beszerzés, gyártási terv, készletek}/{hónap, hét, nap},
+     4.2/3/{3. szint: gyártásirányítás (MOM, MES)}/peKiemelH/{MES: részletes ütemezés, rendeléskiadás, OEE, nyomon követés}/{nap, műszak, óra, perc},
+     2.8/2/{2. szint: felügyelet és folyamatirányítás}/peHalvany/{HMI, SCADA, a megmunkáló központ vezérlője}/{óra, perc, másodperc},
+     1.4/1/{1. szint: érzékelés és beavatkozás}/peHalvany/{érzékelők, hajtások, szelepek}/{másodperc és rövidebb},
+     0.0/0/{0. szint: a fizikai gyártófolyamat}/peSzurkeH/{forgácsolás, szerelés, mozgatás}/{}}{
+    \node[szint, fill=\f] (s\s) at (0,\y) {\textbf{\n}};
+    \node[pelda] at (3.4,\y) {\e};
+    \node[ido] at (-4.1,\y) {\t};
+  }
+  \draw[nyil, draw=peZold, line width=1.2pt] (-3.75,-0.5) -- node[font=\scriptsize, text=peZold, rotate=90, above] {visszajelzés, adatok} (-3.75,6.1);
+  \draw[nyil, draw=peKiemel, line width=1.2pt] (-3.35,6.1) -- node[font=\scriptsize, text=peKiemel, rotate=90, below] {tervek, utasítások} (-3.35,-0.5);
+  \node[font=\scriptsize\bfseries, text=peSzurke, anchor=east] at (-4.1,6.6) {időtáv};
+  \node[font=\scriptsize\bfseries, text=peSotet, anchor=west] at (3.4,6.6) {ForgácsTech};
+  \draw[peSzurke, dash pattern=on 3pt off 2pt] (-6.4,4.9) -- (8.6,4.9);
+  \node[font=\tiny, text=peSzurke, anchor=north east] at (8.6,-0.6) {IEC 62264 (ISA-95) szintjei};
+\end{tikzpicture}
+\end{document}

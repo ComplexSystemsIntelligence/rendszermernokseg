@@ -1,0 +1,30 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  v/.style={font=\footnotesize, text=peSotet, align=center, fill=white, inner sep=2pt, text width=28mm},
+  h/.style={-{Stealth[length=2.3mm]}, line width=0.8pt, draw=peKek},
+  jel/.style={font=\footnotesize\bfseries, text=peKek, fill=white, inner sep=1pt},
+  hurok/.style={circle, draw=#1, line width=0.9pt, text=#1, font=\small\bfseries, minimum size=8mm, inner sep=0}]
+  \node[v] (fe) at (0,2.2) {felhasználók száma};
+  \node[v] (el) at (0,-2.2) {elérhetőség: van-e kerékpár és szabad hely a közelben};
+  \node[v] (be) at (-4.4,1.2) {díjbevétel};
+  \node[v] (fl) at (-4.4,-1.2) {flottabővítés, új dokkolók};
+  \node[v] (ki) at (4.4,0) {kiegyensúlyozatlanság: üres dombtetői, tele völgyi dokkolók};
+  \node[v] (ah) at (8.9,0) {áthelyezési munka (és költség)};
+  \draw[h] (fe) to[bend right=12] node[jel] {+} (be);
+  \draw[h] (be) -- node[jel] {+} (fl);
+  \draw[h] (fl) to[bend right=12] node[jel] {+} (el);
+  \draw[h] (el) -- node[jel] {+} (fe);
+  \draw[h] (fe) to[bend left=12] node[jel] {+} (ki);
+  \draw[h] (ki) to[bend left=12] node[jel] {$-$} (el);
+  \draw[h] (ki) to[bend left=28] node[jel] {+} (ah);
+  \draw[h] (ah) to[bend left=28] node[jel] {$-$} (ki);
+  \node[hurok=peZold] at (-2.2,0) {R};
+  \node[font=\scriptsize, text=peZold] at (-2.2,-0.7) {növekedés};
+  \node[hurok=pePiros] at (1.9,0) {B1};
+  \node[font=\scriptsize, text=pePiros] at (1.9,-0.7) {önkorlátozás};
+  \node[hurok=pePiros] at (6.65,0) {B2};
+  \node[font=\scriptsize, text=pePiros] at (6.65,-0.7) {beavatkozás};
+\end{tikzpicture}
+\end{document}

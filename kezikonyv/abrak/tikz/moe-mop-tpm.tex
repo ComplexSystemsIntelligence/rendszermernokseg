@@ -1,0 +1,20 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  sz/.style={font=\cimbetu\small, text=white, align=center},
+  p/.style={font=\scriptsize, text=peSotet, align=left, text width=74mm, anchor=west}]
+  \fill[peKek] (-3.6,0) -- (3.6,0) -- (2.4,1.6) -- (-2.4,1.6) -- cycle;
+  \fill[peKozep] (-2.4,1.6) -- (2.4,1.6) -- (1.2,3.2) -- (-1.2,3.2) -- cycle;
+  \fill[peKiemel] (-1.2,3.2) -- (1.2,3.2) -- (0,4.8) -- cycle;
+  \node[sz] at (0,0.8) {TPM};
+  \node[sz] at (0,2.4) {MOP};
+  \node[sz] at (0,3.75) {MOE};
+  \node[p] at (4.0,4.0) {\textbf{a hatékonyság mérőszámai} — az érdekelt fél nézőpontjából: sikeres-e a rendszer a célja szempontjából? Pl.: \emph{a vevői igény teljesítése elfogadható minőségben (évi 140 ezer motor, utómunka < 0,5\%)}};
+  \node[p] at (4.0,2.4) {\textbf{a teljesítmény mérőszámai} — a szállító nézőpontjából, műszaki nyelven: milyen jellemzők biztosítják a MOE-t? Pl.: \emph{ciklusidő ≤ 75 s; rendelkezésre állás ≥ 95\%; első átfutásra jó darabok aránya ≥ 99,5\%}};
+  \node[p] at (4.0,0.8) {\textbf{a műszaki teljesítmény mérőszámai} — a kritikus MOP-okhoz kötött, a fejlesztés során rendszeresen becsült és követett jellemzők. Pl.: \emph{a ciklusidő becsült értéke a terv érettségével; a nyomatékszórás a próbákon}};
+  \draw[nyilv] (-4.0,4.3) -- node[left, font=\scriptsize, align=right] {kevés, minőségi\\is lehet} (-4.0,3.3);
+  \draw[nyilv] (-4.0,0.3) -- node[left, font=\scriptsize, align=right] {sok, mennyiségi,\\nyomon követett} (-4.0,1.3);
+  \node[felirat, rotate=90] at (-7.4,2.4) {levezetés felülről lefelé};
+\end{tikzpicture}
+\end{document}

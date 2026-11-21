@@ -1,0 +1,16 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  b/.style={doboz=46mm, font=\footnotesize, minimum height=17mm, align=center},
+  a/.style={kiemeltdoboz=46mm, font=\footnotesize, minimum height=17mm, align=center}]
+  \node[b] (kp) at (0,0) {\textbf{konkrét probléma}\\[1pt]{\scriptsize a zár legyen gyorsan nyitható,}\\{\scriptsize de nehezen feltörhető}};
+  \node[a] (ap) at (0,3.6) {\textbf{általános probléma}\\[1pt]{\scriptsize ellentmondás: javítandó a kezelés}\\{\scriptsize egyszerűsége, romlik a szilárdság}};
+  \node[a] (am) at (8.2,3.6) {\textbf{általános megoldás}\\[1pt]{\scriptsize elválasztás feltétel szerint;}\\{\scriptsize feltalálói elvek (például dinamika)}};
+  \node[zolddoboz=46mm, font=\footnotesize, minimum height=17mm, align=center] (km) at (8.2,0) {\textbf{konkrét megoldás}\\[1pt]{\scriptsize mechanikusan merev retesz, amelyet}\\{\scriptsize csak hitelesített jel old ki}};
+  \draw[nyil] (kp) -- node[felirat, left, align=right] {absztrakció\\(39 paraméter)} (ap);
+  \draw[nyil] (ap) -- node[felirat, above, text width=32mm, align=center] {ellentmondásmátrix,\\elválasztási elvek} (am);
+  \draw[nyil] (am) -- node[felirat, right, align=left] {konkretizálás\\(szakmai tudás)} (km);
+  \draw[nyil, draw=peSzurke, dash pattern=on 3pt off 2pt] (kp) -- node[felirat, below, text width=32mm, align=center] {próba-szerencse:\\sok kísérlet, kevés áttörés} (km);
+\end{tikzpicture}
+\end{document}

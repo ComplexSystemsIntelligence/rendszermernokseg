@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  szint/.style={font=\cimbetu\footnotesize, text=peSotet, anchor=east, align=right, text width=30mm},
+  e/.style={szurkedoboz=48mm, font=\scriptsize, minimum height=10mm, inner sep=2pt},
+  r/.style={doboz=44mm, font=\scriptsize, minimum height=10mm, inner sep=2pt},
+  a/.style={doboz=34mm, font=\scriptsize, minimum height=10mm, inner sep=2pt},
+  d/.style={kiemeltdoboz=34mm, font=\scriptsize, minimum height=10mm, inner sep=2pt}]
+  \node[szint] at (-7.2,3.6) {érdekelt felek elvárásai, MOE};
+  \node[szint] at (-7.2,1.6) {rendszerkövetelmények};
+  \node[szint] at (-7.2,-0.6) {alrendszer-követelmények};
+  \node[szint] at (-7.2,-2.8) {komponens-követelmények};
+  \node[e] (e1) at (-2.8,3.6) {„A cella évi 140 ezer motort szereljen össze.” (üzemigazgató)};
+  \node[e] (e2) at (2.8,3.6) {„Ne kelljen hajolgatni és csavarbehajtót tartani.” (operátorok)};
+  \node[r] (r1) at (-3.5,1.6) {R-01: A cellának egy motort legfeljebb 75 s alatt kell összeszerelnie.};
+  \node[r] (r2) at (1.4,1.6) {R-02: A cella rendelkezésre állásának el kell érnie a 95\%-ot.};
+  \node[r] (r3) at (5.6,1.6) {R-05: Minden munkaműveletnek legfeljebb 20°-os törzshajlítással elvégezhetőnek kell lennie.};
+  \draw[nyilv] (e1.south) -- (r1.north); \draw[nyilv] (e1.south) -- (r2.north); \draw[nyilv] (e2.south) -- (r3.north);
+  \node[a] (a1) at (-5.6,-0.6) {CS-01: A csavarozó egység egy csavart legfeljebb 3,2 s alatt húzzon meg.};
+  \node[a] (a2) at (-1.7,-0.6) {RB-01: A kobot egy ki-be pakolási ciklust legfeljebb 9 s alatt végezzen el.};
+  \node[d] (a3) at (2.2,-0.6) {CS-04 (levezetett): A csavarozó egység minden meghúzás nyomatékát naplózza.};
+  \node[a] (a4) at (6.1,-0.6) {MA-02: A munkaasztal munkamagassága 950–1150 mm között állítható legyen.};
+  \draw[nyilv] (r1.south) -- (a1.north); \draw[nyilv] (r1.south) -- (a2.north);
+  \draw[nyilv] (r2.south) -- (a3.north); \draw[nyilv] (r3.south) -- (a4.north);
+  \node[a] (k1) at (-5.6,-2.8) {Az orsó névleges fordulatszáma legalább 600 1/min.};
+  \node[a] (k2) at (-1.7,-2.8) {A nyomatékmérés pontossága ±2\% a 2–12 Nm tartományban.};
+  \draw[nyilv] (a1.south) -- (k1.north); \draw[nyilv] (a3.south) -- (k2.north);
+  \node[felirat, text width=55mm, align=left, anchor=north west] at (1.1,-2.25) {narancs: levezetett követelmény, amely nem közvetlenül egy elvárásból, hanem egy tervezési döntésből vagy elemzésből (itt: a nyomonkövethetőség biztosításából) születik};
+\end{tikzpicture}
+\end{document}

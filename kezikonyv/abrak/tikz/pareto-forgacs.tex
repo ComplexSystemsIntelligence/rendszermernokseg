@@ -1,0 +1,23 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=13cm, height=7cm, ybar, bar width=9mm, ymin=0, ymax=3600, xmin=0.4, xmax=8.6,
+      xtick={1,...,8}, xticklabels={{anyagra\\várás}, {átállás}, {szerszám-\\csere}, {program-\\hiba}, {gép-\\meghibásodás}, {kezelőre\\várás}, {minőség-\\ellenőrzésre\\várás}, {egyéb}},
+      xticklabel style={align=center, font=\scriptsize}, yticklabel style={font=\scriptsize},
+      ylabel={állásidő [perc/hó]}, ylabel style={font=\small}, axis y line*=left, axis x line*=bottom,
+      ymajorgrids, grid style={peSzurkeH}, clip=false,
+      nodes near coords, nodes near coords style={font=\scriptsize, text=peSotet, /pgf/number format/1000 sep={\,}}]
+    \addplot[fill=peKek, draw=peSotet] coordinates {(1,1120) (2,860) (3,500) (4,340) (5,300) (6,230) (7,150) (8,100)};
+  \end{axis}
+  \begin{axis}[width=13cm, height=7cm, ymin=0, ymax=100, xmin=0.4, xmax=8.6, axis y line*=right, axis x line=none,
+      ylabel={kumulált arány [\%]}, ylabel style={font=\small}, yticklabel style={font=\scriptsize}, clip=false]
+    \addplot[peKiemel, line width=1.2pt, mark=*, mark size=2pt] coordinates {(1,31.1) (2,55.0) (3,68.9) (4,78.3) (5,86.7) (6,93.1) (7,97.2) (8,100)};
+    \draw[peKiemel, dash pattern=on 3pt off 2pt, line width=0.6pt] (axis cs:0.4,80) -- (axis cs:8.6,80);
+    \node[font=\scriptsize, text=peKiemel, anchor=south east] at (axis cs:8.6,80) {80\%};
+    \node[font=\scriptsize, text=peKiemel, anchor=south] at (axis cs:3,70.5) {68,9\%};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

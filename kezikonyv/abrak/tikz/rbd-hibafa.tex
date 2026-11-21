@@ -1,0 +1,38 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usetikzlibrary{shapes.gates.logic.US}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, b/.style={doboz=12mm, font=\footnotesize, minimum height=9mm},
+    kapu/.style={draw=peSotet, fill=peHalvany, line width=0.8pt, rotate=90, minimum height=9mm, minimum width=7mm, inner sep=0pt},
+    alap/.style={circle, draw=peKek, fill=white, line width=0.8pt, minimum size=8mm, font=\footnotesize},
+    v/.style={line width=0.8pt, draw=peSotet}]
+  % soros
+  \node[alcim] at (1.5,3.6) {soros kapcsolás};
+  \node[b] (a) at (0.6,2.6) {A}; \node[b] (bb) at (2.4,2.6) {B};
+  \draw[v] (-0.5,2.6) -- (a) -- (bb) -- (3.5,2.6);
+  \node[felirat] at (1.5,1.85) {$R = R_A R_B$};
+  \draw[nyil, draw=peKek] (1.5,1.5) -- (1.5,0.9);
+  \node[doboz=30mm, font=\footnotesize] (t1) at (1.5,0.4) {rendszerhiba};
+  \node[or gate US, kapu, logic gate inputs=nn] (g1) at (1.5,-0.7) {};
+  \node[felirat] at (2.35,-0.7) {VAGY};
+  \draw[v] (t1.south) -- (g1.output);
+  \node[alap] (fa) at (0.6,-2.1) {$\bar{A}$}; \node[alap] (fb) at (2.4,-2.1) {$\bar{B}$};
+  \draw[v] (g1.south) -- ++(0,-0.3) coordinate (k1); \draw[v] (k1) -| (fa.north); \draw[v] (k1) -| (fb.north);
+  % párhuzamos
+  \begin{scope}[xshift=7.5cm]
+  \node[alcim] at (1.5,3.6) {párhuzamos kapcsolás};
+  \node[b] (c) at (1.5,3.0) {C}; \node[b] (d) at (1.5,2.1) {D};
+  \draw[v] (-0.4,2.55) -- (0.2,2.55); \draw[v] (0.2,3.0) -- (0.2,2.1); \draw[v] (0.2,3.0) -- (c); \draw[v] (0.2,2.1) -- (d);
+  \draw[v] (c) -- (2.8,3.0); \draw[v] (d) -- (2.8,2.1); \draw[v] (2.8,3.0) -- (2.8,2.1); \draw[v] (2.8,2.55) -- (3.4,2.55);
+  \node[felirat] at (1.5,1.4) {$R = 1 - (1 - R_C)(1 - R_D)$};
+  \draw[nyil, draw=peKek] (1.5,1.15) -- (1.5,0.9);
+  \node[doboz=30mm, font=\footnotesize] (t2) at (1.5,0.4) {rendszerhiba};
+  \node[and gate US, kapu, logic gate inputs=nn] (g2) at (1.5,-0.7) {};
+  \node[felirat] at (2.3,-0.7) {ÉS};
+  \draw[v] (t2.south) -- (g2.output);
+  \node[alap] (fc) at (0.6,-2.1) {$\bar{C}$}; \node[alap] (fd) at (2.4,-2.1) {$\bar{D}$};
+  \draw[v] (g2.south) -- ++(0,-0.3) coordinate (k2); \draw[v] (k2) -| (fc.north); \draw[v] (k2) -| (fd.north);
+  \end{scope}
+  \node[felirat, align=center, text width=110mm] at (5.2,-3.2) {a blokkdiagram a sikert, a hibafa a hibát modellezi: a soros ágból VAGY-kapu, a párhuzamos ágból ÉS-kapu lesz};
+\end{tikzpicture}
+\end{document}

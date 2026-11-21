@@ -1,0 +1,18 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=13cm, height=6.2cm, xmin=0.3, xmax=0.9, ymin=0, ymax=11.5, axis lines=left, ytick=\empty, clip=false,
+      xlabel={a tömítés összenyomódása $Z$ [mm]}, ylabel={sűrűség}, xtick={0.3,0.4,...,0.9},
+      x tick label style={/pgf/number format/.cd, fixed, precision=1}]
+    \addplot[peKek, line width=1.4pt, domain=0.42:0.78, samples=120, fill=peHalvany] {exp(-0.5*((x-0.6)/0.0408)^2)/(0.0408*sqrt(2*pi))} \closedcycle;
+    \draw[pePiros, line width=1pt, dash pattern=on 4pt off 2pt] (axis cs:0.4,0) -- (axis cs:0.4,11);
+    \draw[pePiros, line width=1pt, dash pattern=on 4pt off 2pt] (axis cs:0.8,0) -- (axis cs:0.8,11);
+    \node[font=\footnotesize, text=pePiros, anchor=south] at (axis cs:0.4,11) {alsó határ};
+    \node[font=\footnotesize, text=pePiros, anchor=south] at (axis cs:0.8,11) {felső határ};
+    \draw[ketnyil, draw=peKiemel] (axis cs:0.36,2.2) -- node[above, font=\footnotesize, text=peKiemel] {legrosszabb eset: 0,36–0,84 mm} (axis cs:0.84,2.2);
+    \draw[ketnyil, draw=peZold] (axis cs:0.48,1.0) -- node[above, font=\footnotesize, text=peZold] {RSS: 0,48–0,72 mm} (axis cs:0.72,1.0);
+    \node[font=\footnotesize, text=peKek, align=left, anchor=west] at (axis cs:0.645,8) {$\sigma_Z = 0{,}041$ mm\\$C_p = 1{,}63$};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

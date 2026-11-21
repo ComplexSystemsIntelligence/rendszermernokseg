@@ -1,0 +1,42 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  szint/.style={font=\cimbetu\footnotesize, text=peSotet, anchor=east, align=right, text width=26mm},
+  n0/.style={szurkedoboz=58mm, font=\footnotesize},
+  n1/.style={sotetdoboz=40mm, font=\footnotesize\bfseries},
+  n2/.style={doboz=21mm, font=\scriptsize, minimum height=11mm, inner sep=2pt},
+  n2e/.style={kiemeltdoboz=21mm, font=\scriptsize, minimum height=11mm, inner sep=2pt},
+  n3/.style={doboz=22mm, font=\scriptsize, minimum height=7mm, inner sep=2pt},
+  n4/.style={szurkedoboz=22mm, font=\scriptsize, minimum height=6mm, inner sep=1.5pt}]
+  % szintcímkék
+  \node[szint] at (-7.7,3.6) {befoglaló rendszer};
+  \node[szint] at (-7.7,2.1) {rendszer};
+  \node[szint] at (-7.7,0.3) {alrendszer};
+  \node[szint] at (-7.7,-1.6) {komponens};
+  \node[szint] at (-7.7,-3.0) {alkatrész};
+  \foreach \y in {2.85,1.25,-0.75,-2.35} \draw[peVilagos, line width=0.4pt, dash pattern=on 2pt off 2pt] (-10.2,\y) -- (7.6,\y);
+  % csomópontok
+  \node[n0] (g) at (0,3.6) {a Kobold üzem termelési rendszere (MES, logisztika, minőség)};
+  \node[n1] (c) at (0,2.1) {KoboCella};
+  \node[n2] (a1) at (-6.0,0.3) {kobot és megfogó};
+  \node[n2] (a2) at (-3.6,0.3) {csavarozó egység};
+  \node[n2] (a3) at (-1.2,0.3) {munkaasztal, adagolás};
+  \node[n2] (a4) at (1.2,0.3) {biztonsági alrendszer};
+  \node[n2] (a5) at (3.6,0.3) {cellavezérlés, HMI};
+  \node[n2e] (a6) at (6.0,0.3) {operátor (ember)};
+  \draw[nyilv] (g) -- (c);
+  \foreach \a in {a1,a2,a3,a4,a5,a6} \draw[nyilv] (c.south) -- (\a.north);
+  % a csavarozó egység lebontása
+  \node[n3] (k1) at (-5.6,-1.6) {csavarbehajtó orsó};
+  \node[n3] (k2) at (-3.3,-1.6) {nyomaték- és szögmérő};
+  \node[n3] (k3) at (-1.0,-1.6) {csavaradagoló};
+  \foreach \k in {k1,k2,k3} \draw[nyilv] (a2.south) -- (\k.north);
+  \node[n4] (p1) at (-5.6,-3.0) {szervomotor};
+  \node[n4] (p2) at (-3.3,-3.0) {nyúlásmérő híd};
+  \node[n4] (p3) at (-1.0,-3.0) {bitbetét};
+  \foreach \k/\p in {k1/p1,k2/p2,k3/p3} \draw[nyilv] (\k) -- (\p);
+  \node[felirat, text width=55mm, align=left, anchor=west] at (1.3,-1.6) {A többi alrendszert ugyanígy bontjuk tovább; a lebontás ott áll meg, ahol az elem már beszerezhető vagy egyben gyártható.};
+  \node[felirat, text width=150mm, align=center] at (-1.3,-3.9) {Minden szint egyszerre egész és rész: a cella a gyár eleme, a csavarozó egység a cella eleme. Az ember is a rendszer eleme, nem a környezete.};
+\end{tikzpicture}
+\end{document}

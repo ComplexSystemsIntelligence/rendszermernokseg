@@ -1,0 +1,18 @@
+{
+  "cim": "VárosiBringa tervváltozatok",
+  "celok": {"koltseg": "éves teljes költség (MFt/év), kisebb a jobb", "elerhetoseg": "a kölcsönzési kérések hány százalékában van kerékpár 300 m-en belül (%), nagyobb a jobb"},
+  "valtozatok": [
+    {"kod": "V1", "kerekpar": 250, "dokkolo": 25, "furgon": 1, "koltseg": 62, "elerhetoseg": 86.0},
+    {"kod": "V2", "kerekpar": 250, "dokkolo": 30, "furgon": 1, "koltseg": 66, "elerhetoseg": 89.0},
+    {"kod": "V3", "kerekpar": 300, "dokkolo": 25, "furgon": 1, "koltseg": 68, "elerhetoseg": 88.0},
+    {"kod": "V4", "kerekpar": 300, "dokkolo": 30, "furgon": 1, "koltseg": 72, "elerhetoseg": 92.0},
+    {"kod": "V5", "kerekpar": 300, "dokkolo": 30, "furgon": 2, "koltseg": 81, "elerhetoseg": 94.5},
+    {"kod": "V6", "kerekpar": 350, "dokkolo": 30, "furgon": 1, "koltseg": 78, "elerhetoseg": 93.0},
+    {"kod": "V7", "kerekpar": 350, "dokkolo": 35, "furgon": 1, "koltseg": 83, "elerhetoseg": 95.0},
+    {"kod": "V8", "kerekpar": 350, "dokkolo": 35, "furgon": 2, "koltseg": 92, "elerhetoseg": 97.0},
+    {"kod": "V9", "kerekpar": 250, "dokkolo": 35, "furgon": 2, "koltseg": 80, "elerhetoseg": 91.0},
+    {"kod": "V10", "kerekpar": 300, "dokkolo": 35, "furgon": 1, "koltseg": 76, "elerhetoseg": 94.0},
+    {"kod": "V11", "kerekpar": 350, "dokkolo": 25, "furgon": 2, "koltseg": 85, "elerhetoseg": 92.0},
+    {"kod": "V12", "kerekpar": 250, "dokkolo": 25, "furgon": 2, "koltseg": 71, "elerhetoseg": 88.5}
+  ]
+}

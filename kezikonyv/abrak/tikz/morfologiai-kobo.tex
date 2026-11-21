@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  fn/.style={sotetdoboz=30mm, font=\scriptsize\bfseries, minimum height=9mm, inner sep=1.5pt},
+  op/.style={draw=peVilagos, fill=white, line width=0.5pt, rounded corners=1.5pt, text width=24mm, align=center, font=\scriptsize, minimum height=9mm, inner sep=1.5pt}]
+  \def\w{2.75}
+  \foreach \t [count=\i] in {1. megoldás,2. megoldás,3. megoldás,4. megoldás}
+    \node[font=\scriptsize\bfseries, text=peSotet] at (1.0+\i*\w,0.75) {\t};
+  \foreach \f/\a/\b/\c/\d [count=\r] in {
+    {1.1 motorház befogása}/{kézi befogó}/{pneumatikus befogó}/{forgóasztal két befogóval}/{robot tartja},
+    {2.1 csavar adagolása}/{kézi, tálcából}/{rezgőadagoló + tömlő}/{szívófejes kiemelés}/{előre töltött tár},
+    {2.2 csavar meghúzása}/{kézi csavarbehajtó}/{kobot + egyorsós fej}/{többorsós fix fej}/{ipari robot zárt cellában},
+    {2.3 nyomaték mérése}/{nyomatékkulcs mintavétellel}/{orsóba épített mérés}/{külső mérőállomás}/{áramfelvételből becsült},
+    {4.1 védőzóna figyelése}/{fix védőrács}/{fényfüggöny}/{lézerszkenner + sebességkorlát}/{erő- és teljesítménykorlátozás},
+    {5.1 kész motor kivétele}/{kézi kivétel}/{kobot a kiadóba}/{szállítószalag}/{gravitációs csúszda}} {
+    \node[fn] (f\r) at (0,-\r*1.15) {\f};
+    \node[op] (o\r1) at (1.0+1*\w,-\r*1.15) {\a};
+    \node[op] (o\r2) at (1.0+2*\w,-\r*1.15) {\b};
+    \node[op] (o\r3) at (1.0+3*\w,-\r*1.15) {\c};
+    \node[op] (o\r4) at (1.0+4*\w,-\r*1.15) {\d};
+  }
+  % A koncepció: kobotos (kék)
+  \foreach \r/\c in {1/2,2/2,3/2,4/2,5/3,6/2} \draw[peKek, line width=1.6pt, rounded corners=1.5pt] ([shift={(-0.6mm,-0.6mm)}]o\r\c.south west) rectangle ([shift={(0.6mm,0.6mm)}]o\r\c.north east);
+  \draw[peKek, line width=1.2pt] (o12.south) -- (o22.north) (o22.south) -- (o32.north) (o32.south) -- (o42.north) (o42.south) -- (o53.north) (o53.south) -- (o62.north);
+  % B koncepció: fix állomás (narancs)
+  \foreach \r/\c in {1/3,2/4,3/3,4/2,5/1,6/3} \draw[peKiemel, line width=1.6pt, dash pattern=on 3pt off 1.5pt, rounded corners=1.5pt] ([shift={(-1.3mm,-1.3mm)}]o\r\c.south west) rectangle ([shift={(1.3mm,1.3mm)}]o\r\c.north east);
+  \draw[peKiemel, line width=1.2pt, dash pattern=on 3pt off 1.5pt] (o13.south) -- (o24.north) (o24.south) -- (o33.north) (o33.south) -- (o42.north) (o42.south) -- (o51.north) (o51.south) -- (o63.north);
+  \node[felirat, text width=150mm, align=center] at (6.5,-8.0) {Kék, folytonos: „együttműködő cella” koncepció $\cdot$ narancs, szaggatott: „fix állomás” koncepció. A doboz $4^6 = 4096$ elvi kombinációt tartalmaz; a 17 összeférhetetlen pár kizárása után 1344 marad.};
+\end{tikzpicture}
+\end{document}

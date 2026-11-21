@@ -1,0 +1,16 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=9.5cm, height=6.4cm, xmin=-0.3, xmax=1.3, ymin=3.9, ymax=4.13, axis lines=left,
+      xtick={0,1}, xticklabels={új bitbetét, kopott bitbetét}, ylabel={átlagos nyomaték [Nm]},
+      y tick label style={/pgf/number format/.cd, fixed, precision=2},
+      legend style={draw=none, font=\footnotesize, at={(1.02,0.5)}, anchor=west}]
+    \addplot[peKiemel, line width=1.5pt, mark=*] coordinates {(0,4.093) (1,3.937)};
+    \addplot[peKek, line width=1.5pt, mark=square*] coordinates {(0,4.018) (1,3.990)};
+    \draw[peSzurke, dash pattern=on 2pt off 2pt] (axis cs:-0.3,4.0) -- (axis cs:1.3,4.0);
+    \node[felirat, anchor=south west] at (axis cs:-0.28,4.0) {célérték};
+    \legend{egylépcsős stratégia ($\Delta = -0{,}157$), kétlépcsős stratégia ($\Delta = -0{,}028$)}
+  \end{axis}
+\end{tikzpicture}
+\end{document}

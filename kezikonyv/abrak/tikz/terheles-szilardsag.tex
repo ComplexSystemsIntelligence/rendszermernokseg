@@ -1,0 +1,15 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=12cm, height=5.8cm, xmin=0, xmax=16, ymin=0, ymax=0.55, axis lines=left, ytick=\empty,
+      xlabel={erő [kN]}, ylabel={sűrűség}, legend style={draw=none, font=\footnotesize, at={(0.98,0.95)}, anchor=north east}]
+    \addplot[peKiemel, line width=1.4pt, domain=0:16, samples=160] {exp(-0.5*((x-6)/1.5)^2)/(1.5*sqrt(2*pi))};
+    \addplot[peKek, line width=1.4pt, domain=0:16, samples=160] {exp(-0.5*((x-12)/0.8)^2)/(0.8*sqrt(2*pi))};
+    \addplot[pePiros, fill=pePiros, fill opacity=0.5, draw=none, forget plot, domain=8.6:11.2, samples=60] {min(exp(-0.5*((x-6)/1.5)^2)/(1.5*sqrt(2*pi)), exp(-0.5*((x-12)/0.8)^2)/(0.8*sqrt(2*pi)))} \closedcycle;
+    \legend{{terhelés ($\mu = 6$; $\sigma = 1{,}5$ kN)}, {szilárdság ($\mu = 12$; $\sigma = 0{,}8$ kN)}}
+    \node[font=\footnotesize, text=pePiros, align=right, anchor=east] (at) at (axis cs:10.3,0.40) {átfedés:\\tönkremenetel lehetséges};
+    \draw[nyilv, draw=pePiros] (at.south east) -- (axis cs:9.7,0.015);
+  \end{axis}
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,17 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[pePirosH, draw=pePiros] (-4,5) -- (4,5) -- (2.9,3.6) -- (-2.9,3.6) -- cycle;
+  \fill[peKiemelH, draw=peKiemel] (-2.9,3.6) -- (2.9,3.6) -- (1.3,1.6) -- (-1.3,1.6) -- cycle;
+  \fill[peZoldH, draw=peZold] (-1.3,1.6) -- (1.3,1.6) -- (0,0) -- cycle;
+  \node[font=\footnotesize\bfseries, text=pePiros] at (0,4.45) {ELFOGADHATATLAN TARTOMÁNY};
+  \node[font=\footnotesize, text=pePiros] at (0,3.95) {a kockázat a haszontól függetlenül nem vállalható};
+  \node[font=\footnotesize\bfseries, text=peKiemel] at (0,3.0) {TŰRHETŐ (ALARP) TARTOMÁNY};
+  \node[font=\footnotesize, text=peSzoveg, align=center] at (0,2.25) {csökkenteni kell, amíg a további csökkentés\\költsége nem aránytalanul nagy a hasznához képest};
+  \node[font=\footnotesize\bfseries, text=peZold, align=center] at (0,0.95) {ÁLTALÁNOSAN\\ELFOGADHATÓ};
+  \draw[nyil] (-4.6,0.2) -- node[left, font=\footnotesize, align=right, pos=0.5] {növekvő\\kockázat} (-4.6,4.8);
+  \node[felirat, anchor=west, text width=40mm, align=left] at (4.0,3.0) {a kockázatcsökkentés igazolása: elemzés, költség--haszon összevetés, jó gyakorlat};
+  \node[felirat, anchor=west, text width=40mm, align=left] at (2.0,0.8) {fenntartás: karbantartás, felülvizsgálat, hogy a kockázat itt maradjon};
+\end{tikzpicture}
+\end{document}

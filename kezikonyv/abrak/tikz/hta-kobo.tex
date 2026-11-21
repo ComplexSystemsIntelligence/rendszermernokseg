@@ -1,0 +1,29 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  c/.style={doboz=30mm, font=\scriptsize\bfseries, minimum height=10mm, inner sep=2pt},
+  o/.style={szurkedoboz=25mm, font=\scriptsize, minimum height=9mm, inner sep=1.5pt},
+  t/.style={font=\scriptsize\itshape, text=peKiemel, align=left}]
+  \node[sotetdoboz=58mm, font=\footnotesize\bfseries] (r) at (0,2.4) {0 motorok szerelése a KoboCellában egy műszakon át};
+  \node[t, anchor=west, text width=62mm] at (3.1,2.4) {0. terv: 1, majd 2 ismételve; ha hibajelzés: 3, utána vissza 2-re; a műszak végén 4};
+  \node[c] (c1) at (-6.6,0.7) {1 műszak indítása};
+  \node[c] (c2) at (-2.2,0.7) {2 egy motor szerelése (ciklus)};
+  \node[c] (c3) at (2.2,0.7) {3 hibajelzés kezelése};
+  \node[c] (c4) at (6.6,0.7) {4 műszak zárása};
+  \foreach \c in {c1,c2,c3,c4} \draw[nyilv] (r.south) -- (\c.north);
+  \foreach \n/\x/\lista in {c1/-6.6/{1.1 bejelentkezés a HMI-n,1.2 típusprogram ellenőrzése,1.3 csavarellátás ellenőrzése},
+                            c2/-2.2/{2.1 motorház kivétele (4 s),2.2 motorház a befogóba (6 s),2.3 fedél ráhelyezése (5 s),2.4 kilépés a zónából (1{,}5 s),2.5 indítás nyugtázása (1{,}5 s)},
+                            c3/2.2/{3.1 hibakód leolvasása,3.2 hibás darab a selejtdobozba,3.3 nyugtázás},
+                            c4/6.6/{4.1 adatok lezárása,4.2 terület rendbetétele}} {
+    \foreach \t [count=\i] in \lista {
+      \node[o] (\n\i) at (\x+0.25,0.7-0.95*\i) {\t};
+      \draw[peSzurke, line width=0.6pt] ([xshift=-13mm]\n.south) |- (\n\i.west);
+    }
+  }
+  \node[t, anchor=north] at (-6.35,-2.75) {1. terv: 1.1 > 1.2 > 1.3};
+  \node[t, anchor=north] at (-1.95,-4.65) {2. terv: 2.1 > 2.2 > 2.3 > 2.4 > 2.5;\\a kezelői idő összesen 18 s};
+  \node[t, anchor=north] at (2.45,-2.75) {3. terv: 3.1 > 3.2 > 3.3};
+  \node[t, anchor=north] at (6.85,-1.8) {4. terv: 4.1 > 4.2};
+\end{tikzpicture}
+\end{document}

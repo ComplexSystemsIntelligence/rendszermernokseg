@@ -1,0 +1,27 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{lep/.style={doboz=42mm, font=\scriptsize, minimum height=9mm, align=left},
+           t/.style={zolddoboz=40mm, font=\scriptsize, minimum height=9mm, align=left}}
+  \foreach \i/\l/\tt in {
+      1/{vezérlés, biztonsági áramkör\\(PLC, vészleállító, szkenner)}/{T1: biztonsági funkciók,\\leállási idők},
+      2/{+ kobot}/{T2: pályák, sebesség- és\\erőkorlátok},
+      3/{+ csavarozó orsó és adagoló}/{T3: nyomaték, adagolás,\\nyomaték-visszajelzés},
+      4/{+ befogó készülék, érzékelők}/{T4: darabfelismerés,\\pozicionálás},
+      5/{+ kezelőfelület (HMI)}/{T5: kezelői műveletek,\\hibajelzés, nyugtázás},
+      6/{+ MES-kapcsolat}/{T6: adatátvitel\\(nyomaték, ciklusidő)}}{
+    \pgfmathsetmacro{\y}{-(\i-1)*1.25}
+    \node[lep] (L\i) at (0,\y) {\textbf{\i. lépés:} \l};
+    \node[t] (T\i) at (5.3,\y) {\tt};
+    \draw[peZold, line width=0.8pt, dash pattern=on 3pt off 2pt] (L\i) -- node[felirat, above, text=peZold] {teszt} (T\i);
+  }
+  \foreach \i/\j in {1/2,2/3,3/4,4/5,5/6} \draw[nyil] (L\i) -- (L\j);
+  \node[kiemeltdoboz=42mm, font=\scriptsize, minimum height=10mm, align=center] (F) at (0,-7.9) {gyári átvételi teszt (FAT)\\az integrátornál: 77,4 s};
+  \node[doboz=40mm, font=\scriptsize, minimum height=10mm, align=center] (P) at (5.3,-7.9) {pályaoptimalizálás,\\szállítás, telepítés};
+  \node[zolddoboz=40mm, font=\scriptsize, minimum height=10mm, align=center] (S) at (10.4,-7.9) {helyszíni átvételi teszt (SAT)\\az üzemben: 74,1 s};
+  \draw[nyil] (L6) -- (F); \draw[nyil] (F) -- (P); \draw[nyil] (P) -- (S);
+  \node[font=\scriptsize, text=pePiros, align=left, anchor=west] (h) at (8.1,-6.25) {eltérés: a nyomatékadat formátuma\\az I-07 interfészen; az ICD\\pontosítása után megismételve};
+  \draw[pePiros, line width=0.6pt, -{Stealth[length=1.6mm]}] (h.west) -- (T6.east);
+\end{tikzpicture}
+\end{document}

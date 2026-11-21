@@ -1,0 +1,28 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=0.55cm,y=1cm]
+  \tikzset{m/.style={draw=white, line width=0.6pt}}
+  \def\job#1#2#3#4#5{\fill[#5] (#1,#3) rectangle (#2,#3+0.6); \node[font=\scriptsize\bfseries, text=white] at ({(#1+#2)/2},#3+0.3) {#4};}
+  % színek feladatonként
+  \def\cA{peKek}\def\cB{peZold}\def\cC{peKiemel}\def\cD{peLila}\def\cE{pePiros}
+  % FIFO: A B C D E
+  \node[font=\footnotesize\bfseries, anchor=west, text=peSotet] at (0,4.55) {érkezési sorrend (A, B, C, D, E): átfutás 20 óra};
+  \node[font=\scriptsize, anchor=east] at (-0.2,3.8) {megmunkálás}; \node[font=\scriptsize, anchor=east] at (-0.2,3.0) {3D mérés};
+  \job{0}{4}{3.5}{A}{\cA}\job{4}{5}{3.5}{B}{\cB}\job{5}{10}{3.5}{C}{\cC}\job{10}{12}{3.5}{D}{\cD}\job{12}{15}{3.5}{E}{\cE}
+  \job{4}{6}{2.7}{A}{\cA}\job{6}{9}{2.7}{B}{\cB}\job{10}{14}{2.7}{C}{\cC}\job{14}{15}{2.7}{D}{\cD}\job{15}{20}{2.7}{E}{\cE}
+  % Johnson: B E C A D
+  \node[font=\footnotesize\bfseries, anchor=west, text=peSotet] at (0,1.95) {Johnson-sorrend (B, E, C, A, D): átfutás 16 óra};
+  \node[font=\scriptsize, anchor=east] at (-0.2,1.2) {megmunkálás}; \node[font=\scriptsize, anchor=east] at (-0.2,0.4) {3D mérés};
+  \job{0}{1}{0.9}{B}{\cB}\job{1}{4}{0.9}{E}{\cE}\job{4}{9}{0.9}{C}{\cC}\job{9}{13}{0.9}{A}{\cA}\job{13}{15}{0.9}{D}{\cD}
+  \job{1}{4}{0.1}{B}{\cB}\job{4}{9}{0.1}{E}{\cE}\job{9}{13}{0.1}{C}{\cC}\job{13}{15}{0.1}{A}{\cA}\job{15}{16}{0.1}{D}{\cD}
+  % tengely
+  \draw[peSzurke] (0,-0.25) -- (21,-0.25);
+  \foreach \x in {0,2,...,20} {\draw[peSzurke] (\x,-0.25) -- (\x,-0.33); \node[font=\scriptsize, anchor=north] at (\x,-0.33) {\x};}
+  \node[font=\scriptsize] at (10.5,-0.85) {idő [óra]};
+  \draw[pePiros, dash pattern=on 3pt off 2pt] (20,2.6) -- (20,3.4); \draw[peZold, dash pattern=on 3pt off 2pt, line width=1pt] (16,0.0) -- (16,0.8);
+  % adatok
+  \node[font=\scriptsize, align=left, anchor=west] at (22,2.2) {műveleti idők [óra]\\[2pt]
+    \begin{tabular}{@{}lcc@{}} & megm. & mérés\\ A & 4 & 2\\ B & 1 & 3\\ C & 5 & 4\\ D & 2 & 1\\ E & 3 & 5\end{tabular}};
+\end{tikzpicture}
+\end{document}

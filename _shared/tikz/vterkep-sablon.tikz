@@ -1,0 +1,48 @@
+% V-térkép sablon: a fejezetek elején jelzi, hol tartunk a V-modellben.
+% Használat (külön .tex fájlban):
+%   \def\kiemel{2,3}  \def\atfogo{0}  \input{vterkep-sablon.tikz}
+\documentclass[tikz,border=3pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+    st/.style={draw=peVilagos, fill=peHalvany, text=peSotet, rounded corners=1.5pt,
+      font=\scriptsize, align=center, inner sep=2pt, minimum height=6.2mm, text width=19mm, line width=0.6pt},
+    stj/.style={st, draw=peZold!45, fill=peZoldH!70},
+    on/.style={draw=peKiemel, fill=peKiemel, text=white, font=\scriptsize\bfseries, line width=0.9pt}]
+  \def\dy{0.78}
+  % állomások: szám/x/y/felirat
+  \foreach \n/\x/\y/\t in {
+      1/1.10/0/{Probléma,\\koncepció},
+      2/1.55/-1/{Érdekelt\\felek},
+      3/2.00/-2/{Követel-\\mények},
+      4/2.45/-3/{Architektúra},
+      5/2.90/-4/{Részletes\\tervezés},
+      6/4.75/-5/{Megvalósítás},
+      7/6.60/-4/{Komponens-\\verifikáció},
+      8/7.05/-3/{Integráció},
+      9/7.50/-2/{Rendszer-\\verifikáció},
+      10/7.95/-1/{Validáció},
+      11/8.40/0/{Üzemeltetés}} {
+    \def\stil{st}
+    \ifnum\n>6 \def\stil{stj}\fi
+    \ifnum\n=6 \def\stil{st}\fi
+    \gdef\kiem{0}
+    \foreach \h in \kiemel {\ifnum\h=\n \gdef\kiem{1}\fi}
+    \ifnum\kiem=1
+      \node[\stil,on] (s\n) at (\x,\y*\dy) {\t};
+    \else
+      \node[\stil] (s\n) at (\x,\y*\dy) {\t};
+    \fi
+  }
+  \foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/7,7/8,8/9,9/10,10/11}
+    \draw[-{Stealth[length=1.4mm]}, draw=peSzurke, line width=0.5pt] (s\a) -- (s\b);
+  % átívelő sáv
+  \ifnum\atfogo=1
+    \node[draw=peKiemel, fill=peKiemel, text=white, font=\scriptsize\bfseries, rounded corners=1.5pt,
+      minimum width=94mm, minimum height=5.5mm] at (4.75,-6.0*\dy) {Átívelő: döntés · kockázat · ember · minőség · menedzsment};
+  \else
+    \node[draw=peVilagos, fill=peSzurkeH, text=peSzurke, font=\scriptsize, rounded corners=1.5pt,
+      minimum width=94mm, minimum height=5.5mm] at (4.75,-6.0*\dy) {Átívelő: döntés · kockázat · ember · minőség · menedzsment};
+  \fi
+\end{tikzpicture}
+\end{document}

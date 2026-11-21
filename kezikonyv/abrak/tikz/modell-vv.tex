@@ -1,0 +1,19 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  csp/.style={doboz=34mm, font=\footnotesize\bfseries, minimum height=12mm},
+  tev/.style={-{Stealth[length=2.5mm]}, line width=1pt, draw=peSotet},
+  vv/.style={font=\scriptsize\bfseries, text=peZold, align=center, fill=white, inner sep=1.5pt}]
+  \node[sotetdoboz=34mm, font=\footnotesize\bfseries, minimum height=12mm] (p) at (0,3.2) {a valós rendszer (problémaentitás)};
+  \node[csp] (c) at (-4.4,-1.4) {fogalmi modell};
+  \node[csp] (s) at (4.4,-1.4) {számítógépes modell};
+  \draw[tev] (p.west) to[bend right=25] node[font=\scriptsize, left, align=right, pos=0.4] {elemzés és\\modellalkotás} (c.north);
+  \draw[tev] (c.east) -- node[font=\scriptsize, below, align=center] {programozás és\\megvalósítás} (s.west);
+  \draw[tev] (s.north) to[bend right=25] node[font=\scriptsize, right, align=left, pos=0.6] {kísérletezés\\a modellel} (p.east);
+  \node[vv] at (-1.75,1.35) {fogalmi modell\\validitása};
+  \node[vv] at (0,-0.85) {számítógépes modell\\verifikációja};
+  \node[vv] at (1.75,1.35) {működési\\validitás};
+  \node[kiemeltdoboz=28mm, font=\scriptsize] at (0,0.35) {adatvaliditás};
+\end{tikzpicture}
+\end{document}

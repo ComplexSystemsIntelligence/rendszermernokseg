@@ -1,0 +1,54 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+    lab/.style={font=\footnotesize\bfseries, align=center, text width=31mm, inner sep=3pt,
+      minimum height=10mm, rounded corners=2pt, line width=0.8pt},
+    bal/.style={lab, draw=peKek, fill=peHalvany},
+    jobb/.style={lab, draw=peZold, fill=peZoldH},
+    alj/.style={lab, draw=peKiemel, fill=peKiemelH, text width=40mm},
+    kapcs/.style={-{Stealth[length=2mm]}, draw=peSzurke, line width=0.6pt, dash pattern=on 3pt off 2pt},
+    kapcsfel/.style={font=\scriptsize, text=peSzurke, fill=white, inner sep=1.5pt}]
+  % Szintek
+  \def\dy{1.62}
+  \foreach \k/\bt/\jt in {
+      1/{Probléma, cél és\\működési koncepció}/{Átadás, üzemeltetés\\és fenntartás},
+      2/{Érdekelt felek\\igényei és elvárásai}/{Validáció\\(valós használatban)},
+      3/{Rendszer-\\követelmények}/{Rendszer-\\verifikáció},
+      4/{Architektúra és\\koncepció}/{Integráció és alrend-\\szer-verifikáció},
+      5/{Részletes\\tervezés}/{Komponens-\\verifikáció}} {
+    \pgfmathsetmacro{\y}{-(\k-1)*\dy}
+    \pgfmathsetmacro{\xb}{1.75+(\k-1)*0.8}
+    \pgfmathsetmacro{\xj}{13.25-(\k-1)*0.8}
+    \node[bal]  (B\k) at (\xb,\y) {\bt};
+    \node[jobb] (J\k) at (\xj,\y) {\jt};
+  }
+  \node[alj] (M) at (7.5,-5*\dy-0.1) {Megvalósítás\\[-1pt]{\mdseries\scriptsize gyártás, kódolás, beszerzés}};
+  % V-irányú nyilak
+  \foreach \a/\b in {1/2,2/3,3/4,4/5} {
+    \draw[nyil, draw=peKek] (B\a.south) ++(0.35,0) -- ($(B\b.north)+(-0.2,0)$);
+    \draw[nyil, draw=peZold] ($(J\b.north)+(0.2,0)$) -- ($(J\a.south)+(-0.35,0)$);
+  }
+  \draw[nyil, draw=peKek] (B5.south) -- (M.north west);
+  \draw[nyil, draw=peZold] (M.north east) -- (J5.south);
+  % Vízszintes megfeleltetések
+  \foreach \k/\t in {1/{üzleti cél $\to$ hasznosulás mérése},
+                     2/{validációs terv},
+                     3/{rendszerverifikációs terv},
+                     4/{integrációs terv},
+                     5/{komponensteszt-terv}} {
+    \draw[kapcs] (B\k.east) -- node[kapcsfel, above=1pt] {\t} (J\k.west);
+  }
+  % Oldalfeliratok
+  \node[rotate=90, font=\cimbetu\small, text=peKek, anchor=south]
+    at (-0.05,-3.25) {Dekompozíció és definíció};
+  \node[rotate=-90, font=\cimbetu\small, text=peZold, anchor=south]
+    at (15.05,-3.25) {Integráció és ellenőrzés};
+  % Szinttengely
+  \draw[ketnyil, draw=peSzurke, line width=0.6pt] (-0.95,0.45) -- (-0.95,-6.9);
+  \node[felirat, anchor=south, font=\scriptsize] at (-0.95,0.5) {rendszer};
+  \node[felirat, anchor=north, font=\scriptsize] at (-0.95,-6.95) {komponens};
+  % Időtengely
+  \draw[nyilv] (0.2,-9.2) -- (14.8,-9.2) node[felirat, anchor=north east, font=\scriptsize] at (14.8,-9.3) {idő, a termék érettsége};
+\end{tikzpicture}
+\end{document}

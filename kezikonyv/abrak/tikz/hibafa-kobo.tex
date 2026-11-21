@@ -1,0 +1,34 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usetikzlibrary{shapes.gates.logic.US}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, esem/.style={doboz=34mm, font=\footnotesize, minimum height=10mm},
+    kapu/.style={draw=peSotet, fill=peHalvany, line width=0.8pt, rotate=90, minimum height=9mm, minimum width=7mm, inner sep=0pt},
+    alap/.style={circle, draw=peKek, fill=white, line width=0.8pt, minimum size=9mm, font=\footnotesize\bfseries},
+    ism/.style={circle, draw=peKiemel, fill=peKiemelH, line width=1.1pt, minimum size=9mm, font=\footnotesize\bfseries},
+    v/.style={line width=0.8pt, draw=peSotet}]
+  \node[sotetdoboz=58mm, font=\footnotesize, minimum height=10mm] (top) at (0,6.2) {a kezelőt teljes sebességű kobotkar éri};
+  \node[and gate US, kapu, logic gate inputs=nnn] (g1) at (0,4.9) {};
+  \node[felirat] at (0.85,4.9) {ÉS};
+  \draw[v] (top.south) -- (g1.output);
+  \node[alap] (e1) at (-5.0,2.8) {E1};
+  \node[felirat, align=center, text width=30mm] at (-5.0,1.75) {a kezelő a közös térben van\\$p = 0{,}3$};
+  \node[esem] (i2) at (0,3.3) {nincs sebességcsökkentés};
+  \node[esem] (i3) at (5.0,3.3) {nincs erőhatárolás};
+  \draw[v] (g1.south) -- ++(0,-0.35) coordinate (el);
+  \draw[v] (el) -| (e1.north); \draw[v] (el) -- (i2.north); \draw[v] (el) -| (i3.north);
+  \node[or gate US, kapu, logic gate inputs=nn] (g2) at (0,2.2) {}; \node[felirat] at (0.85,2.2) {VAGY};
+  \node[or gate US, kapu, logic gate inputs=nn] (g3) at (5.0,2.2) {}; \node[felirat] at (5.85,2.2) {VAGY};
+  \draw[v] (i2.south) -- (g2.output); \draw[v] (i3.south) -- (g3.output);
+  \node[alap] (e2) at (-1.3,0.6) {E2}; \node[ism] (e3) at (1.3,0.6) {E3};
+  \node[ism] (e3b) at (3.7,0.6) {E3}; \node[alap] (e4) at (6.3,0.6) {E4};
+  \foreach \g/\a/\b in {g2/e2/e3, g3/e3b/e4} {
+    \draw[v] (\g.south) -- ++(0,-0.3) coordinate (k);
+    \draw[v] (k) -| (\a.north); \draw[v] (k) -| (\b.north);
+  }
+  \node[felirat, align=center, text width=26mm] at (-1.3,-0.75) {a szkenner nem érzékel\\$p = 0{,}01$};
+  \node[felirat, align=center, text width=26mm, text=peKiemel] at (2.5,-0.75) {a biztonsági vezérlés veszélyes hibája\\$p = 0{,}001$ (ismétlődő esemény)};
+  \node[felirat, align=center, text width=26mm] at (6.3,-0.75) {az erőhatárolás hibája\\$p = 0{,}005$};
+  \node[felirat, align=left, anchor=west, text width=60mm] at (3.4,5.6) {minimális vágathalmazok:\\$\{E1, E3\}$ és $\{E1, E2, E4\}$\\$P(\mathrm{csúcs}) \approx 0{,}3\,(0{,}001 + 0{,}01 \cdot 0{,}005) \approx 3{,}2 \cdot 10^{-4}$/év};
+\end{tikzpicture}
+\end{document}

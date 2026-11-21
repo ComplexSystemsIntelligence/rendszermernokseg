@@ -1,0 +1,24 @@
+body { font-family: "IBM Plex Serif", Georgia, serif; line-height: 1.55; color: #1F2933; }
+h1, h2, h3, h4 { font-family: "Raleway", "IBM Plex Sans", sans-serif; color: #1B3A57; }
+h1 { font-weight: 900; } h2 { font-weight: 800; } h3 { color: #285780; }
+.chapter-number { color: #E07B39; }
+figcaption, .figure-caption, caption { font-family: "IBM Plex Sans", sans-serif; font-size: .9em; color: #3E4C59; }
+.abraszam { font-weight: bold; color: #285780; }
+table { border-collapse: collapse; font-size: .9em; }
+th { border-bottom: 2px solid #285780; text-align: left; }
+td, th { padding: .2em .45em; }
+.doboz { border-left: 4px solid #285780; background: #EEF3F9; padding: .1em .9em .4em; margin: 1.2em 0; }
+.doboz-cim { font-family: "Raleway", sans-serif; font-weight: 800; color: #285780; margin: .5em 0 .3em; }
+.doboz-esetB, .doboz-onell { border-left-color: #3E8E63; background: #EBF5EF; }
+.doboz-esetB .doboz-cim, .doboz-onell .doboz-cim { color: #3E8E63; }
+.doboz-esetC, .doboz-kitekintes { border-left-color: #7A5C99; background: #F3EFF8; }
+.doboz-esetC .doboz-cim, .doboz-kitekintes .doboz-cim { color: #7A5C99; }
+.doboz-hiba { border-left-color: #B83A3A; background: #FBF0F0; }
+.doboz-hiba .doboz-cim { color: #B83A3A; }
+.doboz-projekt { border-left-color: #E07B39; background: #FDF3EC; }
+.doboz-projekt .doboz-cim { color: #E07B39; }
+.doboz-prompt, .doboz-forras { border-left-color: #6B7280; background: #F5F6F8; }
+.doboz-prompt .doboz-cim, .doboz-forras .doboz-cim { color: #6B7280; }
+.megoldas { font-size: .9em; border-top: 1px solid #D5E5DB; margin-top: .5em; }
+.vterkep img { max-width: 100%; }
+.demo { display: none; }

@@ -1,0 +1,15 @@
+% hatso.tex -- hátsó borító a PDF végén (a Quarto include-after-body hívja)
+\cleardoubleevenemptypage
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[peKek] (current page.south west) rectangle (current page.north east);
+  \fill[peKiemel] ($(current page.south west)+(0,7.35cm)$) -- ($(current page.south east)+(0,10.85cm)$)
+    -- ($(current page.south east)+(0,11.15cm)$) -- ($(current page.south west)+(0,7.65cm)$) -- cycle;
+  \fill[peSotet] (current page.south west) -- (current page.south east)
+    -- ($(current page.south east)+(0,10.5cm)$) -- ($(current page.south west)+(0,7cm)$) -- cycle;
+  \node[inner sep=0] at ($(current page.center)+(0,3.2cm)$)
+    {\includegraphics[height=8.2cm]{\pelogo{PE_cimer_nevjel_allo_feher}}};
+  \node[anchor=south, inner sep=0, text=white, text width=17cm, align=center]
+    at ($(current page.south)+(0,2.6cm)$)
+    {{\ralewayextra\large Nyílt tankönyv · \peWeb\par}\vspace{2mm}{\sffamily\small CC BY-NC-SA 4.0\par}};
+\end{tikzpicture}

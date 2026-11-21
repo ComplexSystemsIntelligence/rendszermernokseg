@@ -1,0 +1,22 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=0.012cm]
+  \def\oszlop#1#2#3#4#5{\fill[#3] (#1-0.42,#4) rectangle (#1+0.42,#5); \node[font=\footnotesize, align=center, anchor=north] at (#1,-12) {#2};}
+  \oszlop{0}{tervezett\\idő}{peKek}{0}{450}
+  \oszlop{1.25}{átállás}{pePiros}{354}{450}
+  \oszlop{2.5}{meghibá-\\sodás}{pePiros}{334}{354}
+  \oszlop{3.75}{működési\\idő}{peKozep}{0}{334}
+  \oszlop{5}{sebesség-\\veszteség}{peKiemel}{280}{334}
+  \oszlop{6.25}{nettó\\működés}{peKozep}{0}{280}
+  \oszlop{7.5}{selejt}{peKiemel}{264}{280}
+  \oszlop{8.75}{értékes\\idő}{peZold}{0}{264}
+  \foreach \x/\v/\h in {0/450/450, 1.25/96/450, 2.5/20/354, 3.75/334/334, 5/54/334, 6.25/280/280, 7.5/16/280, 8.75/264/264} \node[font=\footnotesize, anchor=south] at (\x,\h) {\v};
+  \draw[peSzurke] (-0.6,0) -- (9.3,0);
+  \node[font=\footnotesize, text=peSotet] at (2.0,560) {$A = 334/450 = 0{,}742$};
+  \node[font=\footnotesize, text=peSotet] at (5.0,560) {$P = 280/334 = 0{,}838$};
+  \node[font=\footnotesize, text=peSotet] at (7.9,560) {$Q = 66/70 = 0{,}943$};
+  \node[font=\footnotesize\bfseries, text=peKek] at (4.4,640) {OEE $= 0{,}742 \cdot 0{,}838 \cdot 0{,}943 = 0{,}587$};
+  \node[font=\footnotesize, rotate=90] at (-1.1,225) {perc / műszak};
+\end{tikzpicture}
+\end{document}

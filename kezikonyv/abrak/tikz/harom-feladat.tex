@@ -1,0 +1,26 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  ism/.style={doboz=14mm, font=\footnotesize, minimum height=9mm},
+  ker/.style={kiemeltdoboz=14mm, font=\footnotesize\bfseries, minimum height=9mm},
+  rsz/.style={sotetdoboz=17mm, font=\footnotesize\bfseries, minimum height=11mm},
+  rszk/.style={kiemeltdoboz=17mm, font=\footnotesize\bfseries, minimum height=11mm}]
+  \foreach \x/\cim/\al/\b/\r/\k in {
+      0/{Rendszerelemzés}/{direkt feladat}/ism/rsz/ker,
+      6.2/{Rendszertervezés}/{1. inverz feladat}/ism/rszk/ism,
+      12.4/{Rendszerirányítás}/{2. inverz feladat}/ker/rsz/ism} {
+    \begin{scope}[xshift=\x cm]
+      \node[\b] (b) at (-2.15,0) {bemenet};
+      \node[\r] (r) at (0,0) {rendszer};
+      \node[\k] (k) at (2.15,0) {kimenet};
+      \draw[nyil] (b) -- (r); \draw[nyil] (r) -- (k);
+      \node[font=\cimbetu\small, text=peSotet] at (0,1.25) {\cim};
+      \node[font=\scriptsize, text=peSzurke] at (0,0.8) {\al};
+    \end{scope}}
+  \node[font=\scriptsize, text=peSotet, align=center, text width=52mm] at (0,-1.15) {adott a bemenet és a rendszer;\\keressük a kimenetet\\{\color{peSzurke}(pl. mennyit termel a cella?)}};
+  \node[font=\scriptsize, text=peSotet, align=center, text width=52mm] at (6.2,-1.15) {adott a bemenet és a kívánt kimenet;\\keressük a rendszert\\{\color{peSzurke}(milyen cella termel 140 ezer darabot?)}};
+  \node[font=\scriptsize, text=peSotet, align=center, text width=52mm] at (12.4,-1.15) {adott a rendszer és a kívánt kimenet;\\keressük a bemenetet\\{\color{peSzurke}(hogyan ütemezzük a rendeléseket?)}};
+  \node[font=\scriptsize, text=peKiemel] at (6.2,-2.25) {narancs: a keresett elem};
+\end{tikzpicture}
+\end{document}

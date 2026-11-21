@@ -1,0 +1,25 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  f/.style={doboz=34mm, font=\footnotesize, minimum height=12mm},
+  k/.style={kiemeltdoboz=34mm, font=\footnotesize, minimum height=12mm},
+  fo/.style={zolddoboz=34mm, font=\footnotesize, minimum height=12mm}]
+  \node[font=\cimbetu\small, text=peKek] at (0,2.2) {FUNKCIÓ};
+  \node[font=\cimbetu\small, text=peKiemel] at (5,2.2) {KONCEPCIÓ};
+  \node[font=\cimbetu\small, text=peZold] at (10,2.2) {FORMA};
+  \node[felirat] at (0,1.7) {mit csinál? (folyamat + operandus)};
+  \node[felirat] at (5,1.7) {milyen elven? (leképezés)};
+  \node[felirat] at (10,1.7) {mi az? (elemek + szerkezet)};
+  \node[f] (f1) at (0,0) {csavarkötés létrehozása\\{\scriptsize meghúzás + csavar}};
+  \node[k] (k1) at (5,1.0) {kézi szerelés motoros csavarbehajtóval};
+  \node[k] (k2) at (5,-0.6) {együttműködő robot csavarozó orsóval};
+  \node[k] (k3) at (5,-2.2) {többorsós fix csavarozóállomás};
+  \node[fo] (o1) at (10,1.0) {operátor, csavarbehajtó, nyomatékkulcs};
+  \node[fo] (o2) at (10,-0.6) {kobot, orsó, csavaradagoló, befogó};
+  \node[fo] (o3) at (10,-2.2) {8 orsós fej, emelőegység, tálcás adagolás};
+  \foreach \k in {k1,k2,k3} \draw[nyil] (f1.east) -- (\k.west);
+  \draw[nyil] (k1) -- (o1); \draw[nyil] (k2) -- (o2); \draw[nyil] (k3) -- (o3);
+  \node[felirat, text width=120mm] at (5,-3.5) {Ugyanaz a funkció több koncepcióval valósítható meg. Az architektúra a választott koncepció megtestesülése: a funkciók hozzárendelése a forma elemeihez és az elemek kapcsolatainak meghatározása.};
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,20 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, a/.style={doboz=34mm, font=\footnotesize, minimum height=11mm}]
+  \def\R{3.3}
+  \node[a] (n1) at (90:\R) {1. folyamatazonosítás};
+  \node[a] (n2) at (30:\R+0.6) {2. folyamatfeltárás};
+  \node[a] (n3) at (-30:\R+0.6) {3. folyamatelemzés};
+  \node[a] (n4) at (-90:\R) {4. újratervezés};
+  \node[a] (n5) at (-150:\R+0.6) {5. bevezetés};
+  \node[a] (n6) at (150:\R+0.6) {6. monitorozás és irányítás};
+  \draw[nyil] (n1) to[bend left=18] node[felirat, above right, align=left] {folyamat-\\architektúra} (n2);
+  \draw[nyil] (n2) to[bend left=18] node[felirat, right, align=left] {jelenlegi\\(as-is) modell} (n3);
+  \draw[nyil] (n3) to[bend left=18] node[felirat, below right, align=left] {gyengeségek\\és hatásuk} (n4);
+  \draw[nyil] (n4) to[bend left=18] node[felirat, below left, align=right] {jövőbeli\\(to-be) modell} (n5);
+  \draw[nyil] (n5) to[bend left=18] node[felirat, left, align=right] {végrehajtható\\folyamat} (n6);
+  \draw[nyil, draw=peKiemel] (n6) to[bend left=18] node[felirat, above left, align=right, text=peKiemel] {megfelelőségi és\\teljesítményadatok} (n1);
+  \node[font=\footnotesize\bfseries, text=peSotet, align=center] at (0,0) {a folyamat-\\menedzsment\\életciklusa};
+\end{tikzpicture}
+\end{document}

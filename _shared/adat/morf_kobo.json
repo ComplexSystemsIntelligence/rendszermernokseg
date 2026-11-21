@@ -1,0 +1,186 @@
+{
+  "cim": "KoboCella morfológiai doboz",
+  "funkciok": [
+    {
+      "kod": "F1",
+      "nev": "1.1 motorház befogása",
+      "opciok": [
+        "kézi befogó",
+        "pneumatikus befogó",
+        "forgóasztal két befogóval",
+        "robot tartja"
+      ]
+    },
+    {
+      "kod": "F2",
+      "nev": "2.1 csavar adagolása",
+      "opciok": [
+        "kézi, tálcából",
+        "rezgőadagoló + tömlő",
+        "szívófejes kiemelés",
+        "előre töltött tár"
+      ]
+    },
+    {
+      "kod": "F3",
+      "nev": "2.2 csavar meghúzása",
+      "opciok": [
+        "kézi csavarbehajtó",
+        "kobot + egyorsós fej",
+        "többorsós fix fej",
+        "ipari robot zárt cellában"
+      ]
+    },
+    {
+      "kod": "F4",
+      "nev": "2.3 nyomaték mérése",
+      "opciok": [
+        "nyomatékkulcs mintavétellel",
+        "orsóba épített mérés",
+        "külső mérőállomás",
+        "áramfelvételből becsült"
+      ]
+    },
+    {
+      "kod": "F5",
+      "nev": "4.1 védőzóna figyelése",
+      "opciok": [
+        "fix védőrács",
+        "fényfüggöny",
+        "lézerszkenner + sebességkorlát",
+        "erő- és teljesítménykorlátozás"
+      ]
+    },
+    {
+      "kod": "F6",
+      "nev": "5.1 kész motor kivétele",
+      "opciok": [
+        "kézi kivétel",
+        "kobot a kiadóba",
+        "szállítószalag",
+        "gravitációs csúszda"
+      ]
+    }
+  ],
+  "osszeferhetetlen": [
+    [
+      "F3.1",
+      "F2.3",
+      "a szívófejes kiemeléshez robot kell"
+    ],
+    [
+      "F3.1",
+      "F5.1",
+      "kézi munkánál az operátor nem lehet rács mögött"
+    ],
+    [
+      "F3.1",
+      "F5.3",
+      "kézi munkánál nincs mit lassítani"
+    ],
+    [
+      "F3.1",
+      "F5.4",
+      "kézi munkánál nincs mit korlátozni"
+    ],
+    [
+      "F3.1",
+      "F1.4",
+      "nincs robot, amely tartaná"
+    ],
+    [
+      "F3.1",
+      "F6.2",
+      "nincs kobot"
+    ],
+    [
+      "F3.2",
+      "F5.1",
+      "a rács megszüntetné az együttműködést"
+    ],
+    [
+      "F3.3",
+      "F1.4",
+      "nincs robot, amely tartaná"
+    ],
+    [
+      "F3.3",
+      "F2.1",
+      "a többorsós fej kézi töltése túl lassú"
+    ],
+    [
+      "F3.3",
+      "F5.4",
+      "a fix fej nem együttműködő eszköz"
+    ],
+    [
+      "F3.3",
+      "F6.2",
+      "nincs kobot"
+    ],
+    [
+      "F3.4",
+      "F1.1",
+      "zárt cellában nincs kézi befogás"
+    ],
+    [
+      "F3.4",
+      "F2.1",
+      "zárt cellában nincs kézi adagolás"
+    ],
+    [
+      "F3.4",
+      "F5.3",
+      "zárt cellához fizikai elválasztás kell"
+    ],
+    [
+      "F3.4",
+      "F5.4",
+      "az ipari robot nem együttműködő"
+    ],
+    [
+      "F3.4",
+      "F6.1",
+      "zárt cellából nincs kézi kivétel"
+    ],
+    [
+      "F3.4",
+      "F6.2",
+      "nincs kobot"
+    ]
+  ],
+  "koncepciok": {
+    "A – együttműködő cella": [
+      "F1.2",
+      "F2.2",
+      "F3.2",
+      "F4.2",
+      "F5.3",
+      "F6.2"
+    ],
+    "B – fix állomás": [
+      "F1.3",
+      "F2.4",
+      "F3.3",
+      "F4.2",
+      "F5.1",
+      "F6.3"
+    ],
+    "C – kézi plusz": [
+      "F1.1",
+      "F2.2",
+      "F3.1",
+      "F4.2",
+      "F5.2",
+      "F6.1"
+    ],
+    "D – zárt robotcella": [
+      "F1.2",
+      "F2.3",
+      "F3.4",
+      "F4.2",
+      "F5.1",
+      "F6.3"
+    ]
+  }
+}

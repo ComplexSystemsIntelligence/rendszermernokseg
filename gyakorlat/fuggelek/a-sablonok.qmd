@@ -1,0 +1,106 @@
+# Sablonok és notebookok {#sec-sablonok}
+
+Minden eszközlaphoz tartozik letölthető Excel-sablon, és ahol a számítás vagy az elemzés túlmutat egy táblázaton, Google Colabban futtatható Python-notebook is. A sablonok Excelben, LibreOffice Calcban és Google Táblázatokban is használhatók; mindegyik egy útmutató lappal kezdődik, és a kézikönyv futó eseteinek egyikével kitöltött példát tartalmaz. A notebookok a sablon kitöltött példájával indulnak, és a kitöltött sablon feltöltésével a saját adatokon is futtathatók ([-@fig-sablon-munkafolyamat]. ábra).
+
+**Jelmagyarázat a sablonokban:** sárga háttér, kék betű: kitöltendő cella; halványkék háttér: képlet, ne írd felül; narancs vagy piros kiemelés: figyelmeztetés, amelyet érdemes megvizsgálni.
+
+## I. rész – Projektindítás
+
+| Eszközlap | Excel-sablon | Notebook |
+|:--|:--|:--|
+| [-@sec-v-terv]. A projekt V-terve | [projekt_v_terv_sablon.xlsx](../sablonok/projekt_v_terv_sablon.xlsx) | – |
+| [-@sec-kontextusdiagram]. Kontextusdiagram és interfészlista | [kontextusdiagram_sablon.xlsx](../sablonok/kontextusdiagram_sablon.xlsx) | [kontextusdiagram.ipynb](../notebookok/kontextusdiagram.ipynb) · [Colab]({{< var colab >}}kontextusdiagram.ipynb) |
+
+: A I. rész eszközlapjainak sablonjai és notebookjai. {tbl-colwidths="[40,28,32]"}
+
+## II. rész – A V bal ága
+
+| Eszközlap | Excel-sablon | Notebook |
+|:--|:--|:--|
+| [-@sec-erdekelt-azonositas]. Érdekelt felek azonosítása | [erdekelt_felek_sablon.xlsx](../sablonok/erdekelt_felek_sablon.xlsx) | [erdekelt_felek.ipynb](../notebookok/erdekelt_felek.ipynb) · [Colab]({{< var colab >}}erdekelt_felek.ipynb) |
+| [-@sec-hatalom-erdekeltseg]. Hatalom–érdekeltség és fontossági elemzés | [erdekelt_felek_sablon.xlsx](../sablonok/erdekelt_felek_sablon.xlsx) | [erdekelt_felek.ipynb](../notebookok/erdekelt_felek.ipynb) · [Colab]({{< var colab >}}erdekelt_felek.ipynb) |
+| [-@sec-interju]. Interjú és megfigyelés | [interju_sablon.xlsx](../sablonok/interju_sablon.xlsx) | – |
+| [-@sec-kano]. Kano-elemzés | [kano_sablon.xlsx](../sablonok/kano_sablon.xlsx) | [kano_elemzes.ipynb](../notebookok/kano_elemzes.ipynb) · [Colab]({{< var colab >}}kano_elemzes.ipynb) |
+| [-@sec-conops]. Működési koncepció és forgatókönyvek | [forgatokonyv_sablon.xlsx](../sablonok/forgatokonyv_sablon.xlsx) | – |
+| [-@sec-kovetelmeny-iras]. Követelményírás és -ellenőrzés | [kovetelmeny_sablon.xlsx](../sablonok/kovetelmeny_sablon.xlsx) | [kovetelmeny_ellenorzes.ipynb](../notebookok/kovetelmeny_ellenorzes.ipynb) · [Colab]({{< var colab >}}kovetelmeny_ellenorzes.ipynb) |
+| [-@sec-moe-mop-tpm]. A siker mérőszámai: MOE, MOP, TPM | [moe_mop_tpm_sablon.xlsx](../sablonok/moe_mop_tpm_sablon.xlsx) | [tpm_kovetes.ipynb](../notebookok/tpm_kovetes.ipynb) · [Colab]({{< var colab >}}tpm_kovetes.ipynb) |
+| [-@sec-nyomonkovetes]. Nyomonkövethetőség | [nyomonkovetes_sablon.xlsx](../sablonok/nyomonkovetes_sablon.xlsx) | [nyomonkovetes.ipynb](../notebookok/nyomonkovetes.ipynb) · [Colab]({{< var colab >}}nyomonkovetes.ipynb) |
+| [-@sec-qfd]. Minőségfunkció-telepítés (QFD) | [qfd_sablon.xlsx](../sablonok/qfd_sablon.xlsx) | [qfd_minoseghaz.ipynb](../notebookok/qfd_minoseghaz.ipynb) · [Colab]({{< var colab >}}qfd_minoseghaz.ipynb) |
+| [-@sec-funkciofa]. Funkciófa és allokációs táblázat | [funkciofa_sablon.xlsx](../sablonok/funkciofa_sablon.xlsx) | [funkciofa.ipynb](../notebookok/funkciofa.ipynb) · [Colab]({{< var colab >}}funkciofa.ipynb) |
+| [-@sec-n2-dsm]. N²-diagram és DSM | [n2_dsm_sablon.xlsx](../sablonok/n2_dsm_sablon.xlsx) | [n2_dsm.ipynb](../notebookok/n2_dsm.ipynb) · [Colab]({{< var colab >}}n2_dsm.ipynb) |
+| [-@sec-morfologiai-doboz]. Morfológiai doboz | [morfologiai_doboz_sablon.xlsx](../sablonok/morfologiai_doboz_sablon.xlsx) | [morfologiai_doboz.ipynb](../notebookok/morfologiai_doboz.ipynb) · [Colab]({{< var colab >}}morfologiai_doboz.ipynb) |
+| [-@sec-triz]. TRIZ: ellentmondások és feltalálói elvek | [triz_sablon.xlsx](../sablonok/triz_sablon.xlsx) | – |
+| [-@sec-hat-kalap]. Hat gondolkodó kalap | [hat_kalap_sablon.xlsx](../sablonok/hat_kalap_sablon.xlsx) | – |
+| [-@sec-otletroham]. Ötletroham, névleges csoporttechnika, Delphi | [otletroham_sablon.xlsx](../sablonok/otletroham_sablon.xlsx) | [otletertekeles.ipynb](../notebookok/otletertekeles.ipynb) · [Colab]({{< var colab >}}otletertekeles.ipynb) |
+| [-@sec-pugh]. Pugh-módszer | [pugh_sablon.xlsx](../sablonok/pugh_sablon.xlsx) | [trade_study.ipynb](../notebookok/trade_study.ipynb) · [Colab]({{< var colab >}}trade_study.ipynb) |
+| [-@sec-trade-study]. Súlyozott értékelés (trade study) | [trade_study_sablon.xlsx](../sablonok/trade_study_sablon.xlsx) | [trade_study.ipynb](../notebookok/trade_study.ipynb) · [Colab]({{< var colab >}}trade_study.ipynb) |
+| [-@sec-maut]. Hasznossági függvények (MAUT) | [maut_sablon.xlsx](../sablonok/maut_sablon.xlsx) | [maut.ipynb](../notebookok/maut.ipynb) · [Colab]({{< var colab >}}maut.ipynb) |
+| [-@sec-ahp]. AHP – páros összehasonlítás | [ahp_sablon.xlsx](../sablonok/ahp_sablon.xlsx) | [ahp.ipynb](../notebookok/ahp.ipynb) · [Colab]({{< var colab >}}ahp.ipynb) |
+| [-@sec-pareto-front]. Dominancia és Pareto-front | [pareto_front_sablon.xlsx](../sablonok/pareto_front_sablon.xlsx) | [pareto_front.ipynb](../notebookok/pareto_front.ipynb) · [Colab]({{< var colab >}}pareto_front.ipynb) |
+| [-@sec-koltseg-haszon]. Költség–haszon elemzés | [koltseg_haszon_sablon.xlsx](../sablonok/koltseg_haszon_sablon.xlsx) | [koltseg_haszon.ipynb](../notebookok/koltseg_haszon.ipynb) · [Colab]({{< var colab >}}koltseg_haszon.ipynb) |
+| [-@sec-hta]. Hierarchikus feladatelemzés (HTA) | [hta_sablon.xlsx](../sablonok/hta_sablon.xlsx) | [hta.ipynb](../notebookok/hta.ipynb) · [Colab]({{< var colab >}}hta.ipynb) |
+| [-@sec-funkciomegosztas]. Funkciómegosztás és automatizálási szint | [funkciomegosztas_sablon.xlsx](../sablonok/funkciomegosztas_sablon.xlsx) | [funkciomegosztas.ipynb](../notebookok/funkciomegosztas.ipynb) · [Colab]({{< var colab >}}funkciomegosztas.ipynb) |
+| [-@sec-tlx-sus]. Terhelés- és használhatóságmérés (NASA-TLX, SUS) | [tlx_sus_sablon.xlsx](../sablonok/tlx_sus_sablon.xlsx) | [tlx_sus.ipynb](../notebookok/tlx_sus.ipynb) · [Colab]({{< var colab >}}tlx_sus.ipynb) |
+| [-@sec-kockazati-matrix]. Kockázati mátrix | [kockazati_matrix_sablon.xlsx](../sablonok/kockazati_matrix_sablon.xlsx) | [kockazati_matrix.ipynb](../notebookok/kockazati_matrix.ipynb) · [Colab]({{< var colab >}}kockazati_matrix.ipynb) |
+| [-@sec-pha]. Előzetes veszélyelemzés (PHA) | [pha_sablon.xlsx](../sablonok/pha_sablon.xlsx) | [pha.ipynb](../notebookok/pha.ipynb) · [Colab]({{< var colab >}}pha.ipynb) |
+| [-@sec-fmea]. FMEA | [fmea_sablon.xlsx](../sablonok/fmea_sablon.xlsx) | [fmea.ipynb](../notebookok/fmea.ipynb) · [Colab]({{< var colab >}}fmea.ipynb) |
+| [-@sec-rbd]. Megbízhatósági blokkdiagram | [rbd_sablon.xlsx](../sablonok/rbd_sablon.xlsx) | [rbd.ipynb](../notebookok/rbd.ipynb) · [Colab]({{< var colab >}}rbd.ipynb) |
+| [-@sec-hibafa]. Hibafa-elemzés | [hibafa_sablon.xlsx](../sablonok/hibafa_sablon.xlsx) | [hibafa.ipynb](../notebookok/hibafa.ipynb) · [Colab]({{< var colab >}}hibafa.ipynb) |
+| [-@sec-esemenyfa]. Eseményfa-elemzés | [esemenyfa_sablon.xlsx](../sablonok/esemenyfa_sablon.xlsx) | [esemenyfa.ipynb](../notebookok/esemenyfa.ipynb) · [Colab]({{< var colab >}}esemenyfa.ipynb) |
+| [-@sec-stpa]. STPA – rendszerelméleti veszélyelemzés | [stpa_sablon.xlsx](../sablonok/stpa_sablon.xlsx) | [stpa.ipynb](../notebookok/stpa.ipynb) · [Colab]({{< var colab >}}stpa.ipynb) |
+| [-@sec-turesek]. Tűréslánc-számítás | [turesek_sablon.xlsx](../sablonok/turesek_sablon.xlsx) | [turesek.ipynb](../notebookok/turesek.ipynb) · [Colab]({{< var colab >}}turesek.ipynb) |
+| [-@sec-doe]. Kísérlettervezés (DoE) | [doe_sablon.xlsx](../sablonok/doe_sablon.xlsx) | [doe.ipynb](../notebookok/doe.ipynb) · [Colab]({{< var colab >}}doe.ipynb) |
+
+: A II. rész eszközlapjainak sablonjai és notebookjai. {tbl-colwidths="[40,28,32]"}
+
+## III. rész – A V csúcsa
+
+| Eszközlap | Excel-sablon | Notebook |
+|:--|:--|:--|
+| [-@sec-folyamatabra-vsm]. Folyamatábra és értékáram-térkép | [folyamatabra_vsm_sablon.xlsx](../sablonok/folyamatabra_vsm_sablon.xlsx) | [folyamatabra_vsm.ipynb](../notebookok/folyamatabra_vsm.ipynb) · [Colab]({{< var colab >}}folyamatabra_vsm.ipynb) |
+| [-@sec-kapacitas]. Kapacitás és szűk keresztmetszet | [kapacitas_sablon.xlsx](../sablonok/kapacitas_sablon.xlsx) | [kapacitas.ipynb](../notebookok/kapacitas.ipynb) · [Colab]({{< var colab >}}kapacitas.ipynb) |
+| [-@sec-sorkiegyenlites]. Ütemidő és sorkiegyenlítés | [sorkiegyenlites_sablon.xlsx](../sablonok/sorkiegyenlites_sablon.xlsx) | [sorkiegyenlites.ipynb](../notebookok/sorkiegyenlites.ipynb) · [Colab]({{< var colab >}}sorkiegyenlites.ipynb) |
+| [-@sec-oee]. OEE-számítás | [oee_sablon.xlsx](../sablonok/oee_sablon.xlsx) | [oee.ipynb](../notebookok/oee.ipynb) · [Colab]({{< var colab >}}oee.ipynb) |
+| [-@sec-bpmn]. BPMN-modellezés | [bpmn_sablon.xlsx](../sablonok/bpmn_sablon.xlsx) | [bpmn.ipynb](../notebookok/bpmn.ipynb) · [Colab]({{< var colab >}}bpmn.ipynb) |
+| [-@sec-gantt]. Gantt-diagram és ütemezés | [gantt_sablon.xlsx](../sablonok/gantt_sablon.xlsx) | [gantt.ipynb](../notebookok/gantt.ipynb) · [Colab]({{< var colab >}}gantt.ipynb) |
+| [-@sec-abc]. ABC-elemzés és készlethatékonyság | [abc_sablon.xlsx](../sablonok/abc_sablon.xlsx) | [abc.ipynb](../notebookok/abc.ipynb) · [Colab]({{< var colab >}}abc.ipynb) |
+| [-@sec-sorbanallas]. Sorbanállási modellek | [sorbanallas_sablon.xlsx](../sablonok/sorbanallas_sablon.xlsx) | [sorbanallas.ipynb](../notebookok/sorbanallas.ipynb) · [Colab]({{< var colab >}}sorbanallas.ipynb) |
+
+: A III. rész eszközlapjainak sablonjai és notebookjai. {tbl-colwidths="[40,28,32]"}
+
+## IV. rész – A V jobb ága
+
+| Eszközlap | Excel-sablon | Notebook |
+|:--|:--|:--|
+| [-@sec-integracios-terv]. Integrációs terv és interfészmátrix | [integracios_terv_sablon.xlsx](../sablonok/integracios_terv_sablon.xlsx) | [integracios_terv.ipynb](../notebookok/integracios_terv.ipynb) · [Colab]({{< var colab >}}integracios_terv.ipynb) |
+| [-@sec-rvm]. Követelmény-verifikációs mátrix | [rvm_sablon.xlsx](../sablonok/rvm_sablon.xlsx) | [rvm.ipynb](../notebookok/rvm.ipynb) · [Colab]({{< var colab >}}rvm.ipynb) |
+| [-@sec-hasznalhatosagi-teszt]. Használhatósági teszt | [hasznalhatosagi_teszt_sablon.xlsx](../sablonok/hasznalhatosagi_teszt_sablon.xlsx) | [hasznalhatosagi_teszt.ipynb](../notebookok/hasznalhatosagi_teszt.ipynb) · [Colab]({{< var colab >}}hasznalhatosagi_teszt.ipynb) |
+| [-@sec-pareto-diagram]. Pareto-diagram | [pareto_sablon.xlsx](../sablonok/pareto_sablon.xlsx) | [pareto.ipynb](../notebookok/pareto.ipynb) · [Colab]({{< var colab >}}pareto.ipynb) |
+| [-@sec-halszalka]. Ok-okozati (halszálka-) diagram | [halszalka_sablon.xlsx](../sablonok/halszalka_sablon.xlsx) | [halszalka.ipynb](../notebookok/halszalka.ipynb) · [Colab]({{< var colab >}}halszalka.ipynb) |
+| [-@sec-kontrollkartya]. Kontrollkártya (SPC) | [kontrollkartya_sablon.xlsx](../sablonok/kontrollkartya_sablon.xlsx) | [kontrollkartya.ipynb](../notebookok/kontrollkartya.ipynb) · [Colab]({{< var colab >}}kontrollkartya.ipynb) |
+| [-@sec-hisztogram-szoras]. Hisztogram, szórás- és rétegzett diagram | [hisztogram_szoras_sablon.xlsx](../sablonok/hisztogram_szoras_sablon.xlsx) | [hisztogram_szoras.ipynb](../notebookok/hisztogram_szoras.ipynb) · [Colab]({{< var colab >}}hisztogram_szoras.ipynb) |
+| [-@sec-pdca-8d-dmaic]. PDCA, 8D és DMAIC | [pdca_8d_dmaic_sablon.xlsx](../sablonok/pdca_8d_dmaic_sablon.xlsx) | – |
+| [-@sec-folyamatbanyaszat]. Folyamatbányászat alapjai | [folyamatbanyaszat_sablon.xlsx](../sablonok/folyamatbanyaszat_sablon.xlsx) | [folyamatbanyaszat.ipynb](../notebookok/folyamatbanyaszat.ipynb) · [Colab]({{< var colab >}}folyamatbanyaszat.ipynb) |
+
+: A IV. rész eszközlapjainak sablonjai és notebookjai. {tbl-colwidths="[40,28,32]"}
+
+## V. rész – Átívelő menedzsment
+
+| Eszközlap | Excel-sablon | Notebook |
+|:--|:--|:--|
+| [-@sec-wbs]. Munkalebontási struktúra (WBS) | [wbs_sablon.xlsx](../sablonok/wbs_sablon.xlsx) | [wbs.ipynb](../notebookok/wbs.ipynb) · [Colab]({{< var colab >}}wbs.ipynb) |
+| [-@sec-felulvizsgalat]. Technikai felülvizsgálat lebonyolítása | [felulvizsgalat_sablon.xlsx](../sablonok/felulvizsgalat_sablon.xlsx) | – |
+| [-@sec-konfiguracio]. Konfigurációkezelés és változáskérelem | [konfiguracio_sablon.xlsx](../sablonok/konfiguracio_sablon.xlsx) | [konfiguracio.ipynb](../notebookok/konfiguracio.ipynb) · [Colab]({{< var colab >}}konfiguracio.ipynb) |
+
+: A V. rész eszközlapjainak sablonjai és notebookjai. {tbl-colwidths="[40,28,32]"}
+
+## A sablonok és a notebookok újragenerálása
+
+A sablonokat és a notebookokat Python-szkriptek állítják elő, így minden képletük és kódcellájuk ellenőrizhető és újragenerálható. A tárhely `gyakorlat` mappájából:
+
+```bash
+python3 sablonok/_keszit_mind.py --recalc        # minden sablon, képlet-újraszámolással és hibakereséssel
+python3 notebookok/_keszit_notebookok.py --teszt # minden notebook előállítása és lefuttatása
+```
+
+A sablonok és a notebookok közös példaadatai a `sablonok/_*_adat.py` modulokban vannak; ha egy példát módosítunk, a sablon és a notebook ugyanabból az adatból készül újra, és a Gyakorlati útmutató notebookkal rajzolt ábrái is frissülnek.

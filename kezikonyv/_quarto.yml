@@ -1,0 +1,126 @@
+project:
+  type: book
+  output-dir: _book
+  pre-render: ../_shared/scripts/prepare.py
+  post-render: ../_shared/scripts/postrender.py
+
+book:
+  title: "Rendszermérnökség"
+  subtitle: "A rendszerfejlesztés útja a V-modell mentén"
+  author: "Abonyi János"
+  date: "2026"
+  date-format: "YYYY"
+  output-file: rendszermernokseg-kezikonyv
+  site-url: https://complexsystemsintelligence.github.io/rendszermernokseg/kezikonyv/
+  repo-url: https://github.com/ComplexSystemsIntelligence/rendszermernokseg
+  repo-subdir: kezikonyv
+  repo-actions: [edit, issue, source]
+  downloads: [pdf, epub]
+  search: true
+  favicon: assets/logo/favicon-64.png
+  cover-image: assets/borito.png
+  cover-image-alt: "A kötet borítója a Pannon Egyetem címerével és névjelével"
+  sidebar:
+    style: docked
+    collapse-level: 1
+    logo: assets/logo/PE_cimer_nevjel_fekvo_kek.svg
+    logo-alt: "Pannon Egyetem"
+  page-navigation: true
+  page-footer:
+    left: "© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0"
+    right: "[Gyakorlati útmutató](https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/)"
+  chapters:
+    - index.qmd
+    - part: "I. rész – Alapok"
+      chapters:
+        - fejezetek/01-rendszerek.qmd
+        - fejezetek/02-v-modell.qmd
+        - fejezetek/03-modellek.qmd
+    - part: "II. rész – A V bal ága: a problémától a tervig"
+      chapters:
+        - fejezetek/04-problema.qmd
+        - fejezetek/05-erdekelt-felek.qmd
+        - fejezetek/06-kovetelmenyek.qmd
+        - fejezetek/07-qfd.qmd
+        - fejezetek/08-architektura.qmd
+        - fejezetek/09-kreativitas.qmd
+        - fejezetek/10-dontes.qmd
+        - fejezetek/11-emberkozpontu.qmd
+        - fejezetek/12-automatizalas.qmd
+        - fejezetek/13-emberi-hiba.qmd
+        - fejezetek/14-kockazat.qmd
+        - fejezetek/15-fmea.qmd
+        - fejezetek/16-megbizhatosag.qmd
+        - fejezetek/17-biztonsag.qmd
+        - fejezetek/18-robusztus.qmd
+    - part: "III. rész – A V csúcsa: megvalósítás és folyamattervezés"
+      chapters:
+        - fejezetek/19-folyamatelemzes.qmd
+        - fejezetek/20-bpmn.qmd
+        - fejezetek/21-utemezes.qmd
+    - part: "IV. rész – A V jobb ága: integrációtól az üzemeltetésig"
+      chapters:
+        - fejezetek/22-integracio.qmd
+        - fejezetek/23-verifikacio.qmd
+        - fejezetek/24-validacio.qmd
+        - fejezetek/25-uzemeltetes.qmd
+    - part: "V. rész – Átívelő technikai menedzsment"
+      chapters:
+        - fejezetek/26-menedzsment.qmd
+    - irodalom.qmd
+  appendices:
+    - fuggelek/a-esettanulmanyok.qmd
+    - fuggelek/b-szoszedet.qmd
+
+lang: hu
+language: ../_shared/_language-hu.yml
+bibliography: ../_shared/references.bib
+link-citations: true
+crossref:
+  chapters: true
+number-sections: true
+filters:
+  - ../_shared/filters/dobozok.lua
+  - ../_shared/filters/kepformatum.lua
+
+format:
+  html:
+    html-math-method: mathml
+    theme:
+      light: [cosmo, ../_shared/pe.scss]
+    toc: true
+    toc-depth: 3
+    toc-title: "Ezen az oldalon"
+    title-block-banner: true
+    title-block-banner-color: "#FFFFFF"
+    number-depth: 3
+    fig-align: center
+    code-copy: true
+    smooth-scroll: true
+    citations-hover: true
+    footnotes-hover: true
+    reference-location: margin
+    lightbox: false
+  pdf:
+    documentclass: scrbook
+    classoption: [open=any, headings=standardclasses, chapterprefix=false]
+    papersize: a4
+    fontsize: 10.5pt
+    pdf-engine: lualatex
+    mainfont: "IBM Plex Serif"
+    sansfont: "IBM Plex Sans"
+    monofont: "IBM Plex Mono"
+    monofontoptions: [Scale=0.88]
+    geometry: [top=24mm, bottom=26mm, inner=26mm, outer=26mm]
+    toc: true
+    toc-depth: 1
+    number-depth: 3
+    fig-pos: "htbp"
+    include-in-header: ../_shared/latex/preamble.tex
+    include-after-body: ../_shared/latex/hatso.tex
+    colorlinks: true
+    keep-tex: false
+  epub:
+    css: ../_shared/epub.css
+    toc: true
+    toc-depth: 2

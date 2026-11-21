@@ -1,0 +1,120 @@
+# Magyar–angol szószedet {#sec-szoszedet}
+
+A szószedet a könyvben használt fontosabb szakkifejezéseket és angol megfelelőiket gyűjti össze. A rövidítések az angol szakirodalomban használt alakban szerepelnek. A magyarázatok tömörek; a pontos meghatározást és a forrásokat az adott fejezet tartalmazza.
+
+| Magyar | Angol | Rövid magyarázat |
+|:--|:--|:--|
+| 100%-szabály | 100% rule | A munkalebontás minden szintje pontosan a felette álló elem teljes munkáját tartalmazza |
+| alapvető (elvárt) jellemző | must-be quality | Kano-kategória: hiánya elégedetlenséget okoz, megléte nem növeli az elégedettséget |
+| alapvonal | baseline | A rendszerleírás jóváhagyott, csak szabályozott változáskezeléssel módosítható állapota |
+| allokált alapvonal | allocated baseline | Az alrendszerek és komponensek jóváhagyott teljesítményleírása |
+| analitikus hierarchia eljárás | analytic hierarchy process (AHP) | Páros összehasonlításokon alapuló súlyozási és rangsorolási módszer |
+| architektúra | architecture | A rendszer alapvető fogalmai és tulajdonságai, elemei és kapcsolatai, valamint a megvalósítását és fejlődését irányító elvek |
+| architektúra-meghatározás | architecture definition | Az ISO/IEC/IEEE 15288 folyamata: architektúraváltozatok létrehozása, értékelése és a választott architektúra rögzítése nézetekben és modellekben |
+| bemutatás | demonstration | Verifikációs mód: a működés megfigyelése, mérés nélkül vagy csak egyszerű méréssel |
+| biztonsági integritási szint | safety integrity level (SIL) | A biztonsági funkció megkövetelt megbízhatóságának szintje (IEC 61508) |
+| célkitűzés | objective | Konkrét, mérhető célszint, amely egy célhoz kapcsolódik |
+| csatolás | coupling | Az elemek közötti függés erőssége; a jó architektúrában kicsi |
+| cselekvési prioritás | action priority (AP) | Az FMEA rangsoroló eljárása a súlyosság, az előfordulás és az észlelés együttese alapján |
+| digitális fonal | digital thread | Az életciklus adatait összekötő, nyomon követhető adatkapcsolat |
+| egydimenziós jellemző | one-dimensional quality | Kano-kategória: az elégedettség a teljesüléssel arányosan nő |
+| elemzés | analysis | Verifikációs mód: számítással, modellel vagy szimulációval igazolt teljesülés |
+| életciklus-modell | life cycle model | A fejlesztési tevékenységek sorrendjének és visszacsatolásainak modellje |
+| előzetes tervfelülvizsgálat | preliminary design review (PDR) | Annak értékelése, hogy az előzetes terv elfogadható kockázattal teljesítheti-e a követelményeket |
+| előzetes veszélyelemzés | preliminary hazard analysis (PHA) | A veszélyek korai, rendszerszintű azonosítása és értékelése |
+| eltérési engedély | waiver | Dokumentált megállapodás egy követelmény teljesítésének szándékos elengedéséről; az alapvonal nem változik |
+| emberi megbízhatóság-elemzés | human reliability analysis (HRA) | Az emberi hibák valószínűségének és következményeinek becslése |
+| emberi rendszerintegráció | human systems integration (HSI) | Az emberi szempontok beépítése a rendszerfejlesztés teljes életciklusába |
+| érdekelt fél | stakeholder | Akit a rendszer érint, vagy aki hatással van rá |
+| értékáram-térkép | value stream mapping (VSM) | Az anyag- és információáramlás, valamint az átfutási idők ábrázolása |
+| eseményfa-elemzés | event tree analysis (ETA) | Egy kezdeti eseményből kiinduló lehetséges kimenetek és valószínűségeik elemzése |
+| fizikai audit | physical configuration audit | Annak igazolása, hogy a termék és a dokumentációja összhangban van |
+| folyamatbányászat | process mining | Folyamatmodellek feltárása és ellenőrzése eseménynaplókból |
+| folyamatos kockázatkezelés | continuous risk management (CRM) | Ismétlődő ciklus: azonosítás, elemzés, tervezés, követés, irányítás |
+| fontossági (szaliencia-) modell | stakeholder salience model | Az érdekelt felek osztályozása hatalom, legitimitás és sürgősség alapján |
+| funkciófa | functional hierarchy | A funkciók hierarchikus lebontása a fő funkciótól a részfunkciókig |
+| funkcionális alapvonal | functional baseline | A rendszerszintű, teljesítményben megfogalmazott jóváhagyott leírás |
+| funkcionális audit | functional configuration audit | Annak igazolása, hogy a konfigurációs elem teljesíti a követelményeit |
+| funkcionális folyamatábra | functional flow block diagram (FFBD) | A funkciók sorrendjét és logikai kapcsolatait mutató ábra |
+| gyári átvételi teszt | factory acceptance test (FAT) | Átvételi vizsgálat a gyártónál, a szállítás előtt |
+| hagymamodell | onion model | Az érdekelt felek szerepeinek koncentrikus rendszerezése |
+| használati környezet | context of use | A felhasználók, a feladatok, az eszközök és a környezet, amelyben a terméket használják |
+| használhatóság | usability | Milyen hatékonyan, eredményesen és elégedetten érhetik el céljaikat a felhasználók adott használati környezetben |
+| hatalom–érdekeltség rács | power–interest grid | Az érdekelt felek négy negyedbe sorolása |
+| hatáselemzés | impact analysis | Annak feltárása, mely elemeket, dokumentumokat és tevékenységeket érint egy változtatás |
+| hatékonyság mérőszáma | measure of effectiveness (MOE) | A rendszer egészének sikerét az érdekelt felek szemszögéből mérő mutató |
+| helyszíni átvételi teszt | site acceptance test (SAT) | Átvételi vizsgálat a telepítés helyén |
+| helyzettudatosság | situation awareness | A környezet elemeinek észlelése, megértése és jövőbeli állapotuk előrejelzése |
+| hibafa-elemzés | fault tree analysis (FTA) | Egy nemkívánatos csúcseseményhez vezető okok logikai (ÉS, VAGY) elemzése |
+| hibajelenség | failure | Az az esemény, amikor egy elem nem látja el a megkövetelt funkcióját |
+| hibamód- és hatáselemzés | failure mode and effects analysis (FMEA) | A lehetséges hibamódok, hatásaik és okaik rendszeres feltárása és rangsorolása |
+| hibaok | fault | A hibajelenség oka, például alkatrész-, tervezési vagy szoftverhiba |
+| hierarchikus feladatelemzés | hierarchical task analysis (HTA) | A feladatok célokra és részfeladatokra bontása, a végrehajtás terveivel |
+| integráció | integration | Az elemek lépésenkénti összeépítése és a kapcsolatok ellenőrzése |
+| interfészkövetelmény-dokumentum | interface requirements document (IRD) | Egy interfész követelményeinek leírása |
+| interfészvezérlő dokumentum | interface control document (ICD) | Egy interfész jóváhagyott, részletes műszaki leírása |
+| iteráció | iteration | Egy szinten belüli ismételt végighaladás a folyamatokon |
+| jelentős változás | major change | A specifikációt, a költséget, a biztonságot, az interfészeket, a képzést vagy a leszállított terméket érintő változás |
+| kár | harm | Személyi sérülés, egészségkárosodás, vagyoni vagy környezeti kár |
+| képességindex | process capability index (Cp, Cpk) | A folyamat szórásának és helyzetének viszonya a tűréshatárokhoz |
+| keretadó | context setter | Nagy hatalmú, de kis érdekeltségű érdekelt fél |
+| kihagyás | lapse | Emlékezeti hiba: egy szándékolt lépés elmarad |
+| kisebb változás | minor change | A dokumentációt vagy a folyamatot javító változás, amely a cserélhetőséget nem érinti |
+| kísérlettervezés | design of experiments (DoE) | Kísérletek tervezése a tényezők hatásainak és kölcsönhatásainak hatékony becslésére |
+| kockázat | risk | Egy nemkívánatos esemény valószínűségének és következményének együttese |
+| kockázatinformált döntéshozatal | risk-informed decision making (RIDM) | Döntés a változatok kockázatainak és bizonytalanságainak ismeretében |
+| konfigurációkezelés | configuration management | A konfiguráció azonosítása, a változások szabályozása, nyilvántartása és auditálása |
+| konfigurációs bizottság | configuration control board (CCB) | A jelentős változásokról döntő testület |
+| konfigurációs elem | configuration item (CI) | Konfigurációkezelés alá vont dokumentum, hardver, szoftver, adat vagy modell |
+| kontrollkártya | control chart | Mintastatisztika időbeli ábrázolása középvonallal és beavatkozási határokkal |
+| követelmény-nyomonkövetési mátrix | requirements traceability matrix (RTM) | A követelmények forrásainak, leszármazottainak és verifikációjának kapcsolatai |
+| követelmény-verifikációs mátrix | requirements verification matrix (RVM) | Követelményenként a verifikáció módja, sikerkritériuma, felelőse és eredménye |
+| kritikus út | critical path | A projekt időtartamát meghatározó, tartalék nélküli tevékenységsorozat |
+| kulcsszereplő | player | Nagy hatalmú és nagy érdekeltségű érdekelt fél |
+| megbízhatósági blokkdiagram | reliability block diagram (RBD) | A rendszer megbízhatósági szerkezetét soros és párhuzamos blokkokkal leíró modell |
+| megcsúszás | slip | Figyelmi hiba: a helyes szándék hibás végrehajtása |
+| megszerzett érték | earned value (EV) | Az adott időpontig elvégzett munka tervezett költsége |
+| megszerzett érték módszere | earned value management (EVM) | A műszaki tartalom, az ütemezés és a költség együttes teljesítménymérése |
+| minőségfunkció-telepítés | quality function deployment (QFD) | A vevői elvárások műszaki jellemzőkre fordítása mátrixok láncolatával |
+| minőségház | house of quality | A QFD első mátrixa: az elvárások és a műszaki jellemzők kapcsolata |
+| modellalapú rendszermérnökség | model-based systems engineering (MBSE) | Rendszermérnöki munka dokumentumok helyett összekapcsolt modellekre építve |
+| morfológiai doboz | morphological box | A részfunkciók megoldásváltozatainak táblázata a koncepciók kombinálásához |
+| munkalebontási struktúra | work breakdown structure (WBS) | A projekt teljes munkájának termékorientált, hierarchikus felosztása |
+| működési koncepció | concept of operations (ConOps) | A rendszer használatának leírása a felhasználó szemszögéből |
+| műszaki teljesítménymutató | technical performance measure (TPM) | A kritikus műszaki jellemzők követése a fejlesztés során a célértékhez képest |
+| nyilvántartás (konfigurációs) | configuration status accounting | A konfigurációk, a változáskérelmek és az eltérések állapotának rögzítése és jelentése |
+| nyomonkövethetőség | traceability | A követelmények kapcsolata forrásaikkal, a tervvel és a verifikációval |
+| N²-diagram | N-squared diagram | Az elemek közötti interfészeket mátrixban ábrázoló diagram |
+| ötletroham | brainstorming | Ötletgenerálás csoportban, az értékelés elhalasztásával |
+| Pareto-front | Pareto front | A nem dominált megoldások halmaza több célkitűzés esetén |
+| rekurzió | recursion | Ugyanazon folyamatok alkalmazása a termékszerkezet egymás alatti szintjein |
+| rendszerek rendszere | system of systems (SoS) | Önállóan is működő rendszerek együttese, amely új képességet hoz létre |
+| rendszerelméleti folyamatelemzés | system-theoretic process analysis (STPA) | Veszélyelemzés a nem biztonságos irányítási műveletek feltárásával |
+| rendszermérnöki irányítási terv | systems engineering management plan (SEMP) | A projekt legfelső szintű technikai irányítási dokumentuma |
+| részletes tervfelülvizsgálat | critical design review (CDR) | A gyártásra, kódolásra kész terv értékelése |
+| reteszelés | interlock | Műszaki megoldás, amely veszélyes állapotban megakadályozza egy művelet végrehajtását |
+| robusztus tervezés | robust design | A teljesítmény érzéketlenné tétele a zajtényezőkre és a gyártási szórásra |
+| sikeres futás próba | success run testing | Hibátlan próbák számából számolt alsó megbízhatósági korlát |
+| sorkiegyenlítés | line balancing | A műveletek munkaállomásokra osztása az ütemidő figyelembevételével |
+| szabályszegés | violation | Szándékos eltérés az előírt eljárástól |
+| szakmai átvizsgálás | peer review | Egy munkatermék részletes vizsgálata kollégák által, kisebb körben |
+| szükséglet | need | A megoldandó probléma megoldásfüggetlen megfogalmazása |
+| tartalék (ütemezési) | float, slack | Ennyivel késhet egy tevékenység a projekt befejezésének csúszása nélkül |
+| technikai felülvizsgálat | technical review | Bizonyítékokra épülő, tervezett értékelés a szakaszok határán |
+| teljes eszközhatékonyság | overall equipment effectiveness (OEE) | A rendelkezésre állás, a teljesítmény és a minőség szorzata |
+| teljesítmény mérőszáma | measure of performance (MOP) | A rendszer egy műszaki jellemzőjét mérő mutató, amely a hatékonyság mérőszámait támogatja |
+| tényleges költség | actual cost (AC) | Az adott időpontig elvégzett munka tényleges költsége |
+| termékalapvonal | product baseline | A gyártáshoz szükséges részletes, jóváhagyott leírás |
+| tervezési struktúramátrix | design structure matrix (DSM) | Az elemek vagy tevékenységek közötti függéseket négyzetes mátrixban ábrázoló módszer |
+| tervezett érték | planned value (PV) | Az adott időpontig tervezett munka költsége |
+| teszt | test | Verifikációs mód: mérés ellenőrzött körülmények között |
+| tévedés | mistake | Hiba a szándékban vagy a tervben |
+| ütemidő | takt time | A rendelkezésre álló munkaidő és a kereslet hányadosa |
+| validáció | validation | Annak igazolása, hogy a rendszer a tervezett környezetben betölti rendeltetését |
+| védelmi rétegek elemzése | layer of protection analysis (LOPA) | A független védelmi rétegek elégségességének félkvantitatív vizsgálata |
+| verifikáció | verification | Annak igazolása, hogy a rendszer megfelel a követelményeinek |
+| veszély | hazard | A kár lehetséges forrása |
+| vizsgálat | inspection | Verifikációs mód: szemrevételezés, méret- vagy dokumentumellenőrzés |
+| vonzó jellemző | attractive quality | Kano-kategória: hiánya nem okoz elégedetlenséget, megléte kiemelkedő elégedettséget kelt |
+
+: A könyv szakkifejezései és angol megfelelőik. {#tbl-szoszedet tbl-colwidths="[26,28,46]"}

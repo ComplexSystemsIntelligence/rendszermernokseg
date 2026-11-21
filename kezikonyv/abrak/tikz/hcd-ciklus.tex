@@ -1,0 +1,18 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm, a/.style={doboz=44mm, font=\footnotesize, minimum height=13mm}]
+  \node[sotetdoboz=44mm, font=\footnotesize, minimum height=11mm] (p) at (0,3.6) {az emberközpontú tervezés megtervezése};
+  \node[a] (k) at (-3.4,1.4) {1. a használati környezet megértése és rögzítése};
+  \node[a] (f) at (3.4,1.4) {2. a felhasználói követelmények meghatározása};
+  \node[a] (t) at (3.4,-1.4) {3. tervezési megoldások előállítása (vázlat, prototípus)};
+  \node[a] (e) at (-3.4,-1.4) {4. a terv értékelése a felhasználókkal};
+  \node[zolddoboz=44mm, font=\footnotesize, minimum height=11mm] (v) at (0,-3.7) {a megoldás teljesíti a felhasználói követelményeket};
+  \draw[nyil] (p) -| (k);
+  \draw[nyil] (k) -- (f); \draw[nyil] (f) -- (t); \draw[nyil] (t) -- (e);
+  \draw[nyil] (e) |- (v);
+  \node[felirat, align=center] at (0,0) {iteráció,\\ha szükséges};
+  \draw[nyil, draw=peKiemel, dash pattern=on 3pt off 2pt] ([xshift=-6mm]e.north) -- node[felirat, left, text=peKiemel] {a környezethez} ([xshift=-6mm]k.south);
+  \draw[nyil, draw=peKiemel, dash pattern=on 3pt off 2pt] ([yshift=-3mm]e.east) -- node[felirat, below, text=peKiemel] {a tervhez} ([yshift=-3mm]t.west);
+\end{tikzpicture}
+\end{document}

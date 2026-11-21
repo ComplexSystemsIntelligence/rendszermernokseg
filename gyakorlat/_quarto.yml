@@ -1,0 +1,152 @@
+project:
+  type: book
+  output-dir: _book
+  pre-render: ../_shared/scripts/prepare.py
+  post-render: ../_shared/scripts/postrender.py
+  resources:
+    - sablonok/*.xlsx
+    - notebookok/*.ipynb
+
+book:
+  title: "Rendszermérnöki eszköztár"
+  subtitle: "Gyakorlati útmutató a V-modell lépéseihez"
+  author: "Abonyi János"
+  date: "2026"
+  date-format: "YYYY"
+  output-file: rendszermernokseg-gyakorlat
+  site-url: https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/
+  repo-url: https://github.com/ComplexSystemsIntelligence/rendszermernokseg
+  repo-subdir: gyakorlat
+  repo-actions: [edit, issue, source]
+  downloads: [pdf, epub]
+  search: true
+  favicon: assets/logo/favicon-64.png
+  cover-image: assets/borito.png
+  cover-image-alt: "A kötet borítója a Pannon Egyetem címerével és névjelével"
+  sidebar:
+    style: docked
+    collapse-level: 1
+    logo: assets/logo/PE_cimer_nevjel_fekvo_kek.svg
+    logo-alt: "Pannon Egyetem"
+  page-navigation: true
+  page-footer:
+    left: "© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0"
+    right: "[Kézikönyv](https://complexsystemsintelligence.github.io/rendszermernokseg/kezikonyv/)"
+  chapters:
+    - index.qmd
+    - 00-projekt.qmd
+    - part: "I. rész – Projektindítás"
+      chapters:
+        - eszkozok/01-v-terv.qmd
+        - eszkozok/02-kontextusdiagram.qmd
+    - part: "II. rész – A V bal ága"
+      chapters:
+        - eszkozok/03-erdekelt-azonositas.qmd
+        - eszkozok/04-hatalom-erdekeltseg.qmd
+        - eszkozok/05-interju.qmd
+        - eszkozok/06-kano.qmd
+        - eszkozok/07-conops.qmd
+        - eszkozok/08-kovetelmeny-iras.qmd
+        - eszkozok/09-moe-mop-tpm.qmd
+        - eszkozok/10-nyomonkovetes.qmd
+        - eszkozok/11-qfd.qmd
+        - eszkozok/12-funkciofa.qmd
+        - eszkozok/13-n2-dsm.qmd
+        - eszkozok/14-morfologiai-doboz.qmd
+        - eszkozok/15-triz.qmd
+        - eszkozok/16-hat-kalap.qmd
+        - eszkozok/17-otletroham.qmd
+        - eszkozok/18-pugh.qmd
+        - eszkozok/19-trade-study.qmd
+        - eszkozok/20-maut.qmd
+        - eszkozok/21-ahp.qmd
+        - eszkozok/22-pareto-front.qmd
+        - eszkozok/23-koltseg-haszon.qmd
+        - eszkozok/24-hta.qmd
+        - eszkozok/25-funkciomegosztas.qmd
+        - eszkozok/26-tlx-sus.qmd
+        - eszkozok/27-kockazati-matrix.qmd
+        - eszkozok/28-pha.qmd
+        - eszkozok/29-fmea.qmd
+        - eszkozok/30-rbd.qmd
+        - eszkozok/31-hibafa.qmd
+        - eszkozok/32-esemenyfa.qmd
+        - eszkozok/33-stpa.qmd
+        - eszkozok/34-turesek.qmd
+        - eszkozok/35-doe.qmd
+    - part: "III. rész – A V csúcsa"
+      chapters:
+        - eszkozok/36-folyamatabra-vsm.qmd
+        - eszkozok/37-kapacitas.qmd
+        - eszkozok/38-sorkiegyenlites.qmd
+        - eszkozok/39-oee.qmd
+        - eszkozok/40-bpmn.qmd
+        - eszkozok/41-gantt.qmd
+        - eszkozok/42-abc.qmd
+        - eszkozok/43-sorbanallas.qmd
+    - part: "IV. rész – A V jobb ága"
+      chapters:
+        - eszkozok/44-integracios-terv.qmd
+        - eszkozok/45-rvm.qmd
+        - eszkozok/46-hasznalhatosagi-teszt.qmd
+        - eszkozok/47-pareto-diagram.qmd
+        - eszkozok/48-halszalka.qmd
+        - eszkozok/49-kontrollkartya.qmd
+        - eszkozok/50-hisztogram-szoras.qmd
+        - eszkozok/51-pdca-8d-dmaic.qmd
+        - eszkozok/52-folyamatbanyaszat.qmd
+    - part: "V. rész – Átívelő menedzsment"
+      chapters:
+        - eszkozok/53-wbs.qmd
+        - eszkozok/54-felulvizsgalat.qmd
+        - eszkozok/55-konfiguracio.qmd
+    - irodalom.qmd
+  appendices:
+    - fuggelek/a-sablonok.qmd
+
+lang: hu
+language: ../_shared/_language-hu.yml
+bibliography: ../_shared/references.bib
+link-citations: true
+number-sections: true
+filters:
+  - ../_shared/filters/dobozok.lua
+  - ../_shared/filters/kepformatum.lua
+
+format:
+  html:
+    html-math-method: mathml
+    theme:
+      light: [cosmo, ../_shared/pe.scss]
+    toc: true
+    toc-depth: 3
+    toc-title: "Ezen az oldalon"
+    title-block-banner: true
+    title-block-banner-color: "#FFFFFF"
+    number-depth: 2
+    fig-align: center
+    code-copy: true
+    citations-hover: true
+    reference-location: margin
+  pdf:
+    documentclass: scrbook
+    classoption: [open=any, headings=standardclasses, chapterprefix=false]
+    papersize: a4
+    fontsize: 10.5pt
+    pdf-engine: lualatex
+    mainfont: "IBM Plex Serif"
+    sansfont: "IBM Plex Sans"
+    monofont: "IBM Plex Mono"
+    monofontoptions: [Scale=0.88]
+    geometry: [top=24mm, bottom=26mm, inner=26mm, outer=26mm]
+    toc: true
+    toc-depth: 1
+    number-depth: 2
+    fig-pos: "htbp"
+    include-in-header: ../_shared/latex/preamble.tex
+    include-after-body: ../_shared/latex/hatso.tex
+    colorlinks: true
+  epub:
+    css: ../_shared/epub.css
+    toc: true
+    toc-depth: 2

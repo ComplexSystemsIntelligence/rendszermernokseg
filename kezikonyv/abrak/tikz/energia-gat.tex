@@ -1,0 +1,18 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[kiemeltdoboz=30mm, minimum height=24mm, align=center] (e) at (0,0) {\textbf{energiaforrás}\\[2pt]\footnotesize mozgó kobotkar\\\footnotesize forgó orsó\\\footnotesize villamos energia};
+  \node[doboz=30mm, minimum height=24mm, align=center] (c) at (12,0) {\textbf{célpont}\\[2pt]\footnotesize kezelő\\\footnotesize berendezés\\\footnotesize termék};
+  \foreach \x/\t/\c in {3.3/{a forrásnál:\\kisebb sebesség,\\erőhatárolás}/peKek, 6.0/{a terjedési úton:\\burkolat, védőzóna,\\szkenner}/peKek, 8.7/{a célpontnál:\\képzés, kesztyű,\\eljárás}/peKek} {
+    \fill[peHalvany, draw=\c, line width=0.9pt] (\x-0.15,-1.4) rectangle (\x+0.15,1.4);
+    \node[felirat, text=peSotet, align=center, text width=26mm] at (\x,-2.15) {\t};
+  }
+  \draw[nyil, draw=peKiemel, line width=1.2pt] (e.east) -- (3.15,0);
+  \draw[nyil, draw=peKiemel, line width=1.0pt, dash pattern=on 4pt off 2pt] (3.45,0) -- (5.85,0);
+  \draw[nyil, draw=peKiemel, line width=0.8pt, dash pattern=on 2pt off 2pt] (6.15,0) -- (8.55,0);
+  \draw[nyil, draw=peKiemel!60, line width=0.6pt, dash pattern=on 1pt off 2pt] (8.85,0) -- (c.west);
+  \node[felirat, text=peKiemel] at (6.0,1.75) {nem kívánt energiaáramlás};
+  \node[felirat, text=peKek, align=center] at (6.0,-3.3) {a gátak hatékonysága a forrástól a célpont felé haladva csökken:\\az ISO 12100 sorrendje is ezt követi (eredendően biztonságos tervezés, védőberendezés, tájékoztatás)};
+\end{tikzpicture}
+\end{document}

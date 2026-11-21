@@ -1,0 +1,37 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  szerep/.style={font=\scriptsize, align=center, text=peSzoveg, fill=white, rounded corners=1pt, inner sep=1.6pt, draw=#1, line width=0.5pt},
+  szerep/.default=peVilagos,
+  gyurucim/.style={font=\scriptsize\bfseries, text=#1}]
+  % gyűrűk
+  \fill[peSzurkeH] (0,0) circle (6.2);
+  \fill[peHalvany] (0,0) circle (4.45);
+  \fill[peKiemelH] (0,0) circle (2.75);
+  \fill[peKek] (0,0) circle (1.15);
+  \draw[draw=white, line width=1.5pt] (0,0) circle (6.2) (0,0) circle (4.45) (0,0) circle (2.75) (0,0) circle (1.15);
+  \node[font=\small\bfseries, text=white, align=center] at (0,0) {a termék:\\KoboCella};
+  % gyűrűcímek
+  \node[gyurucim=peKiemel] at (0,2.35) {a mi rendszerünk};
+  \node[gyurucim=peKek] at (0,4.05) {a befoglaló rendszer};
+  \node[gyurucim=peSzurke] at (0,5.8) {a tágabb környezet};
+  % 1. gyűrű: üzemeltetők
+  \node[szerep=peKiemel] at (-1.95,0.55) {operátor\\(napi kezelő)};
+  \node[szerep=peKiemel] at (1.95,0.55) {karbantartó};
+  \node[szerep=peKiemel] at (0,-1.95) {műszakvezető,\\betanító};
+  % 2. gyűrű
+  \node[szerep=peKek] at (-3.45,1.55) {gyártásvezetés\\(a kimenet haszon-\\élvezője)};
+  \node[szerep=peKek] at (3.5,1.55) {MES és\\anyagellátás\\(kapcsolódó rendszerek)};
+  \node[szerep=peKek] at (-3.25,-2.0) {beszerzés,\\megrendelő};
+  \node[szerep=peKek] at (3.3,-2.0) {üzemigazgató\\(szponzor)};
+  % 3. gyűrű
+  \node[szerep] at (-4.9,3.6) {tulajdonos\\(pénzügyi\\haszonélvező)};
+  \node[szerep] at (4.9,3.6) {munkavédelmi\\hatóság, szabványok\\(szabályozó)};
+  \node[szerep] at (-5.55,0.0) {robotintegrátor\\(fejlesztő)};
+  \node[szerep] at (5.55,0.0) {robot- és csavarozó-\\beszállító};
+  \node[szerep] at (-4.4,-4.15) {üzemi tanács:\\állásféltés\\(negatív érdekelt)};
+  \node[szerep] at (4.4,-4.15) {kerékpárgyártó\\vevő};
+  \node[szerep] at (0,-5.25) {ergonómiai szakértő\\(tanácsadó)};
+\end{tikzpicture}
+\end{document}

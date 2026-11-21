@@ -1,0 +1,30 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[width=14cm, height=6.6cm, xmin=0, xmax=26.5, ymin=3.92, ymax=4.10,
+      xlabel={részcsoport (óránként öt egymást követő kötés)}, ylabel={részcsoport-átlag [Nm]},
+      xtick={1,5,10,15,20,25}, tick label style={font=\scriptsize}, label style={font=\small},
+      yticklabel style={/pgf/number format/fixed, /pgf/number format/precision=2, /pgf/number format/use comma, /pgf/number format/fixed zerofill},
+      axis lines=left, clip=false]
+    \fill[peHalvany] (axis cs:20.5,3.92) rectangle (axis cs:26.5,4.10);
+    \node[font=\scriptsize, text=peSzurke, anchor=north] at (axis cs:23.5,4.10) {II. szakasz: felügyelet};
+    \node[font=\scriptsize, text=peSzurke, anchor=north] at (axis cs:10.5,4.10) {I. szakasz: a határok meghatározása};
+    \draw[pePiros, line width=0.9pt] (axis cs:0,4.087) -- (axis cs:26.5,4.087) node[right, font=\scriptsize] {FEH 4,087};
+    \draw[pePiros, line width=0.9pt] (axis cs:0,3.953) -- (axis cs:26.5,3.953) node[right, font=\scriptsize] {AEH 3,953};
+    \draw[peZold, line width=0.9pt] (axis cs:0,4.020) -- (axis cs:26.5,4.020) node[right, font=\scriptsize] {CL 4,020};
+    \draw[peSzurke, dash pattern=on 3pt off 2pt] (axis cs:0,4.065) -- (axis cs:26.5,4.065) node[right, font=\scriptsize] {$+2\sigma$};
+    \draw[peSzurke, dash pattern=on 3pt off 2pt] (axis cs:0,3.975) -- (axis cs:26.5,3.975) node[right, font=\scriptsize] {$-2\sigma$};
+    \addplot[peKek, line width=0.9pt, mark=*, mark size=1.8pt] coordinates {
+      (1,4.039) (2,4.006) (3,3.994) (4,4.051) (5,4.018) (6,4.032) (7,3.983) (8,4.027) (9,4.056) (10,4.003) (11,4.012) (12,4.042) (13,3.991) (14,4.023) (15,4.034) (16,4.001) (17,4.047) (18,4.015) (19,4.005) (20,4.022) (21,3.995) (22,3.985) (23,3.972) (24,3.962) (25,3.945)
+    };
+    \addplot[only marks, mark=*, mark size=3pt, peKiemel] coordinates {(24,3.962)};
+    \addplot[only marks, mark=*, mark size=3.2pt, pePiros] coordinates {(25,3.945)};
+    \node[font=\scriptsize, text=peKiemel, anchor=west, align=left] (a24) at (axis cs:8,3.94) {24.: három egymást követő pontból kettő a $2\sigma$-sávon kívül;\\öt egymást követő pontból négy az $1\sigma$-sávon kívül};
+    \draw[peKiemel, line width=0.6pt, -{Stealth[length=1.6mm]}] (a24.east) -- (axis cs:23.7,3.959);
+    \node[font=\scriptsize, text=pePiros, anchor=north] at (axis cs:25,3.94) {25.: határon kívül};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

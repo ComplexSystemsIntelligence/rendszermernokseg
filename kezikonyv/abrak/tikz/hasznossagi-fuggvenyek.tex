@@ -1,0 +1,21 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+  \pgfplotsset{hf/.style={width=4.6cm, height=3.9cm, xmin=0, xmax=1, ymin=0, ymax=1.08, xtick=\empty, ytick={0,1}, yticklabels={0,1},
+     axis lines=left, axis line style={peSotet}, tick label style={font=\scriptsize}, title style={font=\footnotesize\bfseries, text=peSotet, align=center},
+     xlabel style={font=\scriptsize}, ylabel style={font=\scriptsize}, ylabel={$u(x)$}, xlabel={$x$}}}
+  \begin{axis}[hf, title={monoton, lineáris\\{\scriptsize (például beruházási költség)}}]
+    \addplot[peKek, line width=1.4pt, domain=0:1] {1-x};
+  \end{axis}
+  \begin{axis}[hf, xshift=5.0cm, title={monoton, konkáv\\{\scriptsize (telítődő: kapacitástartalék)}}]
+    \addplot[peKek, line width=1.4pt, domain=0:1, samples=60] {1-exp(-4*x)};
+  \end{axis}
+  \begin{axis}[hf, xshift=10.0cm, title={monoton, konvex\\{\scriptsize (gyorsuló: pontosság)}}]
+    \addplot[peKek, line width=1.4pt, domain=0:1, samples=60] {x^3};
+  \end{axis}
+  \begin{axis}[hf, xshift=15.0cm, title={nem monoton\\{\scriptsize (kijelző mérete)}}]
+    \addplot[peKiemel, line width=1.4pt, domain=0:1, samples=80] {exp(-((x-0.55)^2)/0.04)};
+  \end{axis}
+\end{tikzpicture}
+\end{document}

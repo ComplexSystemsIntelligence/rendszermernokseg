@@ -1,0 +1,11 @@
+{
+  "cim": "ForgácsTech MES-koncepciók költség–haszon elemzése",
+  "kamatlab": 0.08,
+  "idotartam_ev": 5,
+  "alternativak": [
+    {"kod": "M1", "nev": "teljes MES egy beszállítótól", "beruhazas": 42, "eves_mukodtetes": 4, "eves_haszon": 28, "kockazati_szorzo": 0.75},
+    {"kod": "M2", "nev": "gépgyártói adatgyűjtés + MES", "beruhazas": 30, "eves_mukodtetes": 6, "eves_haszon": 22, "kockazati_szorzo": 0.5},
+    {"kod": "M3", "nev": "fokozatos bevezetés", "beruhazas": 14, "eves_mukodtetes": 3, "eves_haszon": 15, "kockazati_szorzo": 1.0}
+  ],
+  "megjegyzes": "Minden pénzösszeg millió forintban; a haszon a késedelmi kötbérek, a sürgős átállások és a vevővesztés kockázatának csökkenéséből becsült érték."
+}

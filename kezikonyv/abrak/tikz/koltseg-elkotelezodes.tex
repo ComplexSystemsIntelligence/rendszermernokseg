@@ -1,0 +1,49 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  width=13.5cm, height=7.6cm,
+  xmin=0, xmax=5, ymin=0, ymax=105,
+  axis lines=left, axis line style={draw=peSzurke},
+  xtick={0.5,1.5,2.5,3.5,4.5},
+  xticklabels={Koncepció, Tervezés, Fejlesztés, Gyártás\\és teszt, Üzemeltetés\\és kivonás},
+  xticklabel style={align=center, font=\footnotesize},
+  ytick={0,25,50,75,100}, yticklabel={\pgfmathprintnumber{\tick}\%},
+  yticklabel style={font=\footnotesize},
+  ylabel={az életciklusköltség halmozott aránya}, ylabel style={font=\footnotesize, text=peSzurke},
+  major tick length=0pt, ymajorgrids, grid style={draw=peSzurkeH},
+  clip=false]
+  % ráfordított (elköltött) költség oszlopai
+  \fill[peKiemelH, draw=peKiemel, line width=0.6pt] (axis cs:0.06,0) rectangle (axis cs:0.94,8);
+  \node[font=\footnotesize\bfseries, text=peKiemel, anchor=south] at (axis cs:0.5,8) {8\%};
+  \fill[peKiemelH, draw=peKiemel, line width=0.6pt] (axis cs:1.06,0) rectangle (axis cs:1.94,15);
+  \node[font=\footnotesize\bfseries, text=peKiemel, anchor=south] at (axis cs:1.5,15) {15\%};
+  \fill[peKiemelH, draw=peKiemel, line width=0.6pt] (axis cs:2.06,0) rectangle (axis cs:2.94,20);
+  \node[font=\footnotesize\bfseries, text=peKiemel, anchor=south] at (axis cs:2.5,20) {20\%};
+  \fill[peKiemelH, draw=peKiemel, line width=0.6pt] (axis cs:3.06,0) rectangle (axis cs:3.94,50);
+  \node[font=\footnotesize\bfseries, text=peKiemel, anchor=south] at (axis cs:3.5,50) {50\%};
+  \fill[peKiemelH, draw=peKiemel, line width=0.6pt] (axis cs:4.06,0) rectangle (axis cs:4.9399999999999995,100);
+  \node[font=\footnotesize\bfseries, text=peKiemel, anchor=south] at (axis cs:4.5,100) {100\%};
+  % elkötelezett költség görbéje
+  \addplot[peKek, line width=2pt, smooth, tension=0.6]
+    coordinates {(0,0) (1,70) (2,85) (3,95) (4,99) (5,100)};
+  \fill[peKek] (axis cs:1,70) circle (2.4pt);
+  \node[font=\footnotesize\bfseries, text=peKek, anchor=south east] at (axis cs:1,70) {70\%};
+  \fill[peKek] (axis cs:2,85) circle (2.4pt);
+  \node[font=\footnotesize\bfseries, text=peKek, anchor=south east] at (axis cs:2,85) {85\%};
+  \fill[peKek] (axis cs:3,95) circle (2.4pt);
+  \node[font=\footnotesize\bfseries, text=peKek, anchor=south east] at (axis cs:3,95) {95\%};
+  \node[font=\small\bfseries, text=peKek, anchor=west, align=left] at (axis cs:0.12,101)
+    {elkötelezett költség:\\[-1pt]{\mdseries\footnotesize amit a döntések már rögzítettek}};
+  \node[font=\small\bfseries, text=peKiemel, anchor=west, align=left] at (axis cs:3.05,30)
+    {ráfordított költség:\\[-1pt]{\mdseries\footnotesize amit már ki is fizettünk}};
+  % változtatás költsége
+  \draw[-{Stealth[length=3mm]}, draw=peSotet!70, line width=3pt] (axis cs:1.15,22) -- (axis cs:3.9,78);
+  \node[font=\scriptsize\bfseries, text=peSotet, anchor=north west, align=left] at (axis cs:3.92,86) {a tervváltoztatás\\relatív költsége};
+  \node[font=\footnotesize\bfseries, text=peSotet, fill=white, inner sep=1pt] at (axis cs:1.45,38) {3--6$\times$};
+  \node[font=\footnotesize\bfseries, text=peSotet, fill=white, inner sep=1pt] at (axis cs:2.3,56) {20--100$\times$};
+  \node[font=\footnotesize\bfseries, text=peSotet, fill=white, inner sep=1pt] at (axis cs:3.25,74) {500--1000$\times$};
+\end{axis}
+\end{tikzpicture}
+\end{document}

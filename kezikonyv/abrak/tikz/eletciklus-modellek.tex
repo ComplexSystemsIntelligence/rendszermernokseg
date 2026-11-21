@@ -1,0 +1,60 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  lepes/.style={draw=peKek, fill=peHalvany, rounded corners=1.5pt, font=\scriptsize, minimum width=20mm,
+    minimum height=5.5mm, align=center, inner sep=1.5pt},
+  panelcim/.style={font=\cimbetu\small, text=peSotet, anchor=west},
+  megj/.style={font=\scriptsize, text=peSzurke, anchor=west, align=left, text width=62mm}]
+  % (a) vízesés
+  \begin{scope}[shift={(0,0)}]
+    \node[panelcim] at (0,0.6) {(a) Vízesés};
+    \foreach \i/\t in {0/Követelmények,1/Tervezés,2/Megvalósítás,3/Integráció, 4/Üzemeltetés} {
+      \node[lepes] (w\i) at (1.2+\i*1.05,-\i*0.72) {\t};
+    }
+    \foreach \a/\b in {0/1,1/2,2/3,3/4}
+      \draw[nyil, line width=0.7pt] (w\a.east) -| (w\b.north);
+    \draw[-{Stealth[length=1.8mm]}, draw=pePiros, line width=0.6pt, szaggatott]
+      (w3.west) to[bend left=35] node[font=\scriptsize, text=pePiros, left=1pt, pos=0.55] {késői visszalépés} (w1.west);
+    \node[megj] at (0,-4.05) {szakaszok egymás után, egyszeri átmenettel;\\stabil, jól ismert követelményeknél működik};
+  \end{scope}
+  % (b) V-modell
+  \begin{scope}[shift={(7.8,0)}]
+    \node[panelcim] at (0,0.6) {(b) V-modell};
+    \coordinate (a1) at (0.6,-0.2); \coordinate (a2) at (1.5,-1.55); \coordinate (a3) at (2.45,-2.95);
+    \coordinate (b3) at (4.25,-2.95); \coordinate (b2) at (5.2,-1.55); \coordinate (b1) at (6.1,-0.2);
+    \draw[draw=peKek, line width=5pt, line cap=round] (a1) -- (a3) -- ($(a3)!0.5!(b3)+(0,-0.5)$);
+    \draw[draw=peZold, line width=5pt, line cap=round] ($(a3)!0.5!(b3)+(0,-0.5)$) -- (b3) -- (b1);
+    \foreach \l/\r in {a1/b1,a2/b2,a3/b3} \draw[kapcs/.style={}, draw=peSzurke, szaggatott, line width=0.6pt] (\l) -- (\r);
+    \node[font=\scriptsize, text=peKek, anchor=east] at (a1) {definíció};
+    \node[font=\scriptsize, text=peZold, anchor=west] at (b1) {ellenőrzés};
+    \node[megj] at (0,-4.05) {minden tervezési szinthez tartozik egy\\ellenőrzési szint; a teszt tervezése korán indul};
+  \end{scope}
+  % (c) spirál
+  \begin{scope}[shift={(0,-5.4)}]
+    \node[panelcim] at (0,0.6) {(c) Spirál};
+    \draw[draw=peSzurke!60, line width=0.4pt] (3.4,-2.0) -- ++(-2.6,0) (3.4,-2.0) -- ++(2.6,0)
+      (3.4,-2.0) -- ++(0,1.9) (3.4,-2.0) -- ++(0,-1.75);
+    \draw[draw=peKek, line width=1.1pt, -{Stealth[length=2mm]}, domain=0:1100, samples=220, smooth, variable=\t]
+      plot ({3.4+0.00155*\t*cos(\t)}, {-2.0+0.00155*\t*sin(\t)});
+    \node[font=\scriptsize, text=peSotet] at (1.6,-0.55) {célok, korlátok};
+    \node[font=\scriptsize, text=peSotet] at (5.25,-0.55) {kockázatelemzés};
+    \node[font=\scriptsize, text=peSotet] at (5.15,-3.5) {fejlesztés, teszt};
+    \node[font=\scriptsize, text=peSotet] at (1.6,-3.5) {következő kör terve};
+    \node[megj] at (0,-4.05) {kockázatvezérelt ismétlés: minden kör a leg-\\nagyobb bizonytalanságot csökkenti (prototípus)};
+  \end{scope}
+  % (d) inkrementális és agilis
+  \begin{scope}[shift={(7.8,-5.4)}]
+    \node[panelcim] at (0,0.6) {(d) Inkrementális és agilis};
+    \foreach \i in {0,1,2,3} {
+      \draw[draw=peZold, line width=1.1pt, -{Stealth[length=1.8mm]}]
+        ($(1.0+\i*1.5,-1.7)+(0:0.5)$) arc[start angle=0, end angle=330, radius=0.5];
+      \node[font=\scriptsize\bfseries, text=peZold] at (1.0+\i*1.5,-1.7) {\the\numexpr\i+1\relax};
+      \node[draw=peKiemel, fill=peKiemelH, minimum width=\i*3mm+3mm, minimum height=3mm, inner sep=0, anchor=west]
+        at (0.55+\i*1.5,-2.75) {};
+    }
+    \draw[nyil, line width=0.7pt] (0.4,-3.25) -- (6.6,-3.25) node[font=\scriptsize, text=peSzurke, anchor=north east] at (6.6,-3.3) {működő részeredmények};
+    \node[megj] at (0,-4.05) {rövid ciklusokban bővülő, már használható\\rendszer; folyamatos visszacsatolás a felhasználótól};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

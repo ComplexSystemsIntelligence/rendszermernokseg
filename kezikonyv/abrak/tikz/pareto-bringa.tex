@@ -1,0 +1,25 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[width=13cm, height=8cm, xmin=58, xmax=96, ymin=84, ymax=98.5, xlabel={éves költség [MFt/év] (kisebb a jobb)}, ylabel={elérhetőség [\%] (nagyobb a jobb)}, grid=both, grid style={peVilagos!60, line width=0.3pt}, tick label style={font=\footnotesize}, label style={font=\footnotesize}, axis line style={peSotet}]
+\addplot[peKiemel, line width=1.4pt, mark=none] coordinates {(62,86.0) (66,89.0) (72,92.0) (76,94.0) (81,94.5) (83,95.0) (92,97.0)};
+\addplot[draw=peSotet, fill=peSzurkeH, mark=*, only marks, mark size=3pt] coordinates {(68,88.0) (78,93.0) (80,91.0) (85,92.0) (71,88.5)};
+\addplot[draw=peKiemel, fill=peKiemel, mark=*, only marks, mark size=3.4pt] coordinates {(62,86.0) (66,89.0) (72,92.0) (76,94.0) (81,94.5) (83,95.0) (92,97.0)};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:62,86.0) {V1};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:66,89.0) {V2};
+\node[font=\scriptsize, below right, inner sep=2pt] at (axis cs:68,88.0) {V3};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:72,92.0) {V4};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:81,94.5) {V5};
+\node[font=\scriptsize, below right, inner sep=2pt] at (axis cs:78,93.0) {V6};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:83,95.0) {V7};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:92,97.0) {V8};
+\node[font=\scriptsize, below right, inner sep=2pt] at (axis cs:80,91.0) {V9};
+\node[font=\scriptsize, above left, inner sep=2pt] at (axis cs:76,94.0) {V10};
+\node[font=\scriptsize, below right, inner sep=2pt] at (axis cs:85,92.0) {V11};
+\node[font=\scriptsize, below right, inner sep=2pt] at (axis cs:71,88.5) {V12};
+\draw[peKek, dash pattern=on 4pt off 2pt, line width=0.9pt] (axis cs:80,84) -- (axis cs:80,98.5) node[pos=0.06, left, font=\scriptsize, text=peKek, align=right] {költségkeret\\80 MFt/év};
+\node[font=\scriptsize, text=peKiemel, anchor=west] at (axis cs:86.5,96.2) {Pareto-front};
+\end{axis}
+\end{tikzpicture}
+\end{document}

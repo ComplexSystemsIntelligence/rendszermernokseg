@@ -1,0 +1,29 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{f/.style={doboz=33mm, font=\scriptsize, minimum height=12mm, align=center},
+           g/.style={zolddoboz=33mm, font=\scriptsize, minimum height=12mm, align=center}}
+  % sávok
+  \fill[peHalvany!55] (-2.3,0.95) rectangle (17.1,-0.95);
+  \fill[peZoldH!55] (-2.3,-2.65) rectangle (17.1,-4.55);
+  \node[alcim, rotate=90, align=center] at (-1.95,0) {táblázat};
+  \node[alcim, rotate=90, align=center] at (-1.95,-3.6) {notebook};
+  % táblázatkezelő
+  \node[f] (A) at (0,0) {\textbf{1. Eszközlap}\\lépések, kidolgozott példa};
+  \node[f] (B) at (3.8,0) {\textbf{2. Excel-sablon}\\a kitöltött példa áttekintése};
+  \node[f] (C) at (7.6,0) {\textbf{3. Saját adatok}\\a sárga cellákba};
+  \node[f] (D) at (11.4,0) {\textbf{4. Ellenőrzés}\\képletek, figyelmeztetések};
+  % notebook
+  \node[g] (N1) at (3.8,-3.6) {\textbf{5. Notebook Colabban}\\a beépített példa futtatása};
+  \node[g] (N2) at (7.6,-3.6) {\textbf{6. Saját sablon betöltése}\\\texttt{SAJAT\_SABLON = True}};
+  \node[g] (N3) at (11.4,-3.6) {\textbf{7. További elemzés}\\szimuláció, gráf, statisztika};
+  % eredmény
+  \node[sotetdoboz=30mm, font=\scriptsize, minimum height=12mm, align=center] (R) at (15.4,-1.8) {\textbf{8. Eredmények}\\a projektjelentésbe};
+  \foreach \a/\b in {A/B,B/C,C/D,N1/N2,N2/N3} \draw[nyil] (\a) -- (\b);
+  \draw[nyil] (D.east) -| node[felirat, above, pos=0.25] {elég a táblázat} (R.north);
+  \draw[nyil] (N3.east) -| (R.south);
+  \draw[nyil] (D.south) -- node[felirat, right, align=left] {további\\elemzés kell} ++(0,-1.15) -| (N2.north);
+  \draw[nyil, dash pattern=on 3pt off 2pt] (B.south) -- node[felirat, left, align=right] {a módszer\\kipróbálása} (N1.north);
+\end{tikzpicture}
+\end{document}

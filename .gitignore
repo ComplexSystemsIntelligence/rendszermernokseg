@@ -1,0 +1,10 @@
+_site/
+*/_book/
+*/.quarto/
+*/assets/fonts/
+*/abrak/gen/*.stamp
+_quarto_internal_scss_error.scss
+__pycache__/
+.ipynb_checkpoints/
+*.log
+*/assets/logo/

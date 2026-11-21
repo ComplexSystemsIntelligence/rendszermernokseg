@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "Ha a művet felhasználod, kérlek, így hivatkozz rá. / If you use this work, please cite it as below."
+title: "Rendszermérnökség – A rendszerfejlesztés útja a V-modell mentén (kézikönyv és gyakorlati útmutató)"
+abstract: >-
+  Nyílt hozzáférésű magyar nyelvű rendszermérnöki tankönyv és gyakorlati útmutató mérnöki
+  alapszakos hallgatóknak. A V-modell lépései mentén tárgyalja az érdekeltfél-elemzést, a
+  követelményeket, a minőségfunkció-telepítést, az architektúrát, a koncepciógenerálást és
+  -kiválasztást, az emberközpontú tervezést, a kockázat-, megbízhatósági és biztonsági
+  elemzéseket, a folyamattervezést, az integrációt, a verifikációt, a validációt, az
+  üzemeltetést és a technikai menedzsmentet. Webkönyv, PDF és EPUB, 55 eszközlappal,
+  54 Excel-sablonnal és 46 Google Colab-notebookkal.
+authors:
+  - family-names: Abonyi
+    given-names: János
+    email: "janos@abonyilab.com"
+    affiliation: "Pannon Egyetem / University of Pannonia"
+version: "0.3.0"
+date-released: "2026-11-21"
+license: CC-BY-NC-SA-4.0
+repository-code: "https://github.com/ComplexSystemsIntelligence/rendszermernokseg"
+url: "https://complexsystemsintelligence.github.io/rendszermernokseg/"
+keywords:
+  - rendszermérnökség
+  - systems engineering
+  - V-modell
+  - követelménymenedzsment
+  - minőségfejlesztés
+  - döntéstámogatás
+  - emberi rendszerintegráció
+  - nyílt tankönyv
+preferred-citation:
+  type: book
+  title: "Rendszermérnökség – A rendszerfejlesztés útja a V-modell mentén (kézikönyv és gyakorlati útmutató)"
+  authors:
+    - family-names: Abonyi
+      given-names: János
+      affiliation: "Pannon Egyetem / University of Pannonia"
+  year: 2026
+  publisher:
+    name: "Pannon Egyetem"
+    city: "Veszprém"
+  languages:
+    - hu
+  url: "https://complexsystemsintelligence.github.io/rendszermernokseg/"
+  license: CC-BY-NC-SA-4.0

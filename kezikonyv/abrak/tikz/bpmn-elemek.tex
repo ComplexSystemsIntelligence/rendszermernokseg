@@ -1,0 +1,43 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\usepackage{pebpmn}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{panel/.style={draw=peSzurkeH, line width=0.6pt, rounded corners=3pt},
+           pcim/.style={font=\footnotesize\bfseries, text=peKek, anchor=north west},
+           lab/.style={font=\scriptsize, text=peSotet, align=center, anchor=north}}
+  % 1. Események
+  \draw[panel] (0,0) rectangle (7.4,3.2); \node[pcim] at (0.1,3.15) {Események};
+  \node[bstart] (e1) at (0.9,1.9) {}; \node[lab] at (0.9,1.4) {indító};
+  \node[bkoztes] (e2) at (2.6,1.9) {}; \pic at (2.6,1.9) {boritek}; \node[lab] at (2.6,1.4) {köztes:\\üzenet};
+  \node[bkoztes] (e3) at (4.3,1.9) {}; \pic at (4.3,1.9) {ora}; \node[lab] at (4.3,1.4) {köztes:\\időzítő};
+  \node[bvege] (e4) at (6.2,1.9) {}; \node[lab] at (6.2,1.4) {záró};
+  % 2. Tevékenységek
+  \draw[panel] (7.8,0) rectangle (16.4,3.2); \node[pcim] at (7.9,3.15) {Tevékenységek};
+  \node[bt, text width=15mm, minimum width=17mm, minimum height=12mm] at (9.0,1.9) {feladat};
+  \node[bt, text width=15mm, minimum width=17mm, minimum height=12mm] (s) at (11.1,1.9) {alfolyamat\\[2.6mm]}; \pic at ([yshift=1.9mm]s.south) {plusz};
+  \node[bt, text width=15mm, minimum width=17mm, minimum height=12mm] (h) at (13.2,1.9) {ismétlődő\\[2.6mm]}; \pic at ([yshift=1.9mm]h.south) {hurok};
+  \node[bt, text width=15mm, minimum width=17mm, minimum height=12mm] (t) at (15.3,1.9) {többszörös\\[2.6mm]}; \pic at ([yshift=1.9mm]t.south) {tobbszoros};
+  \node[lab, text width=80mm] at (12.1,1.05) {a feladat típusa is jelölhető:\\felhasználói, automatikus (szolgáltatás), kézi, üzenetküldő};
+  % 3. Átjárók
+  \draw[panel] (0,-3.6) rectangle (7.4,-0.4); \node[pcim] at (0.1,-0.45) {Átjárók};
+  \node[bgw] at (0.9,-1.8) {}; \pic at (0.9,-1.8) {xor}; \node[lab] at (0.9,-2.4) {kizáró\\(XOR)};
+  \node[bgw] at (2.6,-1.8) {}; \pic at (2.6,-1.8) {and}; \node[lab] at (2.6,-2.4) {párhuzamos\\(ÉS)};
+  \node[bgw] at (4.3,-1.8) {}; \pic at (4.3,-1.8) {or}; \node[lab] at (4.3,-2.4) {befogadó\\(VAGY)};
+  \node[bgw] at (6.2,-1.8) {}; \pic at (6.2,-1.8) {esemenyalapu}; \node[lab] at (6.2,-2.4) {eseményalapú};
+  % 4. Összekötők
+  \draw[panel] (7.8,-3.6) rectangle (12.4,-0.4); \node[pcim] at (7.9,-0.45) {Összekötők};
+  \draw[bsz] (8.2,-1.2) -- (10.0,-1.2); \node[lab, anchor=west] at (10.1,-1.2) {szekvenciafolyam};
+  \draw[buz] (8.2,-2.0) -- (10.0,-2.0); \node[lab, anchor=west] at (10.1,-2.0) {üzenetfolyam};
+  \draw[bas] (8.2,-2.8) -- (10.0,-2.8); \node[lab, anchor=west] at (10.1,-2.8) {asszociáció};
+  % 5. Résztvevők és kiegészítők
+  \draw[panel] (12.8,-3.6) rectangle (16.4,-0.4); \node[pcim] at (12.9,-0.45) {Résztvevők, kiegészítők};
+  \draw[peSotet, line width=0.7pt] (13.0,-1.0) rectangle (15.0,-2.4);
+  \draw[peSotet, line width=0.5pt] (13.35,-1.0) -- (13.35,-2.4) (13.35,-1.7) -- (15.0,-1.7);
+  \node[font=\tiny, rotate=90] at (13.17,-1.7) {medence};
+  \node[font=\tiny] at (14.2,-1.35) {1. sáv}; \node[font=\tiny] at (14.2,-2.05) {2. sáv};
+  \pic at (15.65,-1.25) {adat}; \node[lab] at (15.65,-1.72) {adat-\\objektum};
+  \draw[peSzurke, dash pattern=on 4pt off 1.5pt on 0.8pt off 1.5pt, rounded corners=2pt] (13.0,-2.65) rectangle (14.1,-3.45); \node[font=\tiny] at (13.55,-3.05) {csoport};
+  \draw[peSotet, line width=0.5pt] (14.6,-2.65) -- (14.4,-2.65) -- (14.4,-3.45) -- (14.6,-3.45); \node[font=\tiny, anchor=west] at (14.42,-3.05) {megjegyzés};
+\end{tikzpicture}
+\end{document}

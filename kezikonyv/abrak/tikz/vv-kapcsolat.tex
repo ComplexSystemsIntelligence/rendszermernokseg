@@ -1,0 +1,21 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{bal/.style={doboz=44mm, font=\scriptsize, minimum height=11mm, align=center},
+           jobb/.style={doboz=44mm, font=\scriptsize, minimum height=11mm, align=center}}
+  \node[sotetdoboz=44mm, font=\scriptsize, minimum height=11mm, align=center] (B1) at (0,0) {érdekelt felek elvárásai,\\működési koncepció, MOE};
+  \node[bal] (B2) at (1.4,-2.1) {rendszerkövetelmények (MOP)};
+  \node[bal] (B3) at (2.8,-4.2) {alrendszer- és\\komponenskövetelmények};
+  \node[zolddoboz=44mm, font=\scriptsize, minimum height=11mm, align=center] (J1) at (12,0) {a rendszer üzemi környezetben,\\jellemző felhasználókkal};
+  \node[jobb] (J2) at (10.6,-2.1) {integrált rendszer};
+  \node[jobb] (J3) at (9.2,-4.2) {alrendszerek, komponensek};
+  \node[szurkedoboz=34mm, font=\scriptsize, minimum height=9mm, align=center] (M) at (6,-6.0) {megvalósítás};
+  \draw[nyil] (B1) -- (B2); \draw[nyil] (B2) -- (B3); \draw[nyil] (B3) |- (M);
+  \draw[nyil] (M) -| (J3); \draw[nyil] (J3) -- (J2); \draw[nyil] (J2) -- (J1);
+  \draw[peZold, line width=1.4pt, {Stealth[length=2.6mm]}-{Stealth[length=2.6mm]}] (B1) -- node[above, font=\footnotesize\bfseries, text=peZold] {validáció} node[below, felirat, text=peZold] {a jó terméket építettük meg?} (J1);
+  \draw[peKek, line width=1.1pt, {Stealth[length=2.4mm]}-{Stealth[length=2.4mm]}] (B2) -- node[above, font=\footnotesize\bfseries, text=peKek] {verifikáció} node[below, felirat] {jól építettük meg?} (J2);
+  \draw[peKek, line width=1.1pt, {Stealth[length=2.4mm]}-{Stealth[length=2.4mm]}] (B3) -- node[above, font=\footnotesize\bfseries, text=peKek] {verifikáció} (J3);
+  \node[font=\scriptsize\itshape, text=peZold, align=center] at (6,-1.05) {a validáció korán kezdődik: makett, prototípus, szimuláció, próbaüzem};
+\end{tikzpicture}
+\end{document}

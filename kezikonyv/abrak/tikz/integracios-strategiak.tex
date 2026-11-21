@@ -1,0 +1,39 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \tikzset{e/.style={draw=peKek, rounded corners=2pt, line width=0.7pt, minimum width=9mm, minimum height=5.5mm, font=\scriptsize, inner sep=1pt},
+           s1/.style={e, fill=peKek, text=white}, s2/.style={e, fill=peKozep, text=white}, s3/.style={e, fill=peVilagos},
+           csonk/.style={e, dash pattern=on 2pt off 1.5pt, fill=white, text=peSzurke}, kt/.style={draw=peSzurke, line width=0.5pt}}
+  \def\fa#1#2#3#4#5#6#7#8#9{%
+    \node[#2] (S#1) at (0,2) {S};
+    \node[#3] (A#1) at (-1.1,1) {A}; \node[#4] (B#1) at (1.1,1) {B};
+    \node[#5] (a1#1) at (-1.65,0) {a1}; \node[#6] (a2#1) at (-0.55,0) {a2};
+    \node[#7] (b1#1) at (0.55,0) {b1}; \node[#8] (b2#1) at (1.65,0) {b2};
+    \draw[kt] (S#1) -- (A#1); \draw[kt] (S#1) -- (B#1);
+    \draw[kt] (A#1) -- (a1#1); \draw[kt] (A#1) -- (a2#1); \draw[kt] (B#1) -- (b1#1); \draw[kt] (B#1) -- (b2#1);
+    \node[font=\footnotesize\bfseries, text=peSotet, align=center] at (0,2.75) {#9};}
+  \begin{scope}[shift={(0,0)}]
+    \fa{1}{s1}{s1}{s1}{s1}{s1}{s1}{s1}{egyszerre (big bang)}
+    \node[felirat, align=center] at (0,-0.95) {minden elem egy lépésben;\\a hibák helye nehezen\\azonosítható};
+  \end{scope}
+  \begin{scope}[shift={(5.3,0)}]
+    \fa{2}{s3}{s2}{s2}{s1}{s1}{s1}{s1}{alulról felfelé}
+    \node[felirat, align=center] at (0,-0.95) {1. elemek tesztmeghajtóval,\\2. alrendszerek, 3. rendszer;\\a rendszerfunkció későn látszik};
+  \end{scope}
+  \begin{scope}[shift={(10.6,0)}]
+    \fa{3}{s1}{s2}{s2}{csonk}{csonk}{csonk}{csonk}{felülről lefelé}
+    \node[felirat, align=center] at (0,-0.95) {a hiányzó elemeket helyettesítők\\(csonkok) pótolják; a vezérlési\\logika korán kipróbálható};
+  \end{scope}
+  \begin{scope}[shift={(15.9,0)}]
+    \fa{4}{s1}{s1}{s3}{s1}{s3}{s3}{s3}{fokozatos (szálanként)}
+    \node[felirat, align=center] at (0,-0.95) {először egy teljes funkció\\„szála”, majd a többi;\\korán működő részrendszer};
+  \end{scope}
+  \begin{scope}[shift={(18.4,0.4)}]
+    \node[s1, minimum width=5mm, minimum height=3.5mm] at (0,1.5) {}; \node[font=\scriptsize, anchor=west] at (0.35,1.5) {1. lépés};
+    \node[s2, minimum width=5mm, minimum height=3.5mm] at (0,1.0) {}; \node[font=\scriptsize, anchor=west] at (0.35,1.0) {2. lépés};
+    \node[s3, minimum width=5mm, minimum height=3.5mm] at (0,0.5) {}; \node[font=\scriptsize, anchor=west] at (0.35,0.5) {3. lépés};
+    \node[csonk, minimum width=5mm, minimum height=3.5mm] at (0,0.0) {}; \node[font=\scriptsize, anchor=west] at (0.35,0.0) {helyettesítő};
+  \end{scope}
+\end{tikzpicture}
+\end{document}

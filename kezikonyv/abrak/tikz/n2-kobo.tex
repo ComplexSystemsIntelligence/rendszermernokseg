@@ -1,0 +1,21 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \def\c{2.35}
+  \foreach \i/\t in {0/{kobot és megfogó},1/{csavarozó egység},2/{munkaasztal, adagolás},3/{biztonsági alrendszer},4/{cellavezérlés, HMI},5/{operátor}} {
+    \node[sotetdoboz=21mm, font=\scriptsize\bfseries, minimum height=12mm, inner sep=1pt] at (\i*\c,-\i*1.45) {\t};
+  }
+  \foreach \i in {0,...,5} \foreach \j in {0,...,5} {
+    \ifnum\i=\j\else
+      \draw[peVilagos, line width=0.4pt] (\j*\c-1.12,-\i*1.45-0.66) rectangle (\j*\c+1.12,-\i*1.45+0.66);
+    \fi}
+  % kimenetek a sorokban (i -> j), bemenetek az oszlopokban
+  \foreach \i/\j/\t in {0/1/{pozíció kész},0/4/{robotállapot},1/4/{nyomaték, szög},1/0/{meghúzás kész},
+                         2/0/{alkatrész jelen},2/1/{csavar adagolva},3/0/{sebesség-korlát, stop},3/1/{stop},3/4/{zónaállapot},
+                         4/0/{programszám, start},4/1/{nyomatékprogram},4/5/{hibakód, utasítás},5/2/{alkatrész behelyezése},5/4/{nyugtázás, start},5/3/{belépés a zónába}} {
+    \node[font=\scriptsize, align=center, text width=20mm, fill=peHalvany, inner sep=1pt] at (\j*\c,-\i*1.45) {\t};
+  }
+  \node[felirat, text width=120mm, align=left, anchor=north west] at (-1.1,-8.4) {Az átlón az alrendszerek; a sorokban az alrendszer kimenetei, az oszlopokban a bemenetei (az óramutató járásával egyező olvasat). Az üres cella: nincs közvetlen interfész. Az operátor sora és oszlopa az ember–gép interfészeket mutatja.};
+\end{tikzpicture}
+\end{document}

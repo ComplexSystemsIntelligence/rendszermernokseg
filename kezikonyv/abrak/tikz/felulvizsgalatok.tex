@@ -1,0 +1,31 @@
+\documentclass[tikz,border=6pt]{standalone}
+\usepackage{peabra}
+\begin{document}
+\begin{tikzpicture}[x=1cm,y=1cm,
+  szak/.style={draw=white, line width=1pt, minimum height=9mm, font=\scriptsize\bfseries, text=white, align=center, inner sep=1pt, anchor=west},
+  rev/.style={regular polygon, regular polygon sides=3, shape border rotate=180, draw=peSotet, fill=peKiemel,
+    minimum size=4.4mm, inner sep=0},
+  revf/.style={font=\scriptsize, align=center, text=peSzoveg, anchor=north, text width=17mm},
+  alap/.style={draw=peKek, fill=peHalvany, rounded corners=1.5pt, font=\scriptsize, align=center, inner sep=2pt, text width=19mm, anchor=north}]
+  \node[szak, fill=peSotet, minimum width=24mm] (s1) at (0,0) {Koncepció};
+  \node[szak, fill=peKek, minimum width=36mm] (s2) at (s1.east) {Követelmények\\és architektúra};
+  \node[szak, fill=peKozep, minimum width=26mm] (s3) at (s2.east) {Részletes\\tervezés};
+  \node[szak, fill=peSzurke, minimum width=20mm] (s4) at (s3.east) {Megvalósítás};
+  \node[szak, fill=peZold, minimum width=32mm] (s5) at (s4.east) {Integráció,\\verifikáció, validáció};
+  \node[szak, fill=peZold!70!black, minimum width=20mm] (s6) at (s5.east) {Üzemeltetés};
+  \foreach \x/\nev/\t in {2.4/kf/{Koncepció-\\felülvizsgálat}, 4.2/kof/{Követelmény-\\felülvizsgálat},
+      6.0/etf/{Előzetes terv-\\felülvizsgálat}, 8.6/rtf/{Részletes terv-\\felülvizsgálat},
+      10.6/tkf/{Tesztkészültségi\\felülvizsgálat}, 13.8/ukf/{Üzemkészségi\\felülvizsgálat}} {
+    \node[rev] (\nev) at (\x,-0.78) {};
+    \node[revf] (\nev-f) at (\x,-1.05) {\t};
+  }
+  \node[alap] (b1) at (4.2,-2.05) {\textbf{funkcionális alapvonal}};
+  \node[alap] (b2) at (6.0,-2.75) {\textbf{allokált\\alapvonal}};
+  \node[alap] (b3) at (8.6,-2.05) {\textbf{termék-\\alapvonal}};
+  \draw[draw=peKek, line width=0.6pt] (kof-f.south) -- (b1.north);
+  \draw[draw=peKek, line width=0.6pt] (etf-f.south) -- (b2.north);
+  \draw[draw=peKek, line width=0.6pt] (rtf-f.south) -- (b3.north);
+  \node[font=\scriptsize, text=peSzurke, anchor=north west, align=left, text width=36mm] at (10.0,-2.15)
+    {alapvonal: jóváhagyott, csak\\szabályozott változtatással\\módosítható állapot};
+\end{tikzpicture}
+\end{document}
