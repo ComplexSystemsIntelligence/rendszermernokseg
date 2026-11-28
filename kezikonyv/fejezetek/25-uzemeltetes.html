@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>25&nbsp; Átadás, üzemeltetés és folyamatos fejlesztés – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/26-menedzsment.html" rel="next">
+<link href="../fejezetek/24-validacio.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/22-integracio.html">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</a></li><li class="breadcrumb-item"><a href="../fejezetek/25-uzemeltetes.html"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/22-integracio.html">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</a></li><li class="breadcrumb-item"><a href="../fejezetek/25-uzemeltetes.html"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-uzemeltetes" class="quarto-section-identifier"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-uz-atadas" id="toc-sec-uz-atadas" class="nav-link active" data-scroll-target="#sec-uz-atadas"><span class="header-section-number">25.1.</span> Átadás és üzembe helyezés</a></li>
+  <li><a href="#sec-uz-karbantartas" id="toc-sec-uz-karbantartas" class="nav-link" data-scroll-target="#sec-uz-karbantartas"><span class="header-section-number">25.2.</span> Üzemeltetés és karbantartás</a></li>
+  <li><a href="#sec-uz-eszkozok" id="toc-sec-uz-eszkozok" class="nav-link" data-scroll-target="#sec-uz-eszkozok"><span class="header-section-number">25.3.</span> A minőségügy alapeszközei</a></li>
+  <li><a href="#sec-uz-spc" id="toc-sec-uz-spc" class="nav-link" data-scroll-target="#sec-uz-spc"><span class="header-section-number">25.4.</span> Statisztikai folyamatszabályozás</a></li>
+  <li><a href="#sec-uz-ciklusok" id="toc-sec-uz-ciklusok" class="nav-link" data-scroll-target="#sec-uz-ciklusok"><span class="header-section-number">25.5.</span> Fejlesztési ciklusok: PDCA, 8D, DMAIC</a></li>
+  <li><a href="#sec-uz-trend" id="toc-sec-uz-trend" class="nav-link" data-scroll-target="#sec-uz-trend"><span class="header-section-number">25.6.</span> Trendelemzés és üzemi visszacsatolás</a></li>
+  <li><a href="#sec-uz-eletciklus-vege" id="toc-sec-uz-eletciklus-vege" class="nav-link" data-scroll-target="#sec-uz-eletciklus-vege"><span class="header-section-number">25.7.</span> Az életciklus vége és a körforgásos szemlélet</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/25-uzemeltetes.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/25-uzemeltetes.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-uzemeltetes.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>megtervezni egy rendszer átadását és üzembe helyezését, és megnevezni az átadás lezárásának feltételeit;</li>
+<li>megkülönböztetni a karbantartás fő fajtáit, és a rendszer jellemzőihez illő karbantartási stratégiát választani;</li>
+<li>alkalmazni a minőségügy alapeszközeit (Pareto-diagram, ok-okozati diagram, hisztogram, kontrollkártya) üzemi problémák elemzésére;</li>
+<li>kontrollkártyát készíteni és értelmezni, és kiszámolni a folyamatképességi indexeket;</li>
+<li>PDCA-, 8D- vagy DMAIC-ciklusban vezetni egy fejlesztést, és üzemi adatokból trendeket felismerni;</li>
+<li>már a tervezéskor figyelembe venni a rendszer életciklusának végét.</li>
+</ul>
+</div></div>
+<p>A V-modell jobb ága nem ér véget a validációval. A rendszert át kell adni, üzembe kell helyezni, üzemeltetni és karban kell tartani, a teljesítményét követni és javítani kell, végül ki kell vonni a használatból. Az üzemeltetés célja, hogy a rendszer kielégítse azt a szükségletet, amelyre létrehozták, és ezt tartósan fenntartsa. A továbbfejlesztés is ide tartozik, de csak addig, amíg nem igényli az architektúra jelentős megváltoztatását: az ilyen mértékű változás már új szükségletet jelent, és új fejlesztési ciklust indít. Az ISO/IEC/IEEE 15288 ezeket a tevékenységeket négy műszaki folyamatban írja le: átadás, üzemeltetés, karbantartás és kivonás <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.10</a>., 6.4.12–6.4.14. szakasz)</span>.</p>
+<section id="sec-uz-atadas" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="sec-uz-atadas"><span class="header-section-number">25.1.</span> Átadás és üzembe helyezés</h2>
+<p>Az ISO/IEC/IEEE 15288 szerint az átadás célja, hogy a rendszer a tervezett üzemi környezetben képes legyen nyújtani az érdekelt felek követelményeiben rögzített szolgáltatásokat <span class="citation" data-cites="iso15288_2023 nasa2016seh">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.10</a>. szakasz; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 5.5</a>. szakasz)</span>. Az átadásnak két formája van: az alacsonyabb szintű termék átadása integrálásra a rendszerstruktúra következő szintjén, illetve a végtermék átadása a felhasználónak, aki a tervezett üzemi környezetben használja. A rendszermérnök felelőssége, hogy csak megfelelően tesztelt, verifikált és validált termék kerüljön át a következő szintre.</p>
+<p>Az átadás fő tevékenységei <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.10</a>. szakasz)</span>:</p>
+<ul>
+<li><strong>felkészülés:</strong> a termék, a személyzet és a segédeszközök készenlétének értékelése; a termékkel együtt átadandó dokumentáció (kezelési, telepítési és karbantartási utasítások, a konfigurációs alapvonal, a verifikáció és a validáció bizonyítékai); a személyzet szükséges képzése;</li>
+<li><strong>a helyszín előkészítése:</strong> helyszíni felmérés, a létesítmények szükséges átalakítása, a logisztikai támogatás, a felhasználók, kezelők és karbantartók képzése; a helyszíni felmérést már az életciklus korai szakaszában érdemes elvégezni, mert a helyszín adottságai a tervet is befolyásolják;</li>
+<li><strong>a termék előkészítése és szállítása:</strong> csomagolás, kezelés, tárolás, a sérülések elleni védelem;</li>
+<li><strong>az átadás és a telepítés:</strong> jóváhagyott telepítési eljárással, majd funkcionális és átvételi teszttel, amely igazolja, hogy a szállítás nem okozott sérülést, és a termék támogatásra kész;</li>
+<li><strong>a munkatermékek rögzítése:</strong> helyszíntervek, kezelési eljárások, képzési anyagok, tanulságok.</li>
+</ul>
+<p>A felhasználónak történő átadás akkor zárul le, ha a termék a helyszínen telepítve van, az átvételi és tanúsítási tevékenységek befejeződtek, a felhasználók, kezelők és karbantartók képzése megtörtént, és az átadást átvételi dokumentum zárja.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: bevezetés a termelés leállítása nélkül</div><div class="doboz-tartalom">
+<p>A ForgácsTech problémamegfogalmazása korlátként rögzítette, hogy a bevezetés alatt a termelés egy hétnél tovább nem állhat le (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet). A csapat ezért szakaszos bevezetést tervezett. Az első két hétben a MES párhuzamosan futott a papíralapú heti ütemtervvel: a műszakvezetők a megszokott módon dolgoztak, de minden átsorolást a MES-ben is rögzítettek, és naponta összevetették a két ütemtervet. A gépeket csoportonként, hétvégén kötötték be. A harmadik héten a papíralapú ütemterv megszűnt. Az átadás része volt a műszakvezetők és a kezelők képzése, a kezelési útmutató, a hibaelhárítási eljárás (mi a teendő, ha a MES nem elérhető) és a felelősök kijelölése az üzemeltetés első három hónapjára.</p>
+</div></div>
+</section>
+<section id="sec-uz-karbantartas" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="sec-uz-karbantartas"><span class="header-section-number">25.2.</span> Üzemeltetés és karbantartás</h2>
+<p>Az üzemeltetés és a karbantartás jellemző tevékenységei <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.12–13</a>. szakasz)</span>: a pótalkatrész-terv végrehajtása, a műszaki adatok gyűjtése, a cserekezelők és -karbantartók képzése, az üzemeltetési és karbantartási naplók vezetése, a rendszer karbantartása és korszerűsítése, a kockázatok azonosítása és frissítése, a hiba- és problémajelentések kezelése, a tanulságok rögzítése, valamint a kivonás előkészítése.</p>
+<p>A <strong>karbantartás</strong> az EN 13306 szabvány szerint két fő ágra bomlik (<a href="#fig-karbantartas-tipusok" class="quarto-xref"><span>25.1</span></a>. ábra) <span class="citation" data-cites="en13306_2017">(<a href="../irodalom.html#ref-en13306_2017" role="doc-biblioref">CEN 2017</a>)</span>. A <strong>megelőző karbantartást</strong> a hiba bekövetkezése előtt végzik: előre meghatározott időközönként vagy darabszám után, illetve az állapot mérése és értékelése alapján (állapotalapú karbantartás). Az állapotalapú karbantartás egyik formája az <strong>előrejelző</strong> (prediktív) karbantartás, amely az állapot jövőbeli alakulását is előre jelzi. A <strong>hibát követő</strong> (korrektív) karbantartás a hiba felismerése után állítja helyre a működőképességet, azonnal vagy halasztva.</p>
+<div id="fig-karbantartas-tipusok" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-karbantartas-tipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/karbantartas-tipusok.svg" class="img-fluid figure-img" style="width:92.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-karbantartas-tipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.1. ábra.</span> A karbantartás fajtái az EN 13306 szerint <span class="citation" data-cites="en13306_2017">(<a href="../irodalom.html#ref-en13306_2017" role="doc-biblioref">CEN 2017</a> alapján)</span>, KoboCella-példával.
+</figcaption>
+</figure>
+</div>
+<p>A választás a meghibásodás jellegétől és következményeitől függ. Ha a meghibásodási ráta nem nő az idővel (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet), az időalapú csere nem csökkenti a hibák számát, csak a jó alkatrészeket cseréli le. Ha a romlás mérhető (kopás, rezgés, hőmérséklet, a nyomaték szórása), az állapotalapú karbantartás a hibák előtt beavatkozik, de csak a szükséges helyen. A karbantartás a rendelkezésre állást és az OEE-t közvetlenül befolyásolja (<a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>. fejezet), ezért a karbantartási stratégia a rendszer teljesítménykövetelményeinek része.</p>
+<p>A rendszer üzemi <strong>teljesítménykövetése</strong> a fejlesztés során használt mérőszámok folytatása: a MOE-k és a TPM-ek (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet) az üzemben mutatószámokká válnak. A KoboCellánál a ciklusidő, a rendelkezésre állás és a nyomaték, a VárosiBringánál az állomások telítettsége és a kölcsönzések száma, a ForgácsTechnél a határidő-tartás és az OEE.</p>
+</section>
+<section id="sec-uz-eszkozok" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="sec-uz-eszkozok"><span class="header-section-number">25.3.</span> A minőségügy alapeszközei</h2>
+<p>Az üzemi problémák többsége egyszerű eszközökkel elemezhető. Ishikawa hét alapeszközt javasolt, amelyekkel szerinte az üzemi minőségi problémák túlnyomó része megoldható <span class="citation" data-cites="ishikawa1982">(<a href="../irodalom.html#ref-ishikawa1982" role="doc-biblioref">Ishikawa 1982</a>)</span>; Montgomery a statisztikai folyamatszabályozás „nagy hetesének” nevezi őket (<a href="#tbl-hetek" class="quarto-xref"><span>25.1</span></a>. táblázat) <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>.</p>
+<div id="tbl-hetek" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[30,70]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-hetek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.1. táblázat.</span> A minőségügy hét alapeszköze <span class="citation" data-cites="ishikawa1982 montgomery2020sqc">(<a href="../irodalom.html#ref-ishikawa1982" role="doc-biblioref">Ishikawa 1982</a>; <a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>.
+</figcaption>
+<div aria-describedby="tbl-hetek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Eszköz</th>
+<th style="text-align: left;">Mire jó?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ellenőrzőlap</td>
+<td style="text-align: left;">az adatok egyszerű, egységes gyűjtése (hol, mikor, milyen hiba)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hisztogram</td>
+<td style="text-align: left;">egy jellemző eloszlásának megjelenítése; a tűrésmezőhöz viszonyítva a képesség szemléltetése</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pareto-diagram</td>
+<td style="text-align: left;">a problémák vagy okok fontossági sorrendje; a „kevés lényeges” kiválasztása</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ok-okozati (halszálka-) diagram</td>
+<td style="text-align: left;">egy probléma lehetséges okainak rendszerezése</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rétegzés</td>
+<td style="text-align: left;">az adatok csoportosítása (gép, műszak, anyag) a különbségek feltárására</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">szórásdiagram</td>
+<td style="text-align: left;">két változó kapcsolatának vizsgálata</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">kontrollkártya</td>
+<td style="text-align: left;">a folyamat időbeli stabilitásának figyelése; a különleges okok jelzése</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A <strong>Pareto-diagram</strong> az okokat gyakoriságuk vagy hatásuk szerint csökkenő sorrendben ábrázolja, a kumulált aránnyal együtt. A tapasztalat szerint a hatás nagy részét az okok kis része okozza; ez a „kevés lényeges és sok kevésbé lényeges” elve <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>. A Pareto-diagram így a problémák rangsorolására és a fejlesztési erőfeszítések összpontosítására szolgál. Az <strong>ok-okozati diagram</strong> egy probléma lehetséges okait fő csoportok (gyakran: ember, gép, módszer, anyag, mérés, környezet) szerint rendezi; a csapatmunkát segíti, de a lehetséges okok közül a valódit adatokkal kell igazolni <span class="citation" data-cites="ishikawa1982">(<a href="../irodalom.html#ref-ishikawa1982" role="doc-biblioref">Ishikawa 1982</a>)</span>.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: mi okozza az állásidőt?</div><div class="doboz-tartalom">
+<p>A MES bevezetése után a gépek állásidejének túlnyomó része okhoz rendelve került rögzítésre, ami a siker egyik kritériuma volt (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet). Egy hónap adataiból a csapat Pareto-diagramot készített (<a href="#fig-pareto-forgacs" class="quarto-xref"><span>25.2</span></a>. ábra): a 3600 perc állásidőből 31% anyagra várás, 24% átállás, 14% szerszámcsere volt; a három ok együtt az állásidő 69%-át adta. Az átállás csökkentésén már dolgoztak (<a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>. fejezet), ezért az anyagra várást vizsgálták tovább ok-okozati diagrammal (<a href="#fig-halszalka-forgacs" class="quarto-xref"><span>25.3</span></a>. ábra). A hat okcsoportból a csapat két lehetséges gyökérokot tartott valószínűnek, és a MES-naplóval ellenőrizte őket: a várakozások 64%-a egy rendelés átsorolása után keletkezett, mert az anyagot csak a műszak elején adták ki, az átsorolt rendeléshez tehát nem volt kikészítve anyag.</p>
+<div id="fig-pareto-forgacs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pareto-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/pareto-forgacs.svg" class="img-fluid figure-img" style="width:88.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pareto-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.2. ábra.</span> A ForgácsTech gépeinek havi állásideje okok szerint (Pareto-diagram).
+</figcaption>
+</figure>
+</div>
+<div id="fig-halszalka-forgacs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-halszalka-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/halszalka-forgacs.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-halszalka-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.3. ábra.</span> Az anyagra várás lehetséges okai (ok-okozati diagram); pirossal az adatokkal igazolt gyökérok.
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="sec-uz-spc" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="sec-uz-spc"><span class="header-section-number">25.4.</span> Statisztikai folyamatszabályozás</h2>
+<p>Minden folyamat szór. Shewhart megkülönböztette a <strong>véletlen</strong> (közös) okokat, amelyek a folyamat természetes ingadozását adják, és a <strong>különleges</strong> (azonosítható) okokat, amelyek a folyamat megváltozását jelzik <span class="citation" data-cites="shewhart1931">(<a href="../irodalom.html#ref-shewhart1931" role="doc-biblioref">Shewhart 1931</a>)</span>. A folyamat akkor „szabályozott”, ha csak véletlen ingadozás van jelen; a statisztikai folyamatszabályozás célja, hogy a különleges okokat még azelőtt felismerje, mielőtt hibás termék keletkezne <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>.</p>
+<p>A <strong>kontrollkártya</strong> a mérési eredményeket (vagy részcsoportok átlagát) időrendben ábrázolja, a középvonallal és a ±3σ-nál húzott beavatkozási határokkal. Részcsoportok esetén a szórást az átlagos terjedelemből becsüljük:</p>
+<p><span id="eq-kontrollhatar"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>σ</mi><mo accent="true">̂</mo></mover><mo>=</mo><mfrac><mover><mi>R</mi><mo accent="true">‾</mo></mover><msub><mi>d</mi><mn>2</mn></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">H</mi></mrow><mo>,</mo><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">E</mi><mi mathvariant="normal">H</mi></mrow><mo>=</mo><mover><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo accent="true">‾</mo></mover><mo>±</mo><mn>3</mn><mspace width="0.167em"></mspace><mfrac><mover><mi>σ</mi><mo accent="true">̂</mo></mover><msqrt><mi>n</mi></msqrt></mfrac><mo>=</mo><mover><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo accent="true">‾</mo></mover><mo>±</mo><msub><mi>A</mi><mn>2</mn></msub><mover><mi>R</mi><mo accent="true">‾</mo></mover><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>25.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\hat{\sigma} = \frac{\bar{R}}{d_2}, \qquad \mathrm{FEH},\,\mathrm{AEH} = \bar{\bar{x}} \pm 3\,\frac{\hat{\sigma}}{\sqrt{n}} = \bar{\bar{x}} \pm A_2 \bar{R},
+ \qquad(25.1)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>R</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{R}</annotation></semantics></math> a részcsoport-terjedelmek átlaga, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> a részcsoport mérete, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>d</mi><mn>2</mn></msub><annotation encoding="application/x-tex">d_2</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>3</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>d</mi><mn>2</mn></msub><msqrt><mi>n</mi></msqrt><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_2 = 3/(d_2\sqrt{n})</annotation></semantics></math> táblázatos állandók (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n = 5</annotation></semantics></math> esetén <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn><mo>,</mo><mn>326</mn></mrow><annotation encoding="application/x-tex">d_2 = 2{,}326</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mn>2</mn></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>577</mn></mrow><annotation encoding="application/x-tex">A_2 = 0{,}577</annotation></semantics></math>) <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>. A határokat egy stabil időszak adataiból számoljuk (I. szakasz), és ezekkel figyeljük a folyamatot (II. szakasz).</p>
+<p>A különleges ok jelei az úgynevezett Western Electric-szabályok szerint <span class="citation" data-cites="montgomery2020sqc goldberg1994toolbox">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 7.14</a>. szakasz)</span>: (1) egy pont a ±3σ határon kívül; (2) három egymást követő pontból kettő ugyanazon az oldalon a 2σ-n túl; (3) öt egymást követő pontból négy ugyanazon az oldalon az 1σ-n túl; (4) nyolc egymást követő pont a középvonal ugyanazon oldalán. A szabályok a határon kívüli pont előtt is jelezhetik a folyamat elmozdulását.</p>
+<p>A kontrollkártya a folyamat stabilitásáról szól, nem arról, hogy a termék megfelel-e a tűrésnek. Ezt a <strong>folyamatképességi indexek</strong> mutatják:</p>
+<p><span id="eq-kepesseg"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">H</mi></mrow><mo>−</mo><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">H</mi></mrow></mrow><mrow><mn>6</mn><mi>σ</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>=</mo><mfrac><mrow><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mi mathvariant="normal">F</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">H</mi></mrow><mo>−</mo><mi>μ</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>μ</mi><mo>−</mo><mrow><mi mathvariant="normal">A</mi><mi mathvariant="normal">T</mi><mi mathvariant="normal">H</mi></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mn>3</mn><mi>σ</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>25.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+C_p = \frac{\mathrm{FTH} - \mathrm{ATH}}{6\sigma}, \qquad C_{pk} = \frac{\min(\mathrm{FTH} - \mu,\; \mu - \mathrm{ATH})}{3\sigma},
+ \qquad(25.2)</annotation></semantics></math></span></p>
+<p>ahol FTH és ATH a felső és az alsó tűréshatár. A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>p</mi></msub><annotation encoding="application/x-tex">C_p</annotation></semantics></math> a tűrésmező és a folyamat szórásának viszonya, a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">C_{pk}</annotation></semantics></math> a folyamat középértékének elhelyezkedését is figyelembe veszi <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>. A képességindex csak stabil folyamatra értelmezhető.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a nyomaték kontrollkártyája</div><div class="doboz-tartalom">
+<p>A csavarozó egység óránként öt egymást követő kötés nyomatékát rögzíti. Az első húsz részcsoportból a középvonal 4,020 Nm, az átlagos terjedelem 0,116 Nm, így <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>σ</mi><mo accent="true">̂</mo></mover><mo>=</mo><mn>0</mn><mo>,</mo><mn>116</mn><mi>/</mi><mn>2</mn><mo>,</mo><mn>326</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>050</mn></mrow><annotation encoding="application/x-tex">\hat{\sigma} = 0{,}116/2{,}326 = 0{,}050</annotation></semantics></math> Nm, a beavatkozási határok 3,953 és 4,087 Nm (<a href="#fig-kontrollkartya-kobo" class="quarto-xref"><span>25.4</span></a>. ábra). A folyamat stabil, a képességindexek a 4,0 ± 0,2 Nm tűrésre <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>4</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>6</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>050</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>,</mo><mn>33</mn></mrow><annotation encoding="application/x-tex">C_p = 0{,}4/(6 \cdot 0{,}050) = 1{,}33</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>18</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>050</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>,</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">C_{pk} = 0{,}18/(3 \cdot 0{,}050) = 1{,}20</annotation></semantics></math>. A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">C_{pk}</annotation></semantics></math> azért kisebb a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>p</mi></msub><annotation encoding="application/x-tex">C_p</annotation></semantics></math>-nél, mert a középérték 0,02 Nm-rel a célérték fölött van; a középérték beállításával a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">C_{pk}</annotation></semantics></math> a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>p</mi></msub><annotation encoding="application/x-tex">C_p</annotation></semantics></math> értékéig növelhető (<a href="18-robusztus.html" class="quarto-xref"><span>18</span></a>. fejezet). A 21. részcsoporttól az átlag csökkenni kezdett. A 24. részcsoportnál két szabály is jelzett (három pontból kettő a 2σ-n túl, öt pontból négy az 1σ-n túl), a 25. pont már a beavatkozási határ alá esett. Az első gyanú a bitbetét kopása volt, de a kísérlettervezés szerint a választott kétlépcsős stratégiánál a kopás csak néhány század Nm-rel csökkenti a nyomatékot (<a href="18-robusztus.html" class="quarto-xref"><span>18</span></a>. fejezet), a megfigyelt elmozdulás ennél jóval nagyobb volt. A rétegzés megmutatta, hogy az elmozdulás egy új csavartétel felhasználásával kezdődött: a beszállító gyártási helyet váltott, és a csavarok felületi bevonata eltért a korábbiakétól. A csapat a tételt visszatartotta, a beszállítói specifikációt a bevonatra is kiterjesztette, és a beérkező tételekre mintavételes csavarozási próbát vezetett be; a kontrollkártya jelzése egyben a bitbetét állapotalapú cseréjének is egyik feltétele lett.</p>
+<div id="fig-kontrollkartya-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kontrollkartya-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/kontrollkartya-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kontrollkartya-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.4. ábra.</span> A KoboCella csavarozási nyomatékának átlag-kontrollkártyája (FEH és AEH: felső és alsó beavatkozási határ, CL: középvonal).
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="sec-uz-ciklusok" class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="sec-uz-ciklusok"><span class="header-section-number">25.5.</span> Fejlesztési ciklusok: PDCA, 8D, DMAIC</h2>
+<p>A folyamatos fejlesztés szervezett ciklusokban halad (<a href="#fig-fejlesztesi-ciklusok" class="quarto-xref"><span>25.5</span></a>. ábra). A <strong>PDCA</strong>-ciklus (tervezés, végrehajtás, ellenőrzés, beavatkozás) Shewhart munkájára épül, és Deming tette ismertté <span class="citation" data-cites="deming1986">(<a href="../irodalom.html#ref-deming1986" role="doc-biblioref">Deming 1986</a>)</span>: a fejlesztés tervvel és mérhető céllal indul, kis léptékben valósul meg, a hatását mérik, és a bevált változtatást szabványosítják, a be nem váltat elvetik.</p>
+<div id="fig-fejlesztesi-ciklusok" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fejlesztesi-ciklusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/fejlesztesi-ciklusok.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fejlesztesi-ciklusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.5. ábra.</span> A PDCA-ciklus, valamint a DMAIC és a 8D lépéseinek megfeleltetése a PDCA szakaszainak.
+</figcaption>
+</figure>
+</div>
+<p>A <strong>8D</strong> (nyolc fegyelem) a reklamációk és a súlyos hibák rendszerezett, csapatban végzett kezelésére szolgál, különösen a járműiparban <span class="citation" data-cites="vda2018_8d">(<a href="../irodalom.html#ref-vda2018_8d" role="doc-biblioref">VDA QMC 2018</a>)</span>. Lépései: D1 a csapat összeállítása, D2 a probléma leírása, D3 azonnali (elszigetelő) intézkedések, D4 a gyökérok feltárása és igazolása, D5 a javító intézkedések kiválasztása, D6 a bevezetésük és hatékonyságuk igazolása, D7 a megismétlődés megelőzése, D8 a csapat elismerése és a lezárás. A 8D sajátossága, hogy az ügyfél védelmét szolgáló azonnali intézkedést elválasztja a gyökérokot megszüntető tartós intézkedéstől.</p>
+<p>A <strong>DMAIC</strong> (meghatározás, mérés, elemzés, fejlesztés, szabályozás) a hat szigma módszertan projektciklusa. Schroeder és szerzőtársai szerint a hat szigma lényege a párhuzamos szervezeti struktúra (képzett projektvezetők), a strukturált fejlesztési eljárás és a mérőszámokra épülő célok <span class="citation" data-cites="schroeder2008">(<a href="../irodalom.html#ref-schroeder2008" role="doc-biblioref">Schroeder és mtsai. 2008</a>)</span>. A DMAIC adatvezérelt: a probléma meghatározása után a jelenlegi teljesítményt mérik, a gyökérokokat statisztikai eszközökkel igazolják, a megoldást kísérletileg kipróbálják, végül a javulást szabályozással (például kontrollkártyával) tartják fenn <span class="citation" data-cites="montgomery2020sqc">(<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a>)</span>.</p>
+<div id="tbl-ciklusok" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[22,22,28,28]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ciklusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">25.2. táblázat.</span> A három fejlesztési ciklus összevetése <span class="citation" data-cites="deming1986 vda2018_8d schroeder2008 montgomery2020sqc">(<a href="../irodalom.html#ref-deming1986" role="doc-biblioref">Deming 1986</a>; <a href="../irodalom.html#ref-vda2018_8d" role="doc-biblioref">VDA QMC 2018</a>; <a href="../irodalom.html#ref-schroeder2008" role="doc-biblioref">Schroeder és mtsai. 2008</a>; <a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">Montgomery 2020</a> alapján)</span>.
+</figcaption>
+<div aria-describedby="tbl-ciklusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">PDCA</th>
+<th style="text-align: left;">8D</th>
+<th style="text-align: left;">DMAIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">tipikus kiváltó ok</td>
+<td style="text-align: left;">bármilyen fejlesztési lehetőség</td>
+<td style="text-align: left;">reklamáció, súlyos hiba</td>
+<td style="text-align: left;">krónikus, adatokkal mérhető teljesítményhiány</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">léptéke</td>
+<td style="text-align: left;">kicsi, gyorsan ismételhető</td>
+<td style="text-align: left;">egy probléma, csapat, hetek</td>
+<td style="text-align: left;">projekt, hónapok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fő eszközök</td>
+<td style="text-align: left;">egyszerű mérés, kísérlet</td>
+<td style="text-align: left;">ok-okozati diagram, 5 miért, azonnali intézkedés</td>
+<td style="text-align: left;">statisztika, kísérlettervezés, kontrollkártya</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a lezárás feltétele</td>
+<td style="text-align: left;">a változtatás szabványosítása</td>
+<td style="text-align: left;">a megismétlődés megelőzése igazolt</td>
+<td style="text-align: left;">a javulás szabályozott és fenntartott</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: 8D a téli zárhibákra</div><div class="doboz-tartalom">
+<p>Az első télen három hét alatt 12 bejelentés érkezett arról, hogy a dokkoló a kerékpár visszahelyezése után nem zárt; mind a négy érintett állomás árnyékos helyen volt (D2). Az azonnali intézkedés: az alkalmazás a visszaadás után a zár állapotát is ellenőrizte, és sikertelen zárás esetén a felhasználót a szomszédos dokkolóhoz irányította; a diszpécser reggelente ellenőrizte az érintett állomásokat (D3). A csapat a lehetséges okokat ok-okozati diagrammal gyűjtötte össze, és hűtőkamrás teszttel igazolta a gyökérokot: −5 °C alatt a zárnyelv kenőanyaga besűrűsödött, és a reteszcsap nem ugrott be teljesen (D4). A javító intézkedés alacsony hőmérsékleten is működő kenőanyag és a zárnyelv rugójának erősítése lett (D5), amelyet hűtőkamrában és két állomáson igazoltak (D6). A megelőzés: a dokkoló FMEA-jának frissítése (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet), a kenőanyag-specifikáció módosítása és egy téli ellenőrzőlista (D7).</p>
+</div></div>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: DMAIC az anyagra várásra</div><div class="doboz-tartalom">
+<p>A Pareto-elemzés után a csapat DMAIC-projektet indított. <em>Meghatározás:</em> az anyagra várás havi 1120 perc, a cél legfeljebb 400 perc. <em>Mérés:</em> a MES-napló gépenként és okonként rögzíti a várakozásokat. <em>Elemzés:</em> az ok-okozati diagram és a napló szerint a várakozások 64%-a átsorolás után keletkezett. <em>Fejlesztés:</em> a MES-ütemező átsorolás előtt ellenőrzi az anyag rendelkezésre állását, és az anyagot a műszak eleje helyett kétóránként, az ütemterv alapján adják ki; két gépen egy hónapig próbálták ki. <em>Szabályozás:</em> a napi várakozási percek egyedi értékes kontrollkártyáját a műszakvezetői megbeszélésen követik. Három hónap után a havi anyagra várás 380 perc lett.</p>
+</div></div>
+</section>
+<section id="sec-uz-trend" class="level2" data-number="25.6">
+<h2 data-number="25.6" class="anchored" data-anchor-id="sec-uz-trend"><span class="header-section-number">25.6.</span> Trendelemzés és üzemi visszacsatolás</h2>
+<p>A kontrollkártya a hirtelen változást jelzi, a <strong>trendelemzés</strong> a lassú, fokozatos romlást. A trendelemzés több területre is kiterjedhet: a teljesítmény (egy működési jellemző alakulása), a problémák (a hibajelentések gyakorisága és jellege), a programmenedzsment (költség, ütemezés, erőforrások), a támogathatóság (pótalkatrészek, karbantartás) és a megbízhatóság trendjére. A trendelemzés célja, hogy a romlást még a követelmény megsértése vagy a meghibásodás előtt felismerje, és a beavatkozásra időt adjon.</p>
+<p>Az üzemi adatok a fejlesztés számára is értékesek. A folyamatbányászat a valós folyamatot tárja fel az eseménynaplókból (<a href="20-bpmn.html" class="quarto-xref"><span>20</span></a>. fejezet), a hibajelentések és a karbantartási naplók a megbízhatósági modellek paramétereit pontosítják (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet), az üzem közbeni validáció (<a href="24-validacio.html" class="quarto-xref"><span>24</span></a>. fejezet) pedig a ki nem mondott elvárásokat hozza felszínre. Ezért a tanulságokat az üzemeltetés és a lezárás minden szakaszában rögzíteni kell; a következő fejlesztés ezekből indul.</p>
+</section>
+<section id="sec-uz-eletciklus-vege" class="level2" data-number="25.7">
+<h2 data-number="25.7" class="anchored" data-anchor-id="sec-uz-eletciklus-vege"><span class="header-section-number">25.7.</span> Az életciklus vége és a körforgásos szemlélet</h2>
+<p>Minden rendszer egyszer kikerül a használatból. Az ISO/IEC/IEEE 15288 a kivonást önálló folyamatként kezeli: célja, hogy a rendszer vagy elem működését befejezze, a kivont elemeket megfelelően kezelje, és a kritikus kivonási igényeket kielégítse, például a környezetvédelmi előírásokat <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.14</a>. szakasz)</span>. A rendszermérnök feladata, hogy a műszaki információkat azonosítsák és archiválják. A kivonás tevékenységei hosszúak és összetettek lehetnek, és visszahatnak a tervre, ezért a lehetőségeket és költségeiket már a korábbi szakaszokban mérlegelni kell.</p>
+<p>A <strong>körforgásos gazdaság</strong> ezt a szemléletet a teljes termékláncra kiterjeszti. Kirchherr és szerzőtársai 114 meghatározás elemzése alapján a körforgásos gazdaságot olyan gazdasági rendszerként írják le, amely a termékek életciklusának végét a csökkentéssel, az újrahasználattal, az újrahasznosítással és az anyagok visszanyerésével váltja fel a termelés, az elosztás és a fogyasztás folyamataiban; a gyakran használt hierarchikus keretrendszerek a lehetőségeket az elutasítástól és újragondolástól az újrahasználaton, javításon, felújításon és újragyártáson át az újrahasznosításig és az energia visszanyeréséig rangsorolják <span class="citation" data-cites="kirchherr2017">(<a href="../irodalom.html#ref-kirchherr2017" role="doc-biblioref">Kirchherr, Reike, és Hekkert 2017</a>)</span>. A rendszermérnöki következmény: a javíthatóságot, a szétszerelhetőséget, a modularitást és az anyagok azonosíthatóságát követelményként kell kezelni, nem utólagos szempontként. Egyes termékcsoportoknál ezt jogszabály is előírja: az Európai Unió elemrendelete például a könnyű közlekedési eszközök (köztük az elektromos kerékpárok) akkumulátoraira is gyűjtési, újrafeldolgozási és tájékoztatási kötelezettségeket állapít meg <span class="citation" data-cites="eu2023_1542">(<a href="../irodalom.html#ref-eu2023_1542" role="doc-biblioref">Európai Parlament és a Tanács 2023</a>)</span>.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: az akkumulátorok életciklusa</div><div class="doboz-tartalom">
+<p>A VárosiBringa csapata az akkumulátorok életciklus végét már a koncepció szakaszában a követelmények közé vette: a cserélhető, szabványos csatlakozójú akkumulátorok kapacitását a flottakezelő rendszer folyamatosan követi; ha egy akkumulátor kapacitása a névleges 80%-a alá csökken, kikerül a kerékpárból. A kivont akkumulátorokat a szerződés szerint a gyártó veszi vissza, és helyhez kötött energiatárolóként vagy újrafeldolgozásra hasznosítja. A követelmény hatással volt a tervre is: a kerékpár akkumulátortartója szerszám nélkül, de csak szervizkulccsal nyitható.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Prediktív karbantartás és digitális iker</div><div class="doboz-tartalom">
+<p>Az érzékelők, az ipari adatgyűjtés és a gépi tanulás lehetővé teszi, hogy a karbantartás az állapot jövőbeli alakulásának előrejelzésére épüljön. A rendszer digitális ikre (<a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet) az üzemi adatokkal folyamatosan frissül, és szimulációval mutatja meg, hogyan hat egy beavatkozás. A rendszermérnöki kérdések ugyanazok, mint a fejezet többi részében: mely jellemzők romlása mérhető, mekkora a téves riasztás és az elmulasztott jelzés költsége, és ki dönt a beavatkozásról (<a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet).</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Átadás után magára hagyott rendszer</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a fejlesztőcsapat az átvétellel lezártnak tekinti a munkát, és senki nem felel a teljesítmény követéséért. A mérőszámokat nem gyűjtik, a kezelők a hibákat megkerülő megoldásokkal kezelik, a tudás a fejlesztőkkel együtt távozik. Az átadás része kell legyen az üzemeltetés felelőseinek kijelölése, a mérőszámok gyűjtésének és értékelésének rendje, és a fejlesztők elérhetősége egy meghatározott időszakra.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>Az átadás a verifikált és validált terméket a következő szintre vagy a felhasználóhoz juttatja; része a dokumentáció, a képzés, a helyszín előkészítése, a telepítés és az átvételi teszt.</li>
+<li>Az üzemeltetés során a rendszer továbbfejleszthető, de az architektúra jelentős változása új szükségletet és új életciklust jelent.</li>
+<li>A karbantartás megelőző (előre meghatározott vagy állapotalapú, ezen belül előrejelző) vagy hibát követő; a választást a meghibásodás jellege és következménye határozza meg.</li>
+<li>A hét alapeszköz (ellenőrzőlap, hisztogram, Pareto-diagram, ok-okozati diagram, rétegzés, szórásdiagram, kontrollkártya) az üzemi problémák többségének elemzésére elég.</li>
+<li>A kontrollkártya a különleges okokat jelzi; a képességindexek a tűréshez viszonyított teljesítményt mérik, és csak stabil folyamatra értelmezhetők.</li>
+<li>A PDCA, a 8D és a DMAIC a fejlesztés szervezett ciklusai; a trendelemzés a lassú romlást, az üzemi adatok a következő fejlesztés bemeneteit adják.</li>
+<li>Az életciklus végét a tervezéskor kell figyelembe venni: javíthatóság, szétszerelhetőség, újrahasználat és újrahasznosítás.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Mikor zárul le az átadás?</li>
+<li>Miért kell a helyszíni felmérést az életciklus korai szakaszában elvégezni?</li>
+<li>Mi a különbség az előre meghatározott és az állapotalapú karbantartás között? Mikor nem csökkenti a hibák számát az időalapú csere?</li>
+<li>Egy hónapban a reklamációk okai: csomagolási sérülés 46, hibás címke 12, méreteltérés 31, felületi hiba 8, egyéb 3. Készíts Pareto-sorrendet, és számold ki, mekkora arányt ad a két leggyakoribb ok!</li>
+<li>Mi a különbség a véletlen és a különleges ok között?</li>
+<li>Egy folyamat középértéke 10,02 mm, szórása 0,01 mm, a tűrés 10,00 ± 0,05 mm. Számítsd ki a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>p</mi></msub><annotation encoding="application/x-tex">C_p</annotation></semantics></math> és a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><annotation encoding="application/x-tex">C_{pk}</annotation></semantics></math> értékét!</li>
+<li>Miben különbözik a 8D azonnali (D3) és tartós (D5–D6) intézkedése, és miért fontos a kettő elválasztása?</li>
+<li>Milyen tervezési követelmények következnek a körforgásos szemléletből?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Ha a termék a helyszínen telepítve van, az átvételi és tanúsítási tevékenységek befejeződtek, a felhasználók, kezelők és karbantartók képzése megtörtént, és az átadást átvételi dokumentum zárja.</li>
+<li>Mert a létesítmények átalakítását, a logisztikai támogatást és az esetleges engedélyeket jóval az üzembe helyezés előtt meg kell tervezni; egy későn felismert hiány (energiaellátás, alapozás, hálózat) késést és többletköltséget okoz.</li>
+<li>Az előre meghatározott karbantartás rögzített időközönként vagy darabszám után végzik, az állapotalapú az állapot mérése alapján. Ha a meghibásodási ráta nem nő az idővel (véletlen hibák), az időalapú csere nem csökkenti a hibák számát.</li>
+<li>Sorrend: csomagolási sérülés 46, méreteltérés 31, hibás címke 12, felületi hiba 8, egyéb 3; összesen 100. A két leggyakoribb ok 77%.</li>
+<li>A véletlen ok a folyamat természetes, sok kis tényezőből adódó ingadozása; a különleges ok azonosítható, a folyamat megváltozását jelzi (kopás, új anyag, beállítási hiba), és beavatkozást kíván.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>10</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>6</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>01</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>,</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">C_p = 0{,}10/(6 \cdot 0{,}01) = 1{,}67</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>p</mi><mi>k</mi></mrow></msub><mo>=</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>10</mn><mo>,</mo><mn>05</mn><mo>−</mo><mn>10</mn><mo>,</mo><mn>02</mn><mo>;</mo><mspace width="0.222em"></mspace><mn>10</mn><mo>,</mo><mn>02</mn><mo>−</mo><mn>9</mn><mo>,</mo><mn>95</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>01</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn><mo>,</mo><mn>03</mn><mi>/</mi><mn>0</mn><mo>,</mo><mn>03</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>00</mn></mrow><annotation encoding="application/x-tex">C_{pk} = \min(10{,}05 - 10{,}02;\ 10{,}02 - 9{,}95)/(3 \cdot 0{,}01) = 0{,}03/0{,}03 = 1{,}00</annotation></semantics></math>.</li>
+<li>Az azonnali intézkedés az ügyfelet védi a hiba következményeitől, amíg a gyökérok nem ismert; a tartós intézkedés a gyökérokot szünteti meg. Ha nem választják el őket, az azonnali intézkedés (például szigorított ellenőrzés) tartóssá válik, és a gyökérok megmarad.</li>
+<li>Javíthatóság, szétszerelhetőség, modularitás, szabványos csatlakozók és alkatrészek, az anyagok azonosíthatósága, visszavételi és újrahasznosítási lehetőség, valamint az ezekhez szükséges információk átadása.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: üzemeltetés és fejlesztés</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>sorold fel az átadás feltételeit: dokumentáció, képzés, a helyszín előkészítése, átvételi teszt, felelősök;</li>
+<li>válassz karbantartási stratégiát a rendszer két legfontosabb eleméhez, és indokold;</li>
+<li>nevezz meg három üzemi mutatót (a MOE-kból és a TPM-ekből), és add meg, hogyan, milyen gyakran és ki méri őket;</li>
+<li>tervezz egy kontrollkártyát egy kritikus jellemzőhöz: részcsoport, mintavételi gyakoriság, a jelzések kezelése;</li>
+<li>írd le, mi történik a rendszerrel az életciklus végén, és milyen követelmény következik ebből.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="iso15288_2023">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">2023</a>)</span>, 6.4.10. és 6.4.12–6.4.14. szakasz: az átadás, az üzemeltetés, a karbantartás és a kivonás folyamata.</li>
+<li><span class="citation" data-cites="iso15288_2023">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">2023</a>)</span>, 6.4.10., 6.4.12–6.4.14. szakasz; <span class="citation" data-cites="en13306_2017">CEN (<a href="../irodalom.html#ref-en13306_2017" role="doc-biblioref">2017</a>)</span>: az átadás, üzemeltetés, karbantartás és kivonás folyamatai, a karbantartás fogalmai.</li>
+<li><span class="citation" data-cites="ishikawa1982">Ishikawa (<a href="../irodalom.html#ref-ishikawa1982" role="doc-biblioref">1982</a>)</span>; <span class="citation" data-cites="montgomery2020sqc">Montgomery (<a href="../irodalom.html#ref-montgomery2020sqc" role="doc-biblioref">2020</a>)</span>: a minőségügy alapeszközei és a statisztikai folyamatszabályozás.</li>
+<li><span class="citation" data-cites="shewhart1931">Shewhart (<a href="../irodalom.html#ref-shewhart1931" role="doc-biblioref">1931</a>)</span>; <span class="citation" data-cites="deming1986">Deming (<a href="../irodalom.html#ref-deming1986" role="doc-biblioref">1986</a>)</span>; <span class="citation" data-cites="vda2018_8d">VDA QMC (<a href="../irodalom.html#ref-vda2018_8d" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="schroeder2008">Schroeder és mtsai. (<a href="../irodalom.html#ref-schroeder2008" role="doc-biblioref">2008</a>)</span>: a folyamatszabályozás és a fejlesztési ciklusok alapjai.</li>
+<li><span class="citation" data-cites="kirchherr2017">Kirchherr, Reike, és Hekkert (<a href="../irodalom.html#ref-kirchherr2017" role="doc-biblioref">2017</a>)</span>; <span class="citation" data-cites="eu2023_1542">Európai Parlament és a Tanács (<a href="../irodalom.html#ref-eu2023_1542" role="doc-biblioref">2023</a>)</span>: a körforgásos gazdaság fogalma és szabályozási példa.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 3.8., 3.9. és 5.5. szakasz: az üzemeltetési és a lezárási szakasz, valamint a termékátadás folyamata.</li>
+<li><span class="citation" data-cites="goldberg1994toolbox">Goldberg és mtsai. (<a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">1994</a>)</span>, 5., 7. és 8. fejezet: a minőségügy alapeszközei, a statisztikai folyamatszabályozás és a trendelemzés gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-en13306_2017" class="csl-entry" role="listitem">
+CEN. 2017. <span>„<span>EN</span> 13306:2017 Maintenance – Maintenance Terminology”</span>. European Committee for Standardization, Brüsszel.
+</div>
+<div id="ref-deming1986" class="csl-entry" role="listitem">
+Deming, W. Edwards. 1986. <em>Out of the Crisis</em>. Cambridge, MA: MIT Center for Advanced Engineering Study.
+</div>
+<div id="ref-eu2023_1542" class="csl-entry" role="listitem">
+Európai Parlament és a Tanács. 2023. <span>„Az <span>(EU)</span> 2023/1542 rendelet (2023. július 12.) az elemekről és a hulladékelemekről”</span>. Az Európai Unió Hivatalos Lapja, L 191.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, és L. Stout. 1994. <span>„System Engineering <span>»Toolbox«</span> for Design-Oriented Engineers”</span>. NASA Reference Publication 1358. NASA Marshall Space Flight Center.
+</div>
+<div id="ref-ishikawa1982" class="csl-entry" role="listitem">
+Ishikawa, Kaoru. 1982. <em>Guide to Quality Control</em>. 2. kiad. Tokyo: Asian Productivity Organization.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-kirchherr2017" class="csl-entry" role="listitem">
+Kirchherr, Julian, Denise Reike, és Marko Hekkert. 2017. <span>„Conceptualizing the Circular Economy: An Analysis of 114 Definitions”</span>. <em>Resources, Conservation and Recycling</em> 127: 221–32. <a href="https://doi.org/10.1016/j.resconrec.2017.09.005">https://doi.org/10.1016/j.resconrec.2017.09.005</a>.
+</div>
+<div id="ref-montgomery2020sqc" class="csl-entry" role="listitem">
+Montgomery, Douglas C. 2020. <em>Introduction to Statistical Quality Control</em>. 8. kiad. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-schroeder2008" class="csl-entry" role="listitem">
+Schroeder, Roger G., Kevin Linderman, Charles Liedtke, és Adrian S. Choo. 2008. <span>„Six Sigma: Definition and Underlying Theory”</span>. <em>Journal of Operations Management</em> 26 (4): 536–54. <a href="https://doi.org/10.1016/j.jom.2007.06.007">https://doi.org/10.1016/j.jom.2007.06.007</a>.
+</div>
+<div id="ref-shewhart1931" class="csl-entry" role="listitem">
+Shewhart, Walter A. 1931. <em>Economic Control of Quality of Manufactured Product</em>. New York: Van Nostrand.
+</div>
+<div id="ref-vda2018_8d" class="csl-entry" role="listitem">
+VDA QMC. 2018. <span>„8D – Problem Solving in 8 Disciplines: Method, Process, Report”</span>. Verband der Automobilindustrie, Qualitäts Management Center, Berlin, 1. kiadás.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/24-validacio.html" class="pagination-link" aria-label="Validáció">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/26-menedzsment.html" class="pagination-link" aria-label="Technikai tervezés és irányítás">
+        <span class="nav-page-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/25-uzemeltetes.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/25-uzemeltetes.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

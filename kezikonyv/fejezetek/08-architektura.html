@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Funkció, forma, koncepció: a rendszer architektúrája – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/09-kreativitas.html" rel="next">
+<link href="../fejezetek/07-qfd.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/08-architektura.html"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/08-architektura.html"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-architektura" class="quarto-section-identifier"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-arch-alapfogalmak" id="toc-sec-arch-alapfogalmak" class="nav-link active" data-scroll-target="#sec-arch-alapfogalmak"><span class="header-section-number">8.1.</span> Funkció, forma és koncepció</a>
+  <ul class="collapse">
+  <li><a href="#a-megoldássemleges-funkciómegfogalmazás" id="toc-a-megoldássemleges-funkciómegfogalmazás" class="nav-link" data-scroll-target="#a-megoldássemleges-funkciómegfogalmazás"><span class="header-section-number">8.1.1.</span> A megoldássemleges funkciómegfogalmazás</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-v" id="toc-sec-arch-v" class="nav-link" data-scroll-target="#sec-arch-v"><span class="header-section-number">8.2.</span> Az architektúra helye a V-modellben</a></li>
+  <li><a href="#sec-arch-funkcioelemzes" id="toc-sec-arch-funkcioelemzes" class="nav-link" data-scroll-target="#sec-arch-funkcioelemzes"><span class="header-section-number">8.3.</span> Funkcionális elemzés és funkciófa</a>
+  <ul class="collapse">
+  <li><a href="#a-funkciófa" id="toc-a-funkciófa" class="nav-link" data-scroll-target="#a-funkciófa"><span class="header-section-number">8.3.1.</span> A funkciófa</a></li>
+  <li><a href="#szintenként-hány-elem" id="toc-szintenként-hány-elem" class="nav-link" data-scroll-target="#szintenként-hány-elem"><span class="header-section-number">8.3.2.</span> Szintenként hány elem?</a></li>
+  <li><a href="#teljesítményallokáció-a-funkciókra" id="toc-teljesítményallokáció-a-funkciókra" class="nav-link" data-scroll-target="#teljesítményallokáció-a-funkciókra"><span class="header-section-number">8.3.3.</span> Teljesítményallokáció a funkciókra</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-ffbd" id="toc-sec-arch-ffbd" class="nav-link" data-scroll-target="#sec-arch-ffbd"><span class="header-section-number">8.4.</span> A funkciók lefutása: FFBD és IDEF0</a>
+  <ul class="collapse">
+  <li><a href="#funkcionális-folyamatábra-ffbd" id="toc-funkcionális-folyamatábra-ffbd" class="nav-link" data-scroll-target="#funkcionális-folyamatábra-ffbd"><span class="header-section-number">8.4.1.</span> Funkcionális folyamatábra (FFBD)</a></li>
+  <li><a href="#idef0" id="toc-idef0" class="nav-link" data-scroll-target="#idef0"><span class="header-section-number">8.4.2.</span> IDEF0</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-allokacio" id="toc-sec-arch-allokacio" class="nav-link" data-scroll-target="#sec-arch-allokacio"><span class="header-section-number">8.5.</span> Allokáció: a funkciótól a formáig</a>
+  <ul class="collapse">
+  <li><a href="#moduláris-és-integrált-architektúra" id="toc-moduláris-és-integrált-architektúra" class="nav-link" data-scroll-target="#moduláris-és-integrált-architektúra"><span class="header-section-number">8.5.1.</span> Moduláris és integrált architektúra</a></li>
+  <li><a href="#levezetett-követelmények" id="toc-levezetett-követelmények" class="nav-link" data-scroll-target="#levezetett-követelmények"><span class="header-section-number">8.5.2.</span> Levezetett követelmények</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-n2" id="toc-sec-arch-n2" class="nav-link" data-scroll-target="#sec-arch-n2"><span class="header-section-number">8.6.</span> Interfészek: N²-diagram és interfészkezelés</a>
+  <ul class="collapse">
+  <li><a href="#az-n²-diagram" id="toc-az-n²-diagram" class="nav-link" data-scroll-target="#az-n²-diagram"><span class="header-section-number">8.6.1.</span> Az N²-diagram</a></li>
+  <li><a href="#interfészkezelés" id="toc-interfészkezelés" class="nav-link" data-scroll-target="#interfészkezelés"><span class="header-section-number">8.6.2.</span> Interfészkezelés</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-dsm" id="toc-sec-arch-dsm" class="nav-link" data-scroll-target="#sec-arch-dsm"><span class="header-section-number">8.7.</span> Tervezési struktúramátrix és modularitás</a>
+  <ul class="collapse">
+  <li><a href="#modularitás-és-klaszterezés" id="toc-modularitás-és-klaszterezés" class="nav-link" data-scroll-target="#modularitás-és-klaszterezés"><span class="header-section-number">8.7.1.</span> Modularitás és klaszterezés</a></li>
+  <li><a href="#tervezési-szabályok-és-a-szervezet-tükre" id="toc-tervezési-szabályok-és-a-szervezet-tükre" class="nav-link" data-scroll-target="#tervezési-szabályok-és-a-szervezet-tükre"><span class="header-section-number">8.7.2.</span> Tervezési szabályok és a szervezet tükre</a></li>
+  </ul></li>
+  <li><a href="#sec-arch-ertekeles" id="toc-sec-arch-ertekeles" class="nav-link" data-scroll-target="#sec-arch-ertekeles"><span class="header-section-number">8.8.</span> Mitől jó egy architektúra?</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/08-architektura.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/08-architektura.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-architektura.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>megkülönböztetni a rendszer funkcióját, formáját és koncepcióját, és megoldássemlegesen megfogalmazni egy funkciót;</li>
+<li>elhelyezni az architektúra kialakítását (a logikai dekompozíciót) a V-modellben, és felsorolni a lépéseit;</li>
+<li>funkcionális elemzést végezni: funkciófát, funkcionális folyamatábrát (FFBD) és IDEF0-ábrát készíteni;</li>
+<li>a funkciókat a forma elemeihez allokálni, és felismerni az allokációból születő levezetett követelményeket;</li>
+<li>N²-diagrammal azonosítani az alrendszerek közötti interfészeket, és ismertetni az interfészkezelés feladatait;</li>
+<li>tervezési struktúramátrixot (DSM) készíteni, klaszterezéssel modulokat kialakítani, és értékelni egy architektúra modularitását.</li>
+</ul>
+</div></div>
+<p>Az előző fejezetek a probléma térben mozogtak: megértettük, mit várnak az érdekelt felek (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet), és ezt mérhető követelményekké fordítottuk (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. és <a href="07-qfd.html" class="quarto-xref"><span>7</span></a>. fejezet). A követelmények azt mondják meg, <em>mit</em> kell tudnia a rendszernek. Arról, hogy <em>milyen részekből áll</em>, és ezek <em>hogyan dolgoznak együtt</em>, még semmit nem mondanak. Ezt a lépést nevezzük architektúra-tervezésnek; az ISO/IEC/IEEE 15288 szabvány az architektúra-meghatározás folyamatának hívja <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.4</a>. szakasz)</span>.</p>
+<p>Az architektúra a rendszer legnehezebben megváltoztatható döntéseinek összessége. Ha egy alkatrészt rosszul méreteztünk, kicseréljük. Ha viszont a funkciókat rosszul osztottuk szét az alrendszerek között, vagy túl sok és túl bonyolult interfészt hoztunk létre, a hiba a rendszer egész életén végigkíséri: nehéz lesz integrálni, tesztelni, karbantartani és továbbfejleszteni. Blanchard és Fabrycky ezt a fejlesztés alapvető ellentmondásaként írja le: a fejlesztés elején a legkönnyebb változtatni, de ekkor a legkevesebb a rendszerre vonatkozó tudásunk <span class="citation" data-cites="blanchard2011">(<a href="../irodalom.html#ref-blanchard2011" role="doc-biblioref">Blanchard és Fabrycky 2011</a>)</span>. Az architektúrát tehát akkor kell kialakítanunk, amikor a legkevesebbet tudunk, ezért rendszerezett módszerekre van szükség.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Mit jelent a funkció, a forma és a koncepció, és hogyan kapcsolódnak egymáshoz?</li>
+<li>Hogyan bontjuk le a rendszer funkcióit, és hogyan ábrázoljuk a lefutásukat?</li>
+<li>Hogyan rendeljük a funkciókat a forma elemeihez, és hogyan azonosítjuk az interfészeket?</li>
+<li>Mitől jó egy architektúra, és hogyan alakíthatunk ki modulokat?</li>
+</ul>
+<section id="sec-arch-alapfogalmak" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-arch-alapfogalmak"><span class="header-section-number">8.1.</span> Funkció, forma és koncepció</h2>
+<p>A fejezet Crawley és szerzőtársai rendszerarchitektúra-felfogására épül <span class="citation" data-cites="crawley2016">(<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">Crawley, Cameron, és Selva 2016</a>)</span>. Ebben a felfogásban minden rendszer három nézőpontból írható le.</p>
+<div class="doboz doboz-fogalom"><div class="doboz-cim">Funkció, forma, koncepció</div><div class="doboz-tartalom">
+<ul>
+<li><strong>Funkció:</strong> az, amit a rendszer <em>csinál</em>. Tevékenység, folyamat, amely létrehoz vagy átalakít valamit. Crawley és szerzőtársai szerint a funkció két részből áll: a <strong>folyamatból</strong> (process, ige) és az <strong>operandusból</strong> (operand, főnév), amelyen a folyamat végbemegy <span class="citation" data-cites="crawley2016">(<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">Crawley, Cameron, és Selva 2016</a>)</span>. A „csavarkötés létrehozása” funkcióban a létrehozás a folyamat, a csavarkötés az operandus.</li>
+<li><strong>Forma:</strong> az, ami a rendszer <em>van</em>. Az elemek összessége és a fizikai vagy logikai valóság tagoltsága: alak, konfiguráció, struktúra. A forma az, ami megvalósul (gyártják, megírják, összeszerelik), és gyakran, de nem mindig látható.</li>
+<li><strong>Koncepció:</strong> a rendszer elképzelése, amely a funkciót a formára képezi le. Crawley és szerzőtársai szerint a koncepció a működési elveket hordozza, és egyben a forma absztrakciója <span class="citation" data-cites="crawley2016">(<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">Crawley, Cameron, és Selva 2016</a>)</span>. A koncepció nem maga a termék, hanem az a gondolati leképezés, amely megmutatja, miként valósul meg a funkció egy adott formában.</li>
+</ul>
+</div></div>
+<p>Crawley és szerzőtársai erre a három fogalomra építik az architektúra definícióját is: az architektúra a koncepció megtestesülése, vagyis a fizikai és információs funkciók hozzárendelése a forma elemeihez, valamint az elemek egymás közötti és a környezettel való kapcsolatainak meghatározása <span class="citation" data-cites="crawley2016">(<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">Crawley, Cameron, és Selva 2016</a>)</span>. A koncepcionális tervezés feladata tehát hármas: megalkotni a koncepciót, hozzárendelni a funkciókat a megfelelő formai elemekhez, és meghatározni az elemek közötti kapcsolatokat.</p>
+<p><a href="#fig-funkcio-forma" class="quarto-xref"><span>8.1</span></a>. ábra a KoboCella egyik funkcióján mutatja be a három fogalom kapcsolatát. A „csavarkötés létrehozása” funkció legalább három koncepcióval valósítható meg: kézi szereléssel, együttműködő robottal vagy többorsós fix csavarozóállomással. Mindegyik koncepció más formát eredményez, más elemekkel és más kapcsolatokkal. A koncepció megválasztása határozza meg a rendszer teljesítményének, költségének és kockázatainak nagyobbik részét. Ezért kell a koncepciók között tudatosan választani (<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet), és nem az első ötletnél megállni (<a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. fejezet).</p>
+<div id="fig-funkcio-forma" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-funkcio-forma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/funkcio-forma.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-funkcio-forma-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.1. ábra.</span> Funkció, koncepció és forma a KoboCella csavarozási funkcióján. Ugyanaz a funkció több koncepcióval valósítható meg, és mindegyik más formához vezet.
+</figcaption>
+</figure>
+</div>
+<section id="a-megoldássemleges-funkciómegfogalmazás" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="a-megoldássemleges-funkciómegfogalmazás"><span class="header-section-number">8.1.1.</span> A megoldássemleges funkciómegfogalmazás</h3>
+<p>A funkció megfogalmazásában rejlik az architektúra-tervezés egyik leggyakoribb csapdája. Ha a funkciót a megoldás nevével írjuk le („robotos csavarozás”), a koncepciót már előre eldöntöttük, és a többi lehetőség fel sem merül. Crawley és szerzőtársai ezért <strong>megoldássemleges</strong> (solution-neutral) funkciómegfogalmazást javasolnak: a funkciót úgy kell leírni, hogy az operandus és a kívánt állapotváltozás szerepeljen benne, a megvalósítás módja viszont ne <span class="citation" data-cites="crawley2016">(<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">Crawley, Cameron, és Selva 2016</a>)</span>. A „robotos csavarozás” helyett tehát „csavarkötés létrehozása előírt nyomatékkal”. Ebből a megfogalmazásból kiindulva a kézi szerelés, a kobot, a fix állomás, de akár a csavarkötés elhagyása (például pattintott vagy ragasztott kötés) is versenybe szállhat.</p>
+<p>Az amerikai védelmi beszerzési egyetem rendszermérnöki alapjegyzete egyszerű ellenőrzési szabályt ad: a funkciók legyenek igék. Ha egy funkció főnévként jelenik meg, akkor valami baj van a funkciók megértésével <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5</a>. fejezet)</span>. Magyarul ez a gyakorlatban igei szerkezetet jelent („csavar adagolása”, „védőzóna figyelése”), amelyből egyértelműen kiolvasható a folyamat és az operandus.</p>
+<div class="doboz doboz-pelda"><div class="doboz-cim">Tépőzár és szögesdrót: a természet mint koncepcióforrás</div><div class="doboz-tartalom">
+<p>Két klasszikus példa mutatja, hogyan születik új koncepció egy funkció megoldássemleges megfogalmazásából <span class="citation" data-cites="vogel1998">(<a href="../irodalom.html#ref-vogel1998" role="doc-biblioref">Vogel 1998</a>)</span>. A tépőzárat George de Mestral svájci mérnök találta fel, miután egy vadászat után mikroszkóp alatt megvizsgálta a kutyája bundájába akadt bogáncsok horgas végződéseit. A szögesdrót a 19. századi Amerikában a legelők elkerítésére született. A telepesek addig tüskés sövényekkel próbálkoztak, de ezek lassan nőttek; az első szögesdrót-szabadalom 1868-ban kifejezetten azt a célt fogalmazta meg, hogy a drótkerítés a tüskés sövényhez hasonló legyen. Mindkét esetben a funkció („két felület oldható összekapcsolása”, „állatok távol tartása”) vezetett el egy addig szokatlan formához. A természet ihlette tervezés módszereivel a <a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. fejezet foglalkozik.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-arch-v" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-arch-v"><span class="header-section-number">8.2.</span> Az architektúra helye a V-modellben</h2>
+<p>Az ISO/IEC/IEEE 15288 szabvány két folyamatot szentel ennek a lépésnek. Az <strong>architektúra-meghatározás</strong> (architecture definition) célja, hogy architektúraváltozatokat hozzon létre, kiválassza közülük azt, amely a legjobban kezeli az érdekelt felek szempontjait és teljesíti a rendszerkövetelményeket, és ezt egymással összhangban lévő nézetekben és modellekben rögzítse. A <strong>tervmeghatározás</strong> (design definition) pedig annyi részletet ad meg a rendszerről és elemeiről, amennyi a megvalósításukhoz szükséges <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.4</a>. és 6.4.5. szakasz)</span>. A V-modellben ez a bal ág második harmada: a rendszerkövetelmények és az alrendszerek, komponensek tervezése között helyezkedik el (<a href="02-v-modell.html" class="quarto-xref"><span>2</span></a>. fejezet).</p>
+<p>Az architektúra-meghatározás a szabvány szerint hat tevékenységből áll <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.4</a>. szakasz)</span>:</p>
+<ol type="1">
+<li>az architektúra-meghatározás előkészítése (az érdekelt felek szempontjainak és a legfontosabb követelményeknek az összegyűjtése);</li>
+<li>az architektúra nézőpontjainak kidolgozása;</li>
+<li>a jelölt architektúrák modelljeinek és nézeteinek elkészítése, a funkciók és jellemzők hozzárendelése az architektúra elemeihez;</li>
+<li>az architektúra és a részletes tervezés összekapcsolása;</li>
+<li>a jelölt architektúrák értékelése és a választás;</li>
+<li>a kiválasztott architektúra kezelése: jóváhagyás, alapvonal, nyomonkövethetőség.</li>
+</ol>
+<p>Három gondolat érdemel külön figyelmet. Az első, hogy az architektúra arról szól, hogyan illeszkednek az elemek egymáshoz és az egészhez, és nem az egyes elemek belső működéséről. Ha az elemek közötti kapcsolatok jól meghatározottak, az elemek egymástól függetlenül fejleszthetők, mégis együtt fognak működni <span class="citation" data-cites="baldwin2000">(<a href="../irodalom.html#ref-baldwin2000" role="doc-biblioref">Baldwin és Clark 2000</a>)</span>. A második, hogy nem egy, hanem <em>több</em> architektúraváltozatot kell kidolgozni, mert csak így van miből választani; a szabvány is változatokban gondolkodik <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.4</a>. szakasz)</span>. A harmadik, hogy az architektúra kialakítása kreatív, rekurzív és iteratív munka. A funkciók szinte mindig többféleképpen bonthatók le, ezért az eredmény nagymértékben függ a csapat kreativitásától, tudásától és tapasztalatától. Maier és Rechtin ezért nevezi az architektúra-tervezést egyszerre tudománynak és művészetnek <span class="citation" data-cites="maier2009">(<a href="../irodalom.html#ref-maier2009" role="doc-biblioref">Maier és Rechtin 2009</a>)</span>.</p>
+<p>A rekurzió azt jelenti, hogy ugyanazt az eljárást minden szinten megismételjük: a rendszer architektúrájából alrendszer-követelmények születnek, az alrendszerek architektúrájából komponenskövetelmények, és így tovább (<a href="02-v-modell.html#sec-rekurzio" class="quarto-xref"><span>2.4</span></a>. szakasz). Az iteráció azt jelenti, hogy egy alsóbb szinten felismert nehézség visszahathat a felsőbb szintű döntésekre. A rendszermérnöknek ezért nyitottnak kell maradnia a korábban rögzített architektúra és követelmények megváltoztatására. Véglegesíteni akkor érdemes őket, amikor a rendszer minden szinten definiált, és minden követelményről kiderült, hogy megvalósítható, verifikálható és ellentmondásmentes.</p>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Architektúra és architektúraleírás</div><div class="doboz-tartalom">
+<p>Az ISO/IEC/IEEE 42010:2022 szabvány megkülönbözteti egy entitás <em>architektúráját</em> és az azt kifejező <em>architektúraleírást</em> (architecture description) <span class="citation" data-cites="iso42010_2022">(<a href="../irodalom.html#ref-iso42010_2022" role="doc-biblioref">ISO/IEC/IEEE 2022</a>)</span>. Az architektúra a rendszer alapvető tulajdonsága, akkor is létezik, ha senki nem írta le. Az architektúraleírás az a munkatermék, amely nézőpontok és nézetek segítségével rögzíti. A fejezet eszközei (funkciófa, FFBD, IDEF0, N²-diagram, DSM) egy-egy nézetet adnak; egyik sem írja le egyedül a teljes architektúrát. A nézőpontok és a modellalapú leírás kapcsolatát a <a href="03-modellek.html#sec-mod-mbse" class="quarto-xref"><span>3.5</span></a>. szakasz tárgyalja.</p>
+</div></div>
+</section>
+<section id="sec-arch-funkcioelemzes" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="sec-arch-funkcioelemzes"><span class="header-section-number">8.3.</span> Funkcionális elemzés és funkciófa</h2>
+<p>A funkcionális elemzés az architektúra kialakításának és a funkcionális követelmények lebontásának elsődleges módszere. Felülről lefelé haladó, rendszerezett eljárás, amely azonosítja, leírja és egymáshoz kapcsolja azokat a funkciókat, amelyeket a rendszernek a céljai eléréséhez el kell végeznie <span class="citation" data-cites="dau2001 nasa2016seh">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5</a>. fejezet; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 4.3</a>. szakasz)</span>. Kiindulópontja a működési koncepció (ConOps, <a href="04-problema.html#sec-pr-conops" class="quarto-xref"><span>4.4</span></a>. szakasz). Három fő lépésből áll:</p>
+<ol type="1">
+<li>a legfelső szintű követelmények funkciókká fordítása, vagyis annak meghatározása, milyen funkciókat kell elvégezni a követelmények teljesítéséhez;</li>
+<li>a funkciók lebontása és allokálása a termékszerkezet alacsonyabb szintjeire;</li>
+<li>a funkcionális és az alrendszerek közötti interfészek azonosítása és leírása.</li>
+</ol>
+<p>Érdemes minden azonosított funkciót a bemeneteivel, kimeneteivel, lehetséges hibamódjaival, a hiba következményeivel és az interfészkövetelményekkel együtt leírni, a funkciókat pedig logikai sorrendbe rendezni, hogy a rendszer bármely előírt használata végigkövethető legyen a kezdettől a végéig. Ez a leírás egyúttal a későbbi hibamód-elemzés (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet) kiindulópontja is.</p>
+<section id="a-funkciófa" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="a-funkciófa"><span class="header-section-number">8.3.1.</span> A funkciófa</h3>
+<p>A funkcionális lebontás legegyszerűbb ábrázolása a <strong>funkciófa</strong> (functional hierarchy). A fa gyökere a rendszer fő funkciója, ennek gyermekei a részfunkciók, és így tovább, amíg el nem érjük azt a szintet, ahol egy funkció már egyértelműen egy formai elemhez rendelhető. A funkciókat számozással azonosítjuk (1, 1.1, 1.1.1), mert a számozás a teljes elemzésen végigvihető, és lehetővé teszi a lefelé és felfelé irányuló nyomonkövetést <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5</a>. fejezet)</span>.</p>
+<div id="fig-funkciofa-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-funkciofa-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/funkciofa-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-funkciofa-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.2. ábra.</span> A KoboCella funkciófája két szinten. A funkciók igei szerkezetűek és megoldássemlegesek.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a funkciófa</div><div class="doboz-tartalom">
+<p>A KoboCella csapata a működési koncepció forgatókönyveiből indult ki (<a href="04-problema.html#sec-pr-conops" class="quarto-xref"><span>4.4</span></a>. szakasz), és öt főfunkciót azonosított (<a href="#fig-funkciofa-kobo" class="quarto-xref"><span>8.2</span></a>. ábra): az alkatrészek előkészítését, a csavarkötés létrehozását, a minőség igazolását, az ember védelmét és a termék továbbítását. Az első változatban a második főfunkció „kobotos csavarozás” volt. A felülvizsgálaton a minőségügyi vezető megkérdezte, miért nem szerepel a fában a „kézi csavarozás” mint lehetőség. Ebből derült ki, hogy a csapat a fa felírásakor már eldöntötte a koncepciót. A megoldássemleges átfogalmazás után a csavarkötés létrehozása három részfunkcióra bomlott: csavar adagolása, csavar meghúzása, nyomaték mérése. Ezek közül csak a második kötődik közvetlenül a kobothoz.</p>
+<p>A negyedik főfunkció („ember védelme”) külön ágat kapott, mert a biztonsági funkciók allokációja és verifikációja szigorúbb szabályokat követ (<a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet). Az első két szint 5 főfunkciót és 13 részfunkciót tartalmaz. Ez kezelhető méret: a csapat egyetlen falitáblán át tudta tekinteni.</p>
+</div></div>
+</section>
+<section id="szintenként-hány-elem" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="szintenként-hány-elem"><span class="header-section-number">8.3.2.</span> Szintenként hány elem?</h3>
+<p>Gyakran idézett hüvelykujjszabály, hogy egy jól áttekinthető rendszer egy szintjén 5–9 rész szerepeljen. A szabály Miller klasszikus tanulmányára vezethető vissza, amely szerint az emberi abszolút ítélőképesség és az azonnali emlékezet terjedelme hét plusz-mínusz kettő elem körül van <span class="citation" data-cites="miller1956">(<a href="../irodalom.html#ref-miller1956" role="doc-biblioref">Miller 1956</a>)</span>. A későbbi kutatások ezt finomították. Cowan áttekintése szerint a rövid távú emlékezet valódi kapacitása, ha a csoportosítás és az ismétlés lehetőségét kizárjuk, inkább három-öt egység <span class="citation" data-cites="cowan2001">(<a href="../irodalom.html#ref-cowan2001" role="doc-biblioref">Cowan 2001</a>)</span>. A rendszermérnöki gyakorlat számára a tanulság nem egy pontos szám, hanem az, hogy ha egy szinten tizenöt-húsz elem szerepel, akkor a lebontás valószínűleg kihagyott egy közbülső szintet, és a csapat nem fogja tudni átlátni a kapcsolatokat.</p>
+</section>
+<section id="teljesítményallokáció-a-funkciókra" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="teljesítményallokáció-a-funkciókra"><span class="header-section-number">8.3.3.</span> Teljesítményallokáció a funkciókra</h3>
+<p>A funkcionális architektúra nemcsak azt mutatja meg, milyen funkciókat kell elvégezni, hanem azt is, milyen teljesítménykövetelmények tartoznak hozzájuk. A DAU-jegyzet szerint a funkcionális architektúra a rendszer funkcionális és teljesítménykövetelményeinek felülről lefelé haladó lebontása, amely a funkciók logikai sorrendjét és a hozzájuk rendelt teljesítménykövetelményeket is tartalmazza <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5</a>. fejezet)</span>. A KoboCella esetében ez a ciklusidő-költségvetés (<a href="06-kovetelmenyek.html#tbl-ciklusido-kv" class="quarto-xref"><span>6.4</span></a>. táblázat): a 75 másodperces rendszerszintű követelményt a funkciókhoz és végrehajtóikhoz rendelt időkre bontottuk. A teljesítményallokáció tehát a funkciófa és a követelménylebontás (<a href="06-kovetelmenyek.html#sec-kov-lebontas" class="quarto-xref"><span>6.5</span></a>. szakasz) közös terméke.</p>
+</section>
+</section>
+<section id="sec-arch-ffbd" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="sec-arch-ffbd"><span class="header-section-number">8.4.</span> A funkciók lefutása: FFBD és IDEF0</h2>
+<p>A funkciófa a funkciók hierarchiáját mutatja meg, a sorrendjüket viszont nem. A rendszer viselkedésének megértéséhez azt is tudnunk kell, melyik funkció melyik után következik, mi fut párhuzamosan, és hol ágazik el a folyamat. Erre két hagyományos ábrázolás terjedt el.</p>
+<section id="funkcionális-folyamatábra-ffbd" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="funkcionális-folyamatábra-ffbd"><span class="header-section-number">8.4.1.</span> Funkcionális folyamatábra (FFBD)</h3>
+<p>A <strong>funkcionális folyamatábra</strong> (functional flow block diagram, FFBD) célja a DAU-jegyzet szerint az, hogy a rendszerkövetelményeket funkcionális fogalmakkal írja le. Az ábra funkcióorientált, nem megoldásorientált, és segítségével ellenőrizhető, hogy az életciklus valamennyi funkciója le van-e fedve, a tevékenységek sorrendje és a kritikus tervezési interfészek pedig meg legyenek határozva <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5–A</a>. kiegészítés)</span>. Az FFBD fő szabályai:</p>
+<ul>
+<li>minden funkciót egyetlen, folytonos vonalú doboz jelöl, amely meghatározott, véges, elkülönülő tevékenységet ír le;</li>
+<li>a funkciók számozása szintenként következetes, és a funkciófa számozását követi;</li>
+<li>a folyamat általában balról jobbra halad, a nyilak a funkcionális sorrendet jelölik (nem időbeli szünetet vagy közbülső tevékenységet);</li>
+<li>a kör alakú összegzőpontok ÉS, illetve VAGY kapcsolatot jelölnek. Az ÉS párhuzamos funkciókat jelent, amelyeknek mind teljesülniük kell a továbblépéshez; a VAGY alternatív utakat, amelyek közül egy is elegendő;</li>
+<li>az elágazásoknál a továbbhaladási feltételt (például „megfelelt” vagy „nem felelt meg”) a kimenő vonal mellé írjuk.</li>
+</ul>
+<div id="fig-ffbd-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ffbd-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/ffbd-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ffbd-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.3. ábra.</span> A KoboCella egy ciklusának FFBD-je. Az ÉS-pont a csavarozás és a következő darab előkészítésének párhuzamosságát, a VAGY-pont a nyomatékellenőrzés két kimenetét jelöli.
+</figcaption>
+</figure>
+</div>
+<p>A <a href="#fig-ffbd-kobo" class="quarto-xref"><span>8.3</span></a>. ábra jól mutatja, mire jó az FFBD a ciklusidő-költségvetés mellett. A ciklusidőt a <em>soros</em> útvonal határozza meg. A párhuzamos ágon futó funkciók (itt a következő darab előkészítése) nem növelik, amíg rövidebbek a velük párhuzamos ágnál. Ugyanez az ábra mutatja meg azt is, hogy a hibás darab kiválogatása külön útvonal. Ha ez gyakran előfordul, a ciklusidő eloszlása kétpúpú lesz, amit a TPM-követésnél (<a href="06-kovetelmenyek.html#sec-kov-mertekek" class="quarto-xref"><span>6.4</span></a>. szakasz) figyelembe kell venni.</p>
+</section>
+<section id="idef0" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="idef0"><span class="header-section-number">8.4.2.</span> IDEF0</h3>
+<p>Az FFBD a funkciók sorrendjét mutatja, de nem mutatja meg, milyen információ vagy anyag áramlik közöttük, mi szabályozza őket, és mi hajtja végre őket. Erre szolgál az <strong>IDEF0</strong> (integration definition for function modeling) módszer, amelyet az amerikai szabványügyi intézet FIPS 183 szabványa rögzít <span class="citation" data-cites="fips183">(<a href="../irodalom.html#ref-fips183" role="doc-biblioref">NIST 1993</a>)</span>. Az IDEF0-ban minden funkció egy doboz, és a dobozhoz csatlakozó nyíl helye jelöli a nyíl szerepét <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001, 5–B</a>. kiegészítés)</span>:</p>
+<ul>
+<li><strong>bemenet</strong> (input, balról): az az anyag vagy adat, amelyet a funkció átalakít;</li>
+<li><strong>vezérlés</strong> (control, felülről): az a szabály, előírás vagy információ, amely a funkció végrehajtását szabályozza;</li>
+<li><strong>kimenet</strong> (output, jobbra): a funkció eredménye;</li>
+<li><strong>mechanizmus</strong> (mechanism, alulról): az az erőforrás (ember, gép, szoftver), amely a funkciót végrehajtja.</li>
+</ul>
+<p>A négy szerep angol kezdőbetűiből született az ICOM rövidítés. Az IDEF0-modell hierarchikus: a legfelső szintű, egyetlen dobozból álló kontextusábrát (A-0) gyermekábrák bontják ki, amelyeken a dobozok jellemzően lépcsőzetesen, balról fentről jobbra lefelé helyezkednek el. Az IDEF0 különösen alkalmas információs és üzleti folyamatok, valamint gyártási folyamatok elemzésére, ahol a vezérlés és a mechanizmus megkülönböztetése lényeges.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: az ütemezés IDEF0-ábrája</div><div class="doboz-tartalom">
+<p>A ForgácsTech csapata a késések okainak elemzéséhez IDEF0-ábrát készített a rendelésteljesítés magjáról (<a href="#fig-idef0-forgacs" class="quarto-xref"><span>8.4</span></a>. ábra). Az ábra három funkciót tartalmaz: a gyártási rendelések ütemezését, a megmunkálás végrehajtását és az állapot követését. A legfontosabb felismerés a visszacsatoló nyílhoz kötődött. A jelenlegi működésben az eltérésjelzés (például egy gép váratlan leállása) a műszakvezető fejében és szóbeli közlésekben létezett, és csak a következő heti ütemezésnél jutott vissza az A1 funkcióhoz. Az ábrán ez a vezérlőnyíl hiányzott. A MES digitális árnyéka (mechanizmus az A3 funkcióban) azt teszi lehetővé, hogy az eltérésjelzés vezérlésként, órákon belül visszajusson az ütemezéshez. Ez a felismerés lett a ForgácsTech-koncepció egyik központi eleme.</p>
+</div></div>
+<div id="fig-idef0-forgacs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-idef0-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/idef0-forgacs.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-idef0-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.4. ábra.</span> A ForgácsTech rendelésteljesítésének IDEF0-ábrája. A narancs visszacsatolás az eltérésjelzés, amely vezérlésként tér vissza az ütemezéshez.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-arch-allokacio" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="sec-arch-allokacio"><span class="header-section-number">8.5.</span> Allokáció: a funkciótól a formáig</h2>
+<p>A funkcionális elemzés eredménye a funkcionális architektúra. A fizikai architektúrához az <strong>allokáció</strong> vezet el: annak eldöntése, hogy melyik funkciót melyik formai elem (alrendszer, komponens, ember vagy szoftver) végzi el. Kossiakoff és szerzőtársai szerint a rendszer építőelemekre bontását funkcionális allokációnak nevezik, és ez a rendszermérnökség egyik alapvető eszköze <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 1.2</a>. szakasz)</span>.</p>
+<p>Az allokáció eredménye legegyszerűbben egy <strong>allokációs táblázatban</strong> rögzíthető, amelynek soraiban a funkciók, oszlopaiban a formai elemek állnak (<a href="#tbl-allokacio-kobo" class="quarto-xref"><span>8.1</span></a>. táblázat). A táblázat két dolgot azonnal megmutat. Ha egy funkciónak nincs gazdája, a funkció elveszett. Ha egy funkciónak több gazdája van, azok között interfész keletkezik, amelyet meg kell tervezni.</p>
+<div id="tbl-allokacio-kobo" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[28,12,12,12,12,12,12]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-allokacio-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.1. táblázat.</span> A KoboCella funkcióinak allokációja a forma elemeihez. A több elemhez rendelt funkciók interfészeket hoznak létre.
+</figcaption>
+<div aria-describedby="tbl-allokacio-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Funkció</th>
+<th style="text-align: center;">Kobot, megfogó</th>
+<th style="text-align: center;">Csavarozó egység</th>
+<th style="text-align: center;">Asztal, adagolás</th>
+<th style="text-align: center;">Biztonsági alrendszer</th>
+<th style="text-align: center;">Cellavezérlés, HMI</th>
+<th style="text-align: center;">Operátor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1.1 motorház befogása</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1.2 fedél pozicionálása</td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.1 csavar adagolása</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.2 csavar meghúzása</td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2.3 nyomaték mérése</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3.1 adatok naplózása</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3.2 hibás darab jelölése</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;">×</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3.3 adatátadás a MES-nek</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.1 védőzóna figyelése</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4.2 mozgás korlátozása</td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4.3 vészleállítás</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">×</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5.1–5.2 kivétel a kiadóba</td>
+<td style="text-align: center;">×</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="moduláris-és-integrált-architektúra" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="moduláris-és-integrált-architektúra"><span class="header-section-number">8.5.1.</span> Moduláris és integrált architektúra</h3>
+<p>Ulrich klasszikus tanulmánya szerint a termékarchitektúra az a séma, amely szerint a termék funkciója a fizikai komponensekhez rendelődik. Pontosabban három dolgot foglal magában: a funkcionális elemek elrendezését, a funkcionális elemek fizikai komponensekre való leképezését és a kölcsönhatásban álló komponensek közötti interfészek specifikációját <span class="citation" data-cites="ulrich1995">(<a href="../irodalom.html#ref-ulrich1995" role="doc-biblioref">Ulrich 1995</a>)</span>. Ulrich két alaptípust különböztet meg:</p>
+<ul>
+<li><strong>Moduláris architektúra:</strong> a funkcionális elemek és a fizikai komponensek között egy-egy megfeleltetés van, és a komponensek közötti interfészek lazán csatoltak. Egy komponens megváltoztatása nem igényli a többi megváltoztatását.</li>
+<li><strong>Integrált architektúra:</strong> a leképezés összetett (egy komponens több funkciót lát el, vagy egy funkció több komponensen oszlik meg), és/vagy az interfészek szorosan csatoltak <span class="citation" data-cites="ulrich1995">(<a href="../irodalom.html#ref-ulrich1995" role="doc-biblioref">Ulrich 1995</a>)</span>.</li>
+</ul>
+<p>Egyik típus sem eleve jobb a másiknál. A moduláris architektúra a változatosságot, a cserélhetőséget, a párhuzamos fejlesztést és a karbantarthatóságot támogatja. Az integrált architektúra egy-egy teljesítményjellemzőt (tömeg, méret, költség nagy darabszámnál) jobban optimalizálhat, mert nem kell a szabványos interfészek „árát” megfizetni. A tervezőnek azt kell eldöntenie, hogy a rendszer életciklusában melyik tulajdonság a fontosabb.</p>
+<p>A <a href="#tbl-allokacio-kobo" class="quarto-xref"><span>8.1</span></a>. táblázatban a KoboCella vegyes képet mutat. A csavarozó egység és a biztonsági alrendszer jó modulok: néhány, jól körülhatárolt funkciót látnak el. A kobot viszont négy főfunkcióban is részt vesz (pozicionálás, meghúzás, mozgáskorlátozás, kivétel). Ez a kobotos koncepció lényegéből fakad, de azt is jelenti, hogy a kobot programjának bármely változtatása több funkciót érinthet, és ezért a regressziós tesztelés (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet) itt különösen fontos.</p>
+</section>
+<section id="levezetett-követelmények" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="levezetett-követelmények"><span class="header-section-number">8.5.2.</span> Levezetett követelmények</h3>
+<p>Az allokáció új követelményeket szül. Ezek a levezetett követelmények a kiválasztott architektúrából fakadnak, ezért nem szerepelhettek a folyamat bemenetét adó követelmények között (<a href="06-kovetelmenyek.html#sec-kov-lebontas" class="quarto-xref"><span>6.5</span></a>. szakasz). Az eredeti és a levezetett követelményeket egyaránt allokálni kell az architektúra elemeihez és a funkciókhoz.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: követelmények az allokációból</div><div class="doboz-tartalom">
+<p>A „mozgás korlátozása” funkció a kobothoz és a biztonsági alrendszerhez is hozzá van rendelve. A rendszerszintű R-11-es követelmény szerint a kobot sebessége az együttműködési zónában legfeljebb 250 mm/s lehet (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet). Az allokációból két levezetett követelmény született. A biztonsági alrendszernek a zónába lépést meghatározott reakcióidőn belül jeleznie kell a kobot vezérlőjének, a kobot vezérlőjének pedig a jelzés vételét követően meghatározott időn belül a csökkentett sebességre kell váltania. A két idő összegének a kockázatértékelésben meghatározott határ alatt kell maradnia. Egyik követelmény sem szerepelt az érdekelt felek elvárásai között: mindkettő az architektúra következménye. Ugyanez a felosztás egy interfészt is létrehozott a biztonsági alrendszer és a kobot vezérlője között, amelyet a következő szakasz N²-diagramja is mutat.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-arch-n2" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="sec-arch-n2"><span class="header-section-number">8.6.</span> Interfészek: N²-diagram és interfészkezelés</h2>
+<p>Kossiakoff és szerzőtársai szerint a rendszertervezés egyik legfontosabb lépése az építőelemek funkcionális és fizikai összekapcsolásának meghatározása. Ehhez korán azonosítani kell az összes jelentős funkcionális kölcsönhatást, és azt, hogyan lehet a funkcionális elemeket úgy csoportosítani, hogy az erősen kölcsönható elemek egy csoportba kerüljenek, a csoportok közötti kölcsönhatások pedig a lehető legegyszerűbbek legyenek <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 4.4</a>. szakasz)</span>. A külső interfészek azonosításának eszköze a kontextusdiagram (<a href="03-modellek.html#sec-mod-kontextus" class="quarto-xref"><span>3.3</span></a>. szakasz). A belső interfészeké az N²-diagram.</p>
+<section id="az-n²-diagram" class="level3" data-number="8.6.1">
+<h3 data-number="8.6.1" class="anchored" data-anchor-id="az-n²-diagram"><span class="header-section-number">8.6.1.</span> Az N²-diagram</h3>
+<p>Az <strong>N²-diagramot</strong> (N-négyzet diagram) Lano dolgozta ki az 1970-es években a TRW vállalatnál, eredetileg szoftverrendszerek interfészeinek elemzésére <span class="citation" data-cites="lano1977">(<a href="../irodalom.html#ref-lano1977" role="doc-biblioref">Lano 1977</a>)</span>. Nevét onnan kapta, hogy N elem esetén N × N cellából áll. Felépítése:</p>
+<ul>
+<li>az <strong>átlóban</strong> az alrendszerek (vagy funkciók) állnak;</li>
+<li>az átlón kívüli cellák az interfészeket jelölik. A szokásos olvasat szerint az <em>i</em>-edik sorban álló cella az <em>i</em>-edik elem <em>kimenetét</em> tartalmazza, amely a cella oszlopában álló elem <em>bemenete</em> lesz. A kimenetek tehát vízszintesen, a bemenetek függőlegesen haladnak, az óramutató járásával egyező irányban;</li>
+<li>az üres cella azt jelenti, hogy a két elem között nincs közvetlen interfész.</li>
+</ul>
+<div id="fig-n2-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-n2-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/n2-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-n2-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.5. ábra.</span> A KoboCella N²-diagramja hat alrendszerrel. A sorokban az alrendszerek kimenetei, az oszlopokban a bemenetei szerepelnek.
+</figcaption>
+</figure>
+</div>
+<p>Az N²-diagram (<a href="#fig-n2-kobo" class="quarto-xref"><span>8.5</span></a>. ábra) gyorsan megmutatja az interfészek számát és eloszlását. A sűrű sorok és oszlopok azokat az elemeket jelölik, amelyek sok más elemmel kommunikálnak: ezek az integráció kritikus pontjai. A KoboCella diagramján a cellavezérlés sora és oszlopa a legsűrűbb, ami egy központi vezérlésű architektúránál várható. Az operátor sora és oszlopa az ember–gép interfészeket mutatja. Ezeket ugyanolyan gondossággal kell megtervezni, mint a műszaki interfészeket (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet).</p>
+<p>Az N²-diagram a funkciók szintjén is alkalmazható. Ilyenkor az átlóban a funkciók állnak, a cellákban az egymásnak átadott anyag, energia vagy információ. Pahl és szerzőtársai funkcióstruktúrája ugyanezt a gondolatot fejezi ki: a részfunkciókat az anyag-, energia- és jeláramok kapcsolják össze <span class="citation" data-cites="pahl2007">(<a href="../irodalom.html#ref-pahl2007" role="doc-biblioref">Pahl és mtsai. 2007</a>)</span>. A cellák tartalmának típusba sorolásához a kontextusdiagramnál megismert öt kategória (adat, jel, anyag, energia, tevékenység) itt is használható (<a href="03-modellek.html#sec-mod-kontextus" class="quarto-xref"><span>3.3</span></a>. szakasz).</p>
+</section>
+<section id="interfészkezelés" class="level3" data-number="8.6.2">
+<h3 data-number="8.6.2" class="anchored" data-anchor-id="interfészkezelés"><span class="header-section-number">8.6.2.</span> Interfészkezelés</h3>
+<p>Az interfészek azonosítása csak az első lépés. Az interfészkezelés különösen akkor fontos, ha a munka több csapat vagy beszállító között oszlik meg: ilyenkor az interfész az a pont, ahol a felelősségek találkoznak, és ahol a legtöbb félreértés születik <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.5</a>. szakasz)</span>. A külső és a belső interfészeket már a fejlesztés korai szakaszában, a működési koncepció alapján érdemes azonosítani, és meghatározni a forrásukat, a céljukat és az átadott anyag, energia vagy információ jellemzőit. Ahogy az architektúra kirajzolódik, új interfészek jelennek meg, a meglévők pedig változnak.</p>
+<p>Az interfészeket dokumentálni kell. A nagy projektekben ennek bevett formája az interfészkövetelmény-dokumentum (IRD), amely azt rögzíti, mit kell az interfésznek tudnia, és az interfészszabályozó dokumentum vagy rajz (ICD), amely a megállapodott műszaki megoldást írja le. Ezek a konfigurációkezelés hatálya alá tartoznak, vagyis csak szabályozott változáskezeléssel módosíthatók. Az interfészek összehangolásáért jellemzően egy <strong>interfész-munkacsoport</strong> felel, amelyben az érintett felek műszaki képviselői ülnek <span class="citation" data-cites="dau2001 nasa2016seh">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001</a>; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 6.3</a>. szakasz)</span>. Az interfészek integráció közbeni verifikációjával a <a href="22-integracio.html" class="quarto-xref"><span>22</span></a>. fejezet foglalkozik.</p>
+<div class="doboz doboz-hiba"><div class="doboz-cim">A „majd megbeszélik” interfész</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy az interfész két oldalát két különböző csapat vagy beszállító fejleszti, és mindkettő azt feltételezi, hogy a részleteket „majd megbeszélik”. Az interfész így senkié, és az eltérések csak az integrációnál derülnek ki, amikor a javításuk már drága. Minden interfésznek legyen gazdája, legyen dokumentálva legalább az átadott jel vagy anyag, annak formátuma, tartománya és időzítése, és minden változtatását mindkét fél hagyja jóvá.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-arch-dsm" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="sec-arch-dsm"><span class="header-section-number">8.7.</span> Tervezési struktúramátrix és modularitás</h2>
+<p>Az N²-diagram rokona a <strong>tervezési struktúramátrix</strong> (design structure matrix, DSM). A DSM-et Steward vezette be 1981-ben, eredetileg a tervezési folyamat lépéseinek sorba rendezésére <span class="citation" data-cites="steward1981">(<a href="../irodalom.html#ref-steward1981" role="doc-biblioref">Steward 1981</a>)</span>. A DSM négyzetes mátrix, amelynek sorai és oszlopai ugyanazokat az elemeket tartalmazzák, egy cella pedig azt jelzi, hogy a sor eleme függ-e az oszlop elemétől (vagy fordítva, a használt konvenciótól függően). Az N²-diagrammal szemben a DSM cellái általában nem szöveges leírást, hanem jelölést vagy számot (a kapcsolat erősségét) tartalmaznak, ezért a DSM algoritmikusan elemezhető.</p>
+<p>Eppinger és Browning összefoglaló könyve szerint a DSM négy fő alkalmazási területe a termékarchitektúra (komponensek és interfészeik), a szervezeti architektúra (csapatok és kommunikációjuk), a folyamatarchitektúra (tevékenységek és információáramlásuk), valamint ezek összekapcsolása többtartományos mátrixokban <span class="citation" data-cites="eppinger2012">(<a href="../irodalom.html#ref-eppinger2012" role="doc-biblioref">Eppinger és Browning 2012</a>)</span>. Browning korábbi áttekintése a statikus (komponens- és csapatalapú) és az időalapú (tevékenység- és paraméteralapú) DSM-eket különböztette meg: az előbbieket jellemzően <strong>klaszterezéssel</strong>, az utóbbiakat <strong>sorba rendezéssel</strong> elemzik <span class="citation" data-cites="browning2001">(<a href="../irodalom.html#ref-browning2001" role="doc-biblioref">Browning 2001</a>)</span>. <a href="#tbl-dsm-tipusok" class="quarto-xref"><span>8.2</span></a>. táblázat összefoglalja a típusokat.</p>
+<div id="tbl-dsm-tipusok" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,18,22,18,22]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dsm-tipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.2. táblázat.</span> A DSM típusai Browning és Eppinger–Browning alapján.
+</figcaption>
+<div aria-describedby="tbl-dsm-tipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">DSM-típus</th>
+<th style="text-align: left;">Elemek</th>
+<th style="text-align: left;">Kapcsolat</th>
+<th style="text-align: left;">Fő elemzési művelet</th>
+<th style="text-align: left;">Felhasználás</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">termékarchitektúra (komponensalapú)</td>
+<td style="text-align: left;">alrendszerek, komponensek</td>
+<td style="text-align: left;">fizikai, energia-, anyag- vagy információs interfész</td>
+<td style="text-align: left;">klaszterezés</td>
+<td style="text-align: left;">modulok kialakítása, interfészkezelés</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">szervezeti (csapatalapú)</td>
+<td style="text-align: left;">csapatok, szakterületek</td>
+<td style="text-align: left;">kommunikációs igény</td>
+<td style="text-align: left;">klaszterezés</td>
+<td style="text-align: left;">csapatszerkezet, koordináció</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">folyamat (tevékenységalapú)</td>
+<td style="text-align: left;">tervezési tevékenységek</td>
+<td style="text-align: left;">információátadás</td>
+<td style="text-align: left;">sorba rendezés, a visszacsatolások csökkentése</td>
+<td style="text-align: left;">tervezési folyamat ütemezése</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">paraméteralapú</td>
+<td style="text-align: left;">tervezési paraméterek</td>
+<td style="text-align: left;">paraméterek közötti függés</td>
+<td style="text-align: left;">sorba rendezés</td>
+<td style="text-align: left;">részletes tervezés sorrendje</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="modularitás-és-klaszterezés" class="level3" data-number="8.7.1">
+<h3 data-number="8.7.1" class="anchored" data-anchor-id="modularitás-és-klaszterezés"><span class="header-section-number">8.7.1.</span> Modularitás és klaszterezés</h3>
+<p>A modularitás gondolata a rendszerelmélet egyik legrégebbi eredményére vezethető vissza. Simon nagy hatású tanulmánya szerint a komplex rendszerek jellemzően hierarchikusak és <strong>majdnem felbonthatók</strong> (nearly decomposable): az alrendszereken belüli kölcsönhatások általában erősebbek, mint az alrendszerek közöttiek <span class="citation" data-cites="simon1962">(<a href="../irodalom.html#ref-simon1962" role="doc-biblioref">Simon 1962</a>)</span>. Kossiakoff és szerzőtársai a modularitást a rendszerkomponensek kölcsönös függetlenségének mértékeként határozzák meg. A rendszermérnökség egyik alapvető célja a nagyfokú modularitás elérése, hogy az interfészek és a kölcsönhatások a lehető legegyszerűbbek legyenek, ami a gyártást, az integrációt, a tesztelést, a karbantartást, a megbízhatóságot és a későbbi továbbfejlesztést is segíti <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 1.2</a>. szakasz)</span>. A modulok tervezésének két mércéje az <strong>összetartás</strong> (cohesion), amely a modulon belüli elemek összetartozását méri, és a <strong>csatolás</strong> (coupling), amely a modulok közötti kölcsönhatásokat méri. A kívánatos a szoros összetartás és a laza csatolás <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 11</a>. fejezet)</span>.</p>
+<p>A komponensalapú DSM-ben a modulok kialakítása <strong>klaszterezési</strong> feladat: a sorokat és oszlopokat úgy kell átrendezni, hogy a kapcsolatok az átló körüli blokkokba tömörüljenek, a blokkokon kívül pedig minél kevesebb kapcsolat maradjon. A blokkok a modulok, a blokkokon kívüli kapcsolatok a modulinterfészek. Erre számos algoritmus létezik, a kézi átrendezéstől a hierarchikus klaszterezésen át a hálózattudományi közösségkeresésig. Ez utóbbiak közül Newman modularitási mértéke a legismertebb, amely azt méri, mennyivel több kapcsolat esik a csoportokon belülre, mint amennyi véletlenszerű kapcsolódás esetén várható lenne <span class="citation" data-cites="newman2006">(<a href="../irodalom.html#ref-newman2006" role="doc-biblioref">Newman 2006</a>)</span>.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: modulok a DSM-ből</div><div class="doboz-tartalom">
+<p>A VárosiBringa csapata 12 rendszerelemet és közöttük 19 kölcsönös kapcsolatot azonosított: a kerékpár elemeit (váz és hajtás, akkumulátor, motor és vezérlő, kerékpárzár, fedélzeti telematika), a dokkolóállomás elemeit (dokkoló mechanika, töltőegység, dokkolóvezérlő és kijelző) és a szoftverplatform elemeit (mobilalkalmazás, háttérrendszer, fizetési modul, áthelyezés-tervező). Az eredeti, felsorolási sorrendben (<a href="#fig-dsm-bringa" class="quarto-xref"><span>8.6</span></a>a. ábra) a kapcsolatok szétszórtan helyezkednek el, és nehéz megmondani, mely elemek tartoznak össze.</p>
+<p>A csapat a szomszédsági mintázatok hasonlósága alapján hierarchikus klaszterezést végzett (a módszert a Gyakorlati útmutató DSM-eszközlapja és notebookja részletezi). Az átrendezett mátrixban (<a href="#fig-dsm-bringa" class="quarto-xref"><span>8.6</span></a>b. ábra) három modul rajzolódott ki: a platform (áthelyezés-tervező, háttérrendszer, mobilalkalmazás, fizetési modul), a dokkoló (mechanika, töltőegység, vezérlő) és a kerékpár (váz és hajtás, kerékpárzár, telematika, akkumulátor, motor). A 19 kapcsolatból 14 a modulokon belülre esik, és csak 5 a modulok közé: a zár és a dokkoló mechanika, a váz és a dokkoló mechanika, az akkumulátor és a töltőegység, a telematika és a háttérrendszer, valamint a dokkolóvezérlő és a háttérrendszer között. Ez az öt kapcsolat lett a három beszállítói csomag közötti interfészszerződések tárgya.</p>
+</div></div>
+<div id="fig-dsm-bringa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dsm-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/dsm-bringa.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dsm-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">8.6. ábra.</span> A VárosiBringa DSM-je eredeti (a) és klaszterezett (b) sorrendben. A keretezett blokkok a modulok, a blokkokon kívüli cellák a modulinterfészek.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="tervezési-szabályok-és-a-szervezet-tükre" class="level3" data-number="8.7.2">
+<h3 data-number="8.7.2" class="anchored" data-anchor-id="tervezési-szabályok-és-a-szervezet-tükre"><span class="header-section-number">8.7.2.</span> Tervezési szabályok és a szervezet tükre</h3>
+<p>Baldwin és Clark a modularitás gazdasági és szervezeti következményeit vizsgálták. Szerintük a moduláris tervezés kulcsa, hogy a tervezési paramétereket két csoportra osztjuk. A <strong>látható tervezési szabályok</strong> (az architektúra, az interfészek és a megfelelőségi tesztek) mindenkire kötelezőek, és korán rögzíteni kell őket. A <strong>rejtett paramétereket</strong> a modulok fejlesztői a szabályok keretein belül szabadon alakíthatják. Ez teszi lehetővé a modulok párhuzamos és egymástól független fejlesztését, és azt, hogy egy modul jobb változata a rendszer többi részének módosítása nélkül beépíthető legyen <span class="citation" data-cites="baldwin2000">(<a href="../irodalom.html#ref-baldwin2000" role="doc-biblioref">Baldwin és Clark 2000</a>)</span>.</p>
+<p>Az architektúra és a szervezet összefügg. Conway már 1968-ban megfogalmazta azt a megfigyelést, amelyet ma Conway-törvényként ismerünk: a rendszereket tervező szervezetek olyan terveket hoznak létre, amelyek a saját kommunikációs szerkezetüket másolják <span class="citation" data-cites="conway1968">(<a href="../irodalom.html#ref-conway1968" role="doc-biblioref">Conway 1968</a>)</span>. Sosa, Eppinger és Rowles egy nagy repülőgép-hajtómű fejlesztésében vetették össze a tervezési interfészeket a csapatok közötti kommunikációval. Két esetet vizsgáltak: amikor egy ismert tervezési interfészhez nem tartozik csapatkommunikáció, és amikor egy megfigyelt kommunikáció nem magyarázható tervezési interfésszel. Eredményeik szerint a kettő illeszkedését a szervezeti és rendszerhatárok, az interfészek erőssége, a közvetett kapcsolatok és a rendszer modularitása befolyásolja <span class="citation" data-cites="sosa2004">(<a href="../irodalom.html#ref-sosa2004" role="doc-biblioref">Sosa, Eppinger, és Rowles 2004</a>)</span>. A gyakorlati tanulság az, hogy a termék-DSM és a szervezeti DSM összevetése megmutatja azokat az interfészeket, amelyekért senki nem felel. Ezekhez kell interfészgazdát rendelni.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: architektúra és szervezet</div><div class="doboz-tartalom">
+<p>A ForgácsTech MES-bevezetésénél a csapat a koncepció szakaszában két architektúrát vetett össze. Az elsőben egyetlen beszállító szállítja a MES-t a gépi adatgyűjtéssel és az ütemezőmodullal együtt. A másodikban a gépi adatgyűjtést a gépgyártók saját megoldásai végzik, a MES pedig csak fogadja az adatokat. A második változat olcsóbbnak tűnt, de az N²-diagram megmutatta, hogy a gépi adatgyűjtés és a MES között hat különböző interfész jönne létre (gépenként eltérő protokollal), és ezek gazdája egyik szerződésben sem lett volna egyértelmű. A csapat ezért az első változat felé hajlott, a végső döntést azonban az <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezetben bemutatott értékeléssel hozta meg.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-arch-ertekeles" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="sec-arch-ertekeles"><span class="header-section-number">8.8.</span> Mitől jó egy architektúra?</h2>
+<p>Az architektúra minőségét végső soron az dönti el, mennyire teljesíti a követelményeket és az érdekelt felek elvárásait a teljes életciklus során. A koncepció szakaszában azonban, amikor még nincs mit mérni, a fejezetben tárgyalt eszközökből több jellemző is kiolvasható:</p>
+<ul>
+<li><strong>Teljesség:</strong> minden funkciónak van gazdája az allokációs táblázatban, és minden követelmény legalább egy funkcióhoz kötődik.</li>
+<li><strong>Áttekinthetőség:</strong> szintenként kezelhető számú elem, egyértelmű funkciónevek, következetes számozás.</li>
+<li><strong>Modularitás:</strong> szoros összetartás a modulokon belül és laza csatolás a modulok között. A DSM-ben a kapcsolatok nagy része a blokkokon belülre esik.</li>
+<li><strong>Egyszerű interfészek:</strong> kevés, jól definiált, lehetőleg egyirányú interfész. Kossiakoff és szerzőtársai szerint a moduláris architektúrák a karbantartható és továbbfejleszthető rendszerek kulcsai <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 4.4</a>. szakasz)</span>.</li>
+<li><strong>Tesztelhetőség:</strong> a modulok külön is verifikálhatók, és az integráció lépésenként, modulonként végezhető.</li>
+<li><strong>Illeszkedés a szervezethez:</strong> minden modulinterfésznek van felelőse, és a szervezeti felosztás nem vág ketté erősen csatolt elemeket.</li>
+<li><strong>Tartalék és bővíthetőség:</strong> a kritikus erőforrásokon (ciklusidő, számítási kapacitás, energia, hely) van tartalék, és a várható bővítések nem igényelik az architektúra átalakítását.</li>
+</ul>
+<p>Ezek a jellemzők gyakran ellentmondanak egymásnak és a teljesítménykövetelményeknek. A modulárisabb megoldás általában drágább vagy nehezebb, a legkisebb költségű megoldás pedig gyakran integrált. Ezért az architektúra-tervezés nem egyetlen helyes válasz megkeresése, hanem alternatívák létrehozása (<a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. fejezet) és tudatos kiválasztása (<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet).</p>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Modellalapú és adatvezérelt architektúra-tervezés</div><div class="doboz-tartalom">
+<p>A modellalapú rendszermérnökségben (<a href="03-modellek.html#sec-mod-mbse" class="quarto-xref"><span>3.5</span></a>. szakasz) az allokáció nem külön táblázatban, hanem a rendszermodellben él: a SysML nyelvben a funkciókat leíró viselkedési elemek és a formát leíró szerkezeti elemek közötti allokációs kapcsolatok formájában. Ennek előnye, hogy a funkciófa, az allokációs táblázat, az N²-diagram és a DSM ugyanabból a modellből generálható, így nem kerülhetnek ellentmondásba egymással. A DSM-ek elemzésében a hálózattudomány eszközei (közösségkeresés, centralitás, a változások terjedésének modellezése) egyre nagyobb szerepet kapnak. Segítségükkel nagy, több száz elemű rendszereknél is azonosíthatók a modulok és azok az elemek, amelyeken keresztül egy változás a legtöbb más elemre átterjedhet.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A rendszer három nézőpontból írható le: a funkció az, amit csinál (folyamat és operandus), a forma az, ami van (elemek és szerkezet), a koncepció pedig a kettő közötti leképezés. Az architektúra a koncepció megtestesülése: a funkciók hozzárendelése a forma elemeihez és az elemek kapcsolatainak meghatározása.</li>
+<li>A funkciókat megoldássemlegesen, igei szerkezettel kell megfogalmazni, különben a koncepciót a funkció felírásakor már eldöntöttük.</li>
+<li>Az architektúra-meghatározás a követelményekből funkcionális elemzéssel hozza létre az architektúrát és a levezetett követelményeket. A munka kreatív, rekurzív és iteratív, és mindig több architektúraváltozatot kell kidolgozni.</li>
+<li>A funkciófa a funkciók hierarchiáját, az FFBD a sorrendjüket és párhuzamosságukat, az IDEF0 a bemeneteiket, vezérléseiket, kimeneteiket és mechanizmusaikat mutatja.</li>
+<li>Az allokáció a funkciókat a forma elemeihez rendeli. Ulrich szerint moduláris az architektúra, ha a leképezés egy-egy megfeleltetés és az interfészek lazán csatoltak; integrált, ha a leképezés összetett vagy az interfészek szorosan csatoltak. Az allokációból levezetett követelmények születnek.</li>
+<li>Az N²-diagram a belső interfészeket azonosítja (kimenetek a sorokban, bemenetek az oszlopokban). Az interfészeket dokumentálni és konfigurációkezelés alatt tartani kell, és mindegyiknek gazdája kell legyen.</li>
+<li>A DSM algoritmikusan elemezhető. A komponensalapú DSM klaszterezése modulokat ad. A jó architektúra szoros összetartású és lazán csatolt, és a szerkezete illeszkedik a fejlesztő szervezethez.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Fogalmazd meg megoldássemlegesen a következő funkciókat: (a) „kerékpárzár bezárása mobilalkalmazással”, (b) „OEE-kijelzés a műhelyben”, (c) „robotos alkatrész-kivétel”!</li>
+<li>Mi a különbség a funkciófa és az FFBD között? Melyik kérdésre válaszol az egyik, és melyikre a másik?</li>
+<li>Az FFBD-n egy ÉS-pont után két párhuzamos ág fut: az egyik 25 s, a másik 12 s. Mennyivel járul hozzá a két ág a ciklusidőhöz? Mi változik, ha a második ág 30 s-ra nő?</li>
+<li>Egy IDEF0-dobozba a „karbantartási utasítás” nyíl felülről, a „karbantartó” nyíl alulról érkezik. Mi a szerepük? Mi lenne a hiba, ha a karbantartási utasítást bemenetként rajzolnánk?</li>
+<li>A <a href="#tbl-allokacio-kobo" class="quarto-xref"><span>8.1</span></a>. táblázat alapján melyik alrendszer a legkevésbé moduláris, és miért? Milyen következménye van ennek a tesztelésre?</li>
+<li>Egy N²-diagramon a 3. sor 5. oszlopában az „üzemállapot” felirat áll. Mit jelent ez?</li>
+<li>Egy 10 elemű termék-DSM-ben 24 kapcsolat van. A klaszterezés után 18 esik a modulokon belülre. Hány modulinterfész maradt? Mit tennél, ha két modul között 4 kapcsolat is van?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li><ol type="a">
+<li>„Kerékpár rögzítése jogosulatlan elvitel ellen” (az azonosítás módja nyitott marad). (b) „Gépek teljesítményének láthatóvá tétele a döntéshozók számára”. (c) „Kész alkatrész továbbítása a kiadóba”.</li>
+</ol></li>
+<li>A funkciófa azt mutatja meg, milyen részfunkciókból áll egy funkció (hierarchia, „miből áll?”). Az FFBD azt, milyen sorrendben, milyen párhuzamosságokkal és elágazásokkal hajtódnak végre a funkciók („mi után mi következik?”).</li>
+<li>A párhuzamos ágak közül a hosszabb határozza meg a ciklusidőt, ezért a két ág együtt 25 s-mal járul hozzá. Ha a második ág 30 s-ra nő, ez lesz a kritikus ág, és a hozzájárulás 30 s-ra nő, vagyis a ciklusidő 5 s-mal hosszabb lesz.</li>
+<li>A karbantartási utasítás vezérlés: szabályozza, hogyan kell a funkciót végrehajtani. A karbantartó mechanizmus: ő hajtja végre. Bemenet az, amit a funkció átalakít (például a karbantartandó gép). Ha az utasítást bemenetként rajzolnánk, az ábra azt állítaná, hogy a funkció az utasítást alakítja át, ami félrevezető.</li>
+<li>A kobot: négy főfunkcióban is szerepel (pozicionálás, meghúzás, mozgáskorlátozás, kivétel), így a leképezés nem egy-egy megfeleltetés. A kobot programjának bármely módosítása után több funkció regressziós tesztelésére van szükség.</li>
+<li>A 3. sorban álló elem kimenete az „üzemállapot”, amely az 5. oszlopban álló elem bemenete. Vagyis a 3. elem üzemállapot-információt küld az 5. elemnek.</li>
+<li>24 − 18 = 6 modulinterfész maradt. Ha két modul között 4 kapcsolat van, érdemes megvizsgálni, hogy nem egyetlen modulról van-e szó, vagy hogy egy elem nem rossz modulba került-e. Ha az összevonás nem lehetséges, ezt a modulpárt közös interfészgazdához kell rendelni, és az interfészeket kiemelten kell kezelni.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: az architektúra első változata</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>fogalmazd meg a rendszer fő funkcióját megoldássemlegesen, és készíts legalább kétszintű funkciófát, szintenként legfeljebb 7–9 elemmel;</li>
+<li>rajzold fel a fő működési forgatókönyv FFBD-jét ÉS- és VAGY-pontokkal;</li>
+<li>írj le legalább két koncepciót, és az egyikhez készíts allokációs táblázatot;</li>
+<li>készíts N²-diagramot az alrendszerekről, és jelöld meg a három legkritikusabb interfészt;</li>
+<li>ha legalább 8 elemed van, készíts DSM-et, és klaszterezéssel javasolj modulokat;</li>
+<li>írd le, milyen levezetett követelmények születtek az allokációból.</li>
+</ol>
+<p>A funkciófa és a DSM sablonja, valamint a notebookok a Gyakorlati útmutató funkciófa- és N²/DSM-eszközlapján találhatók.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="crawley2016">Crawley, Cameron, és Selva (<a href="../irodalom.html#ref-crawley2016" role="doc-biblioref">2016</a>)</span>: a funkció–forma–koncepció felfogás és a rendszerarchitektúra alapvető tankönyve.</li>
+<li><span class="citation" data-cites="maier2009">Maier és Rechtin (<a href="../irodalom.html#ref-maier2009" role="doc-biblioref">2009</a>)</span>: a rendszerarchitektúra-tervezés heurisztikái és gyakorlata.</li>
+<li><span class="citation" data-cites="ulrich1995">Ulrich (<a href="../irodalom.html#ref-ulrich1995" role="doc-biblioref">1995</a>)</span>: a termékarchitektúra és a moduláris–integrált megkülönböztetés klasszikus tanulmánya.</li>
+<li><span class="citation" data-cites="eppinger2012">Eppinger és Browning (<a href="../irodalom.html#ref-eppinger2012" role="doc-biblioref">2012</a>)</span>: a DSM-módszerek kézikönyve sok ipari példával.</li>
+<li><span class="citation" data-cites="simon1962">Simon (<a href="../irodalom.html#ref-simon1962" role="doc-biblioref">1962</a>)</span>: a hierarchikus, majdnem felbontható rendszerek elmélete.</li>
+<li><span class="citation" data-cites="baldwin2000">Baldwin és Clark (<a href="../irodalom.html#ref-baldwin2000" role="doc-biblioref">2000</a>)</span>: a modularitás gazdasági és szervezeti következményei.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 4.3–4.4. és 6.3. szakasz: a logikai dekompozíció, a tervezési megoldás meghatározása és az interfészkezelés folyamata.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-baldwin2000" class="csl-entry" role="listitem">
+Baldwin, Carliss Y., és Kim B. Clark. 2000. <em>Design Rules, Volume 1: The Power of Modularity</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-blanchard2011" class="csl-entry" role="listitem">
+Blanchard, Benjamin S., és Wolter J. Fabrycky. 2011. <em>Systems Engineering and Analysis</em>. 5. kiad. Upper Saddle River, NJ: Prentice Hall.
+</div>
+<div id="ref-browning2001" class="csl-entry" role="listitem">
+Browning, Tyson R. 2001. <span>„Applying the Design Structure Matrix to System Decomposition and Integration Problems: A Review and New Directions”</span>. <em>IEEE Transactions on Engineering Management</em> 48 (3): 292–306.
+</div>
+<div id="ref-conway1968" class="csl-entry" role="listitem">
+Conway, Melvin E. 1968. <span>„How Do Committees Invent?”</span> <em>Datamation</em> 14 (4): 28–31.
+</div>
+<div id="ref-cowan2001" class="csl-entry" role="listitem">
+Cowan, Nelson. 2001. <span>„The Magical Number 4 in Short-Term Memory: A Reconsideration of Mental Storage Capacity”</span>. <em>Behavioral and Brain Sciences</em> 24 (1): 87–114. <a href="https://doi.org/10.1017/S0140525X01003922">https://doi.org/10.1017/S0140525X01003922</a>.
+</div>
+<div id="ref-crawley2016" class="csl-entry" role="listitem">
+Crawley, Edward, Bruce Cameron, és Daniel Selva. 2016. <em>System Architecture: Strategy and Product Development for Complex Systems</em>. Hoboken, NJ: Pearson.
+</div>
+<div id="ref-dau2001" class="csl-entry" role="listitem">
+Defense Acquisition University. 2001. <em>Systems Engineering Fundamentals</em>. Fort Belvoir, VA: Defense Acquisition University Press.
+</div>
+<div id="ref-eppinger2012" class="csl-entry" role="listitem">
+Eppinger, Steven D., és Tyson R. Browning. 2012. <em>Design Structure Matrix Methods and Applications</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-iso42010_2022" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2022. <span>„<span>ISO/IEC/IEEE 42010:2022</span> Software, Systems and Enterprise – Architecture Description”</span>. Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+———. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-kossiakoff2011" class="csl-entry" role="listitem">
+Kossiakoff, Alexander, William N. Sweet, Samuel J. Seymour, és Steven M. Biemer. 2011. <em>Systems Engineering Principles and Practice</em>. 2. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-lano1977" class="csl-entry" role="listitem">
+Lano, Robert J. 1977. <span>„The <span>N</span>2 Chart”</span>. Redondo Beach, CA: TRW Software Series.
+</div>
+<div id="ref-maier2009" class="csl-entry" role="listitem">
+Maier, Mark W., és Eberhardt Rechtin. 2009. <em>The Art of Systems Architecting</em>. 3. kiad. Boca Raton, FL: CRC Press.
+</div>
+<div id="ref-miller1956" class="csl-entry" role="listitem">
+Miller, George A. 1956. <span>„The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information”</span>. <em>Psychological Review</em> 63 (2): 81–97.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-newman2006" class="csl-entry" role="listitem">
+Newman, M. E. J. 2006. <span>„Modularity and Community Structure in Networks”</span>. <em>Proceedings of the National Academy of Sciences</em> 103 (23): 8577–82. <a href="https://doi.org/10.1073/pnas.0601602103">https://doi.org/10.1073/pnas.0601602103</a>.
+</div>
+<div id="ref-fips183" class="csl-entry" role="listitem">
+NIST. 1993. <span>„Integration Definition for Function Modeling (<span>IDEF0</span>)”</span>. Federal Information Processing Standards Publication 183.
+</div>
+<div id="ref-pahl2007" class="csl-entry" role="listitem">
+Pahl, Gerhard, Wolfgang Beitz, Jörg Feldhusen, és Karl-Heinrich Grote. 2007. <em>Engineering Design: A Systematic Approach</em>. 3. kiad. London: Springer. <a href="https://doi.org/10.1007/978-1-84628-319-2">https://doi.org/10.1007/978-1-84628-319-2</a>.
+</div>
+<div id="ref-simon1962" class="csl-entry" role="listitem">
+Simon, Herbert A. 1962. <span>„The Architecture of Complexity”</span>. <em>Proceedings of the American Philosophical Society</em> 106 (6): 467–82.
+</div>
+<div id="ref-sosa2004" class="csl-entry" role="listitem">
+Sosa, Manuel E., Steven D. Eppinger, és Craig M. Rowles. 2004. <span>„The Misalignment of Product Architecture and Organizational Structure in Complex Product Development”</span>. <em>Management Science</em> 50 (12): 1674–89. <a href="https://doi.org/10.1287/mnsc.1040.0289">https://doi.org/10.1287/mnsc.1040.0289</a>.
+</div>
+<div id="ref-steward1981" class="csl-entry" role="listitem">
+Steward, Donald V. 1981. <span>„The Design Structure System: A Method for Managing the Design of Complex Systems”</span>. <em>IEEE Transactions on Engineering Management</em> EM-28 (3): 71–74.
+</div>
+<div id="ref-ulrich1995" class="csl-entry" role="listitem">
+Ulrich, Karl. 1995. <span>„The Role of Product Architecture in the Manufacturing Firm”</span>. <em>Research Policy</em> 24 (3): 419–40.
+</div>
+<div id="ref-vogel1998" class="csl-entry" role="listitem">
+Vogel, Steven. 1998. <em>Cats’ Paws and Catapults: Mechanical Worlds of Nature and People</em>. New York: W. W. Norton.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/07-qfd.html" class="pagination-link" aria-label="A vevő hangja a tervezésben: QFD és a minőségház">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/09-kreativitas.html" class="pagination-link" aria-label="Koncepciógenerálás és kreatív problémamegoldás">
+        <span class="nav-page-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/08-architektura.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/08-architektura.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

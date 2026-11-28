@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rendszermérnöki ismeretek és módszerek – nyílt tankönyv és gyakorlati útmutató</title>
+<link rel="icon" type="image/png" href="kezikonyv/assets/logo/favicon-64.png">
+<style>
+@font-face { font-family: 'Raleway'; font-weight: 900; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/raleway-latin-900-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+2000-206F; }
+@font-face { font-family: 'Raleway'; font-weight: 900; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/raleway-latin-ext-900-normal.woff2) format('woff2'); unicode-range: U+0100-02BA; }
+@font-face { font-family: 'Raleway'; font-weight: 800; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/raleway-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+2000-206F; }
+@font-face { font-family: 'Raleway'; font-weight: 800; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/raleway-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA; }
+@font-face { font-family: 'IBM Plex Serif'; font-weight: 400; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/ibm-plex-serif-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+2000-206F; }
+@font-face { font-family: 'IBM Plex Serif'; font-weight: 400; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/ibm-plex-serif-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA; }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 600; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/ibm-plex-sans-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+2000-206F; }
+@font-face { font-family: 'IBM Plex Sans'; font-weight: 600; src: url(kezikonyv/site_libs/bootstrap/assets/fonts/ibm-plex-sans-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA; }
+:root { --kek:#285780; --sotet:#1B3A57; --kiemel:#E07B39; }
+* { box-sizing: border-box; }
+body { margin:0; font-family:'IBM Plex Serif', Georgia, serif; color:#1F2933; background:#fff; }
+header { position:relative; padding:2.2rem 8vw 7.5rem; overflow:hidden; }
+.pelogo { display:block; height:68px; width:auto; margin:0 0 2.6rem; }
+header::after { content:""; position:absolute; left:0; right:0; bottom:0; height:5.5rem;
+  background:linear-gradient(176deg, transparent 0 38%, var(--kiemel) 38% 44%, var(--kek) 44% 100%); }
+h1 { font-family:'Raleway',sans-serif; font-weight:900; font-size:clamp(2.4rem,6vw,4rem); color:var(--sotet); margin:0; letter-spacing:-.01em; }
+.alcim { font-family:'Raleway',sans-serif; font-weight:800; color:var(--kek); font-size:clamp(1.1rem,2.4vw,1.5rem); margin:.6rem 0 1.2rem; }
+.szerzo { font-size:1.05rem; }
+main { padding:2rem 8vw 3rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; }
+.kartya { border-left:5px solid var(--kek); background:#F4F7FB; padding:1.4rem 1.6rem; border-radius:2px; }
+.kartya.gy { border-left-color:var(--kiemel); background:#FDF6F0; }
+.kartya .borito { float:right; width:118px; margin:0 0 .8rem 1.2rem; box-shadow:0 2px 10px rgba(27,58,87,.2); }
+.kartya h2 { font-family:'Raleway',sans-serif; font-weight:900; color:var(--sotet); margin:.1rem 0 .6rem; font-size:1.5rem; }
+.kartya p { line-height:1.55; }
+.gombok a { display:inline-block; margin:.35rem .5rem .2rem 0; padding:.5rem .95rem; border-radius:3px; text-decoration:none;
+  font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:.95rem; }
+.fo { background:var(--kek); color:#fff; } .kartya.gy .fo { background:var(--kiemel); }
+.mas { background:#fff; color:var(--kek); border:1px solid #C9D6E3; }
+footer { padding:1.5rem 8vw 3rem; font-size:.9rem; color:#52606D; border-top:1px solid #E4E7EB; line-height:1.6; }
+footer a { color:var(--kek); }
+</style>
+<style>
+/* Közös sorozatsáv – ugyanaz a felső navigáció, mint a kötetek webes változatában */
+.sorozatsav{background:#285780;color:#fff;font-family:'IBM Plex Sans',system-ui,sans-serif;border-bottom:4px solid transparent;border-image:linear-gradient(100deg,#1B3A57 0 70%,#E07B39 70% 72%,#1B3A57 72% 100%) 1}
+.sorozatsav .belso-sav{max-width:1180px;margin:0 auto;padding:.55rem 1.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1.4rem}
+.sorozatsav a{color:#fff;text-decoration:none;font-size:.95rem;opacity:.9}
+.sorozatsav a:hover,.sorozatsav a:focus{opacity:1;text-decoration:underline;text-underline-offset:.3em}
+.sorozatsav .sav-cim{font-family:'Raleway','IBM Plex Sans',sans-serif;font-weight:800;font-size:1.15rem;opacity:1;margin-right:.4rem}
+.sorozatsav .sav-fo{margin-left:auto;border:1px solid rgba(255,255,255,.55);border-radius:3px;padding:.15rem .55rem}
+@media (max-width:640px){.sorozatsav .sav-fo{margin-left:0}}
+</style>
+</head>
+<body>
+<nav class="sorozatsav" aria-label="Sorozatnavigáció"><div class="belso-sav"><a class="sav-cim" href="./" aria-current="page">Rendszermérnöki ismeretek és módszerek</a><a href="kezikonyv/">Kézikönyv</a><a href="gyakorlat/">Gyakorlati útmutató</a><a class="sav-fo" href="https://complexsystemsintelligence.github.io/#textbooks">Összes tankönyv</a></div></nav>
+<header>
+  <a href="https://uni-pannon.hu/"><img class="pelogo" src="kezikonyv/assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem"></a>
+  <h1>Rendszermérnöki ismeretek és módszerek</h1>
+  <div class="alcim">Ötlettől a működő rendszerig a V-modell mentén</div>
+  <div class="szerzo">Abonyi János · Pannon Egyetem · 2026</div>
+</header>
+<main>
+  <section class="kartya">
+    <img class="borito" src="kezikonyv/assets/borito.png" alt="A kézikönyv borítója">
+    <h2>Kézikönyv</h2>
+    <p>Önálló tanulásra szánt, magyar nyelvű tankönyv mérnöki alapszakos hallgatóknak. Az érdekelt felektől a követelményeken, a koncepciókon, az emberközpontú tervezésen, a kockázat- és megbízhatósági elemzéseken át a folyamatokig, az ellenőrzésig és az üzemeltetésig vezet. Három futó esettanulmánnyal.</p>
+    <div class="gombok">
+      <a class="fo" href="kezikonyv/index.html">Olvasás online</a>
+      <a class="mas" href="kezikonyv/rendszermernokseg-kezikonyv.pdf">PDF</a>
+      <a class="mas" href="kezikonyv/rendszermernokseg-kezikonyv.epub">EPUB</a>
+    </div>
+  </section>
+  <section class="kartya gy">
+    <img class="borito" src="gyakorlat/assets/borito.png" alt="A gyakorlati útmutató borítója">
+    <h2>Gyakorlati útmutató</h2>
+    <p>A kézikönyv párja: egységes eszközlapok a V-modell lépéseinek sorrendjében, kidolgozott példákkal, letölthető Excel-sablonokkal, Python-notebookokkal, mintapromptokkal és a féléves projekt teljes útmutatójával.</p>
+    <div class="gombok">
+      <a class="fo" href="gyakorlat/index.html">Olvasás online</a>
+      <a class="mas" href="gyakorlat/rendszermernokseg-gyakorlat.pdf">PDF</a>
+      <a class="mas" href="gyakorlat/rendszermernokseg-gyakorlat.epub">EPUB</a>
+    </div>
+  </section>
+</main>
+<footer>
+  A szöveg és az ábrák a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.hu">CC BY-NC-SA 4.0</a> licenc, a forrásállományok és a programkódok MIT-licenc alatt használhatók.
+  Hivatkozás: Abonyi János (2026): Rendszermérnöki ismeretek és módszerek – Ötlettől a működő rendszerig a V-modell mentén. Pannon Egyetem, Veszprém. DOI: <a href="https://doi.org/10.5281/zenodo.24414135">10.5281/zenodo.24414135</a>.<br>
+  A Pannon Egyetem neve, címere és logója az egyetem arculati eleme; a licenc ezekre nem terjed ki.
+  Forrás, hibajelzés, javaslat: <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg">GitHub</a>.
+  A könyv a rendszermérnökség nemzetközi szabványaira (ISO/IEC/IEEE 15288:2023, 29148), az INCOSE kézikönyvére és az egyes módszerek eredeti szakirodalmára épül; kiegészítő olvasmányként a NASA rendszermérnöki kézikönyvét és eszköztárát ajánlja.
+</footer>
+</body>
+</html>

@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; A probléma meghatározása és a működési koncepció – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/05-erdekelt-felek.html" rel="next">
+<link href="../fejezetek/03-modellek.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-problema" class="quarto-section-identifier"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-pr-ter" id="toc-sec-pr-ter" class="nav-link active" data-scroll-target="#sec-pr-ter"><span class="header-section-number">4.1.</span> Problématér és megoldástér</a></li>
+  <li><a href="#sec-pr-feltaras" id="toc-sec-pr-feltaras" class="nav-link" data-scroll-target="#sec-pr-feltaras"><span class="header-section-number">4.2.</span> A probléma feltárása</a>
+  <ul class="collapse">
+  <li><a href="#problémafa-és-célfa" id="toc-problémafa-és-célfa" class="nav-link" data-scroll-target="#problémafa-és-célfa"><span class="header-section-number">4.2.1.</span> Problémafa és célfa</a></li>
+  <li><a href="#a-probléma-körülhatárolása-a-vannincs-elemzés" id="toc-a-probléma-körülhatárolása-a-vannincs-elemzés" class="nav-link" data-scroll-target="#a-probléma-körülhatárolása-a-vannincs-elemzés"><span class="header-section-number">4.2.2.</span> A probléma körülhatárolása: a „van–nincs” elemzés</a></li>
+  </ul></li>
+  <li><a href="#sec-pr-megfogalmazas" id="toc-sec-pr-megfogalmazas" class="nav-link" data-scroll-target="#sec-pr-megfogalmazas"><span class="header-section-number">4.3.</span> A probléma megfogalmazása</a>
+  <ul class="collapse">
+  <li><a href="#korlátok-és-feltételezések" id="toc-korlátok-és-feltételezések" class="nav-link" data-scroll-target="#korlátok-és-feltételezések"><span class="header-section-number">4.3.1.</span> Korlátok és feltételezések</a></li>
+  <li><a href="#gonosz-problémák" id="toc-gonosz-problémák" class="nav-link" data-scroll-target="#gonosz-problémák"><span class="header-section-number">4.3.2.</span> Gonosz problémák</a></li>
+  </ul></li>
+  <li><a href="#sec-pr-conops" id="toc-sec-pr-conops" class="nav-link" data-scroll-target="#sec-pr-conops"><span class="header-section-number">4.4.</span> A működési koncepció</a>
+  <ul class="collapse">
+  <li><a href="#üzemmódok" id="toc-üzemmódok" class="nav-link" data-scroll-target="#üzemmódok"><span class="header-section-number">4.4.1.</span> Üzemmódok</a></li>
+  <li><a href="#működési-forgatókönyvek" id="toc-működési-forgatókönyvek" class="nav-link" data-scroll-target="#működési-forgatókönyvek"><span class="header-section-number">4.4.2.</span> Működési forgatókönyvek</a></li>
+  <li><a href="#használati-esetek" id="toc-használati-esetek" class="nav-link" data-scroll-target="#használati-esetek"><span class="header-section-number">4.4.3.</span> Használati esetek</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/04-problema.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/04-problema.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-problema.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet a V bal ágának első lépésével, a probléma meghatározásával foglalkozik"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>szétválasztani a problémateret és a megoldásteret, és felismerni, ha egy problémamegfogalmazás valójában megoldást tartalmaz;</li>
+<li>problémafával feltárni egy probléma okait és hatásait, és célfává alakítani;</li>
+<li>a „van–nincs” elemzéssel pontosan körülhatárolni egy problémát;</li>
+<li>tömör, mérhető problémamegfogalmazást írni, rögzítve a korlátokat, a feltételezéseket és a siker kritériumait;</li>
+<li>felismerni a „gonosz” (nehezen meghatározható) problémákat, és a tervezési stratégiát ehhez igazítani;</li>
+<li>működési koncepciót (ConOps) készíteni üzemmódokkal, normál és rendellenes forgatókönyvekkel, valamint használati esetekkel.</li>
+</ul>
+</div></div>
+<p>A V-modell bal ága nem a követelményekkel kezdődik, hanem egy kérdéssel: <em>milyen problémát oldunk meg?</em> Ez a lépés gyakran rövidebb a kelleténél. A megrendelő hozza a kész megoldást („kell egy MES”, „automatizáljuk az állomást”, „csináljunk egy alkalmazást”), és a csapat azonnal nekilát. A <a href="02-v-modell.html" class="quarto-xref"><span>2</span></a>. fejezetben láttuk, hogy az életciklus-költségek nagy része már a korai döntésekkel elkötelezetté válik. A rosszul megfogalmazott probléma ezért a legdrágább hiba: a legjobb megvalósítás sem segít, ha rossz kérdésre ad választ.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Hogyan válasszuk szét, <em>mit</em> akarunk elérni, és <em>hogyan</em> akarjuk elérni?</li>
+<li>Hogyan tárjuk fel egy probléma okait és hatásait, és hogyan fogalmazzuk meg pontosan?</li>
+<li>Mit kezdjünk azokkal a problémákkal, amelyeket nem lehet egyszer s mindenkorra meghatározni?</li>
+<li>Hogyan írjuk le a jövőbeli rendszer használatát úgy, hogy abból követelmények születhessenek?</li>
+</ul>
+<section id="sec-pr-ter" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="sec-pr-ter"><span class="header-section-number">4.1.</span> Problématér és megoldástér</h2>
+<p>A tervezési munka két, egymástól elválasztandó térben zajlik. A <strong>problématér</strong> arról szól, <em>mit</em> kell elérni, <em>kinek</em>, <em>miért</em> és <em>milyen feltételekkel</em>. A <strong>megoldástér</strong> arról, <em>hogyan</em> érjük el. A két tér összemosása a rendszermérnökség egyik leggyakoribb hibája. Az INCOSE követelményírási útmutatója is erre figyelmeztet: a követelmény azt fogalmazza meg, <em>mire</em> van szükség, és ne azt, <em>hogyan</em> kell megvalósítani <span class="citation" data-cites="incose2023gtwr">(<a href="../irodalom.html#ref-incose2023gtwr" role="doc-biblioref">INCOSE 2023</a>)</span>. Ha egy követelmény mégis megoldást ír elő, érdemes megkérdezni, <em>miért</em> van rá szükség: a válasz gyakran a valódi követelményhez vezet.</p>
+<p>A brit Design Council 2005-ben közzétett, 2019-ben továbbfejlesztett „dupla gyémánt” modellje ezt a szétválasztást teszi szemléletessé (<a href="#fig-dupla-gyemant" class="quarto-xref"><span>4.1</span></a>. ábra) <span class="citation" data-cites="designcouncil2019">(<a href="../irodalom.html#ref-designcouncil2019" role="doc-biblioref">Design Council 2019</a>)</span>. Az első gyémánt a problématér: előbb széttartó gondolkodással feltárjuk a helyzetet, aztán összetartó gondolkodással pontosan meghatározzuk a problémát. A második gyémánt a megoldástér: előbb sok lehetséges megoldást dolgozunk ki, aztán kiválasztjuk és megvalósítjuk a legjobbat. A két gyémánt határán áll a problémamegfogalmazás és a működési koncepció. A modell nem lineáris: a megoldástérben szerzett tudás gyakran visszavezet a problémához.</p>
+<div id="fig-dupla-gyemant" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dupla-gyemant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/dupla-gyemant.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dupla-gyemant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.1. ábra.</span> A problématér és a megoldástér szétválasztása a Design Council „dupla gyémánt” modellje nyomán. Mindkét térben előbb széttartó, aztán összetartó gondolkodás következik.
+</figcaption>
+</figure>
+</div>
+<p>A V-modell nyelvén: a bal ág első két lépése (a probléma és az érdekelt felek igényei) az első gyémánt, a koncepcióváltozatok kidolgozása és kiválasztása (<a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. és <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet) a második. A követelmények (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet) a kettő között közvetítenek. A problématérből származnak, de már a megoldás tulajdonságait írják elő.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: „kell egy MES”</div><div class="doboz-tartalom">
+<p>A ForgácsTech tulajdonos-ügyvezetője egy szakmai kiállításon látott MES-rendszerrel érkezett a projektindító megbeszélésre. A rendszermérnök felírta a táblára: „Probléma: nincs MES.” Aztán megkérdezte: „Ha holnap reggelre lenne egy MES, miben lenne más a cég helyzete egy év múlva?”</p>
+<p>A válaszok sorra a valódi problémát rajzolták ki: „Nem csúsznának a határidők.” „Tudnánk, mennyit állnak a gépek.” „Nem kellene minden pénteken túlórázni.” „Nem vesztenénk el a legnagyobb vevőnket.” A „nincs MES” egy <em>hiányzó megoldás</em> volt. A probléma a megbízhatatlan határidő-tartás, amelynek a MES csak az egyik lehetséges orvossága. A továbbiakban kiderült, hogy legalább ugyanannyit számít az értékesítés és a gyártás egyeztetése és a beállítási idők csökkentése. Ezekhez nem kell szoftver.</p>
+</div></div>
+</section>
+<section id="sec-pr-feltaras" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-pr-feltaras"><span class="header-section-number">4.2.</span> A probléma feltárása</h2>
+<section id="problémafa-és-célfa" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="problémafa-és-célfa"><span class="header-section-number">4.2.1.</span> Problémafa és célfa</h3>
+<p>A <strong>problémafa</strong> a probléma okait és hatásait rendezi ok-okozati hierarchiába. Az Európai Bizottság projektciklus-menedzsment útmutatója a logikai keretmátrixos tervezés első lépéseként írja le. A középpontba a fő problémát (fókuszproblémát) helyezzük, alá az okait, fölé a hatásait, a nyilak pedig az ok-okozati kapcsolatokat mutatják <span class="citation" data-cites="ec2004pcm">(<a href="../irodalom.html#ref-ec2004pcm" role="doc-biblioref">European Commission 2004</a>)</span>. Az elkészítés lépései:</p>
+<ol type="1">
+<li><strong>Gyűjtsük össze a problémákat</strong> az érdekelt felekkel közösen, kártyákon. Egy kártya egy problémát tartalmazzon, negatív állapotként megfogalmazva („a rendelések 38%-a késve teljesül”). Kerüljük a hiányzó megoldás formát („nincs MES”).</li>
+<li><strong>Válasszuk ki a fő problémát</strong>, amelyhez a többiek okként vagy hatásként kapcsolódnak.</li>
+<li><strong>Rendezzük az okokat</strong> a fő probléma alá: mi okozza ezt? És mi okozza az okot? Addig haladjunk lefelé, amíg befolyásolható okokhoz nem érünk.</li>
+<li><strong>Rendezzük a hatásokat</strong> a fő probléma fölé: mi következik ebből?</li>
+<li><strong>Ellenőrizzük a logikát:</strong> minden nyíl mentén igaz-e, hogy az alsó elem <em>okozza</em> a felsőt?</li>
+</ol>
+<div id="fig-problemafa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-problemafa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/problemafa.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-problemafa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.2. ábra.</span> A ForgácsTech problémafája. A fő probléma alatt az okok, fölötte a hatások láthatók. A gépidő- és állásidőmérés hiánya több okhoz is hozzájárul.
+</figcaption>
+</figure>
+</div>
+<p>A problémafából <strong>célfa</strong> készül: minden negatív állapotot a kívánt pozitív állapottá fogalmazunk át. A fő probléma így fő céllá válik („a rendelések legalább 95%-a határidőre teljesül”), az okokból eszközcélok lesznek („a terv a valós gépállapotra épül”), a hatásokból pedig a magasabb szintű, átfogó célok („nő az árbevétel”). Az útmutató arra is figyelmeztet, hogy nem minden eszközcél vállalható egyetlen projektben. A célfából ki kell választani azt az ágat vagy ágakat, amelyekre a projekt összpontosít <span class="citation" data-cites="ec2004pcm">(<a href="../irodalom.html#ref-ec2004pcm" role="doc-biblioref">European Commission 2004</a>)</span>.</p>
+<div class="doboz doboz-pelda"><div class="doboz-cim">Kidolgozott példa: a ForgácsTech problémafája</div><div class="doboz-tartalom">
+<p>A <a href="#fig-problemafa" class="quarto-xref"><span>4.2</span></a>. ábra a ForgácsTech kétórás problémaelemző workshopjának eredménye. Ezen a termelésvezető, két gépkezelő, a gyártáselőkészítő, az értékesítő és a tulajdonos vett részt.</p>
+<p><strong>A fő probléma.</strong> A csapat a „határidő-csúszás” mellett döntött, és az elmúlt fél év szállítási adataiból számszerűsítette: a rendelések 38%-a teljesült késve.</p>
+<p><strong>Az okok.</strong> Négy közvetlen okot azonosítottak. A legmélyebb szinten egy ok több ágon is megjelent: a gépidő és az állásidő mérésének hiánya. Emiatt nem lehet a valós gépállapotra tervezni, a beállítási időket nem lehet csökkenteni, mert senki sem tudja, mennyik, és a határidőt is a kapacitás ismerete nélkül vállalják. Az ilyen, több ágon visszatérő ok különösen jó beavatkozási pont.</p>
+<p><strong>A célfa és a projekt hatóköre.</strong> Az átfogalmazás után a csapat két ágat választott, ezekre összpontosít a projekt: a gépállapot és az állásidő mérését (ehhez kell a MES adatgyűjtő része), valamint a kapacitásalapú határidő-vállalást (ehhez az értékesítés és a gyártás közös heti egyeztetése és egy egyszerű kapacitástábla kell). Az anyagnyilvántartás bevezetését egy későbbi szakaszra halasztották.</p>
+</div></div>
+</section>
+<section id="a-probléma-körülhatárolása-a-vannincs-elemzés" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="a-probléma-körülhatárolása-a-vannincs-elemzés"><span class="header-section-number">4.2.2.</span> A probléma körülhatárolása: a „van–nincs” elemzés</h3>
+<p>Kepner és Tregoe problémaelemzési módszerének központi eszköze a probléma pontos specifikációja. Azt vizsgálja, <em>mi</em> a probléma, <em>hol</em>, <em>mikor</em> és <em>milyen mértékben</em> jelentkezik, és ugyanezekre a kérdésekre azt is, hol, mikor és mennyiben <em>nem</em> jelentkezik, holott jelentkezhetne <span class="citation" data-cites="kepner1965">(<a href="../irodalom.html#ref-kepner1965" role="doc-biblioref">Kepner és Tregoe 1965</a>)</span>. A „van” és a „nincs” közötti különbség gyakran közvetlenül az ok felé mutat.</p>
+<div id="tbl-van-nincs" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[11,30,30,29]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-van-nincs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.1. táblázat.</span> A ForgácsTech határidő-csúszásának „van–nincs” elemzése.
+</figcaption>
+<div aria-describedby="tbl-van-nincs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Kérdés</th>
+<th style="text-align: left;">VAN (hol jelentkezik?)</th>
+<th style="text-align: left;">NINCS (hol nem, bár jelentkezhetne?)</th>
+<th style="text-align: left;">Különbség, nyom</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mi?</strong></td>
+<td style="text-align: left;">késés a kis sorozatú, egyedi rendeléseknél</td>
+<td style="text-align: left;">a három legnagyobb vevő ismétlődő rendeléseinél ritka</td>
+<td style="text-align: left;">az ismétlődő rendeléseknek kész programja és beállítási lapja van</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Hol?</strong></td>
+<td style="text-align: left;">a többtengelyes megmunkáló központokon</td>
+<td style="text-align: left;">a hagyományos esztergákon alig</td>
+<td style="text-align: left;">a megmunkáló központok beállítása hosszabb és változékonyabb</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Mikor?</strong></td>
+<td style="text-align: left;">főleg a hónap második felében</td>
+<td style="text-align: left;">a hónap elején ritka</td>
+<td style="text-align: left;">a hónap második felében gyűlnek a sürgős rendelések</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Mennyi?</strong></td>
+<td style="text-align: left;">átlagosan 4 munkanap, a rendelések 38%-a</td>
+<td style="text-align: left;">–</td>
+<td style="text-align: left;">a késések fele a beállításnál és az anyagbeszerzésnél keletkezik</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A <a href="#tbl-van-nincs" class="quarto-xref"><span>4.1</span></a>. táblázat jól mutatja, mit ad az elemzés. A probléma nem általános „szervezetlenség”. Kimutathatóan a változatos, egyedi rendeléseknél és a hosszú beállítású gépeken jelentkezik. Ez a beállítási idők mérését és csökkentését (a <a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>. fejezetben tárgyalt SMED-szemléletet) is a középpontba állítja.</p>
+</section>
+</section>
+<section id="sec-pr-megfogalmazas" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-pr-megfogalmazas"><span class="header-section-number">4.3.</span> A probléma megfogalmazása</h2>
+<p>A feltárás eredményét tömör <strong>problémamegfogalmazásba</strong> foglaljuk. Ez a projekt egyik legfontosabb dokumentuma. Minden érdekelt félnek ugyanazt kell értenie belőle, és minden későbbi döntést hozzá lehet mérni. A jó problémamegfogalmazás a következő elemeket tartalmazza:</p>
+<ul>
+<li><strong>a jelenlegi helyzet:</strong> mi a probléma, kit érint, hol és mikor jelentkezik, mekkora (számszerűen, ha lehet);</li>
+<li><strong>a kívánt helyzet:</strong> mit akarunk elérni, mérhető módon, határidővel;</li>
+<li><strong>a jelentőség:</strong> miért fontos, mi történik, ha nem oldjuk meg;</li>
+<li><strong>a hatókör:</strong> mi tartozik a feladathoz, és mi nem;</li>
+<li><strong>a korlátok:</strong> a megoldásnak kötelezően betartandó feltételek;</li>
+<li><strong>a feltételezések:</strong> amit igaznak fogadunk el, de nem tudunk biztosan;</li>
+<li><strong>a siker kritériumai:</strong> miből látjuk majd, hogy a probléma megoldódott.</li>
+</ul>
+<p>A siker kritériumai azt határozzák meg, mit kell a rendszernek elérnie ahhoz, hogy sikeresnek tekintsük, és milyen jól kell ezt elérnie. Az érdekelt felek elvárásait rögzítik, ezért a korlátokkal együtt a legfelső szintű követelmények forrásai. Az érdekelt felek nézőpontjából megfogalmazott, mérhető sikerkritériumokat a szakirodalom a hatékonyság mérőszámainak (measures of effectiveness, MOE) nevezi: ezek a tervezett használati környezetben, adott feltételek mellett mutatják meg, mennyire teljesíti a rendszer a küldetését <span class="citation" data-cites="roedler2005 nasa2016seh">(<a href="../irodalom.html#ref-roedler2005" role="doc-biblioref">Roedler és Jones 2005</a>; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 4.1</a>. szakasz)</span>. Ezekkel a <a href="05-erdekelt-felek.html#sec-ef-moe" class="quarto-xref"><span>5.6</span></a>. szakasz részletesen foglalkozik.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: a problémamegfogalmazás</div><div class="doboz-tartalom">
+<p><strong>Jelenlegi helyzet.</strong> Az elmúlt hat hónapban a ForgácsTech rendeléseinek 38%-a teljesült késve, átlagosan négy munkanappal. A késés főként a kis sorozatú, egyedi rendeléseket és a többtengelyes megmunkáló központokat érinti. A heti ütemterv papíralapú, a gépállapotról és az állásidőkről nincs adat, a határidőket a kapacitás ismerete nélkül vállalják.</p>
+<p><strong>Kívánt helyzet.</strong> Tizennyolc hónapon belül a rendelések legalább 95%-a teljesüljön határidőre, a késve teljesülő rendelések átlagos késése legfeljebb egy munkanap legyen, és a cég minden gépre ismerje a tényleges kihasználtságot és az állásidő okait.</p>
+<p><strong>Jelentőség.</strong> A két legnagyobb vevő a következő keretszerződés feltételéül szabta a 95%-os határidő-tartást és a rendelések nyomonkövethetőségét. A két vevő az árbevétel mintegy 40%-át adja.</p>
+<p><strong>Hatókör.</strong> A rendelés felvételétől a kiszállításig tartó információs és anyagáramlás. Nem része a feladatnak a könyvelési rendszer cseréje és a gépek felújítása.</p>
+<p><strong>Korlátok.</strong> A beruházás felső határa 45 millió forint. A bevezetés alatt a termelés nem állhat le egy hétnél tovább. A gépek vezérlőinek gyártói garanciáját nem szabad veszélyeztetni.</p>
+<p><strong>Feltételezések.</strong> A gépek többsége rendelkezik adatkapcsolati lehetőséggel (ellenőrizendő a régebbi esztergáknál). A gépkezelők elfogadják a digitális munkautasításokat (az üzemi megbeszélésen visszajelzés kérendő).</p>
+<p><strong>A siker kritériumai.</strong> Határidőre teljesülő rendelések aránya ≥ 95% három egymást követő hónapban; átlagos késés ≤ 1 munkanap; a gépek állásidejének legalább 90%-ához ok rendelve.</p>
+</div></div>
+<section id="korlátok-és-feltételezések" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="korlátok-és-feltételezések"><span class="header-section-number">4.3.1.</span> Korlátok és feltételezések</h3>
+<p>A <strong>korlát</strong> olyan feltétel, amelyet a megoldásnak mindenképpen teljesítenie kell, és amelyről a tervezők nem dönthetnek. Ilyen a költségkeret, a határidő, egy jogszabály, egy szabvány vagy egy meglévő rendszerhez való illeszkedés. Az ISO/IEC/IEEE 29148 szabvány szerint a korlát kívülről előírt megkötés, amely a követelményeket, a tervet, a megvalósítást vagy magát a fejlesztési folyamatot korlátozza <span class="citation" data-cites="iso29148_2018">(<a href="../irodalom.html#ref-iso29148_2018" role="doc-biblioref">ISO/IEC/IEEE 2018</a>)</span>. A korlát teljesüléséről költség- vagy teljesítményszempontok miatt sem lehet lemondani. A korlátok szűkítik a megoldásteret. Ezért fontos, hogy csak a valódi korlátokat rögzítsük, és ne emeljünk korláttá egy megszokott vagy kényelmes megoldást.</p>
+<p>A <strong>feltételezés</strong> olyan állítás, amelyet a tervezés során igaznak fogadunk el, de nem tudjuk biztosan. Ha egy feltételezés hamisnak bizonyul, a rá épülő követelmények és tervezési döntések is megdőlhetnek. A feltételezéseket ezért érdemes nyilvántartani, és a követelmények jóváhagyása előtt megerősíteni: ki ellenőrzi őket, és mikorra. A meg nem erősített feltételezés kockázat, és a kockázatlistára kerül (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet).</p>
+</section>
+<section id="gonosz-problémák" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="gonosz-problémák"><span class="header-section-number">4.3.2.</span> Gonosz problémák</h3>
+<p>Rittel és Webber 1973-as tanulmánya óta <strong>gonosz problémáknak</strong> (wicked problems) nevezzük azokat a társadalmi és tervezési problémákat, amelyeket nem lehet egyértelműen, végérvényesen megfogalmazni <span class="citation" data-cites="rittel1973">(<a href="../irodalom.html#ref-rittel1973" role="doc-biblioref">Rittel és Webber 1973</a>)</span>. A szerzők tíz jellemzőjük közül néhány különösen fontos a rendszermérnök számára:</p>
+<ul>
+<li><strong>Nincs végleges megfogalmazásuk.</strong> A probléma megértése és a megoldás keresése ugyanaz a folyamat: minden megoldási kísérlet újabb oldalát mutatja meg a problémának.</li>
+<li><strong>Nincs leállási szabályuk.</strong> Nem lehet megmondani, mikor oldottuk meg őket. Csak azt, mikor elég jó a helyzet.</li>
+<li><strong>A megoldásaik nem igazak vagy hamisak, hanem jobbak vagy rosszabbak</strong>, és ezt különböző érdekelt felek eltérően ítélik meg.</li>
+<li><strong>Minden megoldás egyszeri, következményekkel járó beavatkozás.</strong> Nincs lehetőség próbálkozásra és tévedésre következmények nélkül.</li>
+<li><strong>Minden gonosz probléma lényegében egyedi</strong>, ezért a máshol bevált megoldás nem vihető át gondolkodás nélkül.</li>
+</ul>
+<p>A VárosiBringa ilyen probléma. A „belvárosi forgalom csökkentése” mögött ellentmondó érdekek és viselkedési mintázatok állnak. A kerékpárrendszer bevezetése maga is megváltoztatja a problémát: más lesz a parkolási igény, más a buszok kihasználtsága, mások lesznek a panaszok. A gonosz problémákra nem az a válasz, hogy lemondunk a pontos megfogalmazásról. Kisebb, visszafordítható lépésekben kell haladni (próbaüzem, bővíthető hálózat), a problémamegfogalmazást rendszeresen újra kell vizsgálni, és az érdekelt feleket végig be kell vonni. Ez a <a href="01-rendszerek.html#sec-rsz-komplexitas" class="quarto-xref"><span>1.4</span></a>. szakaszban tárgyalt komplex rendszerek tervezési stratégiája.</p>
+</section>
+</section>
+<section id="sec-pr-conops" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-pr-conops"><span class="header-section-number">4.4.</span> A működési koncepció</h2>
+<p>A problémamegfogalmazás azt mondja meg, mit kell elérni. A <strong>működési koncepció</strong> (concept of operations, ConOps) azt írja le, hogyan fogják a jövőbeli rendszert használni ahhoz, hogy ezt elérjék. A ConOps a koncepciószakasz elején készül. Felhasználóközpontú dokumentum: a rendszer mennyiségi és minőségi jellemzőit a felhasználók, a megrendelő, a fejlesztők és a támogató szervezetek számára egyaránt érthetően írja le, és a felhasználó szervezetét, feladatait és céljait egységes rendszerszemléletben mutatja be <span class="citation" data-cites="ieee1362_1998 nasa2016seh">(<a href="../irodalom.html#ref-ieee1362_1998" role="doc-biblioref">IEEE 1998</a>; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 4.1</a>. szakasz)</span>. Működési nézőpontból, jellemzően időbeli sorrendben írja le, hogyan fogják a rendszert használni, ezért a felhasználókhoz kapcsolódó követelmények és az architektúra kiindulópontja. A ConOps-dokumentum tartalmát eredetileg az IEEE 1362 útmutató rögzítette; ezt 2011-ben a követelménymérnökség szabványa, az ISO/IEC/IEEE 29148 váltotta fel. A szabvány jelenlegi változata a szervezeti szintű működési koncepciót (ConOps) és a rendszer szintű működési koncepciót (OpsCon) külön információs elemként kezeli <span class="citation" data-cites="iso29148_2018">(<a href="../irodalom.html#ref-iso29148_2018" role="doc-biblioref">ISO/IEC/IEEE 2018</a>)</span>.</p>
+<p>A ConOps legfontosabb tulajdonsága, hogy <strong>a felhasználó nyelvén szól</strong>. Nem azt írja le, milyen alkatrészekből áll a rendszer, hanem azt, hogy ki, mikor, milyen helyzetben, mit csinál vele, és mit tapasztal közben. Ezért a nem mérnök érdekelt felek is el tudják olvasni, ki tudják egészíteni, és jóvá tudják hagyni. A követelményekhez hasonlóan a ConOps is megvalósításfüggetlen: azt mondja meg, mit kell a rendszernek és elemeinek tennie, és nem azt, hogyan.</p>
+<p>Az IEEE 1362 útmutató vázlata a mai napig a ConOps-dokumentumok legelterjedtebb szerkezete <span class="citation" data-cites="ieee1362_1998">(<a href="../irodalom.html#ref-ieee1362_1998" role="doc-biblioref">IEEE 1998</a>)</span>. Kissé egyszerűsítve a következő fejezetekből áll:</p>
+<ol type="1">
+<li><strong>Hatókör:</strong> a rendszer azonosítása, a dokumentum célja, a rendszer rövid áttekintése.</li>
+<li><strong>Hivatkozott dokumentumok.</strong></li>
+<li><strong>A jelenlegi rendszer vagy helyzet:</strong> háttér és célok; működési szabályok és korlátok; a jelenlegi működés leírása; üzemmódok; felhasználói csoportok; támogató környezet.</li>
+<li><strong>A változtatás indoka és jellege:</strong> milyen hiányosságok miatt kell az új rendszer, és mi változik.</li>
+<li><strong>A tervezett rendszer koncepciója:</strong> célok; működési szabályok és korlátok; a rendszer leírása; üzemmódok; felhasználói csoportok; támogató környezet (üzemeltetés, karbantartás, javítás).</li>
+<li><strong>Működési forgatókönyvek:</strong> normál és rendellenes körülmények között.</li>
+<li><strong>A hatások összefoglalása:</strong> a várható hatás a működésre, a szervezetre és a fejlesztés ideje alatti munkára.</li>
+<li><strong>A tervezett rendszer elemzése:</strong> az előnyök, a hátrányok és korlátok, valamint a mérlegelt változatok.</li>
+</ol>
+<section id="üzemmódok" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="üzemmódok"><span class="header-section-number">4.4.1.</span> Üzemmódok</h3>
+<p>A ConOps-vázlat a jelenlegi és a tervezett rendszer leírásában is külön pontot szán az <strong>üzemmódoknak</strong> <span class="citation" data-cites="ieee1362_1998">(<a href="../irodalom.html#ref-ieee1362_1998" role="doc-biblioref">IEEE 1998</a>)</span>, vagyis azoknak a működési módoknak vagy konfigurációknak, amelyekre a rendszernek életciklusa során szüksége lehet. Ide tartoznak a fejlesztéshez és a betanításhoz szükséges teszt- és oktatási módok, a karbantartási mód, valamint a rendellenes helyzetek kezelésére szolgáló módok is. Az üzemmódokat és a köztük lévő átmeneteket állapotgép-diagrammal ábrázoljuk (<a href="03-modellek.html#sec-mod-sysml" class="quarto-xref"><span>3.6</span></a>. szakasz).</p>
+<div id="fig-uzemmodok-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uzemmodok-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/uzemmodok-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uzemmodok-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.3. ábra.</span> A KoboCella üzemmódjai és a köztük lévő átmenetek. A diagram a normál, a korlátozott és a rendellenes üzemet egyaránt mutatja.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: miért kell leromlott üzemmód?</div><div class="doboz-tartalom">
+<p>A KoboCella első koncepciója két állapotot ismert: „működik” és „áll”. A ConOps-workshopon a műszakvezető megkérdezte: „Mi történik, ha a robot hétfő reggel elromlik, és a szerviz csak szerdán jön?” A gyártási terv szerint a cella napi mintegy 610 motort szerel. Két nap kiesés több mint 1200 motor, ami a vevő felé szerződésszegés.</p>
+<p>Így került a koncepcióba a <strong>leromlott üzemmód</strong> (<a href="#fig-uzemmodok-kobo" class="quarto-xref"><span>4.3</span></a>. ábra): a robot áll, de a cella kézi munkaállomásként tovább működik, csökkentett ütemben. Ez a döntés több követelményt is szült. A munkaasztal magasságának kézi szereléshez is megfelelőnek kell lennie. A csavarozó egységnek kézi üzemben is használhatónak kell lennie, nyomatékellenőrzéssel. Az operátoroknak évente legalább egyszer gyakorolniuk kell a kézi szerelést. Ha a leromlott üzemmód nem a ConOps-ban, hanem csak az üzembe helyezéskor merül fel, ezek a követelmények drága átalakítást jelentettek volna.</p>
+</div></div>
+</section>
+<section id="működési-forgatókönyvek" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="működési-forgatókönyvek"><span class="header-section-number">4.4.2.</span> Működési forgatókönyvek</h3>
+<p>A <strong>működési forgatókönyv</strong> egy konkrét helyzet időbeli lefolyásának leírása: ki, mit, milyen sorrendben csinál, és hogyan reagál a rendszer. A forgatókönyveknek a normál és a rendellenes körülményeket is le kell fedniük, és együtt minden várt funkcióra és képességre ki kell terjedniük: a hiányzó forgatókönyv hiányzó követelményt jelent. Jó gyakorlat, ha minden forgatókönyv saját azonosítót kap, mert így a belőle levezetett követelmények visszakövethetők.</p>
+<p>Három forgatókönyvtípust érdemes megkülönböztetni:</p>
+<ul>
+<li><strong>normál (névleges) forgatókönyv:</strong> minden a terv szerint történik;</li>
+<li><strong>rendellenes forgatókönyv:</strong> valami eltér a tervtől (hibás bemenet, váratlan esemény, kezelési hiba), és a rendszernek ezt kezelnie kell;</li>
+<li><strong>leromlott üzemű forgatókönyv:</strong> a rendszer egy része nem működik, de a rendszer csökkentett képességgel tovább üzemel.</li>
+</ul>
+<div class="doboz doboz-pelda"><div class="doboz-cim">Kidolgozott példa: a VárosiBringa egy normál és egy rendellenes forgatókönyve</div><div class="doboz-tartalom">
+<p><strong>[FK-01] Reggeli kölcsönzés (normál).</strong> Hétköznap reggel 7:40-kor Anna, másodéves hallgató, a lakótelepi állomáson az alkalmazással kiválaszt egy kerékpárt. A rendszer megjeleníti a kerékpár töltöttségét (82%) és a kampusz állomásán várhatóan szabad helyek számát (6). Anna jóváhagyja a kölcsönzést. A dokkoló két másodpercen belül kioldja a zárat. Anna 12 perc alatt felér a kampuszra, a kerékpárt az ottani dokkolóba tolja. A zár rögzíti a kerékpárt, és a rendszer egy percen belül lezárja a kölcsönzést. Anna értesítést kap a díjról, amelyet a közös bérlete miatt nem kell megfizetnie.</p>
+<p><strong>[FK-07] Tele van a céldokkoló (rendellenes).</strong> Egy vizsgaidőszaki reggelen a kampusz dokkolója 7:55-re megtelik. Bence a helyszínen nem tudja letenni a kerékpárt. A forgatókönyv szerint a rendszer a dokkolótól 30 méteren belül felismeri a helyzetet, felajánlja a legközelebbi szabad helyet (a könyvtárnál, 250 méterre), és tizenöt perc ingyenes többletidőt ad. Ha Bence ezt nem fogadja el, a kampuszon kijelölt túlcsorduló területen is leteheti a kerékpárt egy virtuális zárolással. Ekkor az áthelyező szolgálat riasztást kap.</p>
+<p>A második forgatókönyv három követelményt is felszínre hozott, amelyekre a csapat korábban nem gondolt: a helymeghatározás pontossága, a túlcsorduló terület kezelése és az áthelyező szolgálat valós idejű riasztása. A rendellenes forgatókönyvek általában több új követelményt hoznak, mint a normálok.</p>
+</div></div>
+</section>
+<section id="használati-esetek" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="használati-esetek"><span class="header-section-number">4.4.3.</span> Használati esetek</h3>
+<p>A <strong>használati eset</strong> (use case) egy szereplő céljának elérését írja le a rendszerrel folytatott kölcsönhatás révén. Cockburn klasszikus könyve szerint a használati eset a rendszer viselkedésére vonatkozó szerződés, amely leírja, hogyan reagál a rendszer a különböző feltételek mellett egy elsődleges szereplő kérésére. Központi eleme a <strong>fő sikerforgatókönyv</strong>, amely a cél elérésének leggyakoribb útja, és a <strong>kiterjesztések</strong>, amelyek az eltéréseket és a hibakezelést írják le <span class="citation" data-cites="cockburn2001">(<a href="../irodalom.html#ref-cockburn2001" role="doc-biblioref">Cockburn 2001</a>)</span>.</p>
+<p>A használati esetek áttekintésére a használatieset-diagram szolgál (<a href="#fig-hasznalati-eset" class="quarto-xref"><span>4.4</span></a>. ábra). A diagram megmutatja a szereplőket, a használati eseteket és a köztük lévő kapcsolatokat. A szereplő lehet ember, szervezet vagy másik rendszer. A diagram önmagában kevés információt hordoz: az értéke a hozzá tartozó szöveges leírásokban van.</p>
+<div id="fig-hasznalati-eset" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hasznalati-eset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hasznalati-eset-bringa.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hasznalati-eset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.4. ábra.</span> A VárosiBringa néhány használati esete. A „fizetés” eset más esetek része («tartalmaz» kapcsolat).
+</figcaption>
+</figure>
+</div>
+<div id="tbl-he01" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[24,76]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-he01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">4.2. táblázat.</span> A HE-01 használati eset leírása Cockburn szerkezete szerint.
+</figcaption>
+<div aria-describedby="tbl-he01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elem</th>
+<th style="text-align: left;">Tartalom</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Azonosító, név</td>
+<td style="text-align: left;">HE-01 Kerékpár kölcsönzése</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Elsődleges szereplő</td>
+<td style="text-align: left;">felhasználó</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cél</td>
+<td style="text-align: left;">egy feltöltött kerékpárral elindulni egy állomásról</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Előfeltétel</td>
+<td style="text-align: left;">a felhasználó regisztrált, érvényes fizetési móddal vagy bérlettel</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fő sikerforgatókönyv</td>
+<td style="text-align: left;">1. A felhasználó kiválaszt egy kerékpárt az alkalmazásban vagy a dokkolón. 2. A rendszer megjeleníti a töltöttséget és a díjat. 3. A felhasználó jóváhagyja a kölcsönzést. 4. A rendszer ellenőrzi a fizetési jogosultságot. 5. A dokkoló kioldja a zárat. 6. A felhasználó elviszi a kerékpárt; a rendszer elindítja a kölcsönzést.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kiterjesztések</td>
+<td style="text-align: left;">4a. A fizetési jogosultság nem érvényes: a rendszer felajánlja a fizetési mód frissítését. 5a. A zár nem old ki: a rendszer másik kerékpárt ajánl, és hibajegyet nyit. 6a. A kerékpárt egy percen belül nem viszik el: a rendszer visszazárja és törli a kölcsönzést.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utófeltétel</td>
+<td style="text-align: left;">a kölcsönzés aktív, a kerékpár a felhasználóhoz van rendelve</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A ConOps forgatókönyvei és a használati esetek egymást erősítik. A forgatókönyv egy konkrét történet konkrét szereplőkkel. A használati eset általánosítja ezt, és rendszerezetten végiggondolja az eltéréseket. Mindkettő a követelmények egyik fő forrása. Minden lépésből és minden kiterjesztésből egy vagy több követelmény születhet, és a validáció során ugyanezek a forgatókönyvek lesznek a tesztek alapjai (<a href="24-validacio.html" class="quarto-xref"><span>24</span></a>. fejezet).</p>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Megoldás a forgatókönyvben</div><div class="doboz-tartalom">
+<p>A forgatókönyv akkor jó, ha a felhasználó céljáról és tapasztalatáról szól. Ha már gombokat, menüpontokat és adatbázismezőket ír le, akkor a megoldásteret írja le, és szűkíti a lehetőségeket. A „Anna megnyomja a zöld »Kölcsönzés« gombot a kezdőképernyő jobb alsó sarkában” mondat felhasználói felület terv, nem működési koncepció. A ConOps-ba ennyi kell: „Anna jóváhagyja a kölcsönzést.”</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Nagy nyelvi modellek a forgatókönyvek bővítésében</div><div class="doboz-tartalom">
+<p>A rendellenes forgatókönyvek felderítése fárasztó és könnyen hiányos munka. A nagy nyelvi modellek ebben hasznos segítők lehetnek: egy normál forgatókönyvből rövid idő alatt sok lehetséges eltérést javasolnak („mi van, ha…”). A javaslatok minősége azonban változó, és a modell nem ismeri a valós üzemeltetési körülményeket. A Gyakorlati útmutató ConOps-eszközlapjának mintapromptja ezért arra kéri a modellt, hogy a javaslatait valószínűség és következmény szerint is jelölje, a csapat pedig az érdekelt felekkel együtt dönti el, melyik forgatókönyv kerül a ConOps-ba.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A problématér azt írja le, mit, kinek, miért és milyen feltételekkel kell elérni, a megoldástér azt, hogyan. A kettő összemosása a rendszermérnökség egyik leggyakoribb hibája. A „kell egy X” típusú kérés hiányzó megoldás, nem probléma.</li>
+<li>A problémafa a fő probléma okait és hatásait rendezi ok-okozati hierarchiába, a célfa ennek pozitív átfogalmazása. A több ágon visszatérő okok jó beavatkozási pontok.</li>
+<li>A „van–nincs” elemzés a probléma pontos körülhatárolásával az okok felé terel.</li>
+<li>A problémamegfogalmazás tartalmazza a jelenlegi és a kívánt helyzetet, a jelentőséget, a hatókört, a korlátokat, a feltételezéseket és a siker kritériumait. A meg nem erősített feltételezések kockázatok.</li>
+<li>A gonosz problémák nem fogalmazhatók meg végérvényesen. Kis, visszafordítható lépésekkel, folyamatos újrafogalmazással és az érdekelt felek bevonásával kezelhetők.</li>
+<li>A működési koncepció a felhasználó nyelvén írja le, hogyan fogják a rendszert használni. Része az üzemmódok leírása, valamint a normál, a rendellenes és a leromlott üzemű forgatókönyvek. A használati esetek ezeket rendszerezik. Mindkettő a követelmények és a validációs tesztek forrása.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Mi a probléma a következő megfogalmazással: „A problémánk, hogy nincs automata raktárunk.” Fogalmazd át!</li>
+<li>Készíts kis problémafát a következő helyzetről: egy egyetemi menza előtt ebédidőben 25 perces sorok állnak. Legalább három okot és két hatást adj meg!</li>
+<li>Mi a különbség a korlát és a feltételezés között? Mondj egy-egy példát a KoboCella esetéből!</li>
+<li>Miért tekinthető a VárosiBringa gonosz problémának, a KoboCella pedig nem? Mi következik ebből a projekt ütemezésére?</li>
+<li>Írj egy rendellenes forgatókönyvet a KoboCella számára arra az esetre, amikor a csavaradagoló kifogy!</li>
+<li>Melyik mondat tartozik a ConOps-ba, és melyik nem? (a) „A karbantartó a heti ellenőrzést 20 perc alatt elvégzi.” (b) „A robot vezérlőszekrénye IP54 védettségű.” (c) „Ha a robot leáll, az operátor kézi üzemben folytatja a szerelést.”</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>A megfogalmazás egy hiányzó megoldást nevez meg. A valódi probléma például: „A komissiózás átlagosan 4 óráig tart, és a tételek 2%-a hibás; emiatt a délután beérkező rendeléseket csak másnap tudjuk kiszállítani.” Ezt automata raktár, jobb raktári elrendezés vagy vonalkódos ellenőrzés is megoldhatja.</li>
+<li>Például. Okok: egyetlen pénztár; a diákok a pult előtt választanak a menüből; minden diák 12:00 és 12:30 között érkezik (az órarend miatt). Hatások: a diákok elkésnek a délutáni óráról; sokan inkább nem esznek. A fő probléma: ebédidőben 25 perces várakozás.</li>
+<li>A korlát kötelező feltétel, amelyről a tervezők nem dönthetnek (például a cellának el kell férnie a jelenlegi 6 × 4 méteres helyen). A feltételezés olyan állítás, amelyet igaznak fogadunk el, de ellenőrizni kell (például hogy a gyár MES-rendszere fogadja a cella adatait a meglévő interfészen).</li>
+<li>A VárosiBringa problémáját különböző érdekelt felek eltérően értik, a beavatkozás maga is megváltoztatja a problémát, és nincs egyértelmű megoldása. A KoboCella célja jól megfogalmazható és mérhető, a megoldás kipróbálható. A VárosiBringa ezért próbaüzemmel és lépcsőzetes bővítéssel, rendszeres felülvizsgálattal ütemezendő.</li>
+<li>Például: [FK-12] A csavaradagoló kiürül egy ciklus közben. A cella a ciklust befejezi a meglévő csavarokkal, ha lehet; ha nem, a darabot félkész állapotban, jelölve a kiadóba teszi. A kezelőpanel és a jelzőlámpa jelzi a hiányt. Az operátor feltölti az adagolót, nyugtázza a jelzést, és a félkész darabot a következő ciklusban befejezteti. A rendszer naplózza az eseményt a MES felé.</li>
+<li><ol type="a">
+<li>és (c) a ConOps-ba tartozik, mert a használatot írja le. (b) a megoldás tulajdonsága, legfeljebb egy környezeti követelményből levezetett tervezési döntés.</li>
+</ol></li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: problémamegfogalmazás és működési koncepció</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>készíts problémafát (legalább egy fő probléma, négy ok, három hatás), és alakítsd át célfává; jelöld ki, mire összpontosít a projekt;</li>
+<li>írd meg a problémamegfogalmazást a fejezetben bemutatott hét elemmel; a kívánt helyzet és a siker kritériumai legyenek mérhetők;</li>
+<li>sorold fel a rendszer üzemmódjait, és rajzolj róluk állapotdiagramot;</li>
+<li>írj legalább két normál és két rendellenes forgatókönyvet azonosítóval;</li>
+<li>készíts egy használati eset leírást fő sikerforgatókönyvvel és legalább három kiterjesztéssel.</li>
+</ol>
+<p>Az eszközöket és a sablonokat a Gyakorlati útmutató interjú- és ConOps-eszközlapjai tartalmazzák.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="ieee1362_1998">IEEE (<a href="../irodalom.html#ref-ieee1362_1998" role="doc-biblioref">1998</a>)</span>: a ConOps-dokumentum klasszikus vázlata, részletes magyarázattal.</li>
+<li><span class="citation" data-cites="iso29148_2018">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso29148_2018" role="doc-biblioref">2018</a>)</span>: a ConOps és az OpsCon helye a követelménymérnökség folyamatában.</li>
+<li><span class="citation" data-cites="ec2004pcm">European Commission (<a href="../irodalom.html#ref-ec2004pcm" role="doc-biblioref">2004</a>)</span>: a problémafa és a célfa módszere a projektciklus-menedzsmentben.</li>
+<li><span class="citation" data-cites="kepner1965">Kepner és Tregoe (<a href="../irodalom.html#ref-kepner1965" role="doc-biblioref">1965</a>)</span>: a problémaelemzés klasszikus módszere, a „van–nincs” specifikáció.</li>
+<li><span class="citation" data-cites="rittel1973">Rittel és Webber (<a href="../irodalom.html#ref-rittel1973" role="doc-biblioref">1973</a>)</span>: a gonosz problémák fogalmának eredeti forrása.</li>
+<li><span class="citation" data-cites="cockburn2001">Cockburn (<a href="../irodalom.html#ref-cockburn2001" role="doc-biblioref">2001</a>)</span>: a használati esetek írásának gyakorlati kézikönyve.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 4.1. szakasz és S függelék: a működési koncepció szerepe és egy lehetséges vázlata.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-cockburn2001" class="csl-entry" role="listitem">
+Cockburn, Alistair. 2001. <em>Writing Effective Use Cases</em>. Boston: Addison-Wesley.
+</div>
+<div id="ref-designcouncil2019" class="csl-entry" role="listitem">
+Design Council. 2019. <span>„Framework for Innovation: Design Council’s Evolved Double Diamond”</span>. Design Council, London (a Double Diamond modell első változata: 2005). <a href="https://www.designcouncil.org.uk/our-resources/the-double-diamond/">https://www.designcouncil.org.uk/our-resources/the-double-diamond/</a>.
+</div>
+<div id="ref-ec2004pcm" class="csl-entry" role="listitem">
+European Commission. 2004. <span>„Aid Delivery Methods, Volume 1: Project Cycle Management Guidelines”</span>. Brussels: European Commission, EuropeAid Cooperation Office.
+</div>
+<div id="ref-ieee1362_1998" class="csl-entry" role="listitem">
+IEEE. 1998. <span>„<span>IEEE Std 1362-1998</span> <span>IEEE</span> Guide for Information Technology – System Definition – Concept of Operations (<span>ConOps</span>) Document”</span>. Institute of Electrical and Electronics Engineers, New York.
+</div>
+<div id="ref-incose2023gtwr" class="csl-entry" role="listitem">
+INCOSE. 2023. <span>„Guide to Writing Requirements”</span>. INCOSE-TP-2010-006-04, Rev. 4. International Council on Systems Engineering, Requirements Working Group.
+</div>
+<div id="ref-iso29148_2018" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2018. <span>„<span>ISO/IEC/IEEE 29148:2018</span> Systems and Software Engineering – Life Cycle Processes – Requirements Engineering”</span>. Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-kepner1965" class="csl-entry" role="listitem">
+Kepner, Charles H., és Benjamin B. Tregoe. 1965. <em>The Rational Manager: A Systematic Approach to Problem Solving and Decision Making</em>. New York: McGraw-Hill.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-rittel1973" class="csl-entry" role="listitem">
+Rittel, Horst W. J., és Melvin M. Webber. 1973. <span>„Dilemmas in a General Theory of Planning”</span>. <em>Policy Sciences</em> 4 (2): 155–69.
+</div>
+<div id="ref-roedler2005" class="csl-entry" role="listitem">
+Roedler, Garry J., és Cheryl Jones. 2005. <span>„Technical Measurement: A Collaborative Project of <span>PSM</span>, <span>INCOSE</span>, and Industry”</span>. INCOSE-TP-2003-020-01. San Diego, CA: International Council on Systems Engineering.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/03-modellek.html" class="pagination-link" aria-label="Modellek és modellalapú rendszermérnökség">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/05-erdekelt-felek.html" class="pagination-link" aria-label="Érdekelt felek elemzése">
+        <span class="nav-page-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/04-problema.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/04-problema.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

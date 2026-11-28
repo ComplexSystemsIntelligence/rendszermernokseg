@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; TRIZ: ellentmondások és feltalálói elvek – Rendszermérnöki eszköztár</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../eszkozok/16-hat-kalap.html" rel="next">
+<link href="../eszkozok/14-morfologiai-doboz.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/kezikonyv/"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/gyakorlat/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-gyakorlat.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-gyakorlat.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../eszkozok/03-erdekelt-azonositas.html">II. rész – A V bal ága</a></li><li class="breadcrumb-item"><a href="../eszkozok/15-triz.html"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">TRIZ: ellentmondások és feltalálói elvek</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../eszkozok/03-erdekelt-azonositas.html">II. rész – A V bal ága</a></li><li class="breadcrumb-item"><a href="../eszkozok/15-triz.html"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">TRIZ: ellentmondások és feltalálói elvek</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-triz" class="quarto-section-identifier"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">TRIZ: ellentmondások és feltalálói elvek</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hogyan használd ezt az útmutatót?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-projekt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">A féléves projekt</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Projektindítás</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/01-v-terv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A projekt V-terve</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/02-kontextusdiagram.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Kontextusdiagram és interfészlista</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/03-erdekelt-azonositas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">Érdekelt felek azonosítása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/04-hatalom-erdekeltseg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Hatalom–érdekeltség és fontossági elemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/05-interju.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Interjú és megfigyelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/06-kano.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">Kano-elemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/07-conops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Működési koncepció és forgatókönyvek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/08-kovetelmeny-iras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Követelményírás és -ellenőrzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/09-moe-mop-tpm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">A siker mérőszámai: MOE, MOP, TPM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/10-nyomonkovetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Nyomonkövethetőség</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/11-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Minőségfunkció-telepítés (QFD)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/12-funkciofa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Funkciófa és allokációs táblázat</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/13-n2-dsm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">N²-diagram és DSM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/14-morfologiai-doboz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Morfológiai doboz</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/15-triz.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">TRIZ: ellentmondások és feltalálói elvek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/16-hat-kalap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Hat gondolkodó kalap</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/17-otletroham.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Ötletroham, névleges csoporttechnika, Delphi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/18-pugh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Pugh-módszer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/19-trade-study.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Súlyozott értékelés (trade study)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/20-maut.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Hasznossági függvények (MAUT)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/21-ahp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">AHP – páros összehasonlítás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/22-pareto-front.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Dominancia és Pareto-front</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/23-koltseg-haszon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Költség–haszon elemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/24-hta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Hierarchikus feladatelemzés (HTA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/25-funkciomegosztas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálási szint</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/26-tlx-sus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27.</span>&nbsp; <span class="chapter-title">Terhelés- és használhatóságmérés (NASA-TLX, SUS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/27-kockazati-matrix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28.</span>&nbsp; <span class="chapter-title">Kockázati mátrix</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/28-pha.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29.</span>&nbsp; <span class="chapter-title">Előzetes veszélyelemzés (PHA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/29-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30.</span>&nbsp; <span class="chapter-title">FMEA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/30-rbd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31.</span>&nbsp; <span class="chapter-title">Megbízhatósági blokkdiagram</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/31-hibafa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32.</span>&nbsp; <span class="chapter-title">Hibafa-elemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/32-esemenyfa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33.</span>&nbsp; <span class="chapter-title">Eseményfa-elemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/33-stpa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34.</span>&nbsp; <span class="chapter-title">STPA – rendszerelméleti veszélyelemzés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/34-turesek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35.</span>&nbsp; <span class="chapter-title">Tűréslánc-számítás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/35-doe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36.</span>&nbsp; <span class="chapter-title">Kísérlettervezés (DoE)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/36-folyamatabra-vsm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37.</span>&nbsp; <span class="chapter-title">Folyamatábra és értékáram-térkép</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/37-kapacitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38.</span>&nbsp; <span class="chapter-title">Kapacitás és szűk keresztmetszet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/38-sorkiegyenlites.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39.</span>&nbsp; <span class="chapter-title">Ütemidő és sorkiegyenlítés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/39-oee.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40.</span>&nbsp; <span class="chapter-title">OEE-számítás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/40-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41.</span>&nbsp; <span class="chapter-title">BPMN-modellezés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/41-gantt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42.</span>&nbsp; <span class="chapter-title">Gantt-diagram és ütemezés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/42-abc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43.</span>&nbsp; <span class="chapter-title">ABC-elemzés és készlethatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/43-sorbanallas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44.</span>&nbsp; <span class="chapter-title">Sorbanállási modellek</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/44-integracios-terv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45.</span>&nbsp; <span class="chapter-title">Integrációs terv és interfészmátrix</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/45-rvm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46.</span>&nbsp; <span class="chapter-title">Követelmény-verifikációs mátrix</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/46-hasznalhatosagi-teszt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47.</span>&nbsp; <span class="chapter-title">Használhatósági teszt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/47-pareto-diagram.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48.</span>&nbsp; <span class="chapter-title">Pareto-diagram</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/48-halszalka.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49.</span>&nbsp; <span class="chapter-title">Ok-okozati (halszálka-) diagram</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/49-kontrollkartya.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50.</span>&nbsp; <span class="chapter-title">Kontrollkártya (SPC)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/50-hisztogram-szoras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51.</span>&nbsp; <span class="chapter-title">Hisztogram, szórás- és rétegzett diagram</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/51-pdca-8d-dmaic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52.</span>&nbsp; <span class="chapter-title">PDCA, 8D és DMAIC</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/52-folyamatbanyaszat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53.</span>&nbsp; <span class="chapter-title">Folyamatbányászat alapjai</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/53-wbs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54.</span>&nbsp; <span class="chapter-title">Munkalebontási struktúra (WBS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/54-felulvizsgalat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55.</span>&nbsp; <span class="chapter-title">Technikai felülvizsgálat lebonyolítása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../eszkozok/55-konfiguracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56.</span>&nbsp; <span class="chapter-title">Konfigurációkezelés és változáskérelem</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-sablonok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">Sablonok és notebookok</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#mikor-használd" id="toc-mikor-használd" class="nav-link active" data-scroll-target="#mikor-használd"><span class="header-section-number">16.1.</span> Mikor használd?</a></li>
+  <li><a href="#lépések" id="toc-lépések" class="nav-link" data-scroll-target="#lépések"><span class="header-section-number">16.2.</span> Lépések</a></li>
+  <li><a href="#kidolgozott-példa-a-városibringa-zárja" id="toc-kidolgozott-példa-a-városibringa-zárja" class="nav-link" data-scroll-target="#kidolgozott-példa-a-városibringa-zárja"><span class="header-section-number">16.3.</span> Kidolgozott példa: a VárosiBringa zárja</a></li>
+  <li><a href="#sablon" id="toc-sablon" class="nav-link" data-scroll-target="#sablon"><span class="header-section-number">16.4.</span> Sablon</a></li>
+  <li><a href="#előnyök-és-korlátok" id="toc-előnyök-és-korlátok" class="nav-link" data-scroll-target="#előnyök-és-korlátok"><span class="header-section-number">16.5.</span> Előnyök és korlátok</a></li>
+  <li><a href="#mintapromptok" id="toc-mintapromptok" class="nav-link" data-scroll-target="#mintapromptok"><span class="header-section-number">16.6.</span> Mintapromptok</a></li>
+  <li><a href="#feladat" id="toc-feladat" class="nav-link" data-scroll-target="#feladat"><span class="header-section-number">16.7.</span> Feladat</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/gyakorlat/eszkozok/15-triz.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/gyakorlat/eszkozok/15-triz.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="doboz doboz-cel"><div class="doboz-cim">Eszközkártya</div><div class="doboz-tartalom">
+<ul>
+<li><strong>Mire való?</strong> Egy műszaki vagy fizikai ellentmondás megfogalmazása, és feloldási irányok keresése kompromisszum helyett: a 39 általános paraméter, a 40 feltalálói elv, az elválasztási elvek és az ideális végeredmény segítségével.</li>
+<li><strong>Tanulási eredmény:</strong> az eszközlap feldolgozása után képes leszel egy műszaki problémát műszaki vagy fizikai ellentmondásként megfogalmazni, és az ellentmondásmátrix, a feltalálói elvek és az elválasztási elvek segítségével feloldási irányokat találni.</li>
+<li><strong>V-lépés:</strong> 4. Architektúra (koncepciógenerálás); a részletes tervezésben is használható.</li>
+<li><strong>Bemenet:</strong> a minőségház tetőmátrixának negatív kapcsolatai, egymással ütköző követelmények, egy koncepció ismert gyengesége.</li>
+<li><strong>Kimenet:</strong> megfogalmazott ellentmondás, választott elvek, konkrét megoldási ötletek értékeléssel.</li>
+<li><strong>Időigény:</strong> egy ellentmondás 1–2 óra csapatmunka.</li>
+<li><strong>Kézikönyv:</strong> <a href="../../kezikonyv/fejezetek/09-kreativitas.html">9. fejezet</a>, 9.5. szakasz.</li>
+</ul>
+</div></div>
+<section id="mikor-használd" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="mikor-használd"><span class="header-section-number">16.1.</span> Mikor használd?</h2>
+<ul>
+<li><strong>Ha a minőségház tetőmátrixában negatív kapcsolat van</strong>, és a csapat kompromisszumra készül.</li>
+<li><strong>Ha két követelmény ütközik</strong>, és egyik sem engedhető el (például a gyors kezelhetőség és a biztonság).</li>
+<li><strong>Ha egy koncepció egy pontban elakad</strong>, és a szokásos megoldások nem működnek.</li>
+<li><strong>Nem való</strong> olyan problémára, amelynek ismert, bevált megoldása van: ott elég a szakirodalom vagy a szabvány.</li>
+</ul>
+</section>
+<section id="lépések" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="lépések"><span class="header-section-number">16.2.</span> Lépések</h2>
+<div id="fig-lepesek-triz" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lepesek-triz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/lepesek-triz.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lepesek-triz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.1. ábra.</span> A TRIZ-alapú ellentmondás-feloldás lépései.
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li><strong>Írd le a konkrét problémát</strong> egy-két mondatban, a környezettel és a korlátokkal együtt.</li>
+<li><strong>Fogalmazd meg az ideális végeredményt:</strong> azt a képzeletbeli rendszert, amely a funkciót ellátja, de nincs költsége, káros hatása és helyigénye. Ez segít elszakadni a meglévő megoldásoktól.</li>
+<li><strong>Fogalmazd meg a műszaki ellentmondást:</strong> melyik paraméter javítása melyik romlását okozza. Fordítsd le a konkrét jellemzőket Altsuller 39 általános paraméterének nyelvére <span class="citation" data-cites="altshuller1984">(<a href="../irodalom.html#ref-altshuller1984" role="doc-biblioref">Altshuller 1984</a>)</span>.</li>
+<li><strong>Keress fizikai ellentmondást:</strong> ugyanannak a jellemzőnek két ellentétes értéket kellene felvennie. Ez gyakran a műszaki ellentmondás mögött rejlő valódi probléma.</li>
+<li><strong>Válassz megoldási irányt.</strong> Fizikai ellentmondásnál elválasztási elvet: időben, térben, feltétel szerint vagy a rendszerszintek között. Műszaki ellentmondásnál feltalálói elveket; ezek kiválasztását az ellentmondásmátrix segíti, amely a szakirodalomban és a TRIZ-szoftverekben elérhető.</li>
+<li><strong>Írj konkrét ötletet minden választott elvhez.</strong> Az elv csak irány; a konkrét megoldáshoz szakmai tudás kell.</li>
+<li><strong>Értékeld az ötleteket</strong> megvalósíthatóság és várható hatás szerint.</li>
+<li><strong>Vidd tovább a legjobbakat</strong> a koncepciók közé vagy a koncepció módosításaként.</li>
+</ol>
+</section>
+<section id="kidolgozott-példa-a-városibringa-zárja" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="kidolgozott-példa-a-városibringa-zárja"><span class="header-section-number">16.3.</span> Kidolgozott példa: a VárosiBringa zárja</h2>
+<p>A VárosiBringa minőségházában a kölcsönzés gyorsasága és a zár feltörési ellenállása között negatív kapcsolat volt. A sablon „Ellentmondás” lapján a csapat így dolgozott:</p>
+<table class="caption-top table">
+<caption>A VárosiBringa zárjának TRIZ-elemzése.</caption>
+<colgroup>
+<col style="width: 28%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Lépés</th>
+<th style="text-align: left;">Tartalom</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">konkrét probléma</td>
+<td style="text-align: left;">a zár legyen gyorsan nyitható kölcsönzéskor, de nehezen feltörhető</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ideális végeredmény</td>
+<td style="text-align: left;">a kerékpár magától a helyén marad, amíg a jogosult felhasználó el nem viszi</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">műszaki ellentmondás</td>
+<td style="text-align: left;">javítandó: kezelhetőség (a használat egyszerűsége); romló: szilárdság</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fizikai ellentmondás</td>
+<td style="text-align: left;">a reteszelőelemnek merevnek és könnyen mozdulónak is kell lennie</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">elválasztási elv</td>
+<td style="text-align: left;">feltétel szerint: jogosulatlan erőhatással szemben merev, jogosult kérésre könnyen mozdul</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">választott elvek</td>
+<td style="text-align: left;">dinamika; megelőző beavatkozás; a mechanikus rendszer helyettesítése</td>
+</tr>
+</tbody>
+</table>
+<p>A három elvből három ötlet született: egy mechanikusan önzáró retesz, amelyet csak hitelesített jelre működő kis aktuátor old ki (dinamika); a kioldás előkészítése már a kölcsönzés jóváhagyásakor (megelőző beavatkozás); és a fizikai ellenállás egy részének kiváltása helymeghatározással és riasztással (a mechanikus rendszer helyettesítése). Az értékelés szerint az első a legjobban megvalósítható és a leghatásosabb; a harmadik az ideális végeredményhez áll a legközelebb, mert a zár szilárdságára kisebb terhelés jut, ha a lopott kerékpár helyzete mindig ismert.</p>
+<p><strong>Tanulságok:</strong></p>
+<ul>
+<li><strong>A fizikai ellentmondás gyakran termékenyebb.</strong> A műszaki ellentmondás („kezelhetőség kontra szilárdság”) kompromisszumra csábít; a fizikai ellentmondás („merev és mozgékony”) az elválasztás felé terel.</li>
+<li><strong>Az elvek nem adnak kész megoldást.</strong> A „dinamika” elv önmagában semmit nem mond a zárról; a konkrét ötlethez zárszerkezeti tudás kellett.</li>
+</ul>
+</section>
+<section id="sablon" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="sablon"><span class="header-section-number">16.4.</span> Sablon</h2>
+<ul>
+<li><a href="../sablonok/triz_sablon.xlsx">triz_sablon.xlsx</a>: a 39 általános paraméter magyarul és angolul; a 40 feltalálói elv rövid leírással és általános (ipari, hétköznapi) példával; ellentmondás-munkalap legördülő listákkal (paraméterek, elválasztási elvek, feltalálói elvek), az elvek leírásának automatikus kiírásával és az ötletek értékelésével. A VárosiBringa példájával kitöltve.</li>
+</ul>
+<p>A TRIZ-hez nem tartozik notebook: a módszer lényege a csapat gondolkodása, amelyet a számítás nem helyettesít. A 40 elv konkrét alkalmazási ötleteinek előállításában a nyelvi modellek segíthetnek (lásd a mintapromptokat).</p>
+</section>
+<section id="előnyök-és-korlátok" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="előnyök-és-korlátok"><span class="header-section-number">16.5.</span> Előnyök és korlátok</h2>
+<table class="caption-top table">
+<caption>A TRIZ előnyei és korlátai.</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Előnyök</th>
+<th style="text-align: left;">Korlátok</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Kompromisszum helyett az ellentmondás feloldására irányít</td>
+<td style="text-align: left;">Elsajátítása időigényes; a módszertan összetett <span class="citation" data-cites="ilevbare2013">(<a href="../irodalom.html#ref-ilevbare2013" role="doc-biblioref">Ilevbare, Probert, és Phaal 2013</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rendszerezett „ötletforrás”: a 40 elv tágítja a megoldásteret</td>
+<td style="text-align: left;">Az elvek általánosak; a konkrét megoldáshoz szakmai tudás kell</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Az ideális végeredmény segít elszakadni a meglévő megoldásoktól</td>
+<td style="text-align: left;">Az ellentmondásmátrix javaslatai nem minden területen relevánsak</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jól kapcsolódik a QFD tetőmátrixához</td>
+<td style="text-align: left;">A sikeres alkalmazás nagyban függ a szervezeti kultúrától <span class="citation" data-cites="ilevbare2013">(<a href="../irodalom.html#ref-ilevbare2013" role="doc-biblioref">Ilevbare, Probert, és Phaal 2013</a>)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Gyakori buktató</div><div class="doboz-tartalom">
+<ul>
+<li><strong>Rosszul megfogalmazott ellentmondás.</strong> Ha a javuló és a romló paraméter nem valódi ellentmondás (például mindkettő a költség két megjelenése), az elvek nem segítenek.</li>
+<li><strong>Az elvek mechanikus alkalmazása.</strong> Az elvek iránymutatók, nem receptek: minden elvhez legalább egy konkrét, a problémára szabott ötletet kell írni.</li>
+<li><strong>Csak az ellentmondásmátrix.</strong> A TRIZ eszköztára jóval bővebb; a fizikai ellentmondás és az elválasztási elvek sokszor gyorsabban vezetnek eredményre.</li>
+</ul>
+</div></div>
+</section>
+<section id="mintapromptok" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="mintapromptok"><span class="header-section-number">16.6.</span> Mintapromptok</h2>
+<div class="doboz doboz-prompt"><div class="doboz-cim">Mintaprompt: az ellentmondás megfogalmazása</div><div class="doboz-tartalom">
+<pre class="text"><code>Problémánk: [LEÍRÁS]. Két ütköző követelmény: [A] és [B].
+Feladat: (1) fogalmazd meg műszaki ellentmondásként (melyik
+paraméter javítása melyik romlását okozza), Altsuller 39 általános
+paraméterének nevével; (2) fogalmazd meg fizikai ellentmondásként
+(melyik jellemzőnek kellene két ellentétes értéket felvennie);
+(3) írd le, melyik elválasztási elv (idő, tér, feltétel,
+rendszerszint) tűnik alkalmazhatónak, és miért.
+Ne adj még konkrét műszaki megoldást.</code></pre>
+</div></div>
+<div class="doboz doboz-prompt"><div class="doboz-cim">Mintaprompt: ötletek feltalálói elvekhez</div><div class="doboz-tartalom">
+<pre class="text"><code>Ellentmondásunk: [megfogalmazás]. Környezet és korlátok: [LEÍRÁS].
+Választott feltalálói elvek: [3–5 elv neve].
+Feladat: minden elvhez írj két konkrét, a problémára szabott
+megoldási ötletet egy-egy mondatban. Jelöld, ha egy ötlet új
+kockázatot hoz be (biztonság, költség, karbantartás).
+Ne rangsorold az ötleteket; az értékelést a csapat végzi.</code></pre>
+</div></div>
+</section>
+<section id="feladat" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="feladat"><span class="header-section-number">16.7.</span> Feladat</h2>
+<div class="doboz doboz-projekt"><div class="doboz-cim">4. projektlépés (negyedik rész): egy ellentmondás feloldása</div><div class="doboz-tartalom">
+<p>Keress saját projektedben legalább egy ellentmondást (például a minőségház tetőmátrixából vagy két ütköző követelményből). Fogalmazd meg műszaki és fizikai ellentmondásként, válassz elválasztási elvet és legalább három feltalálói elvet, írj elvenként konkrét ötletet, és értékeld őket a sablonnal.</p>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-altshuller1984" class="csl-entry" role="listitem">
+Altshuller, Genrich S. 1984. <em>Creativity as an Exact Science: The Theory of the Solution of Inventive Problems</em>. New York: Gordon; Breach.
+</div>
+<div id="ref-ilevbare2013" class="csl-entry" role="listitem">
+Ilevbare, Imoh M., David Probert, és Robert Phaal. 2013. <span>„A Review of <span>TRIZ</span>, and Its Benefits and Challenges in Practice”</span>. <em>Technovation</em> 33 (2–3): 30–37. <a href="https://doi.org/10.1016/j.technovation.2012.11.003">https://doi.org/10.1016/j.technovation.2012.11.003</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/gyakorlat\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../eszkozok/14-morfologiai-doboz.html" class="pagination-link" aria-label="Morfológiai doboz">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Morfológiai doboz</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../eszkozok/16-hat-kalap.html" class="pagination-link" aria-label="Hat gondolkodó kalap">
+        <span class="nav-page-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Hat gondolkodó kalap</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/gyakorlat/eszkozok/15-triz.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/gyakorlat/eszkozok/15-triz.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/kezikonyv/">Kézikönyv</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

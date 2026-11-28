@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>15&nbsp; Hibamód- és hatáselemzés (FMEA) – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/16-megbizhatosag.html" rel="next">
+<link href="../fejezetek/14-kockazat.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/15-fmea.html"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/15-fmea.html"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-fmea" class="quarto-section-identifier"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-fmea-cel" id="toc-sec-fmea-cel" class="nav-link active" data-scroll-target="#sec-fmea-cel"><span class="header-section-number">15.1.</span> Az FMEA célja és típusai</a></li>
+  <li><a href="#sec-fmea-lepesek" id="toc-sec-fmea-lepesek" class="nav-link" data-scroll-target="#sec-fmea-lepesek"><span class="header-section-number">15.2.</span> Az FMEA lépései</a></li>
+  <li><a href="#sec-fmea-sod" id="toc-sec-fmea-sod" class="nav-link" data-scroll-target="#sec-fmea-sod"><span class="header-section-number">15.3.</span> Súlyosság, előfordulás, észlelhetőség</a></li>
+  <li><a href="#sec-fmea-rpn" id="toc-sec-fmea-rpn" class="nav-link" data-scroll-target="#sec-fmea-rpn"><span class="header-section-number">15.4.</span> A kockázati prioritásszám és korlátai</a></li>
+  <li><a href="#sec-fmea-fmeca" id="toc-sec-fmea-fmeca" class="nav-link" data-scroll-target="#sec-fmea-fmeca"><span class="header-section-number">15.5.</span> FMECA és kritikusságelemzés</a></li>
+  <li><a href="#sec-fmea-gyakorlat" id="toc-sec-fmea-gyakorlat" class="nav-link" data-scroll-target="#sec-fmea-gyakorlat"><span class="header-section-number">15.6.</span> Az FMEA a gyakorlatban</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/15-fmea.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/15-fmea.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-fmea.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>elmagyarázni az FMEA célját, típusait és helyét a fejlesztésben;</li>
+<li>végigvezetni egy FMEA-t az AIAG–VDA kézikönyv hét lépésén;</li>
+<li>felírni a hibaláncot (hibahatás, hibamód, hibaok) a rendszer szintjein;</li>
+<li>a súlyosságot, az előfordulást és az észlelhetőséget következetesen értékelni;</li>
+<li>ismertetni a kockázati prioritásszám (RPN) korlátait és a cselekvési prioritás elvét;</li>
+<li>kritikusságot számítani az FMECA módszerével, és az FMEA-t élő dokumentumként kezelni.</li>
+</ul>
+</div></div>
+<p>A kockázatkezelés (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet) a veszélyekből és a projekt bizonytalanságaiból indul ki, felülről lefelé. A hibamód- és hatáselemzés (failure mode and effects analysis, FMEA) ezt alulról felfelé egészíti ki: a rendszer elemeit egyenként veszi sorra, és mindegyiknél megkérdezi, hogyan hibásodhat meg, mi lesz ennek a következménye, és mi okozhatja. Az FMEA a megelőző minőségügy módszere: a meglévő hibák elhárítása helyett a lehetséges hibák elkerülésére törekszik, ezért a vizsgálat szempontjából mindegy, hogy a hiba előfordult-e már, vagy csak lehetőség <span class="citation" data-cites="iec60812_2018">(<a href="../irodalom.html#ref-iec60812_2018" role="doc-biblioref">IEC 2018</a>)</span>.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Mire való az FMEA, és milyen fajtái vannak?</li>
+<li>Milyen lépésekből áll, és hogyan írjuk fel a hibaláncokat?</li>
+<li>Hogyan értékeljük és rangsoroljuk a hibamódokat?</li>
+<li>Hogyan lesz az FMEA-ból intézkedés és élő dokumentum?</li>
+</ul>
+<section id="sec-fmea-cel" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-fmea-cel"><span class="header-section-number">15.1.</span> Az FMEA célja és típusai</h2>
+<p>Az FMEA szabványos leírását a nemzetközi szabvány <span class="citation" data-cites="iec60812_2018">(<a href="../irodalom.html#ref-iec60812_2018" role="doc-biblioref">IEC 2018</a>)</span>, a kritikusságelemzéssel kiegészített változatot (FMECA) az amerikai védelmi szabvány <span class="citation" data-cites="milstd1629a">(<a href="../irodalom.html#ref-milstd1629a" role="doc-biblioref">U.S. Department of Defense 1980</a>)</span>, az autóipari gyakorlatot az AIAG és a VDA közös kézikönyve <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span> adja meg. Az FMEA alapos módszer az egypontos hibák és következményeik azonosítására, a kritikusságelemzés pedig ezek kockázatát is értékeli. Korlátja, hogy munkaigényes, és egyszerre csak egy hibamódot vizsgál, a hibák kombinációit nem; erre a hibafa-elemzés való (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet) <span class="citation" data-cites="iec60812_2018 goldberg1994toolbox">(<a href="../irodalom.html#ref-iec60812_2018" role="doc-biblioref">IEC 2018</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 3.4</a>. szakasz)</span>.</p>
+<p>A gyakorlatban két fő típust különítenek el <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>:</p>
+<ul>
+<li>A <strong>tervezési (termék-) FMEA</strong> a termék konstrukciós hibáit, gyenge pontjait tárja fel. A tervezéssel párhuzamosan fut, a tervdokumentáció jóváhagyásáig befejeződik, és a konstrukciós szervezet felelőssége. Szintje szerint lehet rendszer-, alrendszer- és alkatrész-FMEA.</li>
+<li>A <strong>folyamat-FMEA</strong> a gyártási, szerelési, ellenőrzési és logisztikai folyamat hibáit elemzi. A tervezési FMEA-ra épül, a sorozatgyártás engedélyezéséig befejeződik, és a gyártás-előkészítés felelőssége.</li>
+</ul>
+<p>Az autóipari kézikönyv szerint az FMEA három helyzetben szükséges: új termék, technológia vagy folyamat esetén (teljes körűen); meglévő termék vagy folyamat módosításakor (a módosításra és hatásaira összpontosítva); és ha egy meglévő termék vagy folyamat új környezetbe, helyszínre vagy alkalmazásba kerül <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>. A módszer legeredményesebben csoportmunkában végezhető: egy felelős vezeti, de a tervezés, a gyártás, a minőségügy, a karbantartás és lehetőség szerint a vevő és a beszállító is részt vesz.</p>
+<p>A rendszermérnöki fejlesztésben az FMEA helye a V bal ágán van: a koncepció és az architektúra kialakítása után a rendszer- és alrendszerszintű FMEA a tervezési döntéseket, a részletes tervezésben az alkatrész- és folyamat-FMEA a konstrukciót és a gyártást támogatja. A funkcióelemzésben a funkciókat érdemes a hibamódjaikkal és a hibák következményeivel együtt leírni (<a href="08-architektura.html#sec-arch-funkcioelemzes" class="quarto-xref"><span>8.3</span></a>. szakasz), így a funkcióelemzés közvetlenül táplálja az FMEA-t.</p>
+</section>
+<section id="sec-fmea-lepesek" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="sec-fmea-lepesek"><span class="header-section-number">15.2.</span> Az FMEA lépései</h2>
+<p>Az AIAG–VDA kézikönyv az FMEA-t hét lépésre bontja (<a href="#fig-fmea-het-lepes" class="quarto-xref"><span>15.1</span></a>. ábra) <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>:</p>
+<div id="fig-fmea-het-lepes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fmea-het-lepes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/fmea-het-lepes.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fmea-het-lepes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">15.1. ábra.</span> Az FMEA hét lépése az AIAG–VDA kézikönyv szerkezetében.
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li><strong>Tervezés és előkészítés:</strong> a hatókör, a csapat, az ütemezés és az alkalmazott eszközök rögzítése; mit elemzünk, és mit nem.</li>
+<li><strong>Struktúraelemzés:</strong> a vizsgált rendszer felbontása elemekre (rendszer, alrendszer, komponens; vagy folyamatnál folyamatlépés, munkaelem). Itt használható a fizikai architektúra és a HTA (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet).</li>
+<li><strong>Funkcióelemzés:</strong> az elemek funkcióinak és követelményeinek hozzárendelése a struktúrához, mérhető formában, a funkciófa (<a href="08-architektura.html" class="quarto-xref"><span>8</span></a>. fejezet) alapján.</li>
+<li><strong>Hibaelemzés:</strong> minden funkcióhoz a hibamódok, ezek hatásai és okai, vagyis a <strong>hibaláncok</strong> felírása.</li>
+<li><strong>Kockázatelemzés:</strong> a meglévő megelőző és észlelő intézkedések rögzítése, és a súlyosság, az előfordulás és az észlelhetőség értékelése.</li>
+<li><strong>Optimalizálás:</strong> intézkedések a kockázat csökkentésére, felelőssel és határidővel, majd az új értékelés.</li>
+<li><strong>Az eredmények dokumentálása</strong> és közlése.</li>
+</ol>
+<p>A hibaelemzés kulcsfogalmai a <strong>hibamód</strong>, a <strong>hibahatás</strong> és a <strong>hibaok</strong>. A hibamód az, ahogyan a vizsgált elem nem teljesíti a funkcióját (például „a nyomaték alacsony”). A hibahatás az, ahogyan a következmény a fölötte lévő szinten, végső soron a vevőnél megjelenik (a vevő lehet belső vevő is). A hibaok az, amiért a hibamód létrejön. A hibamódot fizikai, műszaki fogalmakkal kell leírni (repedés, meglazulás, szivárgás, nincs nyomatékátvitel, időszakos jelzés), nem pedig a vevő által tapasztalt tünettel. A hibaláncok a rendszer szintjei között összekapcsolódnak: egy szint hibamódja a fölötte lévő szint hibaoka és az alatta lévő szint hibahatása (<a href="#fig-hibalanc" class="quarto-xref"><span>15.2</span></a>. ábra).</p>
+<div id="fig-hibalanc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hibalanc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hibalanc.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hibalanc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">15.2. ábra.</span> A hibalánc a KoboCella szintjein: a csavarozó egység FMEA-jában a hibamód „alacsony a nyomaték”, a hibahatás a vevőhöz kerülő tömítetlen motor, a hibaok a kopott bitbetét.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-fmea-sod" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="sec-fmea-sod"><span class="header-section-number">15.3.</span> Súlyosság, előfordulás, észlelhetőség</h2>
+<p>A kockázatelemzés három tényezőt értékel, mindegyiket 1-től 10-ig terjedő skálán:</p>
+<ul>
+<li><strong>Súlyosság</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>): a hibahatás jelentősége a vevő számára. A 10 a biztonságot vagy az egészséget, a 9 a jogszabályi megfelelést érintő hatásoké <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>, a 7–8 a funkció elvesztéséé vagy jelentős romlásáé, a 4–6 a kényelmi funkciók zavaráé, a 2–3 az alig észrevehető hibáké, az 1 a hatás nélküli hibáé. A súlyosság csak a konstrukció megváltoztatásával csökkenthető.</li>
+<li><strong>Előfordulás</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math>): annak valószínűsége, hogy a hibaok a termék élete során (vagy a folyamatban) bekövetkezik, a meglévő megelőző intézkedések mellett. A skála gyakorisági adatokhoz is kalibrálható, például az ezer egységre jutó hibák számához: a 10 pont a nagyon gyakori hibaokot (ezer egységből legalább száz hibás), az 1 pont a megelőző intézkedéssel gyakorlatilag kizárt hibaokot jelenti. Az AIAG–VDA kézikönyv az előfordulást már elsősorban a megelőző intézkedések hatékonysága alapján pontoztatja <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>. Az előfordulás megelőző intézkedéssel (konstrukciós vagy folyamatbeli változtatással) csökkenthető.</li>
+<li><strong>Észlelhetőség</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>): annak esélye, hogy a meglévő észlelő intézkedések felfedezik a hibát (vagy okát), mielőtt a vevőhöz ér. Itt a nagy szám a rossz: 1 pont, ha a hiba nyilvánvaló vagy a 100%-os automatikus ellenőrzés biztosan kiszűri; 9–10 pont, ha a hiba rejtett, vagy nincs ellenőrzés.</li>
+</ul>
+<p>Két gyakorlati szabályt érdemes betartani. Először: a skálák relatívak, egy FMEA-n belül érvényesek, ezért a csapatnak előre meg kell egyeznie a kiértékelési szempontokban, és azokat következetesen kell alkalmaznia. Másodszor: a 9-es és 10-es súlyossági fokozat a biztonsághoz és a jogszabályokhoz kötődik, ezért ezek kritériumait a csapat nem lazíthatja fel.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: folyamat-FMEA a kezelői feladatokból</div><div class="doboz-tartalom">
+<p>A KoboCella csapata a folyamat-FMEA struktúráját a kezelő HTA-jából (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet) és a cella gépi lépéseiből építette fel. A <a href="#tbl-fmea-kobo" class="quarto-xref"><span>15.1</span></a>. táblázat hat hibamódot mutat a kezdeti értékeléssel és a tervezett intézkedésekkel.</p>
+<div id="tbl-fmea-kobo" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[15,12,14,4,4,4,6,21,5,5,6]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-fmea-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">15.1. táblázat.</span> A KoboCella folyamat-FMEA-jának részlete. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">O'</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">D'</annotation></semantics></math>, RPN’: a tervezett intézkedés utáni értékelés; a súlyosság egyik esetben sem változik.
+</figcaption>
+<div aria-describedby="tbl-fmea-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 21%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Folyamatlépés</th>
+<th style="text-align: left;">Hibamód</th>
+<th style="text-align: left;">Hibahatás</th>
+<th style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math></th>
+<th style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>O</mi><annotation encoding="application/x-tex">O</annotation></semantics></math></th>
+<th style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math></th>
+<th style="text-align: center;">RPN</th>
+<th style="text-align: left;">Intézkedés</th>
+<th style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">O'</annotation></semantics></math></th>
+<th style="text-align: center;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>′</mi></mrow><annotation encoding="application/x-tex">D'</annotation></semantics></math></th>
+<th style="text-align: center;">RPN’</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2.3 fedél ráhelyezése</td>
+<td style="text-align: left;">fordított fedél</td>
+<td style="text-align: left;">tömítetlen motor</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">280</td>
+<td style="text-align: left;">aszimmetrikus illesztőcsapok</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3.2 hibás darab kiválogatása</td>
+<td style="text-align: left;">a darab a kiadóba kerül</td>
+<td style="text-align: left;">hibás motor a vevőnél</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">192</td>
+<td style="text-align: left;">a kiadó reteszelése a selejtdoboz jelzéséig</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1.2 típusprogram</td>
+<td style="text-align: left;">rossz program marad</td>
+<td style="text-align: left;">rossz nyomaték egy sorozaton</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: left;">a HMI a rendelés alapján tölti be a programot</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">35</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">csavaradagolás</td>
+<td style="text-align: left;">hiányzó csavar</td>
+<td style="text-align: left;">laza fedél, tömítetlenség</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">80</td>
+<td style="text-align: left;">töltöttségérzékelő az adagolóban</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">csavarmeghúzás</td>
+<td style="text-align: left;">alacsony nyomaték</td>
+<td style="text-align: left;">laza kötés a vevőnél</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: left;">bitcsere a ciklusszám alapján</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2.2 motorház behelyezése</td>
+<td style="text-align: left;">nem ül fel teljesen</td>
+<td style="text-align: left;">a cella nem indul, időveszteség</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: left;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: center;">48</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Az elemzés legfontosabb tanulsága a fordított fedél: a nagy előfordulás és a gyenge észlelhetőség együtt adta a legmagasabb RPN-t. A csapat itt nem az észlelést javította (érzékelő), hanem az előfordulást szüntette meg hibabiztos kialakítással, összhangban a HEART-összehasonlítással (<a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet). Mivel a fordított fedél fizikailag nem helyezhető be, az észlelhetőség is a legjobb értéket kapta: a hiba nem jöhet létre. A táblázat utolsó két sora a következő szakasz problémáját is mutatja: a hiányzó csavar intézkedés utáni RPN-je (48) azonos a motorház behelyezéséével (48), holott az előbbi a vevőnél tömítetlen motort, az utóbbi csak időveszteséget okoz.</p>
+</div></div>
+</section>
+<section id="sec-fmea-rpn" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="sec-fmea-rpn"><span class="header-section-number">15.4.</span> A kockázati prioritásszám és korlátai</h2>
+<p>A hagyományos FMEA a három tényező szorzatával, a <strong>kockázati prioritásszámmal</strong> rangsorol:</p>
+<p><span id="eq-rpn"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">RPN</mtext><mo>=</mo><mi>S</mi><mo>⋅</mo><mi>O</mi><mo>⋅</mo><mi>D</mi><mo>,</mo><mspace width="2.0em"></mspace><mn>1</mn><mo>≤</mo><mtext mathvariant="normal">RPN</mtext><mo>≤</mo><mn>1000</mn><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>15.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{RPN} = S \cdot O \cdot D, \qquad 1 \leq \text{RPN} \leq 1000.
+ \qquad(15.1)</annotation></semantics></math></span></p>
+<p>Sok szervezet tájékoztató RPN-határokat is használ (például 100 fölött intézkedés szükséges), az autóipari kézikönyvek azonban kifejezetten nem javasolják, hogy az intézkedés szükségességét egyetlen RPN-küszöb döntse el <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>. Az RPN egyszerű és elterjedt, de módszertani hibái jól dokumentáltak. Bowles elemzése szerint <span class="citation" data-cites="bowles2003">(<a href="../irodalom.html#ref-bowles2003" role="doc-biblioref">Bowles 2003</a>)</span>:</p>
+<ul>
+<li>az RPN <strong>sorrendi skálákat</strong> kezel arányskálaként: a 8-as súlyosság nem „kétszer olyan súlyos”, mint a 4-es, így a szorzatnak nincs mennyiségi értelme;</li>
+<li>a skála <strong>lyukas</strong>: az 1 és 1000 közötti egész számok közül csak 120 állhat elő három 1 és 10 közötti szám szorzataként, és a lehetséges értékek többsége a skála alsó részén sűrűsödik;</li>
+<li><strong>azonos RPN mögött nagyon különböző kockázat</strong> állhat: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>⋅</mo><mn>2</mn><mo>⋅</mo><mn>4</mn><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">10 \cdot 2 \cdot 4 = 80</annotation></semantics></math> (biztonságkritikus, ritka, jól észlelhető) és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>⋅</mo><mn>5</mn><mo>⋅</mo><mn>4</mn><mo>=</mo><mn>80</mn></mrow><annotation encoding="application/x-tex">4 \cdot 5 \cdot 4 = 80</annotation></semantics></math> (kényelmi, gyakoribb) ugyanazt a számot adja;</li>
+<li>az RPN <strong>érzékenysége egyenetlen</strong>: egy pont változás az egyik tényezőben a többi tényező értékétől függően kicsi vagy nagy változást okoz.</li>
+</ul>
+<p>Liu és munkatársai 75 tanulmányt tekintettek át, amelyek az RPN hiányosságait különféle módszerekkel (fuzzy logika, többszempontú döntési módszerek, súlyozás) próbálják kiküszöbölni <span class="citation" data-cites="liu2013fmea">(<a href="../irodalom.html#ref-liu2013fmea" role="doc-biblioref">Liu, Liu, és Liu 2013</a>)</span>. Az AIAG–VDA kézikönyv a gyakorlat számára egyszerűbb utat választott: az RPN helyett <strong>cselekvési prioritást</strong> (action priority, AP) vezetett be, amely a három tényező minden kombinációjához magas, közepes vagy alacsony prioritást rendel egy táblázat alapján, és elsősorban a súlyosságra, azután az előfordulásra, végül az észlelhetőségre helyezi a hangsúlyt <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>. Az elv a lényeg: a súlyos hatású hibamódok akkor is figyelmet kapnak, ha az előfordulásuk vagy az észlelhetőségük kedvező. A könyv sablonjai ezért az RPN mellett egy egyszerűsített szabályt is alkalmaznak: a 9 és 10 súlyosságú hibamódoknál minden esetben intézkedést kell mérlegelni, az RPN-től függetlenül.</p>
+</section>
+<section id="sec-fmea-fmeca" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="sec-fmea-fmeca"><span class="header-section-number">15.5.</span> FMECA és kritikusságelemzés</h2>
+<p>Az FMECA (failure modes, effects and criticality analysis) az FMEA-t mennyiségi kritikusságelemzéssel egészíti ki. Az amerikai védelmi szabvány szerint egy hibamód kritikussági száma <span class="citation" data-cites="milstd1629a">(<a href="../irodalom.html#ref-milstd1629a" role="doc-biblioref">U.S. Department of Defense 1980</a>)</span>:</p>
+<p><span id="eq-fmeca"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>m</mi></msub><mo>=</mo><mi>β</mi><mo>⋅</mo><mi>α</mi><mo>⋅</mo><msub><mi>λ</mi><mi>p</mi></msub><mo>⋅</mo><mi>t</mi><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>15.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+C_m = \beta \cdot \alpha \cdot \lambda_p \cdot t,
+ \qquad(15.2)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>λ</mi><mi>p</mi></msub><annotation encoding="application/x-tex">\lambda_p</annotation></semantics></math> az alkatrész meghibásodási rátája, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> a hibamód aránya (az alkatrész hibáinak hányad része ilyen módú), <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> annak feltételes valószínűsége, hogy a hibamód a vizsgált súlyosságú hatást okozza, és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> az üzemidő. Az alkatrész kritikussági száma a hibamódjaié összegezve. A hibamódokat súlyossági kategória és kritikusság szerint <strong>kritikussági mátrixba</strong> rendezik, amely a kockázati mátrix (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet) mennyiségi változata.</p>
+<p>Tegyük fel például, hogy a KoboCella csavarozó egységének meghibásodási rátája <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>λ</mi><mi>p</mi></msub><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\lambda_p = 20</annotation></semantics></math> hiba millió üzemóránként, a hibák 30%-a az alacsony nyomaték módja (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\alpha = 0{,}3</annotation></semantics></math>), és ennek a fele vezet tömítetlen motorhoz a vevőnél (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\beta = 0{,}5</annotation></semantics></math>). Évi 3450 üzemórával <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>m</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>5</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>3</mn><mo>⋅</mo><mn>20</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup><mo>⋅</mo><mn>3450</mn><mo>≈</mo><mn>0</mn><mo>,</mo><mn>01</mn></mrow><annotation encoding="application/x-tex">C_m = 0{,}5 \cdot 0{,}3 \cdot 20 \cdot 10^{-6} \cdot 3450 \approx 0{,}01</annotation></semantics></math>, vagyis évente átlagosan 0,01 ilyen esemény várható. Az FMECA tehát nem pontszámot, hanem a megbízhatósági adatokból levezetett gyakoriságot ad; ehhez meghibásodási ráták kellenek (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet).</p>
+</section>
+<section id="sec-fmea-gyakorlat" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="sec-fmea-gyakorlat"><span class="header-section-number">15.6.</span> Az FMEA a gyakorlatban</h2>
+<p>A tervezési FMEA <strong>élő dokumentum</strong> <span class="citation" data-cites="aiagvda2019">(<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">AIAG és VDA 2019</a>)</span>: elkészítését a tervezési koncepció idején kell elkezdeni, folyamatosan naprakészen kell tartani minden változáskor és minden új információ birtokában, és teljesen készen kell lennie, mielőtt a gyártási dokumentációt kiadják a szerszámok elkészítéséhez. Az FMEA értéke nem a kitöltött táblázat, hanem a végrehajtott intézkedések: minden magas prioritású hibamódhoz felelős, határidő és az intézkedés utáni új értékelés tartozik.</p>
+<p>Néhány bevált gyakorlat:</p>
+<ul>
+<li><strong>A funkcióból induljunk, ne az alkatrészből.</strong> A „hogyan nem teljesíti a funkcióját?” kérdés teljesebb hibamódlistát ad, mint az „mi romolhat el rajta?”.</li>
+<li><strong>Használjuk a korábbi tapasztalatokat.</strong> A garanciális adatok, a reklamációk, a hasonló termékek FMEA-i és a karbantartási naplók a hibamódok legjobb forrásai; ezeket ötletroham egészíti ki.</li>
+<li><strong>Az emberi hibamódok is hibamódok.</strong> A folyamat-FMEA-ban a HTA minden lépéséhez meg kell vizsgálni a kihagyást, a rossz sorrendet, a rossz végrehajtást (<a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet).</li>
+<li><strong>A súlyosságot csak a konstrukció csökkenti.</strong> Ha egy biztonságkritikus hibamódnál a csapat csak az észlelést javítja, a súlyosság változatlan marad, és a hibamód a következő változásnál ismét előkerül.</li>
+<li><strong>Az FMEA nem helyettesíti a kombinációk elemzését.</strong> Az egyidejű hibákat és a közös okú meghibásodásokat a hibafa (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet), a vezérlési kölcsönhatásokat a rendszerelméleti elemzés (<a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet) vizsgálja.</li>
+</ul>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: a dokkoló zárjának tervezési FMEA-ja</div><div class="doboz-tartalom">
+<p>A VárosiBringa csapata a dokkoló tervezési FMEA-jában a „kerékpár rögzítése” funkcióból indult. A „nem reteszel” hibamódhoz három okot talált: a kerékpár nincs ütközésig betolva (felhasználói megcsúszás, <a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet), a reteszcsap kopása és a zárvezérlő szoftverhibája. A hibahatás mindhárom esetben ugyanaz: a kerékpár őrizetlenül áll, a kölcsönzés nem zárul le. Az első ok előfordulása messze a legnagyobb volt, ezért a csapat két irányban lépett. Az előfordulást a dokkoló bevezető formájának módosításával csökkentette (a kerékpár „beugrik” a végállásba), az észlelést a rögzítésérzékelővel, a fény- és hangjelzéssel és az alkalmazás értesítésével javította. A reteszcsap kopására a karbantartási terv kapott ellenőrzési pontot, a szoftverhibára pedig a verifikációs terv egy tesztesetet.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">FMEA és digitális modellek</div><div class="doboz-tartalom">
+<p>A modellalapú rendszermérnökségben (<a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet) a hibamódok a rendszermodell elemeihez köthetők, így az FMEA struktúrája és funkcióelemzése a modellből automatikusan előállítható, és a modell változásakor jelezhető, mely sorokat kell felülvizsgálni. Az üzemi adatok (gépi naplók, karbantartási rendszerek) pedig az előfordulás becslését teszik tényszerűbbé. Az elemzés lényegi része, a hibaláncok végiggondolása és az intézkedések kiválasztása azonban továbbra is szakértői csapatmunka.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Az FMEA mint papírmunka</div><div class="doboz-tartalom">
+<p>Gyakori, hogy az FMEA-t az auditra készítik el, a tervezés után, egy ember a meglévő dokumentációból. Az ilyen FMEA a már meghozott döntéseket igazolja, nem alakítja. Jelei: a hibamódok az alkatrészlistát követik, nincsenek hibaláncok a szintek között, minden RPN 100 alatt van, és az intézkedések oszlopa üres vagy „oktatás”. Az FMEA akkor hasznos, ha a tervezéssel párhuzamosan, csapatban készül, és a magas prioritású sorok konstrukciós változáshoz vezetnek.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>Az FMEA alulról felfelé, elemenként vizsgálja a lehetséges hibamódokat, hatásaikat és okaikat. Fő típusai a tervezési (termék-) és a folyamat-FMEA; a kritikusságelemzéssel kiegészített változat az FMECA.</li>
+<li>Az AIAG–VDA kézikönyv hét lépése: tervezés, struktúraelemzés, funkcióelemzés, hibaelemzés, kockázatelemzés, optimalizálás, dokumentálás. A hibaláncok a szintek között összekapcsolódnak: egy szint hibamódja a fölötte lévő szint hibaoka.</li>
+<li>A kockázatot a súlyosság, az előfordulás és az észlelhetőség 1–10-es skáláján értékeljük. A súlyosság csak konstrukciós változtatással, az előfordulás megelőző, az észlelhetőség észlelő intézkedéssel javítható.</li>
+<li>Az RPN sorrendi skálákat szoroz, csak 120 különböző értéket vehet fel, és azonos érték mögött nagyon különböző kockázat állhat. Az AIAG–VDA cselekvési prioritása a súlyosságot helyezi előtérbe.</li>
+<li>Az FMECA a hibamódok kritikusságát meghibásodási rátákból számítja. Az FMEA élő dokumentum: értéke a végrehajtott intézkedésekben van.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Mi a különbség a tervezési és a folyamat-FMEA között? Ki a felelőse az egyiknek és a másiknak?</li>
+<li>Írd fel egy kerékpárfék hibaláncát a rendszer (kerékpár), az alrendszer (fék) és a komponens (fékbetét) szintjén!</li>
+<li>Miért kell a hibamódot fizikai fogalmakkal, és nem a vevő által tapasztalt tünettel leírni?</li>
+<li>Melyik tényező csökkenthető megelőző és melyik észlelő intézkedéssel? Melyik csak konstrukciós változtatással?</li>
+<li>Két hibamód: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">S = 9</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">O = 2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D = 3</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">S = 3</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">O = 6</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">D = 3</annotation></semantics></math>. Számítsd ki az RPN-t! Mit mutat az eredmény?</li>
+<li>Hány különböző RPN-érték létezik? Miért probléma ez?</li>
+<li>Egy alkatrész meghibásodási rátája 50 hiba millió óránként, egy hibamód aránya 0,2, a súlyos hatás feltételes valószínűsége 0,4. Mennyi a hibamód kritikussági száma 2000 üzemórára?</li>
+<li>Miért nevezzük az FMEA-t élő dokumentumnak?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>A tervezési FMEA a termék konstrukciós hibáit vizsgálja, a tervezéssel párhuzamosan fut, és a konstrukciós szervezet felelőssége; a folyamat-FMEA a gyártási, szerelési és ellenőrzési folyamat hibáit vizsgálja, a tervezési FMEA-ra épül, és a gyártás-előkészítés felelőssége.</li>
+<li>Komponens: a fékbetét elkopott (hibamód), oka a karbantartás elmaradása. Alrendszer: a fékerő elégtelen (hibamód), oka a kopott betét. Rendszer: a kerékpár nem áll meg időben (hatás), a felhasználó balesetet szenvedhet.</li>
+<li>Mert a tünet több hibamód következménye is lehet, ezért nem vezet el az okhoz és az intézkedéshez; a fizikai hibamód (például „a csavar meglazul”) egyértelműen azonosítja, mit kell megelőzni vagy észlelni.</li>
+<li>Az előfordulás megelőző intézkedéssel (például konstrukciós vagy folyamatbeli változtatással), az észlelhetőség észlelő intézkedéssel (ellenőrzés, teszt, érzékelő) javítható; a súlyosság csak a konstrukció megváltoztatásával.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>9</mn><mo>⋅</mo><mn>2</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>54</mn></mrow><annotation encoding="application/x-tex">9 \cdot 2 \cdot 3 = 54</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>⋅</mo><mn>6</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>54</mn></mrow><annotation encoding="application/x-tex">3 \cdot 6 \cdot 3 = 54</annotation></semantics></math>. Az RPN azonos, holott az első egy biztonsági hatású, ritka hibamód, a második egy enyhe, gyakoribb; az RPN nem különbözteti meg őket, ezért a súlyosságot külön is figyelni kell.</li>
+<li><ol start="120" type="1">
+<li>Probléma, mert a skála lyukas és egyenetlen: a számok közötti különbségek nem arányosak a kockázatok közötti különbségekkel, és a küszöbértékek (például 100) körül kis változás nagy ugrást okozhat.</li>
+</ol></li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>m</mi></msub><mo>=</mo><mn>0</mn><mo>,</mo><mn>4</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo>⋅</mo><mn>50</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>6</mn></mrow></msup><mo>⋅</mo><mn>2000</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>008</mn></mrow><annotation encoding="application/x-tex">C_m = 0{,}4 \cdot 0{,}2 \cdot 50 \cdot 10^{-6} \cdot 2000 = 0{,}008</annotation></semantics></math>.</li>
+<li>Mert a tervezés korai szakaszában kezdődik, minden változáskor és új információ (próba, reklamáció, üzemi adat) birtokában frissíteni kell, és értéke a végrehajtott intézkedésekben és az utána következő újraértékelésben van, nem az egyszeri kitöltésben.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: FMEA</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>válaszd ki a legkockázatosabb alrendszert vagy folyamatot (a PHA és a kockázati nyilvántartás alapján);</li>
+<li>készíts FMEA-t legalább nyolc hibamóddal, mindegyikhez hibahatással, hibaokkal, meglévő megelőző és észlelő intézkedéssel;</li>
+<li>értékeld a súlyosságot, az előfordulást és az észlelhetőséget, számíts RPN-t, és jelöld külön a 9–10 súlyosságú sorokat;</li>
+<li>a legmagasabb prioritású sorokhoz javasolj intézkedést, és add meg a várható új értékelést;</li>
+<li>használd a Gyakorlati útmutató FMEA eszközlapját, sablonját és notebookját.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="aiagvda2019">AIAG és VDA (<a href="../irodalom.html#ref-aiagvda2019" role="doc-biblioref">2019</a>)</span>: az autóipari FMEA-gyakorlat hét lépése és a cselekvési prioritás.</li>
+<li><span class="citation" data-cites="iec60812_2018">IEC (<a href="../irodalom.html#ref-iec60812_2018" role="doc-biblioref">2018</a>)</span>: az FMEA és az FMECA nemzetközi szabványa.</li>
+<li><span class="citation" data-cites="milstd1629a">U.S. Department of Defense (<a href="../irodalom.html#ref-milstd1629a" role="doc-biblioref">1980</a>)</span>: a kritikusságelemzés klasszikus leírása.</li>
+<li><span class="citation" data-cites="bowles2003">Bowles (<a href="../irodalom.html#ref-bowles2003" role="doc-biblioref">2003</a>)</span> és <span class="citation" data-cites="liu2013fmea">Liu, Liu, és Liu (<a href="../irodalom.html#ref-liu2013fmea" role="doc-biblioref">2013</a>)</span>: az RPN korlátai és a javasolt alternatívák áttekintése.</li>
+<li><span class="citation" data-cites="goldberg1994toolbox">Goldberg és mtsai. (<a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">1994</a>)</span>, 3.4. szakasz: az FMEA és az FMECA eljárásának gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-aiagvda2019" class="csl-entry" role="listitem">
+AIAG, és VDA. 2019. <em>Failure Mode and Effects Analysis – FMEA Handbook</em>. 1. kiad. Southfield, MI: Automotive Industry Action Group.
+</div>
+<div id="ref-bowles2003" class="csl-entry" role="listitem">
+Bowles, John B. 2003. <span>„An Assessment of RPN Prioritization in a Failure Modes Effects and Criticality Analysis”</span>. In <em>Annual Reliability and Maintainability Symposium, 2003 Proceedings</em>, 380–86. <a href="https://doi.org/10.1109/RAMS.2003.1182019">https://doi.org/10.1109/RAMS.2003.1182019</a>.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, és L. Stout. 1994. <span>„System Engineering <span>»Toolbox«</span> for Design-Oriented Engineers”</span>. NASA Reference Publication 1358. NASA Marshall Space Flight Center.
+</div>
+<div id="ref-iec60812_2018" class="csl-entry" role="listitem">
+IEC. 2018. <span>„<span>IEC</span> 60812:2018 Failure modes and effects analysis (FMEA and FMECA)”</span>. International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-liu2013fmea" class="csl-entry" role="listitem">
+Liu, Hu-Chen, Long Liu, és Nan Liu. 2013. <span>„Risk Evaluation Approaches in Failure Mode and Effects Analysis: A Literature Review”</span>. <em>Expert Systems with Applications</em> 40 (2): 828–38. <a href="https://doi.org/10.1016/j.eswa.2012.08.010">https://doi.org/10.1016/j.eswa.2012.08.010</a>.
+</div>
+<div id="ref-milstd1629a" class="csl-entry" role="listitem">
+U.S. Department of Defense. 1980. <span>„<span>MIL-STD</span>-1629A Procedures for Performing a Failure Mode, Effects and Criticality Analysis”</span>. U.S. Department of Defense, Washington, DC.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/14-kockazat.html" class="pagination-link" aria-label="Kockázatkezelés">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/16-megbizhatosag.html" class="pagination-link" aria-label="Megbízhatóság és rendelkezésre állás">
+        <span class="nav-page-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/15-fmea.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/15-fmea.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

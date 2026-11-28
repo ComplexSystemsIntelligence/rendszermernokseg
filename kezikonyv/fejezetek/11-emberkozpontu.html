@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Emberközpontú tervezés és emberi rendszerintegráció (HSI) – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/12-automatizalas.html" rel="next">
+<link href="../fejezetek/10-dontes.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/11-emberkozpontu.html"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/11-emberkozpontu.html"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-emberkozpontu" class="quarto-section-identifier"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-ek-ember" id="toc-sec-ek-ember" class="nav-link active" data-scroll-target="#sec-ek-ember"><span class="header-section-number">11.1.</span> Az ember mint rendszerelem</a></li>
+  <li><a href="#sec-ek-hsi" id="toc-sec-ek-hsi" class="nav-link" data-scroll-target="#sec-ek-hsi"><span class="header-section-number">11.2.</span> Emberi rendszerintegráció (HSI)</a>
+  <ul class="collapse">
+  <li><a href="#a-hsi-terv" id="toc-a-hsi-terv" class="nav-link" data-scroll-target="#a-hsi-terv"><span class="header-section-number">11.2.1.</span> A HSI-terv</a></li>
+  <li><a href="#a-hsi-a-v-modellben" id="toc-a-hsi-a-v-modellben" class="nav-link" data-scroll-target="#a-hsi-a-v-modellben"><span class="header-section-number">11.2.2.</span> A HSI a V-modellben</a></li>
+  </ul></li>
+  <li><a href="#sec-ek-hcd" id="toc-sec-ek-hcd" class="nav-link" data-scroll-target="#sec-ek-hcd"><span class="header-section-number">11.3.</span> Az emberközpontú tervezés folyamata</a></li>
+  <li><a href="#sec-ek-kepessegek" id="toc-sec-ek-kepessegek" class="nav-link" data-scroll-target="#sec-ek-kepessegek"><span class="header-section-number">11.4.</span> Emberi képességek és korlátok</a>
+  <ul class="collapse">
+  <li><a href="#észlelés-figyelem-emlékezet" id="toc-észlelés-figyelem-emlékezet" class="nav-link" data-scroll-target="#észlelés-figyelem-emlékezet"><span class="header-section-number">11.4.1.</span> Észlelés, figyelem, emlékezet</a></li>
+  <li><a href="#helyzettudatosság" id="toc-helyzettudatosság" class="nav-link" data-scroll-target="#helyzettudatosság"><span class="header-section-number">11.4.2.</span> Helyzettudatosság</a></li>
+  <li><a href="#testméretek-és-testtartás" id="toc-testméretek-és-testtartás" class="nav-link" data-scroll-target="#testméretek-és-testtartás"><span class="header-section-number">11.4.3.</span> Testméretek és testtartás</a></li>
+  </ul></li>
+  <li><a href="#sec-ek-feladatelemzes" id="toc-sec-ek-feladatelemzes" class="nav-link" data-scroll-target="#sec-ek-feladatelemzes"><span class="header-section-number">11.5.</span> Feladatelemzés</a></li>
+  <li><a href="#sec-ek-meres" id="toc-sec-ek-meres" class="nav-link" data-scroll-target="#sec-ek-meres"><span class="header-section-number">11.6.</span> A használhatóság és a terhelés mérése</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/11-emberkozpontu.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/11-emberkozpontu.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-emberkozpontu.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>megindokolni, miért az ember a rendszer egyik eleme, és mit jelent az emberi rendszerintegráció (HSI);</li>
+<li>leírni a HSI-terv tartalmát és a HSI-tevékenységek helyét a V-modellben;</li>
+<li>alkalmazni az ISO 9241-210 emberközpontú tervezési ciklusát, és meghatározni a használhatóságot az ISO 9241-11 szerint;</li>
+<li>figyelembe venni az ember képességeit és korlátait: az észlelést, a figyelmet, a helyzettudatosságot, a testméreteket és a testtartást;</li>
+<li>hierarchikus feladatelemzést (HTA) készíteni;</li>
+<li>megtervezni a használhatóság és a terhelés mérését (SUS, NASA-TLX).</li>
+</ul>
+</div></div>
+<p>Kezdjük egy kellemetlen tapasztalattal. A hagyományos rendszermérnöki folyamatban a működési követelményeket műszaki teljesítménymértékekben rögzítjük, és bár ezek közül sok az emberre is vonatkozik, az emberi szempontok gyakran alacsony prioritást kapnak. A következmény ismerős. A gép jól működik, de a kezelője nem tudja jól működtetni; a szoftver minden funkciót tud, de a felhasználó nem találja; a cella teljesíti a ciklusidőt, de a kezelő a műszak végére elfárad, és hibázik.</p>
+<p>Ez a fejezet arról szól, hogyan kerül az ember a rendszertervezés középpontjába. A következő két fejezet erre épül: a <a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet azt tárgyalja, mit végezzen az ember és mit a gép, a <a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet pedig azt, hogyan tervezzünk az emberi hibák ellen.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Miért része az ember a rendszernek, és mit jelent ez a rendszermérnöki munkában?</li>
+<li>Milyen folyamattal érhető el, hogy a rendszer a felhasználói számára is jól használható legyen?</li>
+<li>Milyen emberi képességekkel és korlátokkal kell tervezni?</li>
+<li>Hogyan elemezzük a feladatokat, és hogyan mérjük a használhatóságot és a terhelést?</li>
+</ul>
+<section id="sec-ek-ember" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-ek-ember"><span class="header-section-number">11.1.</span> Az ember mint rendszerelem</h2>
+<p>A rendszerszemléletet a rendszer minden elemére alkalmazni kell, az emberre is. Az ISO/IEC/IEEE 15288 szabvány rendszerdefiníciója ezt egyértelművé teszi: a rendszer elemei között a hardver, a szoftver, az adatok, a folyamatok, az eljárások és a létesítmények mellett az <strong>ember</strong> is szerepel <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>. A rendszermérnöki megközelítésnek ezért a hardvert, a szoftvert és az embert egyenrangúan kell kezelnie és integrálnia: a rendszer a szükséges képességet a három elem együttműködésével hozza létre.</p>
+<p>Az emberre fordított figyelem gazdasági kérdés is. A <a href="02-v-modell.html#sec-eletciklus" class="quarto-xref"><span>2.1</span></a>. szakaszban láttuk, hogy a koncepció és a tervezés döntései az életciklusköltség nagy részét már elkötelezik <span class="citation" data-cites="incose2015seh">(<a href="../irodalom.html#ref-incose2015seh" role="doc-biblioref">INCOSE 2015</a>)</span>. Az üzemeltetés költségeinek jelentős része pedig emberi <span class="citation" data-cites="booher2003">(<a href="../irodalom.html#ref-booher2003" role="doc-biblioref">Booher 2003</a>)</span>: a kezelők, karbantartók, oktatók munkája, a betanítás, a hibák következményei. Ha a tervezés nem számol az emberrel, ezek a költségek az életciklus későbbi szakaszában, a legdrágább helyen jelentkeznek.</p>
+<p>Az Európai Bizottság Ipar 5.0-koncepciója az emberközpontúságot az ipari átalakulás egyik alappillérévé tette: a technológia az embert szolgálja, és nem fordítva <span class="citation" data-cites="breque2021">(<a href="../irodalom.html#ref-breque2021" role="doc-biblioref">Breque, De Nul, és Petridis 2021</a>)</span>. A rendszermérnök számára ez nem csak érték, hanem tervezési feladat. Az ember képességeit, korlátait és igényeit ugyanolyan gondossággal kell modellezni, követelményekké fordítani és verifikálni, mint a gép jellemzőit.</p>
+</section>
+<section id="sec-ek-hsi" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="sec-ek-hsi"><span class="header-section-number">11.2.</span> Emberi rendszerintegráció (HSI)</h2>
+<p>Az INCOSE meghatározása szerint az <strong>emberi rendszerintegráció</strong> (human systems integration, HSI) interdiszciplináris műszaki és vezetési folyamat, amely az emberi szempontokat a rendszer minden elemével és minden elemén át integrálja, és a rendszermérnöki gyakorlat nélkülözhetetlen része <span class="citation" data-cites="incose2023seh nasa2015hsi">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>; <a href="../irodalom.html#ref-nasa2015hsi" role="doc-biblioref">NASA 2015</a>)</span>. Booher összefoglalása szerint a HSI célja hármas <span class="citation" data-cites="booher2003">(<a href="../irodalom.html#ref-booher2003" role="doc-biblioref">Booher 2003</a>)</span>:</p>
+<ul>
+<li>a rendszer emberi elemei jól illeszkedjenek a hardver- és szoftverelemekhez, és a rendszer egésze a lehető legjobb teljesítményt nyújtsa;</li>
+<li>a fejlesztéshez és az üzemeltetéshez szükséges emberi erőforrás megjelenjen az életciklusköltség tervezésében, és a költség a lehető legkisebb legyen;</li>
+<li>a rendszer illeszkedjen azoknak a felhasználóknak a jellemzőihez, akik üzemeltetik, karbantartják és támogatják.</li>
+</ul>
+<p>A HSI-t az emberrel kapcsolatos szakterületek (tartományok) összehangolásaként szokás leírni. A HSI kézikönyvei a tartományokat eltérő bontásban sorolják fel, de jellemzően ide tartozik a létszám, a szükséges szakképzettség, a képzés, az emberi tényezők mérnöki tervezése (ergonómia, kezelőfelületek), a munkabiztonság és egészségvédelem, valamint a munkakörnyezet <span class="citation" data-cites="booher2003">(<a href="../irodalom.html#ref-booher2003" role="doc-biblioref">Booher 2003</a>)</span>. Jó kiindulópont a korábbi, hasonló rendszerek tapasztalatainak összegyűjtése: azoknak az eseteknek a feltárása, amikor a létszám, a szakképzettség, a képzés, a kezelői idő, a karbantartás vagy a biztonsági kockázatok meghaladták a várakozásokat.</p>
+<section id="a-hsi-terv" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="a-hsi-terv"><span class="header-section-number">11.2.1.</span> A HSI-terv</h3>
+<p>Nagyobb projektekben az emberi rendszerintegráció stratégiáját és tervezett megvalósítását külön HSI-tervben érdemes rögzíteni. A terv tartalmazza a HSI-tartományok közötti integráció szerepeit és felelősségeit, a HSI céljait és munkatermékeit életciklus-szakaszonként, a felülvizsgálatok belépési és kilépési feltételeit mérőszámokkal, a tervezett módszereket és eszközöket, a HSI-kockázatok azonosításának és kezelésének módját, valamint az összhangot a rendszermérnöki tervvel. A HSI nagyrészt a rendszermérnökség meglévő eszközeire épül: a működési koncepcióra, a funkciók egyértelmű elosztására a hardver, a szoftver és az ember között, és az életciklus során követett teljesítménymérőszámokra. A terv célja tehát nem a többi terv megismétlése, hanem az, hogy az emberi elem ugyanakkora figyelmet kapjon, mint a hardver és a szoftver.</p>
+</section>
+<section id="a-hsi-a-v-modellben" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="a-hsi-a-v-modellben"><span class="header-section-number">11.2.2.</span> A HSI a V-modellben</h3>
+<p>Az emberi tényezők mérnöki tervezésének klasszikus folyamata, amelyet az amerikai védelmi szabványosítás is rögzített, hat lépésben foglalható össze (<a href="#fig-hse-folyamat" class="quarto-xref"><span>11.1</span></a>. ábra) <span class="citation" data-cites="milstd46855a">(<a href="../irodalom.html#ref-milstd46855a" role="doc-biblioref">U.S. Department of Defense 2011</a>)</span>: küldetés- és forgatókönyv-elemzés, funkcióelemzés, funkciómegosztás, feladatelemzés, rendszertervezés, valamint teszt és értékelés. A lépések nem új, különálló folyamatot alkotnak, hanem a V-modell már ismert lépéseinek emberi nézőpontját adják. A forgatókönyvek a működési koncepcióból jönnek (<a href="04-problema.html#sec-pr-conops" class="quarto-xref"><span>4.4</span></a>. szakasz), a funkcióelemzés az architektúra része (<a href="08-architektura.html#sec-arch-funkcioelemzes" class="quarto-xref"><span>8.3</span></a>. szakasz), a funkciómegosztás a <a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet tárgya, a teszt és az értékelés pedig a verifikáció és a validáció része.</p>
+<div id="fig-hse-folyamat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hse-folyamat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hse-folyamat.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hse-folyamat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">11.1. ábra.</span> Az emberi tényezők mérnöki tervezésének egyszerűsített folyamata a MIL-STD-46855A <span class="citation" data-cites="milstd46855a">(<a href="../irodalom.html#ref-milstd46855a" role="doc-biblioref">U.S. Department of Defense 2011</a>)</span> nyomán, a könyv fejezeteihez rendelve.
+</figcaption>
+</figure>
+</div>
+<p>Részletesebben is érdemes végiggondolni, milyen emberközpontú tevékenységek kísérik a fejlesztés egyes szakaszait. Az előzetes tervezésben a szükséglet- és feladatelemzés, a forgatókönyvek és a látványtervek (storyboard), a teljesítmény- és használhatósági követelmények, valamint a létszám- és költségtervezés. A részletes tervezésben a felhasználói felület tervei és prototípusai, a munkamenet-elemzés, a súgó és a dokumentáció. A megvalósítás és az integráció során a prototípusok használhatósági értékelése és a heurisztikus felülvizsgálat. Az átadáskor a képzés, a felhasználói támogatás és a helyszíni értékelés, amelynek tapasztalatai a következő változat koncepciójába táplálódnak vissza.</p>
+</section>
+</section>
+<section id="sec-ek-hcd" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="sec-ek-hcd"><span class="header-section-number">11.3.</span> Az emberközpontú tervezés folyamata</h2>
+<p>Az interaktív rendszerek emberközpontú tervezésének nemzetközi szabványa az ISO 9241-210 <span class="citation" data-cites="iso9241_210_2019">(<a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">ISO 2019</a>)</span>. A szabvány hat alapelvet fogalmaz meg:</p>
+<ol type="1">
+<li>a tervezés a felhasználók, a feladatok és a környezet kifejezett megértésén alapul;</li>
+<li>a felhasználók a tervezés és a fejlesztés során végig részt vesznek;</li>
+<li>a tervezést felhasználóközpontú értékelés vezérli és finomítja;</li>
+<li>a folyamat iteratív;</li>
+<li>a tervezés a teljes felhasználói élményt figyelembe veszi;</li>
+<li>a tervezőcsapat multidiszciplináris készségeket és nézőpontokat egyesít.</li>
+</ol>
+<p>A szabvány négy, egymásra épülő tevékenységet ír elő (<a href="#fig-hcd-ciklus" class="quarto-xref"><span>11.2</span></a>. ábra): a használati környezet megértését és rögzítését, a felhasználói követelmények meghatározását, a tervezési megoldások előállítását és a terv értékelését. Ha az értékelés szerint a megoldás nem teljesíti a követelményeket, a ciklus megismétlődik: vissza kell lépni a környezet megértéséhez, a követelményekhez vagy a tervhez.</p>
+<div id="fig-hcd-ciklus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hcd-ciklus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hcd-ciklus.svg" class="img-fluid figure-img" style="width:84.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hcd-ciklus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">11.2. ábra.</span> Az emberközpontú tervezés tevékenységei és iterációja az ISO 9241-210 alapján.
+</figcaption>
+</figure>
+</div>
+<p>A ciklus kulcsfogalma a <strong>használati környezet</strong> (context of use): kik a felhasználók, milyen céljaik és feladataik vannak, milyen erőforrásokkal, milyen fizikai, társadalmi és szervezeti környezetben dolgoznak. Ugyanaz a termék más környezetben másképp használható: egy kerékpárkölcsönző alkalmazás a lakásban, nyugodt körülmények között könnyen kezelhető, esőben, kesztyűben, egy forgalmas buszmegállóban viszont már egészen más feltételek között kell működnie.</p>
+<p>Az ISO 9241-11 szerint a <strong>használhatóság</strong> az a mérték, amennyire egy rendszert, terméket vagy szolgáltatást meghatározott felhasználók meghatározott céljaik elérésére eredményesen, hatékonyan és megelégedéssel használhatnak egy meghatározott használati környezetben <span class="citation" data-cites="iso9241_11_2018">(<a href="../irodalom.html#ref-iso9241_11_2018" role="doc-biblioref">ISO 2018</a>)</span>. A definíció három mérhető összetevője:</p>
+<ul>
+<li><strong>eredményesség:</strong> a felhasználók elérik-e a céljukat, és milyen pontossággal, teljességgel (például a feladatok hány százalékát fejezik be hibátlanul);</li>
+<li><strong>hatékonyság:</strong> milyen ráfordítással (idő, lépésszám, erőfeszítés) érik el;</li>
+<li><strong>megelégedettség:</strong> hogyan élik meg a használatot (például kérdőívvel mérve).</li>
+</ul>
+<p>A definíció legfontosabb üzenete a „meghatározott” szó háromszori ismétlése. A használhatóság nem a termék önálló tulajdonsága, hanem a termék, a felhasználó, a cél és a környezet viszonya. Ezért egy használhatósági követelmény csak akkor verifikálható, ha mind a négyet rögzíti.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: a használati környezet</div><div class="doboz-tartalom">
+<p>A VárosiBringa csapata a kölcsönzés használati esetét (<a href="04-problema.html#sec-pr-conops" class="quarto-xref"><span>4.4</span></a>. szakasz) eredetileg egyetlen felhasználói csoportra írta meg: okostelefont rutinosan használó egyetemistákra. A használatikörnyezet-elemzés négy további csoportot azonosított: az idősebb, ritkán kölcsönző lakókat, a városba látogató turistákat (más nyelv, nincs regisztráció), a gyengénlátó felhasználókat és a kesztyűt viselő téli használókat. A követelmények ennek megfelelően bővültek. Például: „a kölcsönzésnek egy korábban nem regisztrált felhasználó számára is legfeljebb 3 percen belül befejezhetőnek kell lennie, a felhasználók legalább 90%-ánál, segítség nélkül”. Ez a követelmény meghatározza a felhasználót (nem regisztrált), a célt (kölcsönzés), az eredményességet (90%), a hatékonyságot (3 perc) és a környezetet (segítség nélkül).</p>
+</div></div>
+</section>
+<section id="sec-ek-kepessegek" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="sec-ek-kepessegek"><span class="header-section-number">11.4.</span> Emberi képességek és korlátok</h2>
+<section id="észlelés-figyelem-emlékezet" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="észlelés-figyelem-emlékezet"><span class="header-section-number">11.4.1.</span> Észlelés, figyelem, emlékezet</h3>
+<p>Az ember információfeldolgozó képessége korlátos. A rövid távú emlékezet kapacitásáról a <a href="08-architektura.html#sec-arch-funkcioelemzes" class="quarto-xref"><span>8.3</span></a>. szakaszban már volt szó: a klasszikus „hét plusz-mínusz kettő” <span class="citation" data-cites="miller1956">(<a href="../irodalom.html#ref-miller1956" role="doc-biblioref">Miller 1956</a>)</span> helyett a mai kutatások inkább három-öt egységgel számolnak <span class="citation" data-cites="cowan2001">(<a href="../irodalom.html#ref-cowan2001" role="doc-biblioref">Cowan 2001</a>)</span>. Egy kezelőfelület tervezésénél ez azt jelenti, hogy a kezelőnek ne kelljen egyszerre sok információt fejben tartania: amit egy lépés elvégzéséhez tudnia kell, az legyen a képernyőn, és ne az emlékezetére hagyatkozzon.</p>
+<p>A figyelem szintén szűk erőforrás. Fitts klasszikus összevetése szerint <span class="citation" data-cites="fitts1951">(<a href="../irodalom.html#ref-fitts1951" role="doc-biblioref">Fitts 1951</a>)</span> az ember elsősorban egycsatornás információfeldolgozó, és teljesítményét a tanulás és a kifáradás is befolyásolja (<a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet). Egy kezelő, akinek egyszerre kell figyelnie a gépre, a képernyőre és a kollégájára, könnyen elmulaszt egy jelzést.</p>
+</section>
+<section id="helyzettudatosság" class="level3" data-number="11.4.2">
+<h3 data-number="11.4.2" class="anchored" data-anchor-id="helyzettudatosság"><span class="header-section-number">11.4.2.</span> Helyzettudatosság</h3>
+<p>Összetett, dinamikus rendszereknél (műhelyirányítás, forgalomirányítás, folyamatirányítás) a kezelő teljesítményének kulcsa a <strong>helyzettudatosság</strong> (situation awareness). Endsley meghatározása szerint ez a környezet elemeinek észlelése egy adott idő- és térbeli tartományban, jelentésük megértése és közeli jövőbeli állapotuk előrevetítése <span class="citation" data-cites="endsley1995">(<a href="../irodalom.html#ref-endsley1995" role="doc-biblioref">Endsley 1995</a>)</span>. A három szint egymásra épül:</p>
+<ol type="1">
+<li><strong>észlelés:</strong> a kezelő látja-e a releváns adatokat (például hogy egy gép leállt);</li>
+<li><strong>megértés:</strong> érti-e, mit jelentenek (például hogy a leállás egy sürgős rendelést érint);</li>
+<li><strong>előrevetítés:</strong> meg tudja-e becsülni, mi fog történni (például hogy a rendelés két nap késést szenved, ha nem sorolják át).</li>
+</ol>
+<p>A helyzettudatosság a kezelőfelületek tervezésének egyik legfontosabb mércéje. Egy jó műhelyirányítási felület nem csak adatokat mutat (első szint), hanem azok jelentését (második szint) és várható következményeit (harmadik szint) is.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: a műszakvezető helyzettudatossága</div><div class="doboz-tartalom">
+<p>A ForgácsTech műszakvezetője a jelenlegi működésben a gépállapotot a műhelyben körbejárva, a rendelések állapotát egy táblázatból, a sürgős kéréseket telefonon kapta. Az információ három helyen volt, és mindhárom csak részben naprakész. A MES-koncepció felülettervét a csapat Endsley három szintje szerint értékelte. Az első változat a gépek állapotát mutatta (első szint). A második változat színnel jelölte azokat a gépeket, amelyek leállása határidős rendelést érint (második szint). A harmadik változat azt is kiírta, hány óra késést okoz a leállás a következő rendelésekben, ha nincs átsorolás (harmadik szint). A műszakvezetők a harmadik változatot választották, mert az „nem csak azt mondja, mi történt, hanem azt is, mit kell tennem”.</p>
+</div></div>
+</section>
+<section id="testméretek-és-testtartás" class="level3" data-number="11.4.3">
+<h3 data-number="11.4.3" class="anchored" data-anchor-id="testméretek-és-testtartás"><span class="header-section-number">11.4.3.</span> Testméretek és testtartás</h3>
+<p>A fizikai munkakörnyezet tervezésének alapja az <strong>antropometria</strong>: a felhasználói népesség testméreteinek ismerete. A szokásos tervezési gyakorlat szerint a munkahelyet úgy kell kialakítani, hogy a felhasználók nagy többségének (jellemzően az 5. és a 95. percentilis közé eső testméretűeknek) megfeleljen. Ahol ez egyetlen méretezéssel nem érhető el, ott állíthatóság kell: állítható magasságú munkaasztal, ülés, kijelző.</p>
+<p>A testtartás értékelésére szabványos módszerek állnak rendelkezésre. Az ISO 11226 a statikus munkatesttartások elfogadhatóságát a testszögek és a tartási idő alapján értékeli <span class="citation" data-cites="iso11226_2000">(<a href="../irodalom.html#ref-iso11226_2000" role="doc-biblioref">ISO 2000</a>)</span>. A törzs előrehajlásánál a 0–20° tartomány elfogadható, a 20–60° tartomány elfogadhatósága a tartási időtől és a megtámasztástól függ, a 60° fölötti előrehajlás nem elfogadható (<a href="#fig-testtartas" class="quarto-xref"><span>11.3</span></a>. ábra). Gyors, megfigyelésen alapuló értékelésre a RULA (a felső végtag terhelésére) és a REBA (a teljes testre) módszer terjedt el <span class="citation" data-cites="mcatamney1993 hignett2000">(<a href="../irodalom.html#ref-mcatamney1993" role="doc-biblioref">McAtamney és Corlett 1993</a>; <a href="../irodalom.html#ref-hignett2000" role="doc-biblioref">Hignett és McAtamney 2000</a>)</span>.</p>
+<div id="fig-testtartas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-testtartas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/testtartas.svg" class="img-fluid figure-img" style="width:92.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-testtartas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">11.3. ábra.</span> A törzs előrehajlásának értékelési zónái és a KoboCella két koncepciójának becsült legnagyobb törzshajlítása.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: honnan jön a 20°?</div><div class="doboz-tartalom">
+<p>A KoboCella R-05 követelménye szerint a munkaasztalon végzett minden műveletnek legfeljebb 20°-os törzshajlítással elvégezhetőnek kell lennie (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet). A 20° nem önkényes szám: az ISO 11226 elfogadható zónájának felső határa. A követelmény így ellenőrizhető és szakmailag megalapozott. A csapat a koncepciók értékelésénél (<a href="10-dontes.html#sec-dont-pugh" class="quarto-xref"><span>10.3</span></a>. szakasz) videós mozgáselemzéssel becsülte meg a legnagyobb törzshajlítást: az együttműködő cellában 15°, a kézi plusz koncepcióban a csavarozás alsó pozícióinál 25° adódott. Ez utóbbi a feltételesen elfogadható zónába esik, de sérti a követelményt, ezért a koncepció kiesett. A verifikáció tervében (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet) a csapat rögzítette, hogy az R-05-öt az 5. és a 95. percentilis testmagasságú operátorokkal kell ellenőrizni, mert az állítható asztal ellenére a legmagasabb és a legalacsonyabb kezelők testtartása eltérhet.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-ek-feladatelemzes" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="sec-ek-feladatelemzes"><span class="header-section-number">11.5.</span> Feladatelemzés</h2>
+<p>A funkcióelemzés azt írja le, mit kell a rendszernek tennie (<a href="08-architektura.html#sec-arch-funkcioelemzes" class="quarto-xref"><span>8.3</span></a>. szakasz). A <strong>feladatelemzés</strong> azt, hogy az embernek mit kell tennie ahhoz, hogy a rá bízott funkciókat ellássa. A leggyakrabban használt módszer a <strong>hierarchikus feladatelemzés</strong> (hierarchical task analysis, HTA), amelyet Annett és Duncan dolgozott ki az 1960-as években, eredetileg a képzés tervezésére <span class="citation" data-cites="annett1967">(<a href="../irodalom.html#ref-annett1967" role="doc-biblioref">Annett és Duncan 1967</a>)</span>. Stanton áttekintése szerint a HTA azóta az ergonómia egyik legszélesebb körben alkalmazott módszerévé vált, a képzéstől a kezelőfelület-tervezésen és a létszámtervezésen át az emberi hibák elemzéséig <span class="citation" data-cites="stanton2006">(<a href="../irodalom.html#ref-stanton2006" role="doc-biblioref">Stanton 2006</a>)</span>.</p>
+<p>A HTA a feladatot célok és részcélok hierarchiájaként írja le. Minden szinthez tartozik egy <strong>terv</strong> (plan), amely megmondja, milyen sorrendben és milyen feltételek mellett kell a részcélokat végrehajtani: egymás után, választás szerint, ismételve, vagy egy feltétel teljesüléséig <span class="citation" data-cites="stanton2006">(<a href="../irodalom.html#ref-stanton2006" role="doc-biblioref">Stanton 2006</a>)</span>. A lebontás ott áll meg, ahol a további bontás már nem ad hasznos információt az elemzés céljához. Képzési célú elemzésnél például ott, ahol a művelet már biztosan nem okoz nehézséget a kezelőnek.</p>
+<div id="fig-hta-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hta-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hta-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hta-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">11.4. ábra.</span> A KoboCella kezelői feladatainak HTA-ja. A tervek a végrehajtás sorrendjét és feltételeit adják meg.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a kezelő feladatai</div><div class="doboz-tartalom">
+<p>A KoboCella csapata a kezelő munkáját egy műszakra elemezte (<a href="#fig-hta-kobo" class="quarto-xref"><span>11.4</span></a>. ábra). A legfontosabb részcél a 2-es, egy motor szerelése, amely ciklusonként ismétlődik. Az öt művelet becsült ideje összesen 18 s, ami megegyezik a ciklusidő-költségvetés kezelői részével (<a href="06-kovetelmenyek.html#tbl-ciklusido-kv" class="quarto-xref"><span>6.4</span></a>. táblázat). Az elemzés három tervezési következtetéshez vezetett. Először: a 2.4-es lépés (kilépés a zónából) nélkül a kobot nem indulhat, ezért a biztonsági alrendszernek a zóna elhagyását kell érzékelnie, nem csak a nyugtázást. Másodszor: a 2.2-es és a 2.3-as lépés a hibás behelyezés legvalószínűbb helye, ezért ezekre hibabiztos kialakítás kell (<a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet). Harmadszor: a 3-as részcél (hibakezelés) ritka, ezért a kezelő nem gyakorolja rendszeresen; a HMI-nek lépésről lépésre végig kell vezetnie rajta.</p>
+</div></div>
+</section>
+<section id="sec-ek-meres" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="sec-ek-meres"><span class="header-section-number">11.6.</span> A használhatóság és a terhelés mérése</h2>
+<p>A használhatóság három összetevője közül az eredményességet és a hatékonyságot megfigyeléssel mérjük (befejezett feladatok aránya, hibák száma, feladatidő), a megelégedettséget kérdőívvel. A két legelterjedtebb szabványosított kérdőív a rendszer használhatósági skálája (SUS) és a NASA terhelési indexe (NASA-TLX).</p>
+<p>A <strong>SUS</strong> (System Usability Scale) Brooke tíz kérdésből álló, „gyors és egyszerű” használhatósági skálája. A páratlan kérdések pozitív, a párosak negatív állítások, mindegyik ötfokú skálán értékelve. Az eredmény egy 0 és 100 közötti pontszám <span class="citation" data-cites="brooke1996">(<a href="../irodalom.html#ref-brooke1996" role="doc-biblioref">Brooke 1996</a>)</span>. A pontszám nem százalék, ezért értelmezéséhez viszonyítási alap kell. Bangor, Kortum és Miller több mint kétezer kérdőív elemzése alapján a 70 fölötti pontszámot elfogadhatónak, az 50 alattit elfogadhatatlannak találták <span class="citation" data-cites="bangor2008">(<a href="../irodalom.html#ref-bangor2008" role="doc-biblioref">Bangor, Kortum, és Miller 2008</a>)</span>. Egy későbbi vizsgálatukban a SUS-pontszámokat melléknévi minősítésekhez kötötték: az „OK” minősítés átlagos pontszáma 50,9, a „jó” minősítésé 71,4, a „kiváló” minősítésé 85,5 volt <span class="citation" data-cites="bangor2009">(<a href="../irodalom.html#ref-bangor2009" role="doc-biblioref">Bangor, Kortum, és Miller 2009</a>)</span>. Sauro és Lewis nagy adatbázisa szerint az átlagos SUS-pontszám 68 <span class="citation" data-cites="sauro2016">(<a href="../irodalom.html#ref-sauro2016" role="doc-biblioref">Sauro és Lewis 2016</a>)</span>.</p>
+<p>A <strong>NASA-TLX</strong> (Task Load Index) Hart és Staveland módszere a szubjektív munkaterhelés mérésére <span class="citation" data-cites="hart1988">(<a href="../irodalom.html#ref-hart1988" role="doc-biblioref">Hart és Staveland 1988</a>)</span>. Hat alskálán (szellemi igénybevétel, fizikai igénybevétel, időbeli nyomás, teljesítmény, erőfeszítés, frusztráció) a résztvevő 0 és 100 közötti értéket ad. Az eredeti eljárásban az alskálák súlyát 15 páros összehasonlítás adja; Hart húszéves áttekintése szerint a gyakorlatban széles körben elterjedt a súlyozás nélküli, egyszerű átlagolás is (nyers TLX) <span class="citation" data-cites="hart2006">(<a href="../irodalom.html#ref-hart2006" role="doc-biblioref">Hart 2006</a>)</span>.</p>
+<p>Mindkét kérdőív egyszerű, gyors és jól összehasonlítható eredményt ad, de egyik sem helyettesíti a megfigyelést. A SUS azt méri, hogyan <em>élik meg</em> a felhasználók a használatot, nem azt, hogy <em>mennyire jól</em> használják. Előfordul, hogy egy felhasználó elégedett, közben hibázik, vagy fordítva. Ezért a használhatósági tesztben mindig mérni kell a feladatok eredményességét és hatékonyságát is (<a href="24-validacio.html" class="quarto-xref"><span>24</span></a>. fejezet).</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: két prototípus, két SUS-pontszám</div><div class="doboz-tartalom">
+<p>A VárosiBringa csapata a kölcsönző alkalmazás két prototípusát tesztelte tizenkét résztvevővel, akik között mind a négy felhasználói csoport képviselve volt. Az első prototípus átlagos SUS-pontszáma 64 lett, ami az átlag (68) alatt van. A megfigyelés szerint a nem regisztrált felhasználók fele elakadt a fizetési lépésnél, és a gyengénlátó résztvevők nem találták a térképen a dokkolók szabad helyeinek jelzését. A javított prototípusban a csapat egyszerűsítette a vendégfizetést, és a szabad helyek számát a térkép mellett szövegesen is megjelenítette. A második teszt átlagos SUS-pontszáma 79 lett, és a feladatok befejezési aránya 75%-ról 96%-ra nőtt. A részletes számítást a Gyakorlati útmutató NASA-TLX és SUS eszközlapja mutatja be.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Akadálymentesség</div><div class="doboz-tartalom">
+<p>Az emberközpontú tervezés a fogyatékossággal élő felhasználókat is magában foglalja. A digitális szolgáltatásoknál ezt az akadálymentességi irányelvek és jogszabályok követelményként is előírják. A rendszermérnöki gyakorlatban az akadálymentesség akkor valósul meg a legolcsóbban, ha már a használati környezet elemzésekor megjelenik, és nem a kész termék utólagos átalakításaként. Ugyanaz a megoldás gyakran mindenkinek segít: a szöveges kiírás a gyengénlátó felhasználón kívül annak is, aki tűző napon nézi a telefonját.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">A felhasználó mint átlagember</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a csapat egyetlen „átlagos felhasználóra” tervez, aki legtöbbször maguk a tervezők. Átlagos felhasználó azonban nem létezik: egy munkaasztal, amely az átlagos testmagasságú kezelőnek kényelmes, a legmagasabbaknak és a legalacsonyabbaknak rossz lehet. A használati környezet elemzésében a felhasználói csoportokat és a szélső eseteket (méret, tapasztalat, nyelv, képességek) kifejezetten fel kell sorolni, és mindegyikre ellenőrizni kell a követelményeket.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A rendszer a hardver, a szoftver és az ember együttese; a rendszermérnöki megközelítésnek a hármat egyenrangúan kell kezelnie. A tervezés rögzíti az életciklus-költségek nagy részét, amelynek jelentős része emberi.</li>
+<li>Az emberi rendszerintegráció (HSI) az emberi szempontokat a fejlesztés egészébe építi be. A HSI-terv rögzíti a felelősségeket, a célokat, a módszereket, a mérőszámokat és a kockázatkezelést.</li>
+<li>Az ISO 9241-210 emberközpontú tervezési ciklusa négy tevékenységből áll: a használati környezet megértése, a felhasználói követelmények meghatározása, a tervezési megoldások előállítása és az értékelés, iteratívan.</li>
+<li>Az ISO 9241-11 szerint a használhatóság eredményesség, hatékonyság és megelégedettség meghatározott felhasználók, célok és használati környezet mellett.</li>
+<li>Az ember információfeldolgozó képessége korlátos. Dinamikus rendszereknél a helyzettudatosság (észlelés, megértés, előrevetítés) a kezelőfelületek kulcsmércéje. A fizikai munkahelyet antropometriai adatokra és szabványos testtartás-értékelésre (ISO 11226, RULA, REBA) kell tervezni.</li>
+<li>A hierarchikus feladatelemzés célok, részcélok és tervek hierarchiájaként írja le, mit kell az embernek tennie. A használhatóság megelégedettségi összetevőjét a SUS, a szubjektív terhelést a NASA-TLX méri; a megfigyelést egyik sem helyettesíti.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Miért kell a rendszermérnökségnek a hardvert, a szoftvert és az embert egyenrangúan kezelnie? Mi a gazdasági érv mellette?</li>
+<li>Sorold fel a HSI-terv legalább öt tartalmi elemét!</li>
+<li>Fogalmazz meg egy verifikálható használhatósági követelményt a ForgácsTech műszakvezetői felületére az ISO 9241-11 definíciójának minden elemével!</li>
+<li>Mi a különbség a helyzettudatosság második és harmadik szintje között? Adj példát a KoboCella kezelőfelületéről!</li>
+<li>Egy munkafolyamatban a törzs előrehajlása rövid ideig 35°. Hogyan értékelnéd az ISO 11226 zónái szerint, és mit tennél?</li>
+<li>Mi a HTA-ban a terv szerepe? Írd fel a „kávé főzése kávéfőzővel” feladat kétszintű HTA-ját tervekkel!</li>
+<li>Egy alkalmazás SUS-pontszáma 72. Mit mondhatunk róla, és mit nem?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Mert a rendszer a szükséges képességet a három elem együttműködésével hozza létre; ha az ember kimarad, a rendszer nem fogja a kívánt képességet nyújtani. A gazdasági érv: a tervezés rögzíti az életciklus-költségek nagy részét (a <a href="02-v-modell.html#sec-eletciklus" class="quarto-xref"><span>2.1</span></a>. szakasz szerint a tervezés végére mintegy 85%-át), és az üzemeltetési költségek jelentős része emberi (létszám, képzés, hibák).</li>
+<li>Szerepek és felelősségek a HSI-tartományok integrálására; HSI-célok és munkatermékek életciklus-szakaszonként; felülvizsgálati belépési és kilépési feltételek mérőszámokkal; tervezett módszerek, eszközök, szabványok; a HSI-kockázatok azonosítása és kezelése; összhang a rendszermérnöki tervvel.</li>
+<li>Például: „A műszakvezetőknek (felhasználó) a felület bevezetése után egy hét gyakorlattal (környezet) egy gépleállás által érintett rendelések azonosítását (cél) a próbák legalább 95%-ában hibátlanul (eredményesség), legfeljebb 30 s alatt (hatékonyság) kell elvégezniük, és a felület SUS-pontszáma legalább 70 legyen (megelégedettség).”</li>
+<li>A második szint a helyzet megértése: például a felület jelzi, hogy a nyomatékhiba a 3. csavarnál ismétlődik. A harmadik szint az előrevetítés: például jelzi, hogy ha a hiba így folytatódik, a bitbetét 40 ciklus múlva cserére szorul, vagy a műszak végéig 12 selejt várható.</li>
+<li>A 35° a feltételesen elfogadható zónába esik; az elfogadhatóság a tartási időtől és a megtámasztástól függ. Rövid ideig, megtámasztással elfogadható lehet, de érdemes a munkahelyet úgy átalakítani (magasság, alkatrész-elhelyezés), hogy a hajlítás 20° alá kerüljön.</li>
+<li>A terv a részcélok végrehajtásának sorrendjét és feltételeit adja meg. Példa: 0 kávé főzése; 0. terv: 1 &gt; 2 &gt; 3 &gt; 4. 1 víz betöltése; 2 kávé adagolása (2.1 szűrő behelyezése, 2.2 őrölt kávé a szűrőbe; 2. terv: 2.1 &gt; 2.2); 3 bekapcsolás; 4 kiszolgálás, ha lefőtt (4. terv: vár, amíg a jelzőfény kialszik, majd tölt).</li>
+<li>A 72 az átlag (68) fölött van, és Bangor és szerzőtársai melléknévi skáláján a „jó” minősítés környékére esik. Azt nem mondja meg, hogy a felhasználók eredményesen és hatékonyan használják-e az alkalmazást, sem azt, hogy melyik funkcióval van gond: ehhez megfigyelés és feladatmérés kell.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: az ember a rendszerben</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>sorold fel a felhasználói csoportokat (kezelők, karbantartók, végfelhasználók, szélső esetek), és írd le a használati környezetüket;</li>
+<li>fogalmazz meg legalább két verifikálható használhatósági vagy ergonómiai követelményt az ISO 9241-11 elemeivel;</li>
+<li>készíts HTA-t a legfontosabb kezelői vagy felhasználói feladatra tervekkel és időbecsléssel;</li>
+<li>tervezd meg, hogyan méred a használhatóságot (SUS, feladatmérés) és a terhelést (NASA-TLX) a validáció során.</li>
+</ol>
+<p>A HTA és a NASA-TLX/SUS sablonja és notebookja a Gyakorlati útmutatóban található.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="milstd46855a">U.S. Department of Defense (<a href="../irodalom.html#ref-milstd46855a" role="doc-biblioref">2011</a>)</span>: az emberi tényezők mérnöki tervezésének folyamata és eljárásai.</li>
+<li><span class="citation" data-cites="iso9241_210_2019">ISO (<a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">2019</a>)</span> és <span class="citation" data-cites="iso9241_11_2018">ISO (<a href="../irodalom.html#ref-iso9241_11_2018" role="doc-biblioref">2018</a>)</span>: az emberközpontú tervezés és a használhatóság nemzetközi szabványai.</li>
+<li><span class="citation" data-cites="booher2003">Booher (<a href="../irodalom.html#ref-booher2003" role="doc-biblioref">2003</a>)</span>: az emberi rendszerintegráció kézikönyve.</li>
+<li><span class="citation" data-cites="endsley1995">Endsley (<a href="../irodalom.html#ref-endsley1995" role="doc-biblioref">1995</a>)</span>: a helyzettudatosság elméletének alapműve.</li>
+<li><span class="citation" data-cites="stanton2006">Stanton (<a href="../irodalom.html#ref-stanton2006" role="doc-biblioref">2006</a>)</span>: a hierarchikus feladatelemzés fejlődésének és alkalmazásainak áttekintése.</li>
+<li><span class="citation" data-cites="hart2006">Hart (<a href="../irodalom.html#ref-hart2006" role="doc-biblioref">2006</a>)</span> és <span class="citation" data-cites="bangor2009">Bangor, Kortum, és Miller (<a href="../irodalom.html#ref-bangor2009" role="doc-biblioref">2009</a>)</span>: a NASA-TLX és a SUS használata és értelmezése.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 2.6. szakasz és R függelék: az emberi rendszerintegráció helye a rendszermérnökségben és a HSI-terv tartalma.</li>
+<li><span class="citation" data-cites="nasa2015hsi">NASA (<a href="../irodalom.html#ref-nasa2015hsi" role="doc-biblioref">2015</a>)</span>: az emberi rendszerintegráció gyakorlati útmutatója.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-annett1967" class="csl-entry" role="listitem">
+Annett, John, és Keith D. Duncan. 1967. <span>„Task Analysis and Training Design”</span>. <em>Occupational Psychology</em> 41: 211–21.
+</div>
+<div id="ref-bangor2008" class="csl-entry" role="listitem">
+Bangor, Aaron, Philip T. Kortum, és James T. Miller. 2008. <span>„An Empirical Evaluation of the System Usability Scale”</span>. <em>International Journal of Human-Computer Interaction</em> 24 (6): 574–94. <a href="https://doi.org/10.1080/10447310802205776">https://doi.org/10.1080/10447310802205776</a>.
+</div>
+<div id="ref-bangor2009" class="csl-entry" role="listitem">
+Bangor, Aaron, Philip Kortum, és James Miller. 2009. <span>„Determining What Individual <span>SUS</span> Scores Mean: Adding an Adjective Rating Scale”</span>. <em>Journal of Usability Studies</em> 4 (3): 114–23.
+</div>
+<div id="ref-booher2003" class="csl-entry" role="listitem">
+Booher, Harold R., szerk. 2003. <em>Handbook of Human Systems Integration</em>. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-breque2021" class="csl-entry" role="listitem">
+Breque, Maija, Lars De Nul, és Athanasios Petridis. 2021. <span>„Industry 5.0: Towards a Sustainable, Human-Centric and Resilient <span>European</span> Industry”</span>. Luxembourg: European Commission, Directorate-General for Research; Innovation.
+</div>
+<div id="ref-brooke1996" class="csl-entry" role="listitem">
+Brooke, John. 1996. <span>„<span>SUS</span>: A <span>»Quick and Dirty«</span> Usability Scale”</span>. In <em>Usability Evaluation in Industry</em>, szerkesztette Patrick W. Jordan, B. Thomas, Bernard A. Weerdmeester, és Ian L. McClelland, 189–94. London: Taylor &amp; Francis.
+</div>
+<div id="ref-cowan2001" class="csl-entry" role="listitem">
+Cowan, Nelson. 2001. <span>„The Magical Number 4 in Short-Term Memory: A Reconsideration of Mental Storage Capacity”</span>. <em>Behavioral and Brain Sciences</em> 24 (1): 87–114. <a href="https://doi.org/10.1017/S0140525X01003922">https://doi.org/10.1017/S0140525X01003922</a>.
+</div>
+<div id="ref-endsley1995" class="csl-entry" role="listitem">
+Endsley, Mica R. 1995. <span>„Toward a Theory of Situation Awareness in Dynamic Systems”</span>. <em>Human Factors</em> 37 (1): 32–64. <a href="https://doi.org/10.1518/001872095779049543">https://doi.org/10.1518/001872095779049543</a>.
+</div>
+<div id="ref-fitts1951" class="csl-entry" role="listitem">
+Fitts, Paul M., szerk. 1951. <span>„Human Engineering for an Effective Air-Navigation and Traffic-Control System”</span>. Washington, DC: National Research Council.
+</div>
+<div id="ref-hart2006" class="csl-entry" role="listitem">
+Hart, Sandra G. 2006. <span>„<span>NASA</span>-Task Load Index (<span>NASA-TLX</span>); 20 Years Later”</span>. In <em>Proceedings of the Human Factors and Ergonomics Society Annual Meeting</em>, 50:904–8. 9. <a href="https://doi.org/10.1177/154193120605000909">https://doi.org/10.1177/154193120605000909</a>.
+</div>
+<div id="ref-hart1988" class="csl-entry" role="listitem">
+Hart, Sandra G., és Lowell E. Staveland. 1988. <span>„Development of <span>NASA-TLX</span> (Task Load Index): Results of Empirical and Theoretical Research”</span>. In <em>Human Mental Workload</em>, szerkesztette Peter A. Hancock és Najmedin Meshkati, 52:139–83. Advances in Psychology. Amsterdam: North-Holland. <a href="https://doi.org/10.1016/S0166-4115(08)62386-9">https://doi.org/10.1016/S0166-4115(08)62386-9</a>.
+</div>
+<div id="ref-hignett2000" class="csl-entry" role="listitem">
+Hignett, Sue, és Lynn McAtamney. 2000. <span>„Rapid Entire Body Assessment (<span>REBA</span>)”</span>. <em>Applied Ergonomics</em> 31 (2): 201–5. <a href="https://doi.org/10.1016/S0003-6870(99)00039-3">https://doi.org/10.1016/S0003-6870(99)00039-3</a>.
+</div>
+<div id="ref-incose2015seh" class="csl-entry" role="listitem">
+INCOSE. 2015. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Garry J. Roedler, Kevin J. Forsberg, R. Douglas Hamelin, és Thomas M. Shortell. 4. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-incose2023seh" class="csl-entry" role="listitem">
+———. 2023. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Thomas M. Shortell, Garry J. Roedler, Bernardo A. Delicado, Odile Mornas, Yew-Seng Yip, és David Endler. 5. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-iso11226_2000" class="csl-entry" role="listitem">
+ISO. 2000. <span>„<span>ISO</span> 11226:2000 Ergonomics – Evaluation of Static Working Postures”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso9241_11_2018" class="csl-entry" role="listitem">
+———. 2018. <span>„<span>ISO</span> 9241-11:2018 Ergonomics of Human-System Interaction – Part 11: Usability: Definitions and Concepts”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso9241_210_2019" class="csl-entry" role="listitem">
+———. 2019. <span>„<span>ISO</span> 9241-210:2019 Ergonomics of Human-System Interaction – Part 210: Human-Centred Design for Interactive Systems”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-mcatamney1993" class="csl-entry" role="listitem">
+McAtamney, Lynn, és E. Nigel Corlett. 1993. <span>„<span>RULA</span>: A Survey Method for the Investigation of Work-Related Upper Limb Disorders”</span>. <em>Applied Ergonomics</em> 24 (2): 91–99. <a href="https://doi.org/10.1016/0003-6870(93)90080-S">https://doi.org/10.1016/0003-6870(93)90080-S</a>.
+</div>
+<div id="ref-miller1956" class="csl-entry" role="listitem">
+Miller, George A. 1956. <span>„The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information”</span>. <em>Psychological Review</em> 63 (2): 81–97.
+</div>
+<div id="ref-nasa2015hsi" class="csl-entry" role="listitem">
+NASA. 2015. <span>„Human Systems Integration (<span>HSI</span>) Practitioner’s Guide”</span>. NASA/SP-2015-3709. National Aeronautics; Space Administration.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+———. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-sauro2016" class="csl-entry" role="listitem">
+Sauro, Jeff, és James R. Lewis. 2016. <em>Quantifying the User Experience: Practical Statistics for User Research</em>. 2. kiad. Cambridge, MA: Morgan Kaufmann.
+</div>
+<div id="ref-stanton2006" class="csl-entry" role="listitem">
+Stanton, Neville A. 2006. <span>„Hierarchical Task Analysis: Developments, Applications, and Extensions”</span>. <em>Applied Ergonomics</em> 37 (1): 55–79. <a href="https://doi.org/10.1016/j.apergo.2005.06.003">https://doi.org/10.1016/j.apergo.2005.06.003</a>.
+</div>
+<div id="ref-milstd46855a" class="csl-entry" role="listitem">
+U.S. Department of Defense. 2011. <span>„<span>MIL-STD-46855A</span> Department of Defense Standard Practice: Human Engineering Requirements for Military Systems, Equipment, and Facilities”</span>. U.S. Department of Defense, Washington, DC.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/10-dontes.html" class="pagination-link" aria-label="Koncepció-kiválasztás és döntéstámogatás">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/12-automatizalas.html" class="pagination-link" aria-label="Funkciómegosztás és automatizálás">
+        <span class="nav-page-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/11-emberkozpontu.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/11-emberkozpontu.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

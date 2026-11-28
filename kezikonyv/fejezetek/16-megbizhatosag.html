@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; Megbízhatóság és rendelkezésre állás – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/17-biztonsag.html" rel="next">
+<link href="../fejezetek/15-fmea.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/16-megbizhatosag.html"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/16-megbizhatosag.html"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-megbizhatosag" class="quarto-section-identifier"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-megb-alap" id="toc-sec-megb-alap" class="nav-link active" data-scroll-target="#sec-megb-alap"><span class="header-section-number">16.1.</span> A megbízhatóság alapfüggvényei</a></li>
+  <li><a href="#sec-megb-rendelkezes" id="toc-sec-megb-rendelkezes" class="nav-link" data-scroll-target="#sec-megb-rendelkezes"><span class="header-section-number">16.2.</span> Javítható rendszerek: MTTF, MTBF, MTTR, rendelkezésre állás</a></li>
+  <li><a href="#sec-megb-rbd" id="toc-sec-megb-rbd" class="nav-link" data-scroll-target="#sec-megb-rbd"><span class="header-section-number">16.3.</span> Soros, párhuzamos és vegyes rendszerek</a></li>
+  <li><a href="#sec-megb-hibafa" id="toc-sec-megb-hibafa" class="nav-link" data-scroll-target="#sec-megb-hibafa"><span class="header-section-number">16.4.</span> Hibafa-elemzés</a></li>
+  <li><a href="#sec-megb-esemenyfa" id="toc-sec-megb-esemenyfa" class="nav-link" data-scroll-target="#sec-megb-esemenyfa"><span class="header-section-number">16.5.</span> Eseményfa-elemzés</a></li>
+  <li><a href="#sec-megb-atalakitas" id="toc-sec-megb-atalakitas" class="nav-link" data-scroll-target="#sec-megb-atalakitas"><span class="header-section-number">16.6.</span> A modellek kapcsolata</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/16-megbizhatosag.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/16-megbizhatosag.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-megbizhatosag.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>definiálni a megbízhatósági függvényt, a meghibásodási rátát és a kádgörbe szakaszait;</li>
+<li>számolni az exponenciális eloszlással, és értelmezni a Weibull-eloszlás alakparaméterét;</li>
+<li>megkülönböztetni az MTTF, MTBF és MTTR mutatókat, és rendelkezésre állást számolni;</li>
+<li>soros, párhuzamos és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-ból-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> rendszerek megbízhatóságát meghatározni blokkdiagrammal;</li>
+<li>hibafát és eseményfát szerkeszteni, minimális vágathalmazokat keresni, és valószínűséget számolni;</li>
+<li>a modelleket egymásba alakítani, és felismerni a függetlenségi feltevés csapdáit.</li>
+</ul>
+</div></div>
+<p>A kockázatelemzés (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet) és az FMEA (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet) azonosítja, mi romolhat el. A megbízhatósági elemzés azt kérdezi, <em>milyen valószínűséggel</em> és <em>milyen gyakran</em>. Erre a követelményeknek is szükségük van: egy „a cella rendelkezésre állása legalább 98%” vagy „a biztonsági funkció veszélyes hibájának valószínűsége évente legfeljebb <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup><annotation encoding="application/x-tex">10^{-4}</annotation></semantics></math>” követelmény csak akkor tervezhető és verifikálható, ha a rendszert az elemei megbízhatóságából modellezni tudjuk.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Hogyan írjuk le egy elem megbízhatóságát az időben?</li>
+<li>Mit jelent a rendelkezésre állás, és hogyan számoljuk?</li>
+<li>Hogyan következik a rendszer megbízhatósága az elemekéből?</li>
+<li>Hogyan modellezzük a hibák kombinációit és a következmények láncolatát?</li>
+</ul>
+<section id="sec-megb-alap" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="sec-megb-alap"><span class="header-section-number">16.1.</span> A megbízhatóság alapfüggvényei</h2>
+<p>A <strong>megbízhatóság</strong> annak valószínűsége, hogy egy rendszer adott időtartamon át, adott feltételek mellett a követelményeknek megfelelően működik. Ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> a meghibásodásig eltelő (véletlen) idő, akkor a megbízhatósági függvény és a hibavalószínűség:</p>
+<p><span id="eq-megbizhatosag"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>&gt;</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>≤</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>1</mn><mo>−</mo><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R(t) = P(T &gt; t), \qquad F(t) = P(T \leq t) = 1 - R(t).
+ \qquad(16.1)</annotation></semantics></math></span></p>
+<p>A <strong>meghibásodási ráta</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\lambda(t)</annotation></semantics></math> annak a valószínűségnek az időegységre eső értéke, hogy a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> időpontig hibátlanul működő rendszer a következő pillanatban meghibásodik. A feltételes valószínűség definíciójából vezethető le <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>:</p>
+<p><span id="eq-hibarata"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>exp</mo><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mi>λ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>u</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\lambda(t) = \frac{f(t)}{R(t)}, \qquad R(t) = \exp\!\left(-\int_0^t \lambda(u)\,\mathrm{d}u\right),
+ \qquad(16.2)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi mathvariant="normal">d</mi><mi>F</mi><mi>/</mi><mi mathvariant="normal">d</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">f(t) = \mathrm{d}F/\mathrm{d}t</annotation></semantics></math> a meghibásodási idő sűrűségfüggvénye <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>.</p>
+<p>Sok műszaki rendszer meghibásodási rátája a <strong>kádgörbét</strong> követi (<a href="#fig-kadgorbe" class="quarto-xref"><span>16.1</span></a>. ábra): a beüzemelési szakaszban a rejtett gyártási hibák miatt a ráta magas és csökkenő, az üzemszerű szakaszban közel állandó (véletlen hibák), az öregedési szakaszban pedig a visszafordíthatatlan fizikai-kémiai folyamatok (kopás, kifáradás, korrózió) miatt növekvő.</p>
+<div id="fig-kadgorbe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kadgorbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/kadgorbe.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kadgorbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.1. ábra.</span> A kádgörbe és a Weibull-eloszlás meghibásodási rátája három alakparaméterre.
+</figcaption>
+</figure>
+</div>
+<p>Állandó meghibásodási ráta esetén a meghibásodásig eltelő idő <strong>exponenciális eloszlású</strong>. Ez az elektronikus rendszerekre a hasznos élettartam alatt jellemzően jó közelítés <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>:</p>
+<p><span id="eq-exponencialis"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>λ</mi><mi>t</mi></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">MTTF</mtext><mo>=</mo><mfrac><mn>1</mn><mi>λ</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>t</mi><mrow><mn>50</mn><mi>%</mi></mrow></msub><mo>=</mo><mfrac><mrow><mo>ln</mo><mn>2</mn></mrow><mi>λ</mi></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.3</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R(t) = e^{-\lambda t}, \qquad \text{MTTF} = \frac{1}{\lambda}, \qquad t_{50\%} = \frac{\ln 2}{\lambda}.
+ \qquad(16.3)</annotation></semantics></math></span></p>
+<p>Ha például egy gép átlagos működési ideje a meghibásodásig <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTTF</mtext><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">\text{MTTF} = 1000</annotation></semantics></math> óra, akkor annak valószínűsége, hogy 500 óránál tovább üzemel, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>500</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>5</mn></mrow></msup><mo>=</mo><mn>0</mn><mo>,</mo><mn>607</mn></mrow><annotation encoding="application/x-tex">R(500) = e^{-0{,}5} = 0{,}607</annotation></semantics></math>; annak, hogy addig meghibásodik, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>500</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn><mo>,</mo><mn>393</mn></mrow><annotation encoding="application/x-tex">F(500) = 0{,}393</annotation></semantics></math>. Az exponenciális eloszlás „emlékezet nélküli”: egy már 400 órája működő gép a következő 500 órát ugyanakkora valószínűséggel éli túl, mint egy új. Ez az öregedő alkatrészekre nyilvánvalóan nem igaz.</p>
+<p>A <strong>Weibull-eloszlás</strong> mindhárom szakaszt leírja <span class="citation" data-cites="weibull1951">(<a href="../irodalom.html#ref-weibull1951" role="doc-biblioref">Weibull 1951</a>)</span>:</p>
+<p><span id="eq-weibull"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>exp</mo><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">[</mo><mi>−</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>t</mi><mi>η</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>β</mi></msup><mo stretchy="true" form="postfix">]</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>λ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mi>β</mi><mi>η</mi></mfrac><msup><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mi>t</mi><mi>η</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>β</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R(t) = \exp\!\left[-\left(\frac{t}{\eta}\right)^{\beta}\right], \qquad \lambda(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta - 1},
+ \qquad(16.4)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math> a skálaparaméter (karakterisztikus élettartam), <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> az alakparaméter. Ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta &lt; 1</annotation></semantics></math>, a ráta csökkenő (korai hibák), ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta = 1</annotation></semantics></math>, állandó (exponenciális eset), ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta &gt; 1</annotation></semantics></math>, növekvő (elhasználódás). A gyakorlatban a Weibull-eloszlást meghibásodási adatokra illesztik, és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> értéke maga is diagnosztikai információ: megmutatja, hogy a hibákat gyártási, véletlen vagy kopási folyamatok okozzák-e, és így azt is, hogy a megelőző csere segít-e <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>.</p>
+</section>
+<section id="sec-megb-rendelkezes" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="sec-megb-rendelkezes"><span class="header-section-number">16.2.</span> Javítható rendszerek: MTTF, MTBF, MTTR, rendelkezésre állás</h2>
+<p>A legtöbb ipari rendszert meghibásodás után megjavítják. A javítható rendszerekre a következő átlagos időket szokás megkülönböztetni <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>:</p>
+<ul>
+<li><strong>MTTFF</strong> (mean time to first failure): az első üzembe helyezéstől az első meghibásodásig eltelő átlagos idő;</li>
+<li><strong>MTTF</strong> (mean time to failure): egy javítás végétől a következő meghibásodásig eltelő átlagos idő;</li>
+<li><strong>MTTR</strong> (mean time to repair): a meghibásodástól a javítás végéig, az újbóli üzembe állásig eltelő átlagos idő;</li>
+<li><strong>MTBF</strong> (mean time between failures): két meghibásodás között eltelő átlagos idő, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTBF</mtext><mo>=</mo><mtext mathvariant="normal">MTTF</mtext><mo>+</mo><mtext mathvariant="normal">MTTR</mtext></mrow><annotation encoding="application/x-tex">\text{MTBF} = \text{MTTF} + \text{MTTR}</annotation></semantics></math>.</li>
+</ul>
+<p>A szakirodalom és a gyártói adatlapok a betűszavakat nem egységesen használják: sok helyen az MTBF a két hiba közötti átlagos <em>működési</em> időt jelenti. Egy adatlap értékét ezért mindig a definíciójával együtt kell átvenni.</p>
+<p>Ha a meghibásodás és a javítás is exponenciális eloszlású (állandó <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math> meghibásodási és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> javítási rátával), a rendszer hosszú távon a ki nem esett idő meghatározott hányadában üzemképes. Ez a <strong>belső (inherens) rendelkezésre állás</strong>:</p>
+<p><span id="eq-rendelkezesre-allas"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mfrac><mi>μ</mi><mrow><mi>λ</mi><mo>+</mo><mi>μ</mi></mrow></mfrac><mo>=</mo><mfrac><mtext mathvariant="normal">MTTF</mtext><mrow><mtext mathvariant="normal">MTTF</mtext><mo>+</mo><mtext mathvariant="normal">MTTR</mtext></mrow></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.5</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+A = \frac{\mu}{\lambda + \mu} = \frac{\text{MTTF}}{\text{MTTF} + \text{MTTR}}.
+ \qquad(16.5)</annotation></semantics></math></span></p>
+<p>Ha egy gép átlagosan 100 óránként hibásodik meg, és a javítási ráta <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>05</mn></mrow><annotation encoding="application/x-tex">\mu = 0{,}05</annotation></semantics></math> 1/óra (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTTR</mtext><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\text{MTTR} = 20</annotation></semantics></math> óra), akkor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mn>100</mn><mi>/</mi><mn>120</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>833</mn></mrow><annotation encoding="application/x-tex">A = 100/120 = 0{,}833</annotation></semantics></math>. A belső rendelkezésre állás csak a javítás tényleges idejét veszi figyelembe; a gyakorlati (operatív) rendelkezésre állás a logisztikai és adminisztratív várakozást (alkatrészre, szerelőre várás) is tartalmazza, és ezért kisebb. A gyártásban a rendelkezésre állás az OEE egyik tényezője is (<a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>. fejezet).</p>
+</section>
+<section id="sec-megb-rbd" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="sec-megb-rbd"><span class="header-section-number">16.3.</span> Soros, párhuzamos és vegyes rendszerek</h2>
+<p>A <strong>megbízhatósági blokkdiagram</strong> (reliability block diagram, RBD) a rendszer sikeres működésének logikai modellje: a rendszer akkor működik, ha a bemenettől a kimenetig vezet működő elemeken át út <span class="citation" data-cites="iec61078_2016">(<a href="../irodalom.html#ref-iec61078_2016" role="doc-biblioref">IEC 2016</a>)</span>. Független elemek esetén:</p>
+<p><span id="eq-soros-parhuzamos"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mtext mathvariant="normal">soros</mtext></msub><mo>=</mo><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>R</mi><mi>i</mi></msub><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>R</mi><mtext mathvariant="normal">párhuzamos</mtext></msub><mo>=</mo><mn>1</mn><mo>−</mo><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>R</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.6</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R_{\text{soros}} = \prod_{i=1}^{n} R_i, \qquad R_{\text{párhuzamos}} = 1 - \prod_{i=1}^{n} (1 - R_i).
+ \qquad(16.6)</annotation></semantics></math></span></p>
+<p>A soros rendszer csak akkor működik, ha minden eleme működik, ezért megbízhatósága kisebb a leggyengébb eleménél; a párhuzamos (redundáns) rendszer akkor működik, ha legalább egy eleme működik. Egy egyszerű számpélda ezt látványosan mutatja: ugyanabból az eszközből egyre többet sorba kötve a megbízhatósági függvény egyre gyorsabban csökken, párhuzamosan kötve egyre lassabban. A <strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-ból-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> rendszer</strong> akkor működik, ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> eleméből legalább <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> működik; azonos, független elemekre a binomiális eloszlással számolható:</p>
+<p><span id="eq-k-n"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>k</mi><mi>/</mi><mi>n</mi></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mi>k</mi></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mi>j</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msup><mi>R</mi><mi>j</mi></msup><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mi>n</mi><mo>−</mo><mi>j</mi></mrow></msup><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>16.7</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R_{k/n} = \sum_{j=k}^{n} \binom{n}{j} R^{j} (1 - R)^{n - j}.
+ \qquad(16.7)</annotation></semantics></math></span></p>
+<p>A rendelkezésre állásra ugyanezek a képletek érvényesek, ha az elemek egymástól függetlenül hibásodnak meg és javíthatók. Az összetett szerkezeteket alapkapcsolású részrendszerekre bontjuk, és ezek eredő értékeiből számolunk tovább.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a cella rendelkezésre állása</div><div class="doboz-tartalom">
+<p>A KoboCella termelési funkciójához öt elem soros működése kell. A beszállítói adatlapok és a csapat becslése szerint az MTBF és az MTTR: kobot 8000 és 4 óra, csavarozó egység 2000 és 1 óra, csavaradagoló 1500 és 0,5 óra, lézerszkenner 20 000 és 2 óra, cellavezérlő 30 000 és 3 óra. A soros ág rendelkezésre állása 0,99847, ami évi 3450 üzemórával mintegy 5 óra műszaki állásidőt jelent (<a href="#fig-rbd-kobo" class="quarto-xref"><span>16.2</span></a>. ábra). A cella eredő meghibásodási rátája az elemek rátáinak összege, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>375</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\lambda = 1{,}375 \cdot 10^{-3}</annotation></semantics></math> 1/óra, vagyis a cella átlagosan 727 óránként, évente mintegy 4,7-szer áll meg műszaki hiba miatt; egy 7,5 órás műszakot 0,99 valószínűséggel hiba nélkül teljesít.</p>
+<div id="fig-rbd-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rbd-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/rbd-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rbd-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.2. ábra.</span> A KoboCella termelési funkciójának megbízhatósági blokkdiagramja a leromlott üzemmód (UM-7) kézi tartalékával.
+</figcaption>
+</figure>
+</div>
+<p>A leromlott üzemmód (UM-7) párhuzamos ágként működik: ha a cella áll, a kézi szerelés folytatható. Ezzel a termelési funkció rendelkezésre állása 0,99997-re nő, de a kézi tartalék kisebb kapacitással dolgozik, ezért a ciklusidő-követelményt (R-01) leromlott üzemben nem teljesíti. A blokkdiagram tehát a funkció elérhetőségét mutatja, a teljesítményét nem. A legnagyobb hozzájárulás az állásidőhöz a kobottól és a csavarozó egységtől jön; a csapat a csavarozó egységhez tartalék orsót rendelt, amellyel az MTTR rövidebb lesz.</p>
+</div></div>
+<p>A párhuzamos redundancia számított előnye a valóságban gyakran kisebb. A blokkdiagrammal számított rendszer-megbízhatóság ezért irreálisan magas lehet <span class="citation" data-cites="oconnor2012 goldberg1994toolbox">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 3.5</a>. szakasz)</span>. Ennek leggyakoribb oka a <strong>közös okú meghibásodás</strong>: ha a két redundáns elemet ugyanaz a tápellátás, ugyanaz a szoftver vagy ugyanaz a karbantartási hiba érinti, nem függetlenek, és a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>R</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1 - (1 - R)^2</annotation></semantics></math> képlet túlbecsül. A redundáns ágakat ezért eltérő elvű, fizikailag elkülönített megoldásokkal érdemes kialakítani (diverzitás), ami a biztonsági rendszerek tervezésének egyik alapelve (<a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet).</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: hány dokkoló kell egy állomáson?</div><div class="doboz-tartalom">
+<p>Egy VárosiBringa-állomás tíz dokkolóhelyből áll, és a csapat úgy ítélte, hogy az állomás akkor teljesíti a funkcióját, ha legalább nyolc dokkoló működik. Egy dokkoló rendelkezésre állása 0,98. A <a href="#eq-k-n" class="quarto-xref"><span>16.7</span></a>. egyenlet szerint az állomás 0,999 valószínűséggel működik; ha mind a tíz dokkolóra szükség lenne, csak 0,82 valószínűséggel. A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-ból-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> szemlélet így a követelmény megfogalmazására is hat: a „minden dokkoló működik” követelmény a gyakorlatban teljesíthetetlen, a „legalább nyolc dokkoló működik” viszont jól mérhető, és illeszkedik a felhasználók igényéhez.</p>
+</div></div>
+</section>
+<section id="sec-megb-hibafa" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="sec-megb-hibafa"><span class="header-section-number">16.4.</span> Hibafa-elemzés</h2>
+<p>A <strong>hibafa-elemzés</strong> (fault tree analysis, FTA) egy kiválasztott nem kívánt eseményből, a <strong>csúcseseményből</strong> indul, és felülről lefelé, logikai kapukkal bontja le azokra az eseménykombinációkra, amelyek előidézhetik <span class="citation" data-cites="vesely1981 iec61025_2006">(<a href="../irodalom.html#ref-vesely1981" role="doc-biblioref">Vesely és mtsai. 1981</a>; <a href="../irodalom.html#ref-iec61025_2006" role="doc-biblioref">IEC 2006</a>)</span>. Az ÉS-kapu kimenete akkor következik be, ha minden bemenete bekövetkezik, a VAGY-kapué akkor, ha legalább egy. A legalsó szint <strong>alapeseményei</strong> az alkatrészhibák, emberi hibák és külső események, amelyekhez valószínűséget rendelünk. A hibafa legfőbb erőssége, hogy az egyidejűleg fennálló hibák valószínűségét is értékelni tudja; korlátja, hogy egyetlen, az elemző által előre megnevezett csúcseseményt vizsgál, és a teljes fák nagyon nagyok lehetnek <span class="citation" data-cites="vesely1981 ericson2015 goldberg1994toolbox">(<a href="../irodalom.html#ref-vesely1981" role="doc-biblioref">Vesely és mtsai. 1981</a>; <a href="../irodalom.html#ref-ericson2015" role="doc-biblioref">Ericson 2015</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 3.6</a>. szakasz)</span>.</p>
+<p>A hibafa minőségi eredménye a <strong>minimális vágathalmazok</strong> listája. Egy vágathalmaz olyan alapesemény-kombináció, amely együtt előidézi a csúcseseményt; minimális, ha egyetlen eleme sem hagyható el. Az egyelemű minimális vágathalmazok az <strong>egypontos hibák</strong>, amelyekre a tervezésnek különös figyelmet kell fordítania. Független alapesemények esetén a mennyiségi kiértékelés: az ÉS-kapu valószínűsége a bemenetek szorzata, a VAGY-kapué <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mo>∏</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">1 - \prod (1 - p_i)</annotation></semantics></math>, kis valószínűségeknél jó közelítéssel az összeg (ritka esemény közelítés).</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: hibafa egy biztonsági csúcseseményre</div><div class="doboz-tartalom">
+<p>A PHA (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet) szerint a KoboCella legfontosabb biztonsági veszélye a kobotkar ütközése a kezelővel. A csapat hibafát szerkesztett arra a csúcseseményre, hogy a kezelőt teljes sebességű kobotkar éri (<a href="#fig-hibafa-kobo" class="quarto-xref"><span>16.3</span></a>. ábra). Ehhez három feltételnek kell együtt teljesülnie: a kezelő a közös térben van (E1), elmarad a sebességcsökkentés (a szkenner nem érzékel, E2, vagy a biztonsági vezérlés hibás, E3), és nem működik az erőhatárolás (E4 vagy ugyanaz az E3).</p>
+<div id="fig-hibafa-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hibafa-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/hibafa-kobo.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hibafa-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.3. ábra.</span> A KoboCella hibafája. Az E3 esemény két ágban is szerepel: ez határozza meg a fa viselkedését.
+</figcaption>
+</figure>
+</div>
+<p>A minimális vágathalmazok: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mn>1</mn><mo>,</mo><mi>E</mi><mn>3</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{E1, E3\}</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mi>E</mi><mn>1</mn><mo>,</mo><mi>E</mi><mn>2</mn><mo>,</mo><mi>E</mi><mn>4</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{E1, E2, E4\}</annotation></semantics></math>. Az évi valószínűség (a szkenner és az erőhatárolás veszélyes, fel nem fedezett hibáira vonatkozó becslésekkel) <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>≈</mo><mn>0</mn><mo>,</mo><mn>3</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>001</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>01</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>005</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>3</mn><mo>,</mo><mn>2</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">P \approx 0{,}3 \cdot (0{,}001 + 0{,}01 \cdot 0{,}005) \approx 3{,}2 \cdot 10^{-4}</annotation></semantics></math>, és ennek 95%-a az első vágathalmazból jön. Ha valaki a fát a kapuk szintjén, a független események képleteivel számolná, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>0</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2{,}0 \cdot 10^{-5}</annotation></semantics></math> adódna, tizenhatszor kevesebb: az E3 ismétlődő esemény, ezért a két VAGY-kapu kimenete nem független. A tanulság a tervezésnek is szól: a biztonsági vezérlés közös pont a két védelmi rétegben, ezért a csapat a sebességfelügyeletet és az erőhatárolást független csatornára tervezte (<a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet).</p>
+</div></div>
+</section>
+<section id="sec-megb-esemenyfa" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="sec-megb-esemenyfa"><span class="header-section-number">16.5.</span> Eseményfa-elemzés</h2>
+<p>Az <strong>eseményfa-elemzés</strong> (event tree analysis, ETA) a hibafával ellentétes irányban halad: egy <strong>kiinduló eseményből</strong> indul, és előre követi, hogyan alakul a folyamat attól függően, hogy az egymás után következő védelmi rétegek (gátak, biztonsági funkciók, emberi beavatkozások) működnek-e <span class="citation" data-cites="iec62502_2010">(<a href="../irodalom.html#ref-iec62502_2010" role="doc-biblioref">IEC 2010</a>)</span>. Minden réteg egy elágazás siker és hiba ágra, a végpontok a lehetséges kimenetek, gyakoriságuk a kiinduló esemény gyakoriságának és az ágak valószínűségének szorzata. Az eseményfa egyszerre dolgozik a siker és a hiba tartományában, és a végkimeneteket nem kell előre ismerni; korlátja, hogy egyetlen kiinduló eseményt vizsgál, és a részleges sikert nehezen tudja megkülönböztetni <span class="citation" data-cites="ericson2015">(<a href="../irodalom.html#ref-ericson2015" role="doc-biblioref">Ericson 2015</a>)</span>.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: az akkumulátor túlmelegedésének eseményfája</div><div class="doboz-tartalom">
+<p>A kockázatelemzésben (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet) azonosított akkumulátorveszélyre a VárosiBringa csapata eseményfát készített (<a href="#fig-esemenyfa-bringa" class="quarto-xref"><span>16.4</span></a>. ábra). A kiinduló esemény egy akkumulátor rendellenes melegedése töltés közben; a teljes flottára évi két ilyen eseménnyel számoltak. Három védelmi réteg követi egymást: az akkumulátorkezelő rendszer (BMS) leállítja a töltést, a hőmérséklet-riasztás az üzemeltetőhöz fut be, és a fémház megfékezi a tüzet.</p>
+<div id="fig-esemenyfa-bringa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-esemenyfa-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/esemenyfa-bringa.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-esemenyfa-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.4. ábra.</span> A VárosiBringa akkumulátor-túlmelegedésének eseményfája.
+</figcaption>
+</figure>
+</div>
+<p>A legsúlyosabb kimenet, a tűz átterjedése a szomszédos kerékpárokra, évente <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>01</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>05</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>=</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2 \cdot 0{,}01 \cdot 0{,}05 \cdot 0{,}1 = 10^{-4}</annotation></semantics></math> gyakoriságú. Az eseményfa azt is megmutatta, hol a leghatékonyabb a beavatkozás: a BMS 0,99-es sikere a legerősebb réteg, de a riasztás és a fémház együtt további kétszázszoros csökkentést ad. Az egyes rétegek sikertelenségének valószínűségét a csapat külön hibafákkal becsülte meg, így a két módszer egymást egészítette ki.</p>
+</div></div>
+</section>
+<section id="sec-megb-atalakitas" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="sec-megb-atalakitas"><span class="header-section-number">16.6.</span> A modellek kapcsolata</h2>
+<p>A blokkdiagram, a hibafa és az eseményfa ugyanannak a rendszernek különböző nézetei, és egymásba alakíthatók <span class="citation" data-cites="vesely1981 iec61078_2016 goldberg1994toolbox">(<a href="../irodalom.html#ref-vesely1981" role="doc-biblioref">Vesely és mtsai. 1981</a>; <a href="../irodalom.html#ref-iec61078_2016" role="doc-biblioref">IEC 2016</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 3.9</a>. szakasz)</span>. A blokkdiagram a sikert, a hibafa a hibát modellezi: a soros blokkokból VAGY-kapu, a párhuzamos blokkokból ÉS-kapu lesz a hibák között (<a href="#fig-rbd-hibafa" class="quarto-xref"><span>16.5</span></a>. ábra). Az eseményfa egyes ágainak hibavalószínűsége hibafával számolható, a hibafa egy-egy alapeseménye pedig blokkdiagramból. Az átalakítás új információt nem ad, de segít abban, hogy az egyik módszer gyengeségét a másik erősségével ellensúlyozzuk.</p>
+<div id="fig-rbd-hibafa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rbd-hibafa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/rbd-hibafa.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rbd-hibafa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.5. ábra.</span> A soros és a párhuzamos blokkdiagram megfelelője a hibafában.
+</figcaption>
+</figure>
+</div>
+<p>A módszerek kiválasztásában a kérdés a döntő (<a href="#tbl-megb-modszerek" class="quarto-xref"><span>16.1</span></a>. táblázat).</p>
+<div id="tbl-megb-modszerek" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[50,22,28]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-megb-modszerek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">16.1. táblázat.</span> A megbízhatósági és biztonsági modellek alkalmazási területe.
+</figcaption>
+<div aria-describedby="tbl-megb-modszerek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 22%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Kérdés</th>
+<th style="text-align: left;">Módszer</th>
+<th style="text-align: left;">Irány</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mekkora a rendszer megbízhatósága, rendelkezésre állása?</td>
+<td style="text-align: left;">blokkdiagram</td>
+<td style="text-align: left;">a sikerből, alulról felfelé</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Milyen kombinációk vezetnek egy nem kívánt eseményhez, és mekkora valószínűséggel?</td>
+<td style="text-align: left;">hibafa</td>
+<td style="text-align: left;">a csúcseseményből, felülről lefelé</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mi következhet egy kiinduló eseményből a védelmi rétegektől függően?</td>
+<td style="text-align: left;">eseményfa</td>
+<td style="text-align: left;">a kiinduló eseményből, előre</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Milyen hibamódok vannak, és mi a hatásuk egyenként?</td>
+<td style="text-align: left;">FMEA (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet)</td>
+<td style="text-align: left;">az elemekből, alulról felfelé</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Adatok és állapotfüggő megbízhatóság</div><div class="doboz-tartalom">
+<p>A klasszikus megbízhatósági számítás alkatrész-adatbázisok és gyártói adatlapok rátáiból dolgozik (például a katonai elektronikai alkatrészekre kidolgozott meghibásodásiráta-modellekből). Az üzemelő rendszerekben ma egyre több a tényleges üzemi adat: a gépi naplók, a karbantartási rendszerek és az érzékelők alapján a Weibull-paraméterek folyamatosan frissíthetők, és a megbízhatóság az alkatrész tényleges állapotához köthető. Ez vezet az állapotalapú és előrejelző karbantartáshoz (<a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>. fejezet), amelyben a cserét nem a naptár, hanem a romlás mértéke vezérli.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Függetlenség ott, ahol nincs</div><div class="doboz-tartalom">
+<p>A soros és párhuzamos képletek, a hibafa kapuképletei és az eseményfa szorzatai mind függetlenséget feltételeznek. Ha egy esemény több ágban is szerepel (ismétlődő esemény), vagy a redundáns elemeknek közös okuk van (tápellátás, szoftver, karbantartó), a kapuszintű számítás nagyságrendekkel is tévedhet, és mindig a túl optimista irányba. A minimális vágathalmazokon alapuló számítás és a közös okú hibák külön vizsgálata a megoldás.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A megbízhatóság annak valószínűsége, hogy a rendszer adott ideig megfelelően működik. A meghibásodási ráta időbeli alakja a kádgörbe: korai hibák, véletlen hibák, elhasználódás.</li>
+<li>Állandó rátánál az élettartam exponenciális eloszlású (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mi>λ</mi><mi>t</mi></mrow></msup></mrow><annotation encoding="application/x-tex">R = e^{-\lambda t}</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTTF</mtext><mo>=</mo><mn>1</mn><mi>/</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">\text{MTTF} = 1/\lambda</annotation></semantics></math>). A Weibull-eloszlás alakparamétere megmutatja, melyik szakaszban vagyunk.</li>
+<li>Javítható rendszereknél az MTTF, az MTTR és az MTBF jellemzi a működést; a belső rendelkezésre állás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mtext mathvariant="normal">MTTF</mtext><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mtext mathvariant="normal">MTTF</mtext><mo>+</mo><mtext mathvariant="normal">MTTR</mtext><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">A = \text{MTTF}/(\text{MTTF} + \text{MTTR})</annotation></semantics></math>.</li>
+<li>A blokkdiagramon a soros elemek megbízhatósága szorzódik, a párhuzamos elemek hibavalószínűsége szorzódik; a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-ból-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> rendszer binomiálisan számolható. A redundancia hasznát a közös okú hibák csökkentik.</li>
+<li>A hibafa a csúcseseményből lefelé keresi a hibakombinációkat; eredménye a minimális vágathalmazok listája és a csúcsesemény valószínűsége. Az eseményfa a kiinduló eseményből előre követi a védelmi rétegek sikerét és kudarcát. A modellek egymásba alakíthatók.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Egy alkatrész meghibásodási rátája állandó, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>2</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\lambda = 2 \cdot 10^{-4}</annotation></semantics></math> 1/óra. Mennyi az MTTF, és mennyi a valószínűsége, hogy 1000 órát hiba nélkül működik?</li>
+<li>Három gép meghibásodásainak időpontja (óra): 1. gép 500, 1300, 2600, 4300, 6000; 2. gép 800, 1500, 3300, 5000, 7100; 3. gép 400, 1200, 2500, 4000, 5500. A javítási időt elhanyagolva mennyi az egyes gépek MTBF-je?</li>
+<li>Egy gép meghibásodásai között átlagosan 100 óra telik el, a javítási ráta 0,05 1/óra. Mennyi a rendelkezésre állása?</li>
+<li>Két 0,9 megbízhatóságú elem: mennyi a rendszer megbízhatósága sorosan és párhuzamosan?</li>
+<li>Mit jelent a Weibull-eloszlás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\beta = 3</annotation></semantics></math> alakparamétere, és milyen karbantartási következménye van?</li>
+<li>Miért adhat túl optimista eredményt a párhuzamos redundancia képlete?</li>
+<li>Mi a minimális vágathalmaz? Mit jelent, ha egy minimális vágathalmaz egyelemű?</li>
+<li>Miért nem szabad egy ismétlődő eseményt tartalmazó hibafát a kapuk szintjén, a független események képleteivel kiértékelni?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTTF</mtext><mo>=</mo><mn>1</mn><mi>/</mi><mi>λ</mi><mo>=</mo><mn>5000</mn></mrow><annotation encoding="application/x-tex">\text{MTTF} = 1/\lambda = 5000</annotation></semantics></math> óra; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>1000</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>2</mn></mrow></msup><mo>=</mo><mn>0</mn><mo>,</mo><mn>819</mn></mrow><annotation encoding="application/x-tex">R(1000) = e^{-0{,}2} = 0{,}819</annotation></semantics></math>.</li>
+<li>Az utolsó meghibásodás időpontja osztva a hibák számával: 1. gép <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6000</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>1200</mn></mrow><annotation encoding="application/x-tex">6000/5 = 1200</annotation></semantics></math> óra, 2. gép <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7100</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>1420</mn></mrow><annotation encoding="application/x-tex">7100/5 = 1420</annotation></semantics></math> óra, 3. gép <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5500</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>1100</mn></mrow><annotation encoding="application/x-tex">5500/5 = 1100</annotation></semantics></math> óra.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MTTR</mtext><mo>=</mo><mn>1</mn><mi>/</mi><mn>0</mn><mo>,</mo><mn>05</mn><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">\text{MTTR} = 1/0{,}05 = 20</annotation></semantics></math> óra, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mn>100</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>100</mn><mo>+</mo><mn>20</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn><mo>,</mo><mn>833</mn></mrow><annotation encoding="application/x-tex">A = 100/(100 + 20) = 0{,}833</annotation></semantics></math>.</li>
+<li>Sorosan <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>9</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>9</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">0{,}9 \cdot 0{,}9 = 0{,}81</annotation></semantics></math>, párhuzamosan <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>99</mn></mrow><annotation encoding="application/x-tex">1 - 0{,}1 \cdot 0{,}1 = 0{,}99</annotation></semantics></math>.</li>
+<li>A meghibásodási ráta az idővel növekszik (elhasználódás, kopás, kifáradás). Ilyenkor a megelőző csere egy alkalmas üzemidő után csökkenti a hibák számát; állandó rátánál (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\beta = 1</annotation></semantics></math>) a megelőző csere nem segítene.</li>
+<li>Mert a képlet a redundáns elemek független meghibásodását feltételezi, a valóságban viszont közös okok (közös táp, szoftver, környezet, karbantartási hiba) egyszerre több ágat is kiejthetnek.</li>
+<li>Olyan alapesemény-kombináció, amely együtt előidézi a csúcseseményt, és egyik eleme sem hagyható el. Az egyelemű minimális vágathalmaz egypontos hiba: egyetlen esemény önmagában előidézi a csúcseseményt.</li>
+<li>Mert az ismétlődő eseményt tartalmazó ágak nem függetlenek; a kapuszintű képletek a közös eseményt többször, egymástól függetlenként veszik figyelembe, és ezért (ÉS-kapuknál) nagyságrendekkel alábecsülhetik a valószínűséget. A helyes számítás a minimális vágathalmazokból indul.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: megbízhatóság</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>készíts megbízhatósági blokkdiagramot a fő funkcióhoz, és becsüld meg a rendelkezésre állást adatlapok vagy becslések alapján (jelöld az adatok forrását);</li>
+<li>azonosítsd az egypontos hibákat, és vizsgáld meg, hol érdemes redundanciát vagy leromlott üzemmódot tervezni;</li>
+<li>a PHA legsúlyosabb veszélyére készíts hibafát, határozd meg a minimális vágathalmazokat, és értékeld a csúcsesemény valószínűségét;</li>
+<li>egy kiinduló eseményre készíts eseményfát a védelmi rétegekkel;</li>
+<li>használd a Gyakorlati útmutató blokkdiagram-, hibafa- és eseményfa-eszközlapját.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="oconnor2012">O’Connor és Kleyner (<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">2012</a>)</span>: a megbízhatósági mérnökség gyakorlatias tankönyve.</li>
+<li><span class="citation" data-cites="vesely1981">Vesely és mtsai. (<a href="../irodalom.html#ref-vesely1981" role="doc-biblioref">1981</a>)</span>: a hibafa-elemzés klasszikus kézikönyve, szabadon elérhető.</li>
+<li><span class="citation" data-cites="iec61078_2016">IEC (<a href="../irodalom.html#ref-iec61078_2016" role="doc-biblioref">2016</a>)</span>, <span class="citation" data-cites="iec61025_2006">IEC (<a href="../irodalom.html#ref-iec61025_2006" role="doc-biblioref">2006</a>)</span> és <span class="citation" data-cites="iec62502_2010">IEC (<a href="../irodalom.html#ref-iec62502_2010" role="doc-biblioref">2010</a>)</span>: a blokkdiagram, a hibafa és az eseményfa nemzetközi szabványai.</li>
+<li><span class="citation" data-cites="weibull1951">Weibull (<a href="../irodalom.html#ref-weibull1951" role="doc-biblioref">1951</a>)</span>: a Weibull-eloszlás eredeti cikke.</li>
+<li><span class="citation" data-cites="goldberg1994toolbox">Goldberg és mtsai. (<a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">1994</a>)</span>, 3.5–3.9. szakasz: a blokkdiagram, a hibafa, az eseményfa és átalakításaik gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-ericson2015" class="csl-entry" role="listitem">
+Ericson, Clifton A., II. 2015. <em>Hazard Analysis Techniques for System Safety</em>. 2. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, és L. Stout. 1994. <span>„System Engineering <span>»Toolbox«</span> for Design-Oriented Engineers”</span>. NASA Reference Publication 1358. NASA Marshall Space Flight Center.
+</div>
+<div id="ref-iec61025_2006" class="csl-entry" role="listitem">
+IEC. 2006. <span>„<span>IEC</span> 61025:2006 Fault tree analysis (FTA)”</span>. International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec62502_2010" class="csl-entry" role="listitem">
+———. 2010. <span>„<span>IEC</span> 62502:2010 Analysis techniques for dependability – Event tree analysis (ETA)”</span>. International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec61078_2016" class="csl-entry" role="listitem">
+———. 2016. <span>„<span>IEC</span> 61078:2016 Reliability block diagrams”</span>. International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-oconnor2012" class="csl-entry" role="listitem">
+O’Connor, Patrick D. T., és Andre Kleyner. 2012. <em>Practical Reliability Engineering</em>. 5. kiad. Chichester: Wiley.
+</div>
+<div id="ref-vesely1981" class="csl-entry" role="listitem">
+Vesely, William E., Francine F. Goldberg, Norman H. Roberts, és David F. Haasl. 1981. <span>„Fault Tree Handbook”</span>. NUREG-0492. Washington, DC: U.S. Nuclear Regulatory Commission.
+</div>
+<div id="ref-weibull1951" class="csl-entry" role="listitem">
+Weibull, Waloddi. 1951. <span>„A Statistical Distribution Function of Wide Applicability”</span>. <em>Journal of Applied Mechanics</em> 18 (3): 293–97.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/15-fmea.html" class="pagination-link" aria-label="Hibamód- és hatáselemzés (FMEA)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/17-biztonsag.html" class="pagination-link" aria-label="Biztonságkritikus rendszerek">
+        <span class="nav-page-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/16-megbizhatosag.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/16-megbizhatosag.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

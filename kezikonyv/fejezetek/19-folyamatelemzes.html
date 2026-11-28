@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>19&nbsp; Folyamatelemzés és hatékonyság – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/20-bpmn.html" rel="next">
+<link href="../fejezetek/18-robusztus.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/19-folyamatelemzes.html">III. rész – A V csúcsa: megvalósítás és folyamattervezés</a></li><li class="breadcrumb-item"><a href="../fejezetek/19-folyamatelemzes.html"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/19-folyamatelemzes.html">III. rész – A V csúcsa: megvalósítás és folyamattervezés</a></li><li class="breadcrumb-item"><a href="../fejezetek/19-folyamatelemzes.html"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-folyamatelemzes" class="quarto-section-identifier"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-fa-little" id="toc-sec-fa-little" class="nav-link active" data-scroll-target="#sec-fa-little"><span class="header-section-number">19.1.</span> A folyamat alapjellemzői és a Little-törvény</a></li>
+  <li><a href="#sec-fa-kapacitas" id="toc-sec-fa-kapacitas" class="nav-link" data-scroll-target="#sec-fa-kapacitas"><span class="header-section-number">19.2.</span> Kapacitás, szűk keresztmetszet, kihasználtság</a></li>
+  <li><a href="#sec-fa-munkaero" id="toc-sec-fa-munkaero" class="nav-link" data-scroll-target="#sec-fa-munkaero"><span class="header-section-number">19.3.</span> Munkaerő-termelékenység</a></li>
+  <li><a href="#sec-fa-utemido" id="toc-sec-fa-utemido" class="nav-link" data-scroll-target="#sec-fa-utemido"><span class="header-section-number">19.4.</span> Ütemidő és sorkiegyenlítés</a></li>
+  <li><a href="#sec-fa-oee" id="toc-sec-fa-oee" class="nav-link" data-scroll-target="#sec-fa-oee"><span class="header-section-number">19.5.</span> OEE és OLE: a berendezések és a munka hatékonysága</a></li>
+  <li><a href="#sec-fa-ertekaram" id="toc-sec-fa-ertekaram" class="nav-link" data-scroll-target="#sec-fa-ertekaram"><span class="header-section-number">19.6.</span> Értékáram és veszteségek</a></li>
+  <li><a href="#sec-fa-smed" id="toc-sec-fa-smed" class="nav-link" data-scroll-target="#sec-fa-smed"><span class="header-section-number">19.7.</span> A beállítási idő csökkentése: SMED</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/19-folyamatelemzes.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/19-folyamatelemzes.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-folyamatelemzes.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>leírni egy folyamatot az áram, a folyamatidő és a készlet jellemzőivel, és alkalmazni a Little-törvényt;</li>
+<li>meghatározni az erőforrások kapacitását, a szűk keresztmetszetet, a folyamat áramát és az erőforrások kihasználtságát;</li>
+<li>kiszámítani a munkatartalmat, a ciklusidőt és az átlagos munkaerő-kihasználtságot;</li>
+<li>kiszámítani az ütemidőt, Yamazumi-diagrammal értékelni egy szerelősor kiegyenlítettségét, és javaslatot tenni az átrendezésre;</li>
+<li>kiszámítani és értelmezni az OEE-t és az OLE-t, felismerni a hat nagy veszteséget és a mutatók korlátait;</li>
+<li>értékáram-térképpel feltárni a veszteségeket, és a SMED módszerével csökkenteni a beállítási időt.</li>
+</ul>
+</div></div>
+<p>A V-modell csúcsán a tervekből valóság lesz. Ha a fejlesztés tárgya maga egy gyártó- vagy szolgáltatófolyamat (egy szerelősor, egy javítóműhely, egy rendelésteljesítési lánc), a megvalósítás magja a folyamat megtervezése és méretezése. Az ISO/IEC/IEEE 15288 megvalósítási folyamata a rendszerelemek legyártását, beszerzését vagy újrafelhasználását és a gyártás előkészítését foglalja magában <span class="citation" data-cites="iso15288_2023 nasa2016seh">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.7</a>. szakasz; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 5.1</a>. szakasz)</span>. A folyamat megtervezésének és javításának alapeszköze a folyamatábra: láthatóvá teszi a folyamat lépéseit és azok kapcsolatát, és segít kiszűrni a nem értékteremtő lépéseket <span class="citation" data-cites="rother1999 goldberg1994toolbox">(<a href="../irodalom.html#ref-rother1999" role="doc-biblioref">Rother és Shook 1999</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 7.15–16</a>. szakasz)</span>.</p>
+<p>A fejezet a műveletmenedzsment alapfogalmaira épül <span class="citation" data-cites="cachon2013 hopp2008 lakatos_termelesi">(<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">Cachon és Terwiesch 2013</a>; <a href="../irodalom.html#ref-hopp2008" role="doc-biblioref">Hopp és Spearman 2008</a>; <a href="../irodalom.html#ref-lakatos_termelesi" role="doc-biblioref">Lakatos, é. n.</a>)</span>, és öt kérdésre keres választ:</p>
+<ul>
+<li>Mennyi egység halad át a folyamaton, mennyi ideig tart, és mennyi van belőle egyszerre a rendszerben?</li>
+<li>Melyik erőforrás korlátozza a teljesítményt, és mennyire használjuk ki a többit?</li>
+<li>Elég gyors-e a folyamat a vevői igényhez, és egyenletesen oszlik-e meg a munka?</li>
+<li>Mennyi veszteség keletkezik a berendezéseken és a munkában?</li>
+<li>Hol várakozik a termék, és hogyan rövidíthető az átfutás?</li>
+</ul>
+<section id="sec-fa-little" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="sec-fa-little"><span class="header-section-number">19.1.</span> A folyamat alapjellemzői és a Little-törvény</h2>
+<p>Egy folyamatot három alapjellemzővel írunk le <span class="citation" data-cites="cachon2013">(<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">Cachon és Terwiesch 2013, 2</a>. fejezet)</span>:</p>
+<ul>
+<li><strong>áram</strong> (átbocsátás, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>): az egységnyi idő alatt a folyamaton áthaladó egységek száma;</li>
+<li><strong>folyamatidő</strong> (átfutási idő, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>): az az átlagos idő, amelyet egy egység a belépéstől a kilépésig a folyamatban tölt;</li>
+<li><strong>készlet</strong> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>): az adott időpontban a folyamatban lévő egységek száma.</li>
+</ul>
+<p>Az áramló egység a vizsgálat céljától függ: lehet munkadarab, rendelés, kerékpár, vevő vagy egy ügyirat. A három jellemzőt a <strong>Little-törvény</strong> kapcsolja össze (<a href="#fig-folyamat-little" class="quarto-xref"><span>19.1</span></a>. ábra):</p>
+<p><span id="eq-little"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mi>R</mi><mo>⋅</mo><mi>T</mi><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+I = R \cdot T.
+ \qquad(19.1)</annotation></semantics></math></span></p>
+<div id="fig-folyamat-little" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-folyamat-little-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/folyamat-little.svg" class="img-fluid figure-img" style="width:72.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-folyamat-little-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.1. ábra.</span> A folyamat három alapjellemzője és a Little-törvény.
+</figcaption>
+</figure>
+</div>
+<p>Little 1961-ben bizonyította, hogy az összefüggés stabil rendszerben a hosszú távú átlagokra érvényes, és nem függ az érkezések és a kiszolgálások eloszlásától, sem a kiszolgálás sorrendjétől <span class="citation" data-cites="little1961">(<a href="../irodalom.html#ref-little1961" role="doc-biblioref">Little 1961</a>)</span>. Ötven évvel később összegezte a törvény gyakorlati alkalmazásait: a műveletmenedzsmentben azért használják ilyen széles körben, mert a három mennyiség közül kettő mérésével a harmadik számítható <span class="citation" data-cites="little2011">(<a href="../irodalom.html#ref-little2011" role="doc-biblioref">Little 2011</a>)</span>. A törvény a rendszer határától függ: ugyanaz az összefüggés érvényes egy gépre, egy műhelyre vagy a teljes rendelésteljesítési láncra, ha a három mennyiséget ugyanarra a határra mérjük. Az egységeknek is egyezniük kell: ha az áram rendelés/nap, a folyamatidő napban adódik.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: miért tart tíz napig egy rendelés?</div><div class="doboz-tartalom">
+<p>A ForgácsTech üzemében egy átlagos hétköznapon 60 rendelés van folyamatban (a gyártáselőkészítéstől a kiszállításig), és naponta átlagosan 6 rendelés készül el. A Little-törvény szerint egy rendelés átlagosan <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">60/6 = 10</annotation></semantics></math> munkanapot tölt az üzemben. A vevő által elfogadható átfutás 5 munkanap. Ha az áram nem változik, ehhez a folyamatban lévő rendelések számát 30-ra kell csökkenteni. Ez nem gyorsabb gépeket igényel, hanem azt, hogy kevesebb rendelés várakozzon egyszerre: a rendelések kiadását a kapacitáshoz kell igazítani (<a href="21-utemezes.html" class="quarto-xref"><span>21</span></a>. fejezet). A számítás azt is megmutatja, miért keletkezik a késések fele a beállításnál és az anyagbeszerzésnél (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet): a rendelések az idejük nagy részét nem megmunkálással, hanem várakozással töltik (<a href="#sec-fa-ertekaram" class="quarto-xref"><span>19.6</span></a>. szakasz).</p>
+</div></div>
+</section>
+<section id="sec-fa-kapacitas" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="sec-fa-kapacitas"><span class="header-section-number">19.2.</span> Kapacitás, szűk keresztmetszet, kihasználtság</h2>
+<p>Egy erőforrás <strong>kapacitása</strong> az az áram, amelyet akkor teljesítene, ha folyamatosan dolgozna. Ha az erőforráson <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>i</mi></msub><annotation encoding="application/x-tex">m_i</annotation></semantics></math> párhuzamos egység (dolgozó vagy gép) dolgozik, és egy egység feldolgozása <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_i</annotation></semantics></math> ideig tart, a kapacitás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>i</mi></msub><mo>=</mo><msub><mi>m</mi><mi>i</mi></msub><mi>/</mi><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">K_i = m_i / p_i</annotation></semantics></math>. A folyamat kapacitását a legkisebb kapacitású erőforrás, a <strong>szűk keresztmetszet</strong> határozza meg. A folyamat tényleges árama a kereslet és a folyamatkapacitás közül a kisebb, egy erőforrás <strong>kihasználtsága</strong> pedig a tényleges áram és a kapacitás hányadosa <span class="citation" data-cites="cachon2013">(<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">Cachon és Terwiesch 2013, 3</a>. fejezet)</span>:</p>
+<p><span id="eq-kapacitas"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>K</mi><mi>i</mi></msub><mo>=</mo><mfrac><msub><mi>m</mi><mi>i</mi></msub><msub><mi>p</mi><mi>i</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>R</mi><mo>=</mo><mo>min</mo><mrow><mo stretchy="true" form="prefix">{</mo><mi>D</mi><mo>,</mo><mspace width="0.222em"></mspace><munder><mo>min</mo><mi>i</mi></munder><msub><mi>K</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">}</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>u</mi><mi>i</mi></msub><mo>=</mo><mfrac><mi>R</mi><msub><mi>K</mi><mi>i</mi></msub></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+K_i = \frac{m_i}{p_i}, \qquad R = \min\left\{D,\ \min_i K_i\right\}, \qquad u_i = \frac{R}{K_i}.
+ \qquad(19.2)</annotation></semantics></math></span></p>
+<p>Ha a kereslet meghaladja a folyamatkapacitást, a folyamat <strong>kapacitáskorlátos</strong>, és a szűk keresztmetszet kihasználtsága 100%. Ha a kereslet kisebb, a folyamat <strong>keresletkorlátos</strong>, és minden erőforrásnak van szabad kapacitása. A szűk keresztmetszet szemléletét Goldratt tette ismertté: a rendszer teljesítményét a korlátozó erőforrás szabja meg, ezért a szűk keresztmetszeten elvesztett idő az egész rendszer számára elveszett, a többi erőforráson megtakarított idő viszont nem növeli a kibocsátást <span class="citation" data-cites="goldratt1984">(<a href="../irodalom.html#ref-goldratt1984" role="doc-biblioref">Goldratt és Cox 1984</a>)</span>. A fejlesztést tehát a szűk keresztmetszeten kell kezdeni, és minden javítás után újra meg kell vizsgálni, hol van a korlát.</p>
+<p>Összetett folyamatokban, ahol több terméktípus különböző útvonalon halad, az elemzés lépései a következők <span class="citation" data-cites="cachon2013">(<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">Cachon és Terwiesch 2013, 3</a>. fejezet)</span>:</p>
+<ol type="1">
+<li>a folyamatábra elkészítése: hogyan áramlik az egység az erőforrásokon át;</li>
+<li>minden erőforrás kapacitásának meghatározása;</li>
+<li>az egységek munkaigényének táblázatos összesítése erőforrásonként és terméktípusonként;</li>
+<li>az igények összesítése erőforrásonként;</li>
+<li>a származtatott kihasználtság számítása: az összesített igény és a kapacitás hányadosa; a legnagyobb értékű erőforrás a szűk keresztmetszet.</li>
+</ol>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: a javítóműhely kapacitása</div><div class="doboz-tartalom">
+<p>A VárosiBringa javítóműhelyébe naponta átlagosan 40 kerékpár érkezik egy 7,5 órás műszakban, azaz a kereslet <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>=</mo><mn>5</mn><mo>,</mo><mn>33</mn></mrow><annotation encoding="application/x-tex">D = 5{,}33</annotation></semantics></math> db/h. Minden kerékpár öt lépésen halad át (<a href="#fig-kapacitas-szerviz" class="quarto-xref"><span>19.2</span></a>. ábra). A fékjavításon két szerelő dolgozik párhuzamosan, a többi lépésen egy-egy. A kapacitások: átvétel és diagnosztika <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>6</mn><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">60/6 = 10</annotation></semantics></math> db/h, mosás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>4</mn><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">60/4 = 15</annotation></semantics></math> db/h, fékjavítás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>60</mn><mi>/</mi><mn>14</mn><mo>=</mo><mn>8</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">2 \cdot 60/14 = 8{,}6</annotation></semantics></math> db/h, hajtáslánc <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>9</mn><mo>=</mo><mn>6</mn><mo>,</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">60/9 = 6{,}7</annotation></semantics></math> db/h, végellenőrzés <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">60/5 = 12</annotation></semantics></math> db/h. A szűk keresztmetszet a hajtáslánc-javítás, a folyamatkapacitás 6,7 db/h, azaz műszakonként 50 kerékpár. A folyamat keresletkorlátos: az áram 5,33 db/h, a hajtásláncon dolgozó szerelő kihasználtsága 80%, a mosóé csak 36%.</p>
+<p>A műhelyvezető úgy tervezte, hogy a nyári csúcsban, napi 55 kerékpárnál (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>,</mo><mn>33</mn></mrow><annotation encoding="application/x-tex">7{,}33</annotation></semantics></math> db/h) egy második mosóberendezést állít be. A számítás szerint ez semmit nem javítana: a csúcsban a hajtáslánc-javítás kapacitása (6,7 db/h) lesz kevés. A második mosó helyett a hajtáslánc-javítás egy részét (a lánc tisztítását és kenését, 3 perc) a mosóhoz csoportosították át. Ekkor a hajtáslánc ideje 6 percre, kapacitása 10 db/h-ra nő, a mosásé 7 percre nő, kapacitása 8,6 db/h-ra csökken, és az új szűk keresztmetszet a fékjavítás és a mosás 8,6 db/h-val: ez a csúcsigényt is fedezi.</p>
+<div id="fig-kapacitas-szerviz" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kapacitas-szerviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/kapacitas-szerviz.svg" class="img-fluid figure-img" style="width:96.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kapacitas-szerviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.2. ábra.</span> A VárosiBringa javítóműhelyének kapacitásai és a kereslet. A szűk keresztmetszet a hajtáslánc-javítás.
+</figcaption>
+</figure>
+</div>
+</div></div>
+<p>A kihasználtság nem lehet tartósan 100%. Ha az érkezések és a feldolgozási idők ingadoznak, a várakozási idő a kihasználtság növekedésével egyre gyorsabban nő, és a teljes kihasználtság közelében korlátlanul megnő <span class="citation" data-cites="hopp2008">(<a href="../irodalom.html#ref-hopp2008" role="doc-biblioref">Hopp és Spearman 2008, 8</a>. fejezet)</span>. Ezt a sorbanállási modellek segítségével a <a href="21-utemezes.html" class="quarto-xref"><span>21</span></a>. fejezet vizsgálja.</p>
+</section>
+<section id="sec-fa-munkaero" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="sec-fa-munkaero"><span class="header-section-number">19.3.</span> Munkaerő-termelékenység</h2>
+<p>A gépek mellett a munka hatékonyságát is mérni kell. A <strong>munkatartalom</strong> egy egység elkészítéséhez szükséges összes kézi munka ideje, a <strong>ciklusidő</strong> két egymást követő egység elkészülése között eltelt idő, azaz az áram reciproka (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>T</mi><mo>=</mo><mn>1</mn><mi>/</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">CT = 1/R</annotation></semantics></math>). Ha egy erőforráson <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>m</mi><mi>i</mi></msub><annotation encoding="application/x-tex">m_i</annotation></semantics></math> dolgozó dolgozik, és az erőforrás munkaigénye egységenként <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_i</annotation></semantics></math>, egy ciklus alatt a dolgozóknak <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>m</mi><mi>i</mi></msub><mo>⋅</mo><mi>C</mi><mi>T</mi><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">m_i \cdot CT - p_i</annotation></semantics></math> kihasználatlan ideje marad. Az <strong>átlagos munkaerő-kihasználtság</strong> a munkatartalom és a ciklusonként fizetett teljes munkaidő hányadosa <span class="citation" data-cites="cachon2013">(<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">Cachon és Terwiesch 2013, 4</a>. fejezet)</span>:</p>
+<p><span id="eq-munkaero"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>u</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mrow><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>p</mi><mi>i</mi></msub></mrow><mrow><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>p</mi><mi>i</mi></msub><mo>+</mo><munder><mo>∑</mo><mi>i</mi></munder><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>m</mi><mi>i</mi></msub><mo>⋅</mo><mi>C</mi><mi>T</mi><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>=</mo><mfrac><mrow><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>p</mi><mi>i</mi></msub></mrow><mrow><mi>C</mi><mi>T</mi><mo>⋅</mo><munder><mo>∑</mo><mi>i</mi></munder><msub><mi>m</mi><mi>i</mi></msub></mrow></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.3</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\bar{u} = \frac{\sum_i p_i}{\sum_i p_i + \sum_i \left( m_i \cdot CT - p_i \right)} = \frac{\sum_i p_i}{CT \cdot \sum_i m_i}.
+ \qquad(19.3)</annotation></semantics></math></span></p>
+<p>A VárosiBringa műhelyében a munkatartalom <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn><mo>+</mo><mn>4</mn><mo>+</mo><mn>14</mn><mo>+</mo><mn>9</mn><mo>+</mo><mn>5</mn><mo>=</mo><mn>38</mn></mrow><annotation encoding="application/x-tex">6 + 4 + 14 + 9 + 5 = 38</annotation></semantics></math> perc, a ciklusidő <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mn>5</mn><mo>,</mo><mn>33</mn><mo>=</mo><mn>11</mn><mo>,</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">1/5{,}33 = 11{,}25</annotation></semantics></math> perc, a dolgozók száma 6. Az átlagos munkaerő-kihasználtság <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>38</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>11</mn><mo>,</mo><mn>25</mn><mo>⋅</mo><mn>6</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>56</mn><mo>,</mo><mn>3</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">38 / (11{,}25 \cdot 6) = 56{,}3\%</annotation></semantics></math>, azaz a fizetett munkaidő 44%-a kihasználatlan. A közvetlen munkaerőköltség egy kerékpárra a ciklusidő, a létszám és az órabér szorzata, és nem a munkatartalomé: a kihasználatlan időt is ki kell fizetni. A munkaerőköltség egy termék teljes költségében első ránézésre kicsi, de a beszállítói láncon végigösszegezve meghatározó lehet, ezért a munkaerő-termelékenység javítása a beszállítói lánc minden szintjén fontos.</p>
+</section>
+<section id="sec-fa-utemido" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="sec-fa-utemido"><span class="header-section-number">19.4.</span> Ütemidő és sorkiegyenlítés</h2>
+<p>Ha a folyamatnak a vevői igényt kell követnie, a tervezés kiindulópontja az <strong>ütemidő</strong> (takt time): a rendelkezésre álló termelési idő és a kereslet hányadosa, vagyis az az idő, amely egy termék előállítására a vevői igény szerint jut <span class="citation" data-cites="rother1999">(<a href="../irodalom.html#ref-rother1999" role="doc-biblioref">Rother és Shook 1999</a>)</span>:</p>
+<p><span id="eq-utemido"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>T</mi><mo>=</mo><mfrac><mtext mathvariant="normal">rendelkezésre álló termelési idő</mtext><mtext mathvariant="normal">kereslet</mtext></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+TT = \frac{\text{rendelkezésre álló termelési idő}}{\text{kereslet}}.
+ \qquad(19.4)</annotation></semantics></math></span></p>
+<p>Az ütemidőt a <strong>ciklusidővel</strong> vetjük össze, amely egy művelet vagy egy állomás tényleges időigénye. Ha egy állomás ciklusideje nagyobb az ütemidőnél, a sor nem tudja kiszolgálni az igényt; ha jóval kisebb, az állomáson várakozás és kihasználatlan munkaidő keletkezik. A <strong>sorkiegyenlítés</strong> (line balancing) célja, hogy a műveleteket úgy osszuk el az állomások között, hogy egyik állomás ideje se haladja meg az ütemidőt, és a munka a lehető legegyenletesebben oszoljon meg. Az elméletileg szükséges legkisebb állomásszám és a kiegyenlítés hatásfoka:</p>
+<p><span id="eq-kiegyenlites"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mo>min</mo></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">⌈</mo><mfrac><mrow><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>t</mi><mi>j</mi></msub></mrow><mrow><mi>T</mi><mi>T</mi></mrow></mfrac><mo stretchy="true" form="postfix">⌉</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>η</mi><mo>=</mo><mfrac><mrow><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>t</mi><mi>j</mi></msub></mrow><mrow><mi>N</mi><mo>⋅</mo><mi>c</mi></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.5</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+N_{\min} = \left\lceil \frac{\sum_j t_j}{TT} \right\rceil, \qquad \eta = \frac{\sum_j t_j}{N \cdot c},
+ \qquad(19.5)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>j</mi></msub><annotation encoding="application/x-tex">t_j</annotation></semantics></math> a műveletek ideje, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> az állomások száma és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> a legnagyobb állomásidő. A műveletek sorrendi kötöttségei (előbb kell a rotort beszerelni, mint tesztelni) miatt az elméleti minimum nem mindig érhető el. A feladat két alapváltozata a legkevesebb állomás keresése adott ütemidőre és a legkisebb ciklusidő keresése adott állomásszámra. Mindkettő kombinatorikus optimalizálási feladat, amelyre pontos és heurisztikus eljárások egyaránt léteznek <span class="citation" data-cites="scholl2006">(<a href="../irodalom.html#ref-scholl2006" role="doc-biblioref">Scholl és Becker 2006</a>)</span>.</p>
+<p>A <strong>Yamazumi-diagram</strong> (japánul: halmozott) a sorkiegyenlítés szemléletes eszköze: állomásonként egy halmozott oszlopot rajzol, amelyben az egyes műveletek vagy időfajták (kézi munka, gépi idő, gyaloglás, várakozás) egymásra rakódnak, és vízszintes vonal jelöli az ütemidőt. Egy pillantással látszik, melyik állomás lépi túl az ütemidőt, és hol van tartalék.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a szerelősor kiegyenlítése</div><div class="doboz-tartalom">
+<p>A KoboCella egy ötállomásos motorszerelő sor harmadik állomása. A sor két műszakban, évi 3450 órában dolgozik, és évi 140 ezer motort kell gyártania, így az ütemidő 88,7 s. A tervezett 85%-os berendezéshatékonyság miatt egyik állomás ciklusideje sem lehet nagyobb 75 s-nál (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet). A <a href="#fig-yamazumi-kobo" class="quarto-xref"><span>19.3</span></a>. ábra az állomások idejét mutatja; a KoboCella oszlopa a helyszíni átvételen mért 74,1 s, amelyből 18 s a kezelő kézi munkája.</p>
+<div id="fig-yamazumi-kobo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-yamazumi-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/yamazumi-kobo.svg" class="img-fluid figure-img" style="width:92.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-yamazumi-kobo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.3. ábra.</span> A KoboCella-sor Yamazumi-diagramja. Az ütemidő 88,7 s, a 85%-os berendezéshatékonyságból adódó ciklusidő-korlát 75 s.
+</figcaption>
+</figure>
+</div>
+<p>A munkatartalom <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>70</mn><mo>+</mo><mn>62</mn><mo>+</mo><mn>74</mn><mo>,</mo><mn>1</mn><mo>+</mo><mn>72</mn><mo>+</mo><mn>35</mn><mo>=</mo><mn>313</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">70 + 62 + 74{,}1 + 72 + 35 = 313{,}1</annotation></semantics></math> s, az elméleti minimum <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">⌈</mo><mn>313</mn><mo>,</mo><mn>1</mn><mi>/</mi><mn>88</mn><mo>,</mo><mn>7</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\lceil 313{,}1 / 88{,}7 \rceil = 4</annotation></semantics></math> állomás. A szűk keresztmetszet a KoboCella 74,1 s-mal, a sor kapacitása <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3600</mn><mi>/</mi><mn>74</mn><mo>,</mo><mn>1</mn><mo>=</mo><mn>48</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3600/74{,}1 = 48{,}6</annotation></semantics></math> motor/óra, az igény <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3600</mn><mi>/</mi><mn>88</mn><mo>,</mo><mn>7</mn><mo>=</mo><mn>40</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3600/88{,}7 = 40{,}6</annotation></semantics></math> motor/óra. Minden állomás a 75 s-os korlát alatt marad, de a KoboCella tartaléka mindössze 0,9 s: a cella ciklusidejének bármilyen romlása az egész sor kibocsátását veszélyezteti, ezért a cella ciklusidejét a gyártás során is folyamatosan követni kell. A kiegyenlítés hatásfoka <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>313</mn><mo>,</mo><mn>1</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>5</mn><mo>⋅</mo><mn>74</mn><mo>,</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>84</mn><mo>,</mo><mn>5</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">313{,}1 / (5 \cdot 74{,}1) = 84{,}5\%</annotation></semantics></math>.</p>
+<p>A diagram a kézi munka és a gépi idő szétválasztásával többet mutat a puszta állomásidőknél. A harmadik, negyedik és ötödik állomás kezelőjének kézi munkája együtt <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><mo>+</mo><mn>12</mn><mo>+</mo><mn>35</mn><mo>=</mo><mn>65</mn></mrow><annotation encoding="application/x-tex">18 + 12 + 35 = 65</annotation></semantics></math> s, ami az ütemidőn belül marad, mert a kobot és a tesztberendezés a kezelő nélkül is dolgozik. A csapat ezért azt vizsgálta, átveheti-e a KoboCella kezelője a csomagolást is: ekkor kézi terhelése <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><mo>+</mo><mn>35</mn><mo>=</mo><mn>53</mn></mrow><annotation encoding="application/x-tex">18 + 35 = 53</annotation></semantics></math> s lenne ütemenként, azaz az ütemidő 60%-a, a sor létszáma pedig ötről négyre csökkenne. A változtatást a csapat csak az elrendezés módosítása (a csomagolóasztal a cella kiadóoldalára kerül) és a terhelés ismételt mérése után vezette be (<a href="11-emberkozpontu.html#sec-ek-meres" class="quarto-xref"><span>11.6</span></a>. szakasz). A kezelő kis lekötöttsége ugyanis nem csak tartalék: a felügyeleti feladat és a zavarelhárítás figyelmet igényel, és a leromlott üzemben a kezelőnek kell átvennie a cella egyes feladatait (<a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet).</p>
+</div></div>
+</section>
+<section id="sec-fa-oee" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="sec-fa-oee"><span class="header-section-number">19.5.</span> OEE és OLE: a berendezések és a munka hatékonysága</h2>
+<p>A <strong>teljes eszközhatékonyság</strong> (Overall Equipment Effectiveness, OEE) Nakajima teljes körű hatékony karbantartási (TPM) koncepciójának mérőszáma. Azt méri, hogy a tervezett üzemidőből mennyi fordítódik ténylegesen jó termék előállítására a gép elméleti sebességével. A veszteségeket hat csoportba sorolja, ezek a <strong>hat nagy veszteség</strong> <span class="citation" data-cites="nakajima1988">(<a href="../irodalom.html#ref-nakajima1988" role="doc-biblioref">Nakajima 1988</a>)</span>:</p>
+<ul>
+<li><strong>állásidő-veszteségek:</strong> (1) meghibásodások és (2) beállítás, átállás;</li>
+<li><strong>sebességveszteségek:</strong> (3) üresjárat és kisebb leállások, (4) csökkentett sebesség;</li>
+<li><strong>minőségi veszteségek:</strong> (5) selejt és utómunka, (6) indítási (felfutási) veszteségek.</li>
+</ul>
+<p>A három veszteségcsoportnak egy-egy tényező felel meg, és az OEE ezek szorzata:</p>
+<p><span id="eq-oee"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">OEE</mtext><mo>=</mo><mi>A</mi><mo>⋅</mo><mi>P</mi><mo>⋅</mo><mi>Q</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>A</mi><mo>=</mo><mfrac><msub><mi>T</mi><mi mathvariant="normal">m</mi></msub><msub><mi>T</mi><mi mathvariant="normal">t</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>P</mi><mo>=</mo><mfrac><mrow><msub><mi>t</mi><mi mathvariant="normal">i</mi></msub><mo>⋅</mo><mi>n</mi></mrow><msub><mi>T</mi><mi mathvariant="normal">m</mi></msub></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mi>Q</mi><mo>=</mo><mfrac><msub><mi>n</mi><mi mathvariant="normal">j</mi></msub><mi>n</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.6</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{OEE} = A \cdot P \cdot Q, \qquad A = \frac{T_\mathrm{m}}{T_\mathrm{t}}, \qquad P = \frac{t_\mathrm{i} \cdot n}{T_\mathrm{m}}, \qquad Q = \frac{n_\mathrm{j}}{n},
+ \qquad(19.6)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi mathvariant="normal">t</mi></msub><annotation encoding="application/x-tex">T_\mathrm{t}</annotation></semantics></math> a tervezett üzemidő, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>T</mi><mi mathvariant="normal">m</mi></msub><annotation encoding="application/x-tex">T_\mathrm{m}</annotation></semantics></math> a tényleges működési idő, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi mathvariant="normal">i</mi></msub><annotation encoding="application/x-tex">t_\mathrm{i}</annotation></semantics></math> az ideális ciklusidő, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> a legyártott és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>n</mi><mi mathvariant="normal">j</mi></msub><annotation encoding="application/x-tex">n_\mathrm{j}</annotation></semantics></math> a jó darabok száma. A szorzat egyszerűsítve a jó darabok ideális gyártási idejének és a tervezett üzemidőnek a hányadosa: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">OEE</mtext><mo>=</mo><msub><mi>t</mi><mi mathvariant="normal">i</mi></msub><mo>⋅</mo><msub><mi>n</mi><mi mathvariant="normal">j</mi></msub><mi>/</mi><msub><mi>T</mi><mi mathvariant="normal">t</mi></msub></mrow><annotation encoding="application/x-tex">\text{OEE} = t_\mathrm{i} \cdot n_\mathrm{j} / T_\mathrm{t}</annotation></semantics></math>. A szakirodalom Nakajimára hivatkozva adja meg azokat az ideális értékeket, amelyek mellett a gép kiemelkedően hatékonynak tekinthető: rendelkezésre állás 90% felett, teljesítmény 95% felett, minőség 99% felett, ami mintegy 85%-os OEE-t ad <span class="citation" data-cites="nakajima1988">(<a href="../irodalom.html#ref-nakajima1988" role="doc-biblioref">Nakajima 1988</a>)</span>. A KoboCella követelményeiben rögzített 85%-os berendezéshatékonyság (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet) ezt a szintet célozza.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: az OEE-vízesés</div><div class="doboz-tartalom">
+<p>A ForgácsTech az M3 koncepció első ütemében gépi adatgyűjtést és OEE-monitorozást vezetett be (<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet). Az egyik többtengelyes megmunkáló központ első négy hetének műszakonkénti átlagát a <a href="#fig-oee-vizeses" class="quarto-xref"><span>19.4</span></a>. ábra mutatja. A 450 perces tervezett üzemidőből 96 percet vitt el két átállás és 20 percet a meghibásodások, így a rendelkezésre állás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>334</mn><mi>/</mi><mn>450</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>742</mn></mrow><annotation encoding="application/x-tex">334/450 = 0{,}742</annotation></semantics></math>. A gép műszakonként 70 darabot gyártott; ideális ciklusideje 4 perc, így a teljesítménytényező <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>70</mn><mo>⋅</mo><mn>4</mn><mi>/</mi><mn>334</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>838</mn></mrow><annotation encoding="application/x-tex">70 \cdot 4 / 334 = 0{,}838</annotation></semantics></math>. A 70 darabból 66 volt jó, a minőségi tényező <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>943</mn></mrow><annotation encoding="application/x-tex">0{,}943</annotation></semantics></math>. Az OEE <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>742</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>838</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>943</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>587</mn></mrow><annotation encoding="application/x-tex">0{,}742 \cdot 0{,}838 \cdot 0{,}943 = 0{,}587</annotation></semantics></math>: a tervezett üzemidőnek csak 59%-a jelent jó terméket. A legnagyobb veszteség az átállás; ezt a <a href="#sec-fa-smed" class="quarto-xref"><span>19.7</span></a>. szakasz vizsgálja.</p>
+<div id="fig-oee-vizeses" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-oee-vizeses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/oee-vizeses.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oee-vizeses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.4. ábra.</span> A ForgácsTech megmunkáló központjának OEE-vízesése egy műszakra (perc).
+</figcaption>
+</figure>
+</div>
+</div></div>
+<p>Az OEE népszerűségét egyszerűsége adja, korlátait azonban ismerni kell. Muchiri és Pintelon irodalmi áttekintése szerint a mutató egyetlen gépre vonatkozik, és nem mutatja meg a gépek egymásra hatását; a három tényezőt egyenlő súllyal kezeli; értéke erősen függ az adatgyűjtés pontosságát (a kézzel rögzített kisebb leállások például gyakran kimaradnak); és mivel az üzemek céljai különböznek, nincs mindenhol érvényes viszonyítási érték. Kis sorozatú egyedi gyártásban a mutató kevésbé hasznos, pufferekkel tagolt folyamatokban pedig át kell értelmezni <span class="citation" data-cites="muchiri2008">(<a href="../irodalom.html#ref-muchiri2008" role="doc-biblioref">Muchiri és Pintelon 2008</a>)</span>. A ForgácsTech esetében ezért az OEE-t a gépek saját korábbi értékeihez hasonlítják, és nem iparági átlagokhoz; a szűk keresztmetszetként működő gépek OEE-je fontosabb, mint a többié. Ha a tervezett üzemidőt a naptári időhöz viszonyítjuk, a teljes effektív eszközteljesítmény (TEEP) azt is megmutatja, mennyi kapacitást hagyunk kihasználatlanul a műszakrend miatt <span class="citation" data-cites="muchiri2008">(<a href="../irodalom.html#ref-muchiri2008" role="doc-biblioref">Muchiri és Pintelon 2008</a>)</span>.</p>
+<p>Az OEE gondolata a munkára is kiterjeszthető. A <strong>teljes munkaerő-hatékonyság</strong> (Overall Labour Effectiveness, OLE) a munkaerő rendelkezésre állásának, teljesítményének és minőségének szorzata: a rendelkezésre állást a távollétek, a várakozás és a szervezési veszteségek, a teljesítményt a normaidőhöz viszonyított lassúság, a minőséget az utómunka csökkenti. Braglia és szerzőtársai bírálták a mutató hagyományos formáját, mert a veszteségek egy része nehezen mérhető, és olyan veszteségstruktúrát javasoltak, amely közvetlenül mérhető mennyiségekre épül, és a szakaszos gyártásban is alkalmazható <span class="citation" data-cites="braglia2021ole">(<a href="../irodalom.html#ref-braglia2021ole" role="doc-biblioref">Braglia és mtsai. 2021</a>)</span>. A VárosiBringa műhelyének egyik szerelője egy 450 perces műszakban 405 percig dolgozhatott (a többi idő megbeszélésre és alkatrészre várásra ment el), a 405 perc alatt elvégzett munkák normaideje 340 perc volt, és a javítások 95%-a elsőre sikerült. Ekkor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">OLE</mtext><mo>=</mo><mn>0</mn><mo>,</mo><mn>90</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>84</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>95</mn><mo>≈</mo><mn>0</mn><mo>,</mo><mn>72</mn></mrow><annotation encoding="application/x-tex">\text{OLE} = 0{,}90 \cdot 0{,}84 \cdot 0{,}95 \approx 0{,}72</annotation></semantics></math>. A mutató értelme nem a dolgozók rangsorolása, hanem a munkaszervezési veszteségek feltárása: a 45 perces várakozás oka az alkatrész-ellátásban van, nem a szerelőben.</p>
+</section>
+<section id="sec-fa-ertekaram" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="sec-fa-ertekaram"><span class="header-section-number">19.6.</span> Értékáram és veszteségek</h2>
+<p>A Toyota termelési rendszerének egyik alapgondolata, hogy a termelésben minden tevékenység vagy értéket teremt a vevő számára, vagy veszteség. Ohno hét veszteségfajtát különböztetett meg: a túltermelést, a várakozást, a szállítást, a felesleges feldolgozást, a készletet, a felesleges mozgást és a hibás termék előállítását <span class="citation" data-cites="ohno1988">(<a href="../irodalom.html#ref-ohno1988" role="doc-biblioref">Ohno 1988</a>)</span>. Közülük a túltermelést tartotta a legsúlyosabbnak, mert a többi veszteséget eltakarja.</p>
+<p>Az <strong>értékáram-térkép</strong> (value stream mapping, VSM) a termék útját ábrázolja a nyersanyagtól a vevőig: a folyamatlépéseket, az anyag- és információáramlást, a lépések közötti készleteket, és alul egy lépcsős idővonalon a várakozási és a műveleti időket <span class="citation" data-cites="rother1999">(<a href="../irodalom.html#ref-rother1999" role="doc-biblioref">Rother és Shook 1999</a>)</span>. Az idővonalból számítható a <strong>folyamathatékonyság</strong>, a műveleti idő és az átfutási idő hányadosa:</p>
+<p><span id="eq-pce"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">PCE</mtext><mo>=</mo><mfrac><mrow><mo>∑</mo><msub><mi>T</mi><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">ű</mi><mi mathvariant="normal">v</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">t</mi></mrow></msub></mrow><msub><mi>T</mi><mrow><mi mathvariant="normal">á</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">f</mi><mi mathvariant="normal">u</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">á</mi><mi mathvariant="normal">s</mi></mrow></msub></mfrac><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>19.7</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\text{PCE} = \frac{\sum T_\mathrm{művelet}}{T_\mathrm{átfutás}}.
+ \qquad(19.7)</annotation></semantics></math></span></p>
+<p>Rother és Shook módszerében a térképezés két lépésből áll: először a jelenlegi állapotot rajzoljuk fel a gyártótérben mért adatokkal, majd a jövőbeli állapotot tervezzük meg, amelyben a termék a lehető legkevesebb várakozással, a vevői ütemhez igazodva áramlik <span class="citation" data-cites="rother1999">(<a href="../irodalom.html#ref-rother1999" role="doc-biblioref">Rother és Shook 1999</a>)</span>. A térkép elkészítésének lépéseit a Gyakorlati útmutató folyamatábra- és értékáramtérkép-eszközlapja mutatja be.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: a rendelés értékárama</div><div class="doboz-tartalom">
+<p>A ForgácsTech csapata egy jellemző rendelés útját térképezte fel (<a href="#fig-ertekaram-forgacs" class="quarto-xref"><span>19.5</span></a>. ábra). A hat lépés műveleti ideje együtt 5,8 óra, a lépések előtti várakozás együtt 10 munkanap, ami két műszakkal 150 óra. A folyamathatékonyság <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mo>,</mo><mn>8</mn><mi>/</mi><mn>150</mn><mo>=</mo><mn>3</mn><mo>,</mo><mn>9</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">5{,}8/150 = 3{,}9\%</annotation></semantics></math>: a rendelés az idejének több mint 96%-át várakozással tölti. A leghosszabb várakozás (3 nap) a megmunkáló központ előtt, a második leghosszabb (2,5 nap) az anyag-előkészítés előtt keletkezik; ez egyezik a problémaelemzés megállapításával, hogy a késések fele a beállításnál és az anyagbeszerzésnél keletkezik (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet). A 10 napos átfutás a Little-törvénnyel számított értékkel is egyezik (<a href="#sec-fa-little" class="quarto-xref"><span>19.1</span></a>. szakasz). A jövőbeli állapotban a csapat a rendeléskiadást a megmunkáló központ kapacitásához köti, az anyagot a rendelés kiadásakor foglalja le, és a beállítási időt csökkenti.</p>
+<div id="fig-ertekaram-forgacs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ertekaram-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/ertekaram-forgacs.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ertekaram-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.5. ábra.</span> A ForgácsTech egy rendelésének egyszerűsített értékáram-térképe. Fent a folyamatlépések és a várakozó rendelések, lent az idővonal.
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="sec-fa-smed" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="sec-fa-smed"><span class="header-section-number">19.7.</span> A beállítási idő csökkentése: SMED</h2>
+<p>A beállítási (átállási) idő az az idő, amely az egyik termék utolsó jó darabja és a következő termék első jó darabja között telik el. Ha hosszú, a gyártó nagy sorozatokat gyárt, hogy ritkán kelljen átállni, a nagy sorozatok pedig nagy készletet és hosszú átfutást okoznak. Shingo <strong>SMED</strong> (single-minute exchange of die, percre kész szerszámcsere) módszere a beállítási időt tíz perc alá kívánja csökkenteni. Kiindulópontja a beállítási műveletek két csoportja <span class="citation" data-cites="shingo1985">(<a href="../irodalom.html#ref-shingo1985" role="doc-biblioref">Shingo 1985</a>)</span>:</p>
+<ul>
+<li><strong>belső</strong> műveletek: csak álló gépen végezhetők (például a szerszám behelyezése, a munkadarab befogása);</li>
+<li><strong>külső</strong> műveletek: a gép futása közben is elvégezhetők (például a következő szerszám és készülék előkészítése, a program betöltése, a mérőeszközök odakészítése).</li>
+</ul>
+<p>A módszer három szakaszból áll <span class="citation" data-cites="shingo1985">(<a href="../irodalom.html#ref-shingo1985" role="doc-biblioref">Shingo 1985</a>)</span>:</p>
+<ol type="1">
+<li><strong>a belső és a külső műveletek szétválasztása:</strong> a külső műveleteket a gép futása alatt végezzük el, ami önmagában nagy megtakarítást ad, mert a gyakorlatban sok külső műveletet álló gépen végeznek;</li>
+<li><strong>belső műveletek átalakítása külsővé:</strong> például a szerszámok gépen kívüli előbeállításával vagy szabványos befogófelületekkel;</li>
+<li><strong>minden művelet egyszerűsítése:</strong> gyorsrögzítők, a csavarozás és az utánállítás kiküszöbölése, párhuzamos munkavégzés.</li>
+</ol>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: a megmunkáló központ átállása</div><div class="doboz-tartalom">
+<p>A csapat videóra vette a megmunkáló központ átállásait, és minden lépést belsőnek vagy külsőnek minősített. A 48 perces átállásból 29 perc olyan tevékenység volt, amely a gép futása alatt is elvégezhető: a szerszámok és készülékek kikeresése, a program betöltése és ellenőrzése, a mérőeszközök odakészítése (<a href="#fig-smed" class="quarto-xref"><span>19.6</span></a>. ábra). Az első szakaszban ezeket a gép futása alatt végezték el, így a gépállás 19 percre csökkent. A második szakaszban a szerszámokat egy gépen kívüli előbeállító készüléken állították be, ami további 8 percet tett külsővé. A harmadik szakaszban nullponti gyorsbefogó rendszert vezettek be a készülékekhez, és a gépállás 8 percre csökkent.</p>
+<div id="fig-smed" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-smed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/smed.svg" class="img-fluid figure-img" style="width:92.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-smed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">19.6. ábra.</span> A beállítási idő csökkentése a SMED három szakaszával a ForgácsTech megmunkáló központján.
+</figcaption>
+</figure>
+</div>
+<p>A megtakarítás kétféleképpen használható fel. Ha az átállások száma marad (műszakonként kettő), a rendelkezésre állás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>450</mn><mo>−</mo><mn>16</mn><mo>−</mo><mn>20</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>450</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>92</mn></mrow><annotation encoding="application/x-tex">(450 - 16 - 20)/450 = 0{,}92</annotation></semantics></math>-re, az OEE változatlan teljesítmény- és minőségi tényező mellett <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>92</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>838</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>943</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>727</mn></mrow><annotation encoding="application/x-tex">0{,}92 \cdot 0{,}838 \cdot 0{,}943 = 0{,}727</annotation></semantics></math>-re nő. Ha a csapat a sorozatokat felezi, és műszakonként négyszer áll át, a rendelkezésre állás <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>884</mn></mrow><annotation encoding="application/x-tex">0{,}884</annotation></semantics></math>, az OEE <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>699</mn></mrow><annotation encoding="application/x-tex">0{,}699</annotation></semantics></math>, ami még mindig jóval meghaladja a kiindulási 0,587-et, a gép előtt várakozó munka viszont a felére csökken, és a Little-törvény szerint vele együtt a gép előtti várakozási idő is. A ForgácsTech a második utat választotta, mert céljai között a határidő-tartás és az átfutás csökkentése szerepel, és nem a gépkihasználás maximalizálása.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Folyamatelemzés szolgáltatásokban</div><div class="doboz-tartalom">
+<p>A fejezet fogalmai nem csak a gyártásban érvényesek. A Little-törvény egy kórházi osztály betegforgalmára, egy ügyfélszolgálat nyitott ügyeire vagy egy szoftverfejlesztő csapat folyamatban lévő feladataira ugyanúgy alkalmazható <span class="citation" data-cites="little2011">(<a href="../irodalom.html#ref-little2011" role="doc-biblioref">Little 2011</a>)</span>. Az OEE mintájára szolgáltatásokban is felbontható az idő: egy orvos fizetett munkaidejéből levonható a szabadság, a le nem foglalt idő, a lemondott vizsgálatok és az orvosi képesítést nem igénylő tevékenységek ideje, és a maradék mutatja a valóban értékteremtő időt. A szolgáltatási folyamatok sajátossága, hogy a vevő maga is a folyamat része, és a várakozást ő érzékeli. Ezért ott az átfutási idő és a várakozás gyakran fontosabb a kihasználtságnál.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">A gépkihasználtság hajszolása</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a vezetés minden gép kihasználtságát külön-külön maximalizálni akarja. Ha egy nem szűk keresztmetszet gép a szükségesnél többet gyárt, az nem növeli a kibocsátást, csak a készletet és az átfutási időt. Hasonló hiba az OEE-t gépek, műszakok vagy üzemek rangsorolására használni: a mutató értelme a saját veszteségek feltárása és a javulás követése. A kihasználtság és az átfutás közötti átváltást (a teljes kihasználtság közelében a várakozás gyorsan nő) tudatosan kell kezelni.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A folyamatot az áram, a folyamatidő és a készlet írja le; a Little-törvény (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mi>R</mi><mo>⋅</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">I = R \cdot T</annotation></semantics></math>) stabil rendszerben a hosszú távú átlagokra eloszlástól függetlenül érvényes.</li>
+<li>Az erőforrás kapacitása <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mi>/</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">m/p</annotation></semantics></math>; a folyamat kapacitását a szűk keresztmetszet határozza meg, az áram a kereslet és a kapacitás közül a kisebb, a kihasználtság az áram és a kapacitás hányadosa.</li>
+<li>Az átlagos munkaerő-kihasználtság a munkatartalom és a ciklusonként fizetett munkaidő hányadosa; a kihasználatlan időt is ki kell fizetni.</li>
+<li>Az ütemidő a rendelkezésre álló idő és a kereslet hányadosa; a sorkiegyenlítés az állomásidőket az ütemidő alá és egymáshoz közel hozza. A Yamazumi-diagram a kézi és a gépi időt is megmutatja.</li>
+<li>Az OEE a rendelkezésre állás, a teljesítmény és a minőség szorzata, a hat nagy veszteségre épül; egy gépre vonatkozik, és értéke az adatgyűjtés minőségétől függ. Az OLE ugyanezt a munkára alkalmazza.</li>
+<li>Az értékáram-térkép a várakozásokat teszi láthatóvá; a folyamathatékonyság gyakran néhány százalék.</li>
+<li>A SMED a belső és a külső műveletek szétválasztásával, a belsők külsővé alakításával és egyszerűsítésével csökkenti a beállítási időt; a megtakarítás kapacitásra vagy kisebb sorozatokra és rövidebb átfutásra fordítható.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Egy ügyfélszolgálaton átlagosan 45 nyitott ügy van, és naponta 15 ügyet zárnak le. Mennyi egy ügy átlagos átfutási ideje? Milyen feltételek mellett érvényes a számítás?</li>
+<li>Egy háromlépéses folyamat lépésein 1, 2, illetve 1 dolgozó dolgozik, a munkaigények 4, 10, illetve 3 perc/egység. Melyik lépés a szűk keresztmetszet, és mennyi a folyamatkapacitás egységenként óránként?</li>
+<li>Az előző folyamatban a kereslet 10 egység/óra. Mennyi az egyes lépések kihasználtsága és az átlagos munkaerő-kihasználtság?</li>
+<li>Egy szerelősor két műszakban, műszakonként 7 óra nettó idővel dolgozik, a napi igény 420 termék. Mennyi az ütemidő? A munkatartalom 230 s; legalább hány állomás kell?</li>
+<li>Mit mutat a Yamazumi-diagram, amit az állomásidők táblázata nem?</li>
+<li>Egy gép tervezett üzemideje 480 perc, ebből 60 perc állás. Az ideális ciklusidő 1 perc, a gép 380 darabot gyártott, ebből 361 jó. Számítsd ki az A, P, Q tényezőt és az OEE-t!</li>
+<li>Miért nem célszerű két különböző üzem OEE-értékeit közvetlenül összehasonlítani?</li>
+<li>Sorold fel Ohno hét veszteségét, és adj mindegyikre példát egy javítóműhelyből!</li>
+<li>Mi a különbség a belső és a külső beállítási művelet között? Miért ad már az első SMED-szakasz is nagy megtakarítást?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mi>I</mi><mi>/</mi><mi>R</mi><mo>=</mo><mn>45</mn><mi>/</mi><mn>15</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">T = I/R = 45/15 = 3</annotation></semantics></math> nap. A rendszernek stabilnak kell lennie (hosszú távon annyi ügy zárul le, amennyi beérkezik), és a három mennyiséget ugyanarra a rendszerhatárra és időszakra kell mérni.</li>
+<li>Kapacitások: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>4</mn><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">60/4 = 15</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>⋅</mo><mn>60</mn><mi>/</mi><mn>10</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">2 \cdot 60/10 = 12</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60</mn><mi>/</mi><mn>3</mn><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">60/3 = 20</annotation></semantics></math> egység/óra. A szűk keresztmetszet a második lépés, a folyamatkapacitás 12 egység/óra.</li>
+<li>Az áram 10 egység/óra (keresletkorlátos). Kihasználtságok: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>15</mn><mo>=</mo><mn>67</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">10/15 = 67\%</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>12</mn><mo>=</mo><mn>83</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">10/12 = 83\%</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>20</mn><mo>=</mo><mn>50</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">10/20 = 50\%</annotation></semantics></math>. A ciklusidő 6 perc, a munkatartalom 17 perc, a létszám 4, így az átlagos munkaerő-kihasználtság <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>17</mn><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>6</mn><mo>⋅</mo><mn>4</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>70</mn><mo>,</mo><mn>8</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">17/(6 \cdot 4) = 70{,}8\%</annotation></semantics></math>.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>T</mi><mo>=</mo><mn>2</mn><mo>⋅</mo><mn>7</mn><mo>⋅</mo><mn>3600</mn><mi>/</mi><mn>420</mn><mo>=</mo><mn>120</mn></mrow><annotation encoding="application/x-tex">TT = 2 \cdot 7 \cdot 3600 / 420 = 120</annotation></semantics></math> s; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>N</mi><mo>min</mo></msub><mo>=</mo><mo stretchy="false" form="prefix">⌈</mo><mn>230</mn><mi>/</mi><mn>120</mn><mo stretchy="false" form="postfix">⌉</mo><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N_{\min} = \lceil 230/120 \rceil = 2</annotation></semantics></math> állomás.</li>
+<li>Az állomásidők összetételét: a kézi munka, a gépi idő, a gyaloglás és a várakozás arányát, valamint az ütemidőhöz viszonyított tartalékot. Ebből látszik, hol lehet a kézi munkát átcsoportosítani úgy, hogy a gépi idő változatlan maradjon.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>=</mo><mn>420</mn><mi>/</mi><mn>480</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>875</mn></mrow><annotation encoding="application/x-tex">A = 420/480 = 0{,}875</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo>=</mo><mn>380</mn><mo>⋅</mo><mn>1</mn><mi>/</mi><mn>420</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>905</mn></mrow><annotation encoding="application/x-tex">P = 380 \cdot 1 / 420 = 0{,}905</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi><mo>=</mo><mn>361</mn><mi>/</mi><mn>380</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>95</mn></mrow><annotation encoding="application/x-tex">Q = 361/380 = 0{,}95</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">OEE</mtext><mo>=</mo><mn>0</mn><mo>,</mo><mn>875</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>905</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>95</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>752</mn></mrow><annotation encoding="application/x-tex">\text{OEE} = 0{,}875 \cdot 0{,}905 \cdot 0{,}95 = 0{,}752</annotation></semantics></math> (ellenőrzés: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>361</mn><mi>/</mi><mn>480</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>752</mn></mrow><annotation encoding="application/x-tex">361/480 = 0{,}752</annotation></semantics></math>).</li>
+<li>Mert eltérhet a veszteségek osztályozása és az adatgyűjtés pontossága (például a kisebb leállások rögzítése), az ideális ciklusidő meghatározása, a termékszerkezet és a sorozatnagyság. Az üzemek céljai is különböznek; a mutató a saját fejlődés követésére alkalmas.</li>
+<li>Túltermelés: előre felújított, de hetekig álló kerékpárok; várakozás: alkatrészre váró szerelő; szállítás: a kerékpár többszöri mozgatása a műhelyrészek között; felesleges feldolgozás: a teljes átvizsgálás olyan hibánál is, amelyet a diagnosztika már lokalizált; készlet: nagy alkatrészkészlet; felesleges mozgás: szerszám keresése; hibás termék: ismételt javítás, mert a fék elsőre nem lett jó.</li>
+<li>A belső művelet csak álló gépen, a külső a gép futása közben is elvégezhető. A gyakorlatban sok külső műveletet (keresés, előkészítés, szállítás) álló gépen végeznek, ezért már a szétválasztás és a gép futása alatti elvégzés is jelentősen csökkenti a gépállást, beruházás nélkül.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: folyamatelemzés</div><div class="doboz-tartalom">
+<p>Ha saját fejlesztési feladatod egy gyártó- vagy szolgáltatófolyamatot is érint (vagy a rendszer gyártását, szerelését, javítását kell megtervezni):</p>
+<ol type="1">
+<li>rajzold fel a folyamatábrát, és jelöld az áramló egységet, a rendszerhatárt és az erőforrásokat;</li>
+<li>becsüld vagy mérd az áramot, a készletet és a folyamatidőt, és ellenőrizd őket a Little-törvénnyel;</li>
+<li>számítsd ki az erőforrások kapacitását és kihasználtságát, és azonosítsd a szűk keresztmetszetet;</li>
+<li>ha a folyamat ütemezett, számítsd ki az ütemidőt, és készíts Yamazumi-diagramot;</li>
+<li>számítsd ki egy kritikus berendezés OEE-jét, vagy készíts értékáram-térképet a teljes folyamatról;</li>
+<li>használd a Gyakorlati útmutató folyamatábra-, kapacitás-, sorkiegyenlítési és OEE-eszközlapját.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="cachon2013">Cachon és Terwiesch (<a href="../irodalom.html#ref-cachon2013" role="doc-biblioref">2013</a>)</span>, 2–4. fejezet: a folyamatelemzés alapjai, a kapacitás, a kihasználtság és a munkaerő-termelékenység; a fejezet számpéldái is erre a könyvre épülnek.</li>
+<li><span class="citation" data-cites="hopp2008">Hopp és Spearman (<a href="../irodalom.html#ref-hopp2008" role="doc-biblioref">2008</a>)</span>: a gyártórendszerek „fizikája”: a Little-törvény, a változékonyság és a kihasználtság hatása az átfutásra.</li>
+<li><span class="citation" data-cites="little2011">Little (<a href="../irodalom.html#ref-little2011" role="doc-biblioref">2011</a>)</span>: a Little-törvény elmélete és gyakorlata ötven év távlatából.</li>
+<li><span class="citation" data-cites="nakajima1988">Nakajima (<a href="../irodalom.html#ref-nakajima1988" role="doc-biblioref">1988</a>)</span> és <span class="citation" data-cites="muchiri2008">Muchiri és Pintelon (<a href="../irodalom.html#ref-muchiri2008" role="doc-biblioref">2008</a>)</span>: az OEE eredete, a hat nagy veszteség, valamint a mutató változatainak és korlátainak áttekintése.</li>
+<li><span class="citation" data-cites="rother1999">Rother és Shook (<a href="../irodalom.html#ref-rother1999" role="doc-biblioref">1999</a>)</span>: az értékáram-térképezés gyakorlati kézikönyve.</li>
+<li><span class="citation" data-cites="shingo1985">Shingo (<a href="../irodalom.html#ref-shingo1985" role="doc-biblioref">1985</a>)</span>: a SMED-módszer eredeti leírása.</li>
+<li><span class="citation" data-cites="scholl2006">Scholl és Becker (<a href="../irodalom.html#ref-scholl2006" role="doc-biblioref">2006</a>)</span>: a szerelősor-kiegyenlítés pontos és heurisztikus megoldási módszereinek áttekintése.</li>
+<li><span class="citation" data-cites="lakatos_termelesi">Lakatos (<a href="../irodalom.html#ref-lakatos_termelesi" role="doc-biblioref">é. n.</a>)</span>: a termelési rendszerek magyar nyelvű egyetemi jegyzete.</li>
+<li><span class="citation" data-cites="goldberg1994toolbox">Goldberg és mtsai. (<a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">1994</a>)</span>, 7.15–7.16. szakasz: a folyamatábra és a munkafolyamat-elemzés gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-braglia2021ole" class="csl-entry" role="listitem">
+Braglia, Marcello, Davide Castellano, Marco Frosolini, Mosè Gallo, és Leonardo Marrazzini. 2021. <span>„Revised Overall Labour Effectiveness”</span>. <em>International Journal of Productivity and Performance Management</em> 70 (6): 1317–35. <a href="https://doi.org/10.1108/IJPPM-08-2019-0368">https://doi.org/10.1108/IJPPM-08-2019-0368</a>.
+</div>
+<div id="ref-cachon2013" class="csl-entry" role="listitem">
+Cachon, Gérard, és Christian Terwiesch. 2013. <em>Matching Supply with Demand: An Introduction to Operations Management</em>. 3. kiad. New York: McGraw-Hill/Irwin.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, és L. Stout. 1994. <span>„System Engineering <span>»Toolbox«</span> for Design-Oriented Engineers”</span>. NASA Reference Publication 1358. NASA Marshall Space Flight Center.
+</div>
+<div id="ref-goldratt1984" class="csl-entry" role="listitem">
+Goldratt, Eliyahu M., és Jeff Cox. 1984. <em>The Goal: A Process of Ongoing Improvement</em>. Great Barrington, MA: North River Press.
+</div>
+<div id="ref-hopp2008" class="csl-entry" role="listitem">
+Hopp, Wallace J., és Mark L. Spearman. 2008. <em>Factory Physics</em>. 3. kiad. New York: McGraw-Hill/Irwin.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-lakatos_termelesi" class="csl-entry" role="listitem">
+Lakatos, Béla. é. n. <span>„Termelési rendszerek”</span>. Egyetemi jegyzet, Veszprémi Egyetem, Folyamatmérnöki Tanszék.
+</div>
+<div id="ref-little1961" class="csl-entry" role="listitem">
+Little, John D. C. 1961. <span>„A Proof for the Queuing Formula: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mi>λ</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">L = \lambda W</annotation></semantics></math>”</span>. <em>Operations Research</em> 9 (3): 383–87. <a href="https://doi.org/10.1287/opre.9.3.383">https://doi.org/10.1287/opre.9.3.383</a>.
+</div>
+<div id="ref-little2011" class="csl-entry" role="listitem">
+———. 2011. <span>„Little’s Law as Viewed on Its 50th Anniversary”</span>. <em>Operations Research</em> 59 (3): 536–49. <a href="https://doi.org/10.1287/opre.1110.0940">https://doi.org/10.1287/opre.1110.0940</a>.
+</div>
+<div id="ref-muchiri2008" class="csl-entry" role="listitem">
+Muchiri, Peter, és Liliane Pintelon. 2008. <span>„Performance Measurement Using Overall Equipment Effectiveness (<span>OEE</span>): Literature Review and Practical Application Discussion”</span>. <em>International Journal of Production Research</em> 46 (13): 3517–35. <a href="https://doi.org/10.1080/00207540601142645">https://doi.org/10.1080/00207540601142645</a>.
+</div>
+<div id="ref-nakajima1988" class="csl-entry" role="listitem">
+Nakajima, Seiichi. 1988. <em>Introduction to TPM: Total Productive Maintenance</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-ohno1988" class="csl-entry" role="listitem">
+Ohno, Taiichi. 1988. <em>Toyota Production System: Beyond Large-Scale Production</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-rother1999" class="csl-entry" role="listitem">
+Rother, Mike, és John Shook. 1999. <em>Learning to See: Value Stream Mapping to Add Value and Eliminate MUDA</em>. Brookline, MA: Lean Enterprise Institute.
+</div>
+<div id="ref-scholl2006" class="csl-entry" role="listitem">
+Scholl, Armin, és Christian Becker. 2006. <span>„State-of-the-Art Exact and Heuristic Solution Procedures for Simple Assembly Line Balancing”</span>. <em>European Journal of Operational Research</em> 168 (3): 666–93. <a href="https://doi.org/10.1016/j.ejor.2004.07.022">https://doi.org/10.1016/j.ejor.2004.07.022</a>.
+</div>
+<div id="ref-shingo1985" class="csl-entry" role="listitem">
+Shingo, Shigeo. 1985. <em>A Revolution in Manufacturing: The SMED System</em>. Stamford, CT: Productivity Press.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/18-robusztus.html" class="pagination-link" aria-label="Robusztus tervezés és tűrések">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/20-bpmn.html" class="pagination-link" aria-label="Folyamatmodellezés BPMN-nel">
+        <span class="nav-page-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/19-folyamatelemzes.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/19-folyamatelemzes.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

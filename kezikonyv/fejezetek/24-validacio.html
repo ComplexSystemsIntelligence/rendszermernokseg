@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>24&nbsp; Validáció – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/25-uzemeltetes.html" rel="next">
+<link href="../fejezetek/23-verifikacio.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/22-integracio.html">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</a></li><li class="breadcrumb-item"><a href="../fejezetek/24-validacio.html"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/22-integracio.html">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</a></li><li class="breadcrumb-item"><a href="../fejezetek/24-validacio.html"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-validacio" class="quarto-section-identifier"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-val-cel" id="toc-sec-val-cel" class="nav-link active" data-scroll-target="#sec-val-cel"><span class="header-section-number">24.1.</span> A validáció célja és tárgya</a></li>
+  <li><a href="#sec-val-terv" id="toc-sec-val-terv" class="nav-link" data-scroll-target="#sec-val-terv"><span class="header-section-number">24.2.</span> A validációs terv és a validációs mátrix</a></li>
+  <li><a href="#sec-val-hasznalhatosag" id="toc-sec-val-hasznalhatosag" class="nav-link" data-scroll-target="#sec-val-hasznalhatosag"><span class="header-section-number">24.3.</span> Felhasználók bevonása és használhatósági teszt</a>
+  <ul class="collapse">
+  <li><a href="#hány-résztvevő-kell-a-problémák-feltárásához" id="toc-hány-résztvevő-kell-a-problémák-feltárásához" class="nav-link" data-scroll-target="#hány-résztvevő-kell-a-problémák-feltárásához"><span class="header-section-number">24.3.1.</span> Hány résztvevő kell a problémák feltárásához?</a></li>
+  <li><a href="#arányok-és-konfidenciaintervallum" id="toc-arányok-és-konfidenciaintervallum" class="nav-link" data-scroll-target="#arányok-és-konfidenciaintervallum"><span class="header-section-number">24.3.2.</span> Arányok és konfidenciaintervallum</a></li>
+  </ul></li>
+  <li><a href="#sec-val-uzem" id="toc-sec-val-uzem" class="nav-link" data-scroll-target="#sec-val-uzem"><span class="header-section-number">24.4.</span> Validáció üzem közben</a></li>
+  <li><a href="#sec-val-kudarc" id="toc-sec-val-kudarc" class="nav-link" data-scroll-target="#sec-val-kudarc"><span class="header-section-number">24.5.</span> Ha a verifikáció sikeres, de a validáció nem</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/24-validacio.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/24-validacio.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-validacio.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>elmagyarázni, miben különbözik a validáció a verifikációtól, és miért kezdődik már a tervezés korai szakaszában;</li>
+<li>validációs tervet és validációs mátrixot készíteni az érdekelt felek elvárásaiból és a MOE-kból;</li>
+<li>megtervezni egy használhatósági tesztet, és értelmezni a hatékonyság, a hatásosság és az elégedettség mérőszámait;</li>
+<li>megbecsülni a résztvevők szükséges számát, és a mért arányokat konfidenciaintervallummal értékelni;</li>
+<li>felismerni, miért bukhat meg a validáción egy verifikáción átjutott rendszer.</li>
+</ul>
+</div></div>
+<p>A verifikáció azt igazolja, hogy a termék teljesíti a követelményeket. A követelmények azonban az érdekelt felek elvárásainak egy fordítását jelentik, és a fordítás lehet hiányos vagy téves. Boehm rövid kérdéseivel: a verifikáció azt bizonyítja, hogy <em>jól építettük-e meg</em> a terméket, a validáció azt, hogy <em>a jó terméket építettük-e meg</em> <span class="citation" data-cites="boehm1984">(<a href="../irodalom.html#ref-boehm1984" role="doc-biblioref">Boehm 1984</a>)</span>. A verifikáció objektív bizonyítékot ad arra, hogy a követelményekben szereplő minden „kell” teljesült. Az ISO/IEC/IEEE 15288 szerint a validáció pedig arra ad objektív bizonyítékot, hogy a rendszer használat közben teljesíti az üzleti vagy küldetési célokat és az érdekelt felek követelményeit, vagyis a tervezett környezetben betölti a rendeltetését <span class="citation" data-cites="iso15288_2023 nasa2016seh">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 6.4.11</a>. szakasz; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 5.4</a>. szakasz)</span>. A két folyamat viszonyát a <a href="#fig-vv-kapcsolat" class="quarto-xref"><span>24.1</span></a>. ábra mutatja.</p>
+<div id="fig-vv-kapcsolat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vv-kapcsolat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/vv-kapcsolat.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vv-kapcsolat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">24.1. ábra.</span> A verifikáció a követelményekhez, a validáció az érdekelt felek elvárásaihoz és a működési koncepcióhoz méri a rendszert.
+</figcaption>
+</figure>
+</div>
+<section id="sec-val-cel" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="sec-val-cel"><span class="header-section-number">24.1.</span> A validáció célja és tárgya</h2>
+<p>A validáció tehát azt igazolja, hogy a végtermék kielégíti az érdekelt felek elvárásait (a MOE-kat) a tervezett üzemi környezetben, és lehetőség szerint a várható kezelők és felhasználók végzik. Az emberi rendszerintegráció szemléletében (<a href="11-emberkozpontu.html#sec-ek-hsi" class="quarto-xref"><span>11.2</span></a>. szakasz) ennek két oldala van <span class="citation" data-cites="booher2003 iso9241_210_2019">(<a href="../irodalom.html#ref-booher2003" role="doc-biblioref">Booher 2003</a>; <a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">ISO 2019</a>)</span>:</p>
+<ul>
+<li><strong>a rendeltetésszerű használat igazolása:</strong> a termék a tervezett környezetben üzemeltetve betölti a rendeltetését; a rendszerstruktúra minden szintjén, a legalsó végterméktől a rendszerig;</li>
+<li><strong>az ember megfelelő integrálásának igazolása:</strong> a felhasználói felület megfelel az emberi tényezők szempontjainak, a kezelők és a karbantartók elsajátították a szükséges készségeket, az utasítások elkészültek, a képzés megszervezése megtörtént, és a munkakörnyezet támogatja az egészséget és a biztonságot (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet).</li>
+</ul>
+<p>A validáció módszerei ugyanazok, mint a verifikációé: elemzés, bemutatás, vizsgálat és teszt; a mérce azonban az érdekelt felek céljai, a működési koncepció és a MOE-k, nem a követelmények szövege <span class="citation" data-cites="ieee1012_2024">(<a href="../irodalom.html#ref-ieee1012_2024" role="doc-biblioref">IEEE 2024</a>)</span>. A validációs teszt a várható környezetre és működésre összpontosít, a minősítő teszt viszont a legrosszabb esetet jelentő terhelésekre és környezeti feltételekre (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet).</p>
+<p>A validáció nem a fejlesztés végén kezdődik. A validációt a lehető legkorábban és iteratívan kell elvégezni, mert minél korábban derül ki az újratervezés szükségessége, annál olcsóbb (<a href="02-v-modell.html#sec-eletciklus" class="quarto-xref"><span>2.1</span></a>. szakasz) <span class="citation" data-cites="incose2023seh">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>)</span>. Az emberközpontú tervezés szabványa ugyanezt írja elő: a terveket a felhasználók bevonásával, a tervezés során többször kell értékelni <span class="citation" data-cites="iso9241_210_2019">(<a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">ISO 2019</a>)</span>. A koncepció szakaszában a működési forgatókönyvek közös végiggondolása, később a makettek, a prototípusok és a szimulációk, a megvalósítás után a próbaüzem és az üzemi adatok szolgálnak validációs bizonyítékul.</p>
+</section>
+<section id="sec-val-terv" class="level2" data-number="24.2">
+<h2 data-number="24.2" class="anchored" data-anchor-id="sec-val-terv"><span class="header-section-number">24.2.</span> A validációs terv és a validációs mátrix</h2>
+<p>A validációs terv forrásai a működési koncepció, az érdekelt felek szükségletei, céljai és célkitűzései, a követelmények indoklása, a korábbi projektek tanulságai, a rendszerarchitektúra modelljei, valamint a rendszermérnöki, az emberi rendszerintegrációs és a verifikációs-validációs tervek. A validáció eszközei sokfélék lehetnek: az érdekelt felek értékelése és visszajelzése, szakmai átvizsgálások, különböző hűségű fizikai modellek, szimulációk és virtuális modellek, tesztek, illesztési próbák, az eljárások próbái és a felülvizsgálatokon kapott visszajelzések <span class="citation" data-cites="engel2010">(<a href="../irodalom.html#ref-engel2010" role="doc-biblioref">Engel 2010</a>)</span>.</p>
+<p>A <strong>validációs mátrix</strong> minden validációs tevékenységhez megadja az azonosítót, a tevékenység leírását, a célt (mit kell az érdekelt félnek értékelnie), a módszert, a helyszínt, az életciklus-fázist, a felelős szervezetet és az eredményt igazoló dokumentumot. A verifikációs mátrixszal szemben itt nem a követelmények, hanem az érdekelt felek céljai és a MOE-k a sorok kiindulópontjai.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: a validációs mátrix</div><div class="doboz-tartalom">
+<p>A VárosiBringa három célkitűzése (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet) a validáció mércéje: C1 (csúcsidőben az állomások legalább 90%-án legalább két kerékpár), C2 (a második évben a belvárosi, 3 km-nél rövidebb autós utak aránya legalább 10%-kal csökkenjen) és C3 (a 65 év felettiek körében a sikeres első kölcsönzések aránya segítség nélkül legalább 85%). A <a href="#tbl-validacio-bringa" class="quarto-xref"><span>24.1</span></a>. táblázat a validációs mátrix részlete. A tevékenységek a tervezés korai szakaszától az üzemeltetés második évéig tartanak.</p>
+<div id="tbl-validacio-bringa" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[6,22,18,12,12,12,18]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-validacio-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">24.1. táblázat.</span> A VárosiBringa validációs mátrixának részlete.
+</figcaption>
+<div aria-describedby="tbl-validacio-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Az.</th>
+<th style="text-align: left;">Tevékenység</th>
+<th style="text-align: left;">Cél</th>
+<th style="text-align: left;">Módszer</th>
+<th style="text-align: left;">Fázis</th>
+<th style="text-align: left;">Felelős</th>
+<th style="text-align: left;">Eredmény</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">V-1</td>
+<td style="text-align: left;">a kölcsönző alkalmazás két prototípusának próbája 12 résztvevővel</td>
+<td style="text-align: left;">a kölcsönzés minden felhasználói csoport számára érthető (C3)</td>
+<td style="text-align: left;">teszt (használhatósági)</td>
+<td style="text-align: left;">részletes tervezés</td>
+<td style="text-align: left;">UX-csapat</td>
+<td style="text-align: left;">SUS 64 → 79; feladatsiker 75% → 96%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V-2</td>
+<td style="text-align: left;">az áthelyezési stratégia szimulációja a kölcsönzési adatokkal</td>
+<td style="text-align: left;">a C1 elérhető a tervezett furgonszámmal</td>
+<td style="text-align: left;">elemzés</td>
+<td style="text-align: left;">részletes tervezés</td>
+<td style="text-align: left;">rendszermérnök</td>
+<td style="text-align: left;">93% a szimulációban</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">V-3</td>
+<td style="text-align: left;">első kölcsönzés próbaállomáson 30, 65 év feletti résztvevővel</td>
+<td style="text-align: left;">a C3 elérhetőségének előzetes értékelése</td>
+<td style="text-align: left;">teszt</td>
+<td style="text-align: left;">próbaüzem</td>
+<td style="text-align: left;">UX-csapat, idősügyi tanács</td>
+<td style="text-align: left;">26/30 sikeres (87%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V-4</td>
+<td style="text-align: left;">az állomások telítettségének mérése az első három hónapban</td>
+<td style="text-align: left;">C1</td>
+<td style="text-align: left;">teszt (üzemi adatok)</td>
+<td style="text-align: left;">üzemeltetés</td>
+<td style="text-align: left;">üzemeltető</td>
+<td style="text-align: left;">86% → az áthelyezés módosítása után 92%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">V-5</td>
+<td style="text-align: left;">az első kölcsönzések naplója a 65 év feletti regisztrált felhasználóknál</td>
+<td style="text-align: left;">C3</td>
+<td style="text-align: left;">teszt (üzemi adatok)</td>
+<td style="text-align: left;">üzemeltetés, első félév</td>
+<td style="text-align: left;">üzemeltető</td>
+<td style="text-align: left;">571/640 sikeres (89%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V-6</td>
+<td style="text-align: left;">forgalomszámlálás és háztartási felmérés</td>
+<td style="text-align: left;">C2</td>
+<td style="text-align: left;">teszt (terepi felmérés)</td>
+<td style="text-align: left;">üzemeltetés, második év</td>
+<td style="text-align: left;">önkormányzat</td>
+<td style="text-align: left;">folyamatban</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div></div>
+<p>A táblázat két fontos tanulságot hordoz. A validáció egy része csak üzem közben végezhető el: a C2 hatásmutató a második év végéig nem igazolható, ezért a validációs terv az üzemeltetés első két évére is kiterjed (<a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>. fejezet). A korai bizonyítékok (V-1–V-3) pedig nem igazolják a MOE teljesülését, de jelzik, jó irányba halad-e a terv, és olcsón lehetővé teszik a javítást.</p>
+</section>
+<section id="sec-val-hasznalhatosag" class="level2" data-number="24.3">
+<h2 data-number="24.3" class="anchored" data-anchor-id="sec-val-hasznalhatosag"><span class="header-section-number">24.3.</span> Felhasználók bevonása és használhatósági teszt</h2>
+<p>A validáció leggyakoribb, a felhasználókat közvetlenül bevonó formája a <strong>használhatósági teszt</strong>. Az ISO 9241-11 szabvány szerint a használhatóság annak mértéke, hogy egy rendszert, terméket vagy szolgáltatást meghatározott felhasználók meghatározott célok elérésére mennyire hatásosan, hatékonyan és elégedetten használhatnak egy meghatározott használati környezetben <span class="citation" data-cites="iso9241_11_2018">(<a href="../irodalom.html#ref-iso9241_11_2018" role="doc-biblioref">ISO 2018</a>)</span>. A három összetevőhöz jellemző mérőszámok tartoznak:</p>
+<ul>
+<li><strong>hatásosság:</strong> a feladatok sikeres befejezésének aránya, a hibák száma és súlyossága;</li>
+<li><strong>hatékonyság:</strong> a feladatra fordított idő és erőforrás;</li>
+<li><strong>elégedettség:</strong> a felhasználók értékelése, például a System Usability Scale (SUS) kérdőívvel <span class="citation" data-cites="brooke1996">(<a href="../irodalom.html#ref-brooke1996" role="doc-biblioref">Brooke 1996</a>)</span>; a SUS-pontszámok átlaga a nagy adatbázisok alapján 68 körül van <span class="citation" data-cites="sauro2016">(<a href="../irodalom.html#ref-sauro2016" role="doc-biblioref">Sauro és Lewis 2016</a>)</span>.</li>
+</ul>
+<p>A használhatósági tesztben a felhasználói népességet képviselő résztvevők a működési forgatókönyvekből levezetett, valószerű feladatokat hajtanak végre, miközben a moderátor megfigyeli őket, és rögzíti a sikert, az időt, a hibákat és az elakadásokat <span class="citation" data-cites="rubin2008">(<a href="../irodalom.html#ref-rubin2008" role="doc-biblioref">Rubin és Chisnell 2008</a>)</span>. A validáció felkészítésénél ügyelni kell arra, hogy a résztvevők megfelelően képviseljék a felhasználókat (testméret, készségek, tudás, képzettség, ruházat, eszközök), és ahol lehet, valódi végfelhasználókat kell bevonni <span class="citation" data-cites="iso9241_210_2019">(<a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">ISO 2019</a>)</span>.</p>
+<p>A tesztek két célt szolgálhatnak. A <strong>formatív</strong> teszt a tervezés közben a problémák feltárását célozza: mi akadályozza a felhasználót, és miért. Az <strong>összegző</strong> (szummatív) teszt a kész vagy közel kész termék mért teljesítményét veti össze a célértékekkel, például a C3 85%-os sikerarányával. A kettő eltérő mintaelemszámot kíván.</p>
+<section id="hány-résztvevő-kell-a-problémák-feltárásához" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="hány-résztvevő-kell-a-problémák-feltárásához"><span class="header-section-number">24.3.1.</span> Hány résztvevő kell a problémák feltárásához?</h3>
+<p>Nielsen és Landauer modellje szerint, ha egy probléma egy résztvevőnél <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> valószínűséggel jelentkezik, akkor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> résztvevő a problémák</p>
+<p><span id="eq-felderites"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>n</mi></msup><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>24.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+1 - (1 - p)^{n}
+ \qquad(24.1)</annotation></semantics></math></span></p>
+<p>hányadát tárja fel <span class="citation" data-cites="nielsen1993">(<a href="../irodalom.html#ref-nielsen1993" role="doc-biblioref">Nielsen és Landauer 1993</a>)</span>. A szerzők által elemzett projektekben a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> átlagosan 0,31 volt; ekkor öt résztvevő a problémák mintegy 84%-át találja meg (<a href="#fig-felderites-gorbe" class="quarto-xref"><span>24.2</span></a>. ábra). Ebből ered a gyakran idézett „öt résztvevő elég” szabály, amelyet Virzi korábbi vizsgálatai is alátámasztottak <span class="citation" data-cites="virzi1992">(<a href="../irodalom.html#ref-virzi1992" role="doc-biblioref">Virzi 1992</a>)</span>. A szabály azonban feltételes: ha a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> kicsi, például mert a felhasználói csoportok eltérően viselkednek, vagy a problémák csak ritka helyzetekben jelentkeznek, öt résztvevő a problémák kisebbik felét sem tárja fel. Sauro és Lewis ezért azt javasolja, hogy a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-t a saját tesztadatokból becsüljük, és vegyük figyelembe, hogy kis mintán a becslés felfelé torzít <span class="citation" data-cites="sauro2016">(<a href="../irodalom.html#ref-sauro2016" role="doc-biblioref">Sauro és Lewis 2016</a>)</span>. Több felhasználói csoport esetén csoportonként kell résztvevőket bevonni.</p>
+<div id="fig-felderites-gorbe" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-felderites-gorbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/felderites-gorbe.svg" class="img-fluid figure-img" style="width:82.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-felderites-gorbe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">24.2. ábra.</span> A feltárt problémák aránya a résztvevők számának függvényében <span class="citation" data-cites="nielsen1993">(<a href="../irodalom.html#ref-nielsen1993" role="doc-biblioref">Nielsen és Landauer 1993</a> modellje alapján)</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="arányok-és-konfidenciaintervallum" class="level3" data-number="24.3.2">
+<h3 data-number="24.3.2" class="anchored" data-anchor-id="arányok-és-konfidenciaintervallum"><span class="header-section-number">24.3.2.</span> Arányok és konfidenciaintervallum</h3>
+<p>Az összegző tesztben a sikerarány is mintából származó becslés. Kis mintán a normális közelítésen alapuló („Wald-féle”) intervallum megbízhatatlan; Agresti és Coull a módosított Wald-intervallumot javasolja, amely <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> sikerre <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> próbából</p>
+<p><span id="eq-modositott-wald"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̃</mo></mover><mo>=</mo><mfrac><mrow><mi>x</mi><mo>+</mo><msup><mi>z</mi><mn>2</mn></msup><mi>/</mi><mn>2</mn></mrow><mrow><mi>n</mi><mo>+</mo><msup><mi>z</mi><mn>2</mn></msup></mrow></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mover><mi>p</mi><mo accent="true">̃</mo></mover><mo>±</mo><mi>z</mi><msqrt><mfrac><mrow><mover><mi>p</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><mover><mi>p</mi><mo accent="true">̃</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mrow><mi>n</mi><mo>+</mo><msup><mi>z</mi><mn>2</mn></msup></mrow></mfrac></msqrt><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>24.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\tilde{p} = \frac{x + z^2/2}{n + z^2}, \qquad \tilde{p} \pm z\sqrt{\frac{\tilde{p}(1-\tilde{p})}{n + z^2}},
+ \qquad(24.2)</annotation></semantics></math></span></p>
+<p>ahol 95%-os szinten <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mn>1</mn><mo>,</mo><mn>96</mn></mrow><annotation encoding="application/x-tex">z = 1{,}96</annotation></semantics></math> <span class="citation" data-cites="agresti1998">(<a href="../irodalom.html#ref-agresti1998" role="doc-biblioref">Agresti és Coull 1998</a>)</span>. Sauro és Lewis a használhatósági tesztek sikerarányaira ezt az intervallumot ajánlja <span class="citation" data-cites="sauro2016">(<a href="../irodalom.html#ref-sauro2016" role="doc-biblioref">Sauro és Lewis 2016</a>)</span>.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: elég-e 26 sikeres első kölcsönzés 30-ból?</div><div class="doboz-tartalom">
+<p>A próbaállomáson (V-3) a 30, 65 év feletti résztvevő közül 26 segítség nélkül kölcsönzött elsőre, ami 87%, vagyis a mintaarány meghaladja a 85%-os célt. A <a href="#eq-modositott-wald" class="quarto-xref"><span>24.2</span></a>. egyenlet szerinti 95%-os intervallum azonban 70–95%: a 30 fős minta nem elég annak igazolására, hogy a népességben a sikerarány legalább 85%. A csapat ezért a próbát formatív eredménynek tekintette: a négy sikertelen résztvevő közül három a dokkolón a zár kioldására szolgáló gombot kereste, ezért a kioldás menetét a dokkoló kijelzőjén nagyobb betűs, hangos útmutatóval egészítették ki. A C3 teljesülését az üzemi napló (V-5) igazolta: az első félévben a 65 év feletti regisztrált felhasználók 640 első kölcsönzéséből 571 sikerült ügyfélszolgálati segítség nélkül (89%; 95%-os intervallum 87–91%).</p>
+</div></div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: validáció a kezelőkkel</div><div class="doboz-tartalom">
+<p>A KoboCella verifikációja igazolta a ciklusidőt, a nyomatékot és a biztonsági funkciókat (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet). A validáció azt kérdezte, hogy a cella a valós műszakrendben, a valós kezelőkkel betölti-e a rendeltetését: tartja-e az évi 140 ezer motor ütemét, és a kezelők munkája valóban könnyebb-e. A helyszíni átvétel utáni két hétben mind a hat betanított kezelő legalább három műszakot dolgozott a cellánál. Az első héten a kezelők a hibaelhárítási forgatókönyvekben (elakadt csavar, hiányzó fedél) a nyugtázó gomb és a hibaüzenet kijelzőjének távolsága miatt gyakran a cella mögé mentek; a csapat a nyugtázást a kezelői oldalra helyezte. A második héten a kezelők átlagos SUS-pontszáma 74, a NASA-TLX fizikai terhelési összetevője a korábbi kézi szerelésénél lényegesen kisebb volt (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet). A heti termelés a tervezett ütemet elérte.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-val-uzem" class="level2" data-number="24.4">
+<h2 data-number="24.4" class="anchored" data-anchor-id="sec-val-uzem"><span class="header-section-number">24.4.</span> Validáció üzem közben</h2>
+<p>Sok MOE csak a rendszer üzemelése során mérhető: a VárosiBringa elérhetősége és hatása, a ForgácsTech határidő-tartása. Az ilyen MOE-k validációja az átadás után folytatódik, és a validációs tervnek meg kell határoznia, milyen adatokból, mennyi ideig és ki értékeli az eredményt (<a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>. fejezet). Az üzemi adatokkal végzett validáció előnye a nagy mintaelemszám és a valós környezet, hátránya, hogy a feltárt hiányosság javítása már drága. A validáció addig nem tekinthető befejezettnek, amíg minden feltárt probléma és intézkedés le nem zárult.</p>
+</section>
+<section id="sec-val-kudarc" class="level2" data-number="24.5">
+<h2 data-number="24.5" class="anchored" data-anchor-id="sec-val-kudarc"><span class="header-section-number">24.5.</span> Ha a verifikáció sikeres, de a validáció nem</h2>
+<p>Különösen kellemetlen az a helyzet, amikor a rendszer sikeresen átjut a verifikáción, de a validáció egy kritikus szakaszában megbukik. Ez késést, jelentős átdolgozást és az érdekelt felekkel kötött kompromisszumokat okozhat. A megelőzés kulcsa a korán kidolgozott és a követelmények és a tervezés során folyamatosan finomított működési koncepció, a felhasználók bevonásának tisztázása az emberi rendszerintegrációs tervben, valamint a gyakori, iteratív kommunikáció az érdekelt felekkel. Arra is ügyelni kell, hogy a validációs hiányosságok javítása nem ütközhet az érdekelt felek elvárásaival azok előzetes egyeztetése nélkül, és a javítás nem okozhat új hibát a korábban megfelelően működő részekben; ennek eszköze a korábbi átvételi tesztek megismétlése (regressziós teszt).</p>
+<p>A validáció sikertelenségének nem mindig a terv az oka. Három okcsoportot érdemes megkülönböztetni: a validáció rossz végrehajtását (hiányzó vagy hibás segédeszközök, betanítatlan kezelők, be nem tartott eljárások, nem kalibrált eszközök, nem megfelelő környezet), a verifikáció hiányosságát, valamint modellek és szimulációk esetén a hibás kezdeti és peremfeltételeket, a pontatlan egyenleteket és a nem megfelelő felbontást (<a href="03-modellek.html#sec-mod-vv" class="quarto-xref"><span>3.4</span></a>. szakasz). Csak ezek kizárása után állítható, hogy a terv nem felel meg az elvárásoknak.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: a verifikált MES és a 89%-os határidő-tartás</div><div class="doboz-tartalom">
+<p>A ForgácsTech MES-e minden követelményt teljesített a verifikáción (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet). A siker kritériuma azonban a problémamegfogalmazás szerint az volt, hogy a rendelések legalább 95%-a teljesüljön határidőre három egymást követő hónapban (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet). Az első három hónapban az arány 92, 87 és 89% lett: jelentős javulás a kiinduló 62%-hoz képest, de a cél alatt. Az elemzés kimutatta, hogy a műszakvezetők az ütemező átsorolási javaslatainak 41%-át módosították. A naplózott indoklásokból kiderült, hogy az ütemező nem tudta, melyik kezelő jogosult az öttengelyes megmunkáló központ kezelésére, ezért javaslatai egy része a gyakorlatban végrehajthatatlan volt (<a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet). Ez az információ egyik követelményben sem szerepelt, mert a feltáró interjúkban senki nem említette: a műszakvezetők számára magától értetődő volt. A csapat a kezelők jogosultsági mátrixát az ütemező korlátai közé vette, az érintett modulokon megismételte a korábbi átvételi teszteket, és a következő három hónapban az arány 95,6, 96,1 és 95,2% lett. A MOE teljesült.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Validáció és tanúsítás szabályozott területeken</div><div class="doboz-tartalom">
+<p>Az orvostechnikai eszközök, a járművek és a vasúti rendszerek területén a validációt jogszabályok és harmonizált szabványok írják elő. Ilyenkor a validáció bizonyítékai a megfelelőségértékelés részei, és a tervezési dokumentáció mellett a hatóság vagy a kijelölt tanúsító szervezet vizsgálja őket. Az orvostechnikai eszközöknél a használhatósági mérnöki folyamatot, benne a használhatóság összegző értékelését, külön szabvány írja elő, mert a használati hibák a betegre veszélyesek lehetnek <span class="citation" data-cites="iec62366_2015">(<a href="../irodalom.html#ref-iec62366_2015" role="doc-biblioref">IEC 2015</a>)</span>. A rendszermérnöki elv ugyanaz, mint a fejezet többi részében: a validáció tervét korán kell elkészíteni, és a működési koncepcióra és a felhasználókra kell építeni.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Validáció a fejlesztőkkel</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a „felhasználói próbát” a fejlesztőcsapat tagjai vagy a rendszert jól ismerő kollégák végzik. Ők tudják, hol kell keresni a gombot, mit jelent a hibaüzenet, és milyen sorrendben kell végrehajtani a lépéseket, ezért nem akadnak el ott, ahol a valódi felhasználó elakadna. A validáció résztvevőinek a felhasználói népességet kell képviselniük, beleértve azokat a csoportokat is (idősek, gyengénlátók, alkalmi felhasználók, új kezelők), amelyek a fejlesztők között nem fordulnak elő.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A verifikáció azt igazolja, hogy a terméket jól készítettük el, a validáció azt, hogy a jó terméket készítettük el: a mérce az érdekelt felek céljai, a működési koncepció és a MOE-k.</li>
+<li>A validációt a tervezett környezetben, lehetőleg valódi felhasználókkal végzik, és az ember megfelelő integrálását is igazolja.</li>
+<li>A validációt korán és iteratívan kell végezni: makettel, prototípussal, szimulációval, próbaüzemmel; egyes MOE-k csak üzem közben igazolhatók.</li>
+<li>A validációs mátrix minden tevékenységhez megadja a célt, a módszert, a fázist, a felelőst és az eredményt.</li>
+<li>A használhatóság hatásosságból, hatékonyságból és elégedettségből áll; a problémák feltárásához kevés, a sikerarány igazolásához sok résztvevő kell, az arányokat módosított Wald-intervallummal értékeljük.</li>
+<li>A verifikáción átjutott rendszer is megbukhat a validáción, ha a követelmények hiányosan fordították le az elvárásokat; a megelőzés kulcsa a jó működési koncepció és a felhasználók folyamatos bevonása.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Fogalmazd meg egy-egy mondatban a verifikáció és a validáció kérdését!</li>
+<li>Milyen két oldala van a validációnak az emberi rendszerintegráció szemléletében?</li>
+<li>Miben különbözik a validációs teszt a minősítő teszttől?</li>
+<li>Miért kezdődik a validáció már a tervezés korai szakaszában? Milyen eszközei vannak ekkor?</li>
+<li>Egy alkalmazás tesztjén a problémák egy résztvevőnél átlagosan 0,2 valószínűséggel jelentkeznek. Hány százalékukat tárja fel öt, illetve tíz résztvevő?</li>
+<li>Egy próbán 20 résztvevőből 18 sikeres. Számítsd ki a módosított Wald-intervallumot! Igazolja-e ez, hogy a sikerarány legalább 80%?</li>
+<li>Sorolj fel három okot, amelyek miatt egy validáció sikertelen lehet, pedig a terv megfelelő!</li>
+<li>Mit tanít a ForgácsTech esete a követelmények feltárásáról?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Verifikáció: jól építettük-e meg a terméket, vagyis teljesíti-e a követelményeket? Validáció: a jó terméket építettük-e meg, vagyis kielégíti-e az érdekelt felek elvárásait a tervezett környezetben?</li>
+<li>Annak igazolása, hogy a termék a tervezett környezetben betölti a rendeltetését, és hogy az ember megfelelően integrálódott a rendszerbe (felület, készségek, utasítások, képzés, munkakörnyezet).</li>
+<li>A validációs teszt a várható környezetre és működésre összpontosít, a minősítő teszt a legrosszabb esetet jelentő terhelésekre és környezeti feltételekre.</li>
+<li>Mert minél korábban derül ki, hogy a terv nem felel meg az elvárásoknak, annál olcsóbb a javítás. Eszközei: a működési forgatókönyvek közös végiggondolása az érdekelt felekkel, makettek, prototípusok, szimulációk, virtuális modellek, felülvizsgálati visszajelzések.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>0</mn><mo>,</mo><msup><mn>8</mn><mn>5</mn></msup><mo>=</mo><mn>0</mn><mo>,</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">1 - 0{,}8^{5} = 0{,}67</annotation></semantics></math>, vagyis 67%; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>0</mn><mo>,</mo><msup><mn>8</mn><mn>10</mn></msup><mo>=</mo><mn>0</mn><mo>,</mo><mn>89</mn></mrow><annotation encoding="application/x-tex">1 - 0{,}8^{10} = 0{,}89</annotation></semantics></math>, vagyis 89%.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>p</mi><mo accent="true">̃</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>18</mn><mo>+</mo><mn>1</mn><mo>,</mo><mn>92</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>20</mn><mo>+</mo><mn>3</mn><mo>,</mo><mn>84</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>0</mn><mo>,</mo><mn>836</mn></mrow><annotation encoding="application/x-tex">\tilde{p} = (18 + 1{,}92)/(20 + 3{,}84) = 0{,}836</annotation></semantics></math>; a félszélesség <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mn>96</mn><msqrt><mrow><mn>0</mn><mo>,</mo><mn>836</mn><mo>⋅</mo><mn>0</mn><mo>,</mo><mn>164</mn><mi>/</mi><mn>23</mn><mo>,</mo><mn>84</mn></mrow></msqrt><mo>=</mo><mn>0</mn><mo>,</mo><mn>149</mn></mrow><annotation encoding="application/x-tex">1{,}96\sqrt{0{,}836 \cdot 0{,}164 / 23{,}84} = 0{,}149</annotation></semantics></math>; az intervallum 69–98%. Nem igazolja, mert az alsó határ 80% alatt van, bár a mintaarány (90%) fölötte.</li>
+<li>Hiányzó vagy hibásan működő segédeszközök, betanítatlan kezelők, be nem tartott eljárás, nem kalibrált eszközök, nem megfelelő környezet; a verifikáció hiányossága; modelleknél hibás kezdeti vagy peremfeltételek.</li>
+<li>Azt, hogy a magától értetődőnek tartott, ki nem mondott tudás (a kezelők jogosultsága) könnyen kimarad a követelményekből, és csak a valós használatban derül ki. A feltárásnál a munka megfigyelése és a forgatókönyvek közös végigjátszása segít, az üzem közbeni validáció pedig felszínre hozza az ilyen hiányokat.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: validációs terv</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>gyűjtsd össze a MOE-kat és a működési forgatókönyveket, és jelöld, melyik érdekelt csoportot érintik;</li>
+<li>készíts validációs mátrixot legalább négy tevékenységgel, köztük legalább egy korai (makett, prototípus, szimuláció) és egy üzem közbeni tevékenységgel;</li>
+<li>tervezz egy használhatósági tesztet: résztvevők csoportonként, feladatok sikerkritériummal és célidővel, mérőszámok (siker, idő, SUS);</li>
+<li>becsüld meg a résztvevők számát a problémák feltárásához és a sikerarány igazolásához, és indokold a különbséget;</li>
+<li>használd a Gyakorlati útmutató használhatósági teszt eszközlapját.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="engel2010">Engel (<a href="../irodalom.html#ref-engel2010" role="doc-biblioref">2010</a>)</span>: a validáció tervezése és eszközei a verifikációval és a teszteléssel együtt.</li>
+<li><span class="citation" data-cites="iso15288_2023">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">2023</a>)</span>, 6.4.11. szakasz; <span class="citation" data-cites="iso9241_11_2018">ISO (<a href="../irodalom.html#ref-iso9241_11_2018" role="doc-biblioref">2018</a>)</span>; <span class="citation" data-cites="iso9241_210_2019">ISO (<a href="../irodalom.html#ref-iso9241_210_2019" role="doc-biblioref">2019</a>)</span>: a validáció, a használhatóság és az emberközpontú értékelés a szabványokban.</li>
+<li><span class="citation" data-cites="rubin2008">Rubin és Chisnell (<a href="../irodalom.html#ref-rubin2008" role="doc-biblioref">2008</a>)</span>; <span class="citation" data-cites="sauro2016">Sauro és Lewis (<a href="../irodalom.html#ref-sauro2016" role="doc-biblioref">2016</a>)</span>: a használhatósági tesztek tervezése és statisztikai értékelése.</li>
+<li><span class="citation" data-cites="nielsen1993">Nielsen és Landauer (<a href="../irodalom.html#ref-nielsen1993" role="doc-biblioref">1993</a>)</span>; <span class="citation" data-cites="virzi1992">Virzi (<a href="../irodalom.html#ref-virzi1992" role="doc-biblioref">1992</a>)</span>; <span class="citation" data-cites="agresti1998">Agresti és Coull (<a href="../irodalom.html#ref-agresti1998" role="doc-biblioref">1998</a>)</span>: a résztvevők száma és az arányok konfidenciaintervalluma.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 5.4. szakasz és E függelék: a termékvalidáció folyamata, céljai, a sikertelen validáció okai és a validációs mátrix.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-agresti1998" class="csl-entry" role="listitem">
+Agresti, Alan, és Brent A. Coull. 1998. <span>„Approximate Is Better than <span>»Exact«</span> for Interval Estimation of Binomial Proportions”</span>. <em>The American Statistician</em> 52 (2): 119–26. <a href="https://doi.org/10.1080/00031305.1998.10480550">https://doi.org/10.1080/00031305.1998.10480550</a>.
+</div>
+<div id="ref-boehm1984" class="csl-entry" role="listitem">
+Boehm, Barry W. 1984. <span>„Verifying and Validating Software Requirements and Design Specifications”</span>. <em>IEEE Software</em> 1 (1): 75–88. <a href="https://doi.org/10.1109/MS.1984.233702">https://doi.org/10.1109/MS.1984.233702</a>.
+</div>
+<div id="ref-booher2003" class="csl-entry" role="listitem">
+Booher, Harold R., szerk. 2003. <em>Handbook of Human Systems Integration</em>. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-brooke1996" class="csl-entry" role="listitem">
+Brooke, John. 1996. <span>„<span>SUS</span>: A <span>»Quick and Dirty«</span> Usability Scale”</span>. In <em>Usability Evaluation in Industry</em>, szerkesztette Patrick W. Jordan, B. Thomas, Bernard A. Weerdmeester, és Ian L. McClelland, 189–94. London: Taylor &amp; Francis.
+</div>
+<div id="ref-engel2010" class="csl-entry" role="listitem">
+Engel, Avner. 2010. <em>Verification, Validation, and Testing of Engineered Systems</em>. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-iec62366_2015" class="csl-entry" role="listitem">
+IEC. 2015. <span>„<span>IEC 62366-1:2015</span> Medical Devices – Part 1: Application of Usability Engineering to Medical Devices”</span>. Nemzetközi szabvány; módosítás: AMD1:2020.
+</div>
+<div id="ref-ieee1012_2024" class="csl-entry" role="listitem">
+IEEE. 2024. <span>„<span>IEEE Std 1012-2024</span> <span>IEEE</span> Standard for System, Software, and Hardware Verification and Validation”</span>. Szabvány, IEEE Standards Association.
+</div>
+<div id="ref-incose2023seh" class="csl-entry" role="listitem">
+INCOSE. 2023. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Thomas M. Shortell, Garry J. Roedler, Bernardo A. Delicado, Odile Mornas, Yew-Seng Yip, és David Endler. 5. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-iso9241_11_2018" class="csl-entry" role="listitem">
+ISO. 2018. <span>„<span>ISO</span> 9241-11:2018 Ergonomics of Human-System Interaction – Part 11: Usability: Definitions and Concepts”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso9241_210_2019" class="csl-entry" role="listitem">
+———. 2019. <span>„<span>ISO</span> 9241-210:2019 Ergonomics of Human-System Interaction – Part 210: Human-Centred Design for Interactive Systems”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-nielsen1993" class="csl-entry" role="listitem">
+Nielsen, Jakob, és Thomas K. Landauer. 1993. <span>„A Mathematical Model of the Finding of Usability Problems”</span>. In <em>Proceedings of the INTERACT ’93 and CHI ’93 Conference on Human Factors in Computing Systems</em>, 206–13. New York: ACM. <a href="https://doi.org/10.1145/169059.169166">https://doi.org/10.1145/169059.169166</a>.
+</div>
+<div id="ref-rubin2008" class="csl-entry" role="listitem">
+Rubin, Jeffrey, és Dana Chisnell. 2008. <em>Handbook of Usability Testing: How to Plan, Design, and Conduct Effective Tests</em>. 2. kiad. Indianapolis: Wiley.
+</div>
+<div id="ref-sauro2016" class="csl-entry" role="listitem">
+Sauro, Jeff, és James R. Lewis. 2016. <em>Quantifying the User Experience: Practical Statistics for User Research</em>. 2. kiad. Cambridge, MA: Morgan Kaufmann.
+</div>
+<div id="ref-virzi1992" class="csl-entry" role="listitem">
+Virzi, Robert A. 1992. <span>„Refining the Test Phase of Usability Evaluation: How Many Subjects Is Enough?”</span> <em>Human Factors</em> 34 (4): 457–68. <a href="https://doi.org/10.1177/001872089203400407">https://doi.org/10.1177/001872089203400407</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/23-verifikacio.html" class="pagination-link" aria-label="Verifikáció">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/25-uzemeltetes.html" class="pagination-link" aria-label="Átadás, üzemeltetés és folyamatos fejlesztés">
+        <span class="nav-page-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/24-validacio.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/24-validacio.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

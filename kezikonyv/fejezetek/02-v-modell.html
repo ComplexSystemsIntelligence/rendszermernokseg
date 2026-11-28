@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; A rendszerfejlesztés életciklusa és a V-modell – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/03-modellek.html" rel="next">
+<link href="../fejezetek/01-rendszerek.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/02-v-modell.html"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/02-v-modell.html"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-v-modell" class="quarto-section-identifier"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-eletciklus" id="toc-sec-eletciklus" class="nav-link active" data-scroll-target="#sec-eletciklus"><span class="header-section-number">2.1.</span> Egy rendszer élete a koncepciótól a kivonásig</a>
+  <ul class="collapse">
+  <li><a href="#miért-dől-el-korán-a-projekt-sorsa" id="toc-miért-dől-el-korán-a-projekt-sorsa" class="nav-link" data-scroll-target="#miért-dől-el-korán-a-projekt-sorsa"><span class="header-section-number">2.1.1.</span> Miért dől el korán a projekt sorsa?</a></li>
+  </ul></li>
+  <li><a href="#sec-eletciklus-modellek" id="toc-sec-eletciklus-modellek" class="nav-link" data-scroll-target="#sec-eletciklus-modellek"><span class="header-section-number">2.2.</span> Életciklus-modellek: hogyan haladunk végig a szakaszokon?</a></li>
+  <li><a href="#sec-v-bejaras" id="toc-sec-v-bejaras" class="nav-link" data-scroll-target="#sec-v-bejaras"><span class="header-section-number">2.3.</span> A V-modell bejárása</a>
+  <ul class="collapse">
+  <li><a href="#a-bal-ág-a-problémától-a-részletes-tervig" id="toc-a-bal-ág-a-problémától-a-részletes-tervig" class="nav-link" data-scroll-target="#a-bal-ág-a-problémától-a-részletes-tervig"><span class="header-section-number">2.3.1.</span> A bal ág: a problémától a részletes tervig</a></li>
+  <li><a href="#a-csúcs-megvalósítás" id="toc-a-csúcs-megvalósítás" class="nav-link" data-scroll-target="#a-csúcs-megvalósítás"><span class="header-section-number">2.3.2.</span> A csúcs: megvalósítás</a></li>
+  <li><a href="#a-jobb-ág-az-integrációtól-az-üzemeltetésig" id="toc-a-jobb-ág-az-integrációtól-az-üzemeltetésig" class="nav-link" data-scroll-target="#a-jobb-ág-az-integrációtól-az-üzemeltetésig"><span class="header-section-number">2.3.3.</span> A jobb ág: az integrációtól az üzemeltetésig</a></li>
+  <li><a href="#vízszintes-megfeleltetések-korai-tesztterv" id="toc-vízszintes-megfeleltetések-korai-tesztterv" class="nav-link" data-scroll-target="#vízszintes-megfeleltetések-korai-tesztterv"><span class="header-section-number">2.3.4.</span> Vízszintes megfeleltetések: korai tesztterv</a></li>
+  <li><a href="#a-v-modell-és-a-szabványos-folyamatok" id="toc-a-v-modell-és-a-szabványos-folyamatok" class="nav-link" data-scroll-target="#a-v-modell-és-a-szabványos-folyamatok"><span class="header-section-number">2.3.5.</span> A V-modell és a szabványos folyamatok</a></li>
+  </ul></li>
+  <li><a href="#sec-rekurzio" id="toc-sec-rekurzio" class="nav-link" data-scroll-target="#sec-rekurzio"><span class="header-section-number">2.4.</span> A V a V-ben: rekurzió és iteráció</a></li>
+  <li><a href="#sec-felulvizsgalatok" id="toc-sec-felulvizsgalatok" class="nav-link" data-scroll-target="#sec-felulvizsgalatok"><span class="header-section-number">2.5.</span> Mérföldkövek, felülvizsgálatok és alapvonalak</a></li>
+  <li><a href="#sec-v-esetek" id="toc-sec-v-esetek" class="nav-link" data-scroll-target="#sec-v-esetek"><span class="header-section-number">2.6.</span> A három futó eset a V-modellben</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/02-v-modell.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/02-v-modell.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-v-modell.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet a teljes V-modellt áttekinti"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>megnevezni egy műszaki rendszer életciklusának szakaszait, és megindokolni, miért a korai döntések határozzák meg a költségek nagy részét;</li>
+<li>összehasonlítani a vízesés-, a V-, a spirál- és az inkrementális/agilis életciklus-modellt, és egy adott projekthez indokoltan választani közülük;</li>
+<li>elmagyarázni a V-modell bal ágának, csúcsának és jobb ágának feladatait, valamint a két ág közötti vízszintes megfeleltetéseket;</li>
+<li>megkülönböztetni a verifikációt és a validációt, és mindkettőre saját példát adni;</li>
+<li>leírni, hogyan alkalmazzuk a V-modellt rekurzívan a rendszer hierarchiájának szintjein, és mi a szerepe a felülvizsgálatoknak és az alapvonalaknak;</li>
+<li>saját fejlesztési projektedhez elkészíteni a projekt V-tervét.</li>
+</ul>
+</div></div>
+<p>Ez a fejezet a könyv gerince. Mielőtt bármelyik módszerrel (érdekeltfél-elemzéssel, QFD-vel, FMEA-val vagy folyamatmodellezéssel) foglalkoznánk, látnunk kell azt a pályát, amelyen ezek a módszerek elhelyezkednek. Először a rendszer teljes életét tekintjük át, és megnézzük, miért dől el olyan korán a projekt sorsa. Ezután összevetjük a legfontosabb életciklus-modelleket. A fejezet közepén részletesen bejárjuk a V-modellt, amely a könyv szerkezetét is adja. Végül megmutatjuk, hogyan ismétlődik a V a rendszer különböző szintjein, mit jelentenek a felülvizsgálatok és az alapvonalak, és hogyan néz ki a V a három futó esettanulmányban (<a href="../fuggelek/a-esettanulmanyok.html" class="quarto-xref"><span>A</span></a>. függelék).</p>
+<section id="sec-eletciklus" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-eletciklus"><span class="header-section-number">2.1.</span> Egy rendszer élete a koncepciótól a kivonásig</h2>
+<p>Egy új rendszer nem akkor kezdődik, amikor az első alkatrészt legyártják, és nem is akkor ér véget, amikor a vevő átveszi. A rendszermérnöki szemlélet egyik alapgondolata, hogy a rendszert a teljes életciklusára tervezzük. Ebbe beletartozik, hogyan gyártják, hogyan használják, hogyan tartják karban, és hogyan vonják ki a forgalomból. Az életciklus-kezelés nemzetközi szabványa és az INCOSE rendszermérnöki kézikönyve hat általános életciklus-szakaszt különböztet meg: koncepció, fejlesztés, gyártás, használat, támogatás és kivonás (<a href="#fig-eletciklus" class="quarto-xref"><span>2.1</span></a>. ábra) <span class="citation" data-cites="iso24748_1_2024 incose2023seh">(<a href="../irodalom.html#ref-iso24748_1_2024" role="doc-biblioref">ISO/IEC/IEEE 2024</a>; <a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023, 2.1.2</a>. szakasz)</span>.</p>
+<div id="fig-eletciklus" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-eletciklus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/eletciklus-szakaszok.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-eletciklus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.1. ábra.</span> A műszaki rendszerek általános életciklus-szakaszai és a szakaszok kulcskérdései. A használat és a támogatás (karbantartás, javítás, logisztika) párhuzamosan zajlik. Az INCOSE kézikönyve <span class="citation" data-cites="incose2023seh">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>)</span> alapján, saját szerkesztés.
+</figcaption>
+</figure>
+</div>
+<p>A szakaszok tartalma röviden a következő.</p>
+<ul>
+<li>A <strong>koncepciószakaszban</strong> megértjük a problémát és az érdekelt felek igényeit. Lehetséges megoldási elképzeléseket vázolunk fel, és eldöntjük, érdemes-e egyáltalán belevágni.</li>
+<li>A <strong>fejlesztési szakaszban</strong> a kiválasztott koncepcióból követelmények, architektúra és részletes terv lesz. Ebben a szakaszban készülnek és ellenőrződnek a prototípusok is.</li>
+<li>A <strong>gyártási szakasz</strong> a rendszer előállítását, sorozatgyártásnál a gyártási folyamat felfuttatását jelenti.</li>
+<li>A <strong>használat</strong> során a rendszer azt teszi, amire szántuk. A <strong>támogatás</strong> gondoskodik arról, hogy ezt hosszú távon is meg tudja tenni.</li>
+<li>A <strong>kivonás</strong> a rendszer biztonságos leállítását, szétszerelését, az anyagok visszanyerését vagy ártalmatlanítását foglalja magában.</li>
+</ul>
+<p>A szakaszok száma és elnevezése iparáganként és szervezetenként eltér. Az űrkutatásban és a védelmi iparban betűvel vagy számmal jelölt fázisok terjedtek el, egy gyártócég pedig gyakran a saját termékfejlesztési folyamatának lépéseit nevezi meg. A szabvány ezért csak általános keretet ad, amelyet minden szervezet a saját gyakorlatához igazít <span class="citation" data-cites="iso24748_1_2024">(<a href="../irodalom.html#ref-iso24748_1_2024" role="doc-biblioref">ISO/IEC/IEEE 2024</a>)</span>. A lényeg mindenhol ugyanaz: a döntéseket a teljes életút következményeinek ismeretében kell meghozni.</p>
+<section id="miért-dől-el-korán-a-projekt-sorsa" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="miért-dől-el-korán-a-projekt-sorsa"><span class="header-section-number">2.1.1.</span> Miért dől el korán a projekt sorsa?</h3>
+<p>A <a href="#fig-koltseg" class="quarto-xref"><span>2.2</span></a>. ábra a rendszermérnökség talán legtöbbet idézett összefüggését mutatja. Az amerikai Védelmi Beszerzési Egyetem (DAU) vizsgálatai szerint, amelyeket az INCOSE kézikönyve is közöl, a koncepciószakasz végére, a munka mintegy 8%-ának elvégzésekor a meghozott döntések az életciklusköltség körülbelül 70%-át már elkötelezik, a tervezés végére pedig mintegy 85%-át <span class="citation" data-cites="incose2015seh">(<a href="../irodalom.html#ref-incose2015seh" role="doc-biblioref">INCOSE 2015</a>)</span>. A ténylegesen elköltött összeg ekkor még csak töredéke ennek. A tervezés dönti el ugyanis, hogy a rendszert mennyibe kerül majd tesztelni, gyártani, integrálni, üzemeltetni és fenntartani.</p>
+<div id="fig-koltseg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-koltseg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/koltseg-elkotelezodes.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-koltseg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.2. ábra.</span> Az elkötelezett és a ténylegesen ráfordított életciklusköltség, valamint a tervváltoztatás relatív költsége az életciklus előrehaladtával. A számértékek szemléltetők, projektenként eltérnek, a görbék alakja azonban általános. Az INCOSE kézikönyvében közölt, a DAU-tól származó ábra <span class="citation" data-cites="incose2015seh">(<a href="../irodalom.html#ref-incose2015seh" role="doc-biblioref">INCOSE 2015</a>)</span> alapján, saját szerkesztés.
+</figcaption>
+</figure>
+</div>
+<p>Az ábra másik üzenete a tervváltoztatás költségének meredek növekedése. Egy probléma, amelyet a tervezés során háromszor-hatszor annyiba kerül kijavítani, mint a koncepciónál, a gyártás és a tesztelés idején már nagyságrendekkel drágább. Az üzemeltetés során felfedezett hiba ára akár ezerszeres is lehet. Ennek oka egyszerű: minél később változtatunk, annál több kész munkát kell kidobni és újra ellenőrizni.</p>
+<p>Ebből következik a rendszermérnökség egyik legfontosabb gyakorlati tanulsága. <strong>A korai szakaszokba fektetett gondos munka – az igények feltárása, a követelmények tisztázása, a koncepciók összevetése – a teljes projekt legjobb megtérülésű befektetése.</strong></p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: egy korai döntés hosszú árnyéka</div><div class="doboz-tartalom">
+<p>A Kobold Hajtástechnika csapata a koncepciószakaszban dönti el, hogy a kobot és az operátor ugyanazon a munkaterületen, egyidejűleg dolgozik-e, vagy időben elkülönülve, egymás után. Ezen az egyetlen döntésen múlik:</p>
+<ul>
+<li>milyen biztonsági megoldások kellenek (sebesség- és erőkorlátozás vagy elválasztó védőberendezés);</li>
+<li>mekkora helyet foglal a cella, és milyen lesz az operátor mozgásterülete;</li>
+<li>mekkora ciklusidő érhető el;</li>
+<li>milyen kockázatelemzést és milyen tanúsítást kell elvégezni.</li>
+</ul>
+<p>Ha a csapat ezt csak az üzembe helyezéskor gondolná újra, a cella elrendezését, a vezérlést, a biztonsági rendszert és a dokumentációt is újra kellene tervezni.</p>
+</div></div>
+<p>A költség azonban csak az egyik szempont. Ha egy megoldás már jól kiegyensúlyozott, vagyis egyik jellemzője sem javítható a többi rontása nélkül (a <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet szavával: a Pareto-fronton van), akkor a teljesítmény, a költség és a kockázat nem javítható egyszerre. Ez a rendszermérnök dilemmája:</p>
+<ul>
+<li>adott kockázat mellett a költség csökkentése csak a teljesítmény rovására lehetséges;</li>
+<li>adott költség mellett a kockázat csökkentése szintén teljesítményt kíván;</li>
+<li>adott teljesítmény mellett a költség csökkentése nagyobb kockázatvállalással jár;</li>
+<li>adott teljesítmény mellett a kockázat csökkentése többletköltséggel jár.</li>
+</ul>
+<p>Az idő ebben az összefüggésben a költséghez hasonlóan viselkedik. A rendszermérnök feladata, hogy ezeket a kompromisszumokat tudatosan és átláthatóan kezelje. Ehhez nyújtanak segítséget a <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet döntéstámogató módszerei.</p>
+</section>
+</section>
+<section id="sec-eletciklus-modellek" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-eletciklus-modellek"><span class="header-section-number">2.2.</span> Életciklus-modellek: hogyan haladunk végig a szakaszokon?</h2>
+<p>Az életciklus-szakaszok azt írják le, <em>mi</em> történik a rendszerrel. Az <strong>életciklus-modell</strong> azt, hogy a fejlesztés során <em>milyen sorrendben, milyen visszacsatolásokkal és milyen ismétlésekkel</em> haladunk végig a tevékenységeken. A szakirodalom sokféle modellt ismer. Itt a négy legfontosabbat vetjük össze (<a href="#fig-modellek" class="quarto-xref"><span>2.3</span></a>. ábra, <a href="#tbl-modellek" class="quarto-xref"><span>2.1</span></a>. táblázat).</p>
+<div id="fig-modellek" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modellek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/eletciklus-modellek.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modellek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.3. ábra.</span> Négy alapvető életciklus-modell vázlata: (a) vízesés, (b) V-modell, (c) spirálmodell, (d) inkrementális és agilis fejlesztés. Saját szerkesztés.
+</figcaption>
+</figure>
+</div>
+<p><strong>A vízesésmodell</strong> a tevékenységeket egymást követő szakaszokba rendezi. Minden szakasz egy jól meghatározott dokumentummal zárul, és a következő csak ennek elkészülte után indul. A modell eredetét többnyire Winston Royce 1970-es cikkére vezetik vissza <span class="citation" data-cites="royce1970">(<a href="../irodalom.html#ref-royce1970" role="doc-biblioref">Royce 1970</a>)</span>. Érdekes, hogy Royce éppen ennek a tisztán egyirányú folyamatnak a kockázataira figyelmeztetett. A szakaszok közötti visszacsatolást és egy előzetes, „kétszer építsd meg” jellegű próbaváltozat elkészítését javasolta. A vízesés előnye az átláthatóság és a jó tervezhetőség. Hátránya, hogy a hibák jellemzően csak a végén, az integráció és a tesztelés során derülnek ki, és a menet közben változó követelményeket nehezen kezeli.</p>
+<p><strong>A V-modell</strong> a vízesés lépéseit V alakba hajlítja. A bal ágon fentről lefelé haladva bontjuk le és határozzuk meg a rendszert, a jobb ágon lentről felfelé haladva építjük össze és ellenőrizzük. A modell ereje a két ág közötti vízszintes kapcsolatokban rejlik: minden meghatározási szinthez tartozik egy ellenőrzési szint, és az ellenőrzés tervét már a meghatározással egy időben elkészítjük. A V alakú ábrázolás szoftverfejlesztési változatát Paul Rook írta le 1986-ban <span class="citation" data-cites="rook1986">(<a href="../irodalom.html#ref-rook1986" role="doc-biblioref">Rook 1986</a>)</span>. A rendszermérnöki „Vee” modellt Kevin Forsberg és Harold Mooz 1991-ben mutatta be <span class="citation" data-cites="forsberg1991">(<a href="../irodalom.html#ref-forsberg1991" role="doc-biblioref">Forsberg és Mooz 1991</a>)</span>. Ebben a technikai folyamat a bal felső sarokban a felhasználói igényekkel indul, és a jobb felső sarokban a felhasználó által validált rendszerrel zárul. Ettől függetlenül Németországban a szövetségi informatikai projektek kötelező eljárásrendjévé vált a V-Modell. Mai változata a 2005 óta érvényes V-Modell XT <span class="citation" data-cites="friedrich2009vmodellxt">(<a href="../irodalom.html#ref-friedrich2009vmodellxt" role="doc-biblioref">Friedrich és mtsai. 2009</a>)</span>.</p>
+<p><strong>A spirálmodellt</strong> Barry Boehm írta le <span class="citation" data-cites="boehm1988">(<a href="../irodalom.html#ref-boehm1988" role="doc-biblioref">B. W. Boehm 1988</a>)</span>. A fejlesztés egymást követő körökben halad. Minden kör a célok és korlátok tisztázásával indul, ezt kockázatelemzés követi, majd a legnagyobb bizonytalanság csökkentésére szolgáló fejlesztési és tesztelési lépés (gyakran prototípus), végül a következő kör megtervezése. A spirálmodell lényege, hogy a kockázatok vezérlik a folyamatot. Ott és annyit kell elemezni és prototípust építeni, ahol a legnagyobb a bizonytalanság. A modell későbbi továbbfejlesztése a fokozatos elköteleződésre épülő spirálmodell (Incremental Commitment Spiral Model) <span class="citation" data-cites="boehm2014icsm">(<a href="../irodalom.html#ref-boehm2014icsm" role="doc-biblioref">B. Boehm és mtsai. 2014</a>)</span>.</p>
+<p><strong>Az inkrementális és az agilis fejlesztés</strong> rövid ciklusokban, működő részeredményeket szállítva halad. A 2001-es Agilis kiáltvány <span class="citation" data-cites="beck2001agile">(<a href="../irodalom.html#ref-beck2001agile" role="doc-biblioref">Beck és mtsai. 2001</a>)</span> a folyamatos együttműködést, a működő terméket és a változásokra való gyors reagálást helyezte előtérbe. A szoftverfejlesztésben ez ma elterjedt gyakorlat. A hardvert is tartalmazó, nagyobb rendszerekben viszont jellemzően hibrid megoldás működik. A rendszerszintű követelményeket, az architektúrát és a biztonsági igazolást V-modell szerint kezelik, az egyes alrendszereken, különösen a szoftveren belül pedig agilis ciklusokban dolgoznak. Az INCOSE kézikönyve az agilis rendszermérnökséget már önálló megközelítésként tárgyalja <span class="citation" data-cites="incose2023seh">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>)</span>.</p>
+<div id="tbl-modellek" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[14,30,28,28]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-modellek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.1. táblázat.</span> Az életciklus-modellek összehasonlítása. Saját összeállítás <span class="citation" data-cites="royce1970">Royce (<a href="../irodalom.html#ref-royce1970" role="doc-biblioref">1970</a>)</span>, <span class="citation" data-cites="forsberg1991">Forsberg és Mooz (<a href="../irodalom.html#ref-forsberg1991" role="doc-biblioref">1991</a>)</span>, <span class="citation" data-cites="boehm1988">B. W. Boehm (<a href="../irodalom.html#ref-boehm1988" role="doc-biblioref">1988</a>)</span> és <span class="citation" data-cites="incose2023seh">INCOSE (<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">2023</a>)</span> alapján.
+</figcaption>
+<div aria-describedby="tbl-modellek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 30%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Modell</th>
+<th style="text-align: left;">Mikor jó választás?</th>
+<th style="text-align: left;">Erősségek</th>
+<th style="text-align: left;">Kockázatok</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Vízesés</td>
+<td style="text-align: left;">Stabil, jól ismert követelmények; ismert technológia; kis bizonytalanság</td>
+<td style="text-align: left;">Egyszerű, jól tervezhető, jól dokumentált</td>
+<td style="text-align: left;">Késői hibafelismerés; a változás drága</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V-modell</td>
+<td style="text-align: left;">Biztonságkritikus vagy szabályozott termékek; sok alrendszer; szigorú igazolási igény</td>
+<td style="text-align: left;">A verifikáció és a validáció korai tervezése; nyomonkövethetőség</td>
+<td style="text-align: left;">Merev, ha szó szerint egyirányú folyamatnak értelmezik</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Spirál</td>
+<td style="text-align: left;">Új technológia, nagy műszaki vagy piaci bizonytalanság</td>
+<td style="text-align: left;">Célzott kockázatcsökkentés, prototípusok</td>
+<td style="text-align: left;">Nagyobb irányítási igény; nehezebb ütemezni</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Inkrementális/agilis</td>
+<td style="text-align: left;">Gyorsan változó igények; szoftverintenzív rendszerek; korai felhasználói visszajelzés kell</td>
+<td style="text-align: left;">Gyors tanulás, korán használható eredmény</td>
+<td style="text-align: left;">Az architektúra és a rendszerszintű igazolás elsikkadhat</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">A V-modell nem időrend</div><div class="doboz-tartalom">
+<p>Gyakori félreértés, hogy a V-modell egy szigorú időbeli sorrendet ír elő: előbb minden követelményt véglegesíteni kell, aztán minden tervet, és csak a legvégén szabad tesztelni. A V-modell valójában <strong>logikai kapcsolatokat</strong> ábrázol: mi miből következik, és mit mivel ellenőrzünk. A gyakorlatban a V-t sokszor bejárjuk (prototípussal, szimulációval, részleges integrációval), és a jobb ág tevékenységei, például egy kritikus alkatrész korai tesztelése, a bal ági munkával párhuzamosan is indulhatnak. A V és az iteráció tehát nem zárja ki egymást (lásd <a href="#sec-rekurzio" class="quarto-xref"><span>2.4</span></a>. szakasz).</p>
+</div></div>
+</section>
+<section id="sec-v-bejaras" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-v-bejaras"><span class="header-section-number">2.3.</span> A V-modell bejárása</h2>
+<p>A könyv további része a <a href="#fig-v" class="quarto-xref"><span>2.4</span></a>. ábrán látható V-modellt követi. Az ábra a bal ágon öt meghatározási szintet, a csúcson a megvalósítást, a jobb ágon pedig öt ellenőrzési és üzembe állítási lépést mutat. A szaggatott vízszintes vonalak jelzik, melyik bal ági munkatermék szolgál melyik jobb ági ellenőrzés alapjául.</p>
+<div id="fig-v" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-v-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/v-modell.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-v-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.4. ábra.</span> A rendszerfejlesztés V-modellje, ahogyan ez a könyv használja. A bal ág a dekompozíció és a definíció, a jobb ág az integráció és az ellenőrzés. A vízszintes vonalak jelzik, hogy minden meghatározási szint egyben a hozzá tartozó ellenőrzés terve is. <span class="citation" data-cites="forsberg1991">Forsberg és Mooz (<a href="../irodalom.html#ref-forsberg1991" role="doc-biblioref">1991</a>)</span> és <span class="citation" data-cites="incose2023seh">INCOSE (<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">2023</a>)</span> alapján, saját szerkesztés.
+</figcaption>
+</figure>
+</div>
+<section id="a-bal-ág-a-problémától-a-részletes-tervig" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="a-bal-ág-a-problémától-a-részletes-tervig"><span class="header-section-number">2.3.1.</span> A bal ág: a problémától a részletes tervig</h3>
+<p>A bal ágon minden lépés egy kérdésre felel, és egy munkaterméket (dokumentumot, modellt vagy döntést) állít elő, amely a következő lépés bemenete lesz.</p>
+<ol type="1">
+<li><strong>Probléma, cél és működési koncepció.</strong> <em>Milyen problémát oldunk meg, és miért éri meg?</em> A munkatermék a szükségletek, célok és célkitűzések rendszere, valamint a működési koncepció (ConOps). A ConOps a felhasználó szemszögéből írja le, hogyan fogják használni a rendszert, beleértve a rendellenes és a leromlott üzemmódokat is (<a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet).</li>
+<li><strong>Az érdekelt felek igényei és elvárásai.</strong> <em>Kiket érint a rendszer, és mit várnak tőle?</em> Az eredmény az érdekelt felek nyilvántartása és a validált elvárások listája, a hatékonyság mérőszámaival (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet).</li>
+<li><strong>Rendszerkövetelmények.</strong> <em>Mit kell a rendszernek mérhetően teljesítenie?</em> Az elvárásokból egyértelmű, ellenőrizhető, a megoldást elő nem író követelmények lesznek, mindegyikhez hozzárendelt verifikációs móddal (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. és <a href="07-qfd.html" class="quarto-xref"><span>7</span></a>. fejezet).</li>
+<li><strong>Architektúra és koncepció.</strong> <em>Milyen elemekből, milyen kapcsolatokkal épül fel a rendszer?</em> A funkciókat formai elemekhez rendeljük, koncepcióváltozatokat generálunk és választunk közülük, a követelményeket pedig lebontjuk az alrendszerekre (<a href="08-architektura.html" class="quarto-xref"><span>8</span></a>., <a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. és <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet).</li>
+<li><strong>Részletes tervezés.</strong> <em>Pontosan hogyan valósítjuk meg az egyes elemeket?</em> Ide tartoznak a gyártási rajzok, a kapcsolási rajzok, a szoftvertervek és a tűrések. Ezen a szinten kerülnek előtérbe a megbízhatósági, biztonsági és ember–gép szempontok is (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>–<a href="18-robusztus.html" class="quarto-xref"><span>18</span></a>. fejezet).</li>
+</ol>
+</section>
+<section id="a-csúcs-megvalósítás" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="a-csúcs-megvalósítás"><span class="header-section-number">2.3.2.</span> A csúcs: megvalósítás</h3>
+<p>A V csúcsán a tervekből valóság lesz. Gyártjuk, beszerezzük vagy kódoljuk az elemeket. Mivel könyvünk műszaki menedzsereknek és mechatronikai mérnököknek is szól, ide soroljuk a gyártó- és szolgáltatófolyamatok tervezését is: a folyamatelemzést, a kapacitástervezést, a folyamatmodellezést és az ütemezést (<a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>–<a href="21-utemezes.html" class="quarto-xref"><span>21</span></a>. fejezet). Ha a fejlesztés tárgya maga egy gyártócella vagy egy szolgáltatás, ezek a módszerek a megvalósítás magját alkotják.</p>
+</section>
+<section id="a-jobb-ág-az-integrációtól-az-üzemeltetésig" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="a-jobb-ág-az-integrációtól-az-üzemeltetésig"><span class="header-section-number">2.3.3.</span> A jobb ág: az integrációtól az üzemeltetésig</h3>
+<p>A jobb ágon lentről felfelé haladva állítjuk össze és ellenőrizzük a rendszert.</p>
+<ol type="1">
+<li><strong>Komponens-verifikáció.</strong> Minden elkészült elemről igazoljuk, hogy megfelel a részletes terv követelményeinek.</li>
+<li><strong>Integráció és alrendszer-verifikáció.</strong> Az elemeket lépésenként összeépítjük. Ez az a pont, ahol az interfészhibák jellemzően felszínre kerülnek (<a href="22-integracio.html" class="quarto-xref"><span>22</span></a>. fejezet).</li>
+<li><strong>Rendszerverifikáció.</strong> A teljes rendszerről igazoljuk, hogy minden rendszerkövetelményt teljesít (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. fejezet).</li>
+<li><strong>Validáció.</strong> Valós vagy valósághű környezetben, valódi felhasználókkal igazoljuk, hogy a rendszer valóban azt nyújtja, amit az érdekelt felek vártak (<a href="24-validacio.html" class="quarto-xref"><span>24</span></a>. fejezet).</li>
+<li><strong>Átadás, üzemeltetés és fenntartás.</strong> A rendszert átadjuk, beüzemeljük, működtetjük, és mérjük, hogy a várt haszon valóban megvalósul-e. Az üzemeltetési tapasztalatok a folyamatos fejlesztés és a következő fejlesztési ciklus bemenetei lesznek (<a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>. fejezet).</li>
+</ol>
+</section>
+<section id="vízszintes-megfeleltetések-korai-tesztterv" class="level3" data-number="2.3.4">
+<h3 data-number="2.3.4" class="anchored" data-anchor-id="vízszintes-megfeleltetések-korai-tesztterv"><span class="header-section-number">2.3.4.</span> Vízszintes megfeleltetések: korai tesztterv</h3>
+<p>A V-modell legfontosabb gyakorlati üzenete a vízszintes vonalakban rejlik. <strong>Amikor a bal ágon megfogalmazunk valamit, egyúttal azt is el kell döntenünk, hogyan fogjuk a jobb ágon igazolni.</strong> Ha egy követelményről a megfogalmazás pillanatában nem tudjuk megmondani, milyen vizsgálattal ellenőrizzük majd, akkor az a követelmény valószínűleg nem elég pontos. Így a korai tesztterv nem bürokratikus többletmunka, hanem a bal ági munka minőségének próbája.</p>
+<div class="doboz doboz-fogalom"><div class="doboz-cim">Verifikáció és validáció</div><div class="doboz-tartalom">
+<p>Az ISO/IEC/IEEE 15288 szabvány a két fogalmat így választja szét <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>:</p>
+<ul>
+<li><strong>Verifikáció:</strong> objektív bizonyítékokkal alátámasztott megerősítése annak, hogy a termék teljesíti a rögzített követelményeket. A bizonyítékot vizsgálat, elemzés, bemutatás vagy teszt adja, vagy ezek kombinációja. Boehm rövid kérdésével: <em>jól építjük-e meg a terméket?</em> <span class="citation" data-cites="boehm1984">(<a href="../irodalom.html#ref-boehm1984" role="doc-biblioref">B. W. Boehm 1984</a>)</span></li>
+<li><strong>Validáció:</strong> objektív bizonyítékokkal alátámasztott megerősítése annak, hogy a termék a tervezett használatra, a tervezett környezetben alkalmas, vagyis betölti a rendeltetését, és megfelel a megrendelő és a többi érdekelt fél elvárásainak. Boehm kérdésével: <em>a jó terméket építjük-e?</em></li>
+</ul>
+<p>A verifikáció a jóváhagyott követelményekre hivatkozik, a validáció a működési koncepcióra és az érdekelt felek elvárásaira. Validálni nemcsak a végén lehet és kell: a korai szakaszokban modellekkel, makettekkel és szimulációval is feltehető a kérdés, hogy a megfelelő terméket építjük-e a felhasználóinknak <span class="citation" data-cites="incose2023seh">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>)</span>.</p>
+</div></div>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: verifikáció vagy validáció?</div><div class="doboz-tartalom">
+<p>Az egyik rendszerkövetelmény így szól: <em>„A kerékpár kölcsönzésének elindítása az alkalmazásban a QR-kód beolvasásától a zár nyitásáig legfeljebb 5 másodpercig tarthat, a kölcsönzések legalább 95%-ában.”</em> Ennek ellenőrzése <strong>verifikáció</strong>: tesztkörnyezetben, mért időkkel igazolható.</p>
+<p>A validáció más kérdést tesz fel: <em>képesek-e a 65 év feletti lakók esős időben, kesztyűben, segítség nélkül kölcsönözni?</em> Lehet, hogy az 5 másodperces követelmény teljesül, a felhasználók mégis elakadnak, mert a QR-kód a dokkoló alján, rossz szögben van. A rendszer ilyenkor átmegy a verifikáción, a validáción viszont elbukik. A hiba forrása a bal ág felső szintjein keresendő: valamelyik érdekelt fél elvárását nem tártuk fel, vagy nem fordítottuk le követelménnyé.</p>
+</div></div>
+</section>
+<section id="a-v-modell-és-a-szabványos-folyamatok" class="level3" data-number="2.3.5">
+<h3 data-number="2.3.5" class="anchored" data-anchor-id="a-v-modell-és-a-szabványos-folyamatok"><span class="header-section-number">2.3.5.</span> A V-modell és a szabványos folyamatok</h3>
+<p>A V-modell lépései nem egy könyv kitalációi: megfelelnek a nemzetközi szabványok folyamatainak. Az ISO/IEC/IEEE 15288:2023 szabvány harminc folyamatot határoz meg négy csoportban: megállapodási, szervezeti projekttámogató, technikai irányítási és technikai folyamatokat <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>. A tizennégy technikai folyamat sorra követi a V-t az üzleti vagy küldetéselemzéstől a kivonásig, a nyolc technikai irányítási folyamat pedig a teljes V-n átível. Az INCOSE kézikönyve ugyanezt a folyamatrendszert részletezi gyakorlati tanácsokkal <span class="citation" data-cites="incose2023seh">(<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023, 2.3</a>. szakasz)</span>. A <a href="#tbl-v-folyamatok" class="quarto-xref"><span>2.2</span></a>. táblázat megmutatja, melyik V-lépéshez melyik szabványos folyamat tartozik, és a könyv melyik fejezete foglalkozik vele.</p>
+<div id="tbl-v-folyamatok" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[24,40,14,22]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-v-folyamatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.2. táblázat.</span> A könyv V-modelljének megfeleltetése az ISO/IEC/IEEE 15288:2023 folyamatainak <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>. A folyamatnevek saját fordítások; a megfeleltetés közelítő, mert a szabvány folyamatai egymással párhuzamosan és ismétlődően is futhatnak.
+</figcaption>
+<div aria-describedby="tbl-v-folyamatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 40%">
+<col style="width: 14%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">A V-modell lépése</th>
+<th style="text-align: left;">ISO/IEC/IEEE 15288:2023 folyamat</th>
+<th style="text-align: center;">Szakasz</th>
+<th style="text-align: left;">Fejezet</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Probléma, cél, működési koncepció</td>
+<td style="text-align: left;">Üzleti vagy küldetéselemzés</td>
+<td style="text-align: center;">6.4.1</td>
+<td style="text-align: left;"><a href="04-problema.html" class="quarto-xref"><span>4</span></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Az érdekelt felek igényei</td>
+<td style="text-align: left;">Az érdekelt felek igényeinek és követelményeinek meghatározása</td>
+<td style="text-align: center;">6.4.2</td>
+<td style="text-align: left;"><a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rendszerkövetelmények</td>
+<td style="text-align: left;">Rendszerkövetelmények meghatározása</td>
+<td style="text-align: center;">6.4.3</td>
+<td style="text-align: left;"><a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>–<a href="07-qfd.html" class="quarto-xref"><span>7</span></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Architektúra és koncepció</td>
+<td style="text-align: left;">Rendszerarchitektúra meghatározása; rendszerelemzés</td>
+<td style="text-align: center;">6.4.4; 6.4.6</td>
+<td style="text-align: left;"><a href="08-architektura.html" class="quarto-xref"><span>8</span></a>–<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Részletes tervezés</td>
+<td style="text-align: left;">Tervmeghatározás; rendszerelemzés</td>
+<td style="text-align: center;">6.4.5; 6.4.6</td>
+<td style="text-align: left;"><a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>–<a href="18-robusztus.html" class="quarto-xref"><span>18</span></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Megvalósítás</td>
+<td style="text-align: left;">Megvalósítás</td>
+<td style="text-align: center;">6.4.7</td>
+<td style="text-align: left;"><a href="19-folyamatelemzes.html" class="quarto-xref"><span>19</span></a>–<a href="21-utemezes.html" class="quarto-xref"><span>21</span></a>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Integráció</td>
+<td style="text-align: left;">Integráció</td>
+<td style="text-align: center;">6.4.8</td>
+<td style="text-align: left;"><a href="22-integracio.html" class="quarto-xref"><span>22</span></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Verifikáció (komponens- és rendszerszinten)</td>
+<td style="text-align: left;">Verifikáció</td>
+<td style="text-align: center;">6.4.9</td>
+<td style="text-align: left;"><a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Validáció</td>
+<td style="text-align: left;">Validáció</td>
+<td style="text-align: center;">6.4.11</td>
+<td style="text-align: left;"><a href="24-validacio.html" class="quarto-xref"><span>24</span></a>.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Átadás, üzemeltetés, fenntartás</td>
+<td style="text-align: left;">Átadás; üzemeltetés; karbantartás; kivonás</td>
+<td style="text-align: center;">6.4.10; 6.4.12–6.4.14</td>
+<td style="text-align: left;"><a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Átívelő tevékenységek</td>
+<td style="text-align: left;">Technikai irányítási folyamatok (projekttervezés, döntéskezelés, kockázatkezelés, konfigurációkezelés stb.)</td>
+<td style="text-align: center;">6.3.1–6.3.8</td>
+<td style="text-align: left;"><a href="10-dontes.html" class="quarto-xref"><span>10</span></a>., <a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>., <a href="26-menedzsment.html" class="quarto-xref"><span>26</span></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-rekurzio" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-rekurzio"><span class="header-section-number">2.4.</span> A V a V-ben: rekurzió és iteráció</h2>
+<p>A V-modellt nem egyszer alkalmazzuk a teljes rendszerre. A rendszer hierarchiájának minden szintjén újra lejátszódik (<a href="#fig-rekurzio" class="quarto-xref"><span>2.5</span></a>. ábra). A rendszerszintű architektúra eredményeként kialakulnak az alrendszerek, és mindegyik megkapja a rá lebontott, allokált követelményeket. Az alrendszer fejlesztője számára ezek az allokált követelmények jelentik a saját V-jének bal felső sarkát. Az alrendszer saját architektúrát, komponenseket és részletes tervet dolgoz ki, a komponenseket verifikálja, integrálja, végül a kész alrendszert igazoltan visszaadja a rendszerszintű integrációnak.</p>
+<div id="fig-rekurzio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rekurzio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/v-rekurzio.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rekurzio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.5. ábra.</span> A V-modell rekurzív alkalmazása. A rendszerszintű tervezés döntései az alrendszerek követelményeivé válnak, az igazoltan elkészült alrendszerek pedig a rendszerintegráció bemenetei. Saját szerkesztés.
+</figcaption>
+</figure>
+</div>
+<p>Az ISO/IEC/IEEE 15288 szabvány a folyamatok alkalmazásának kétféle ismétlődését különbözteti meg <span class="citation" data-cites="iso15288_2023 nasa2016seh">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023, 5.8.2</a>. szakasz; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 2.3</a>. szakasz)</span>. A <strong>rekurzió</strong> azt jelenti, hogy ugyanazokat a folyamatokat a termékszerkezet egymás alatti szintjein újra alkalmazzuk. Az <strong>iteráció</strong> azt jelenti, hogy egy szinten belül többször is végigmegyünk a folyamatokon, amíg a követelmények, a koncepció és a terv összhangba nem kerülnek. A fejlesztés így egymást követő finomításokkal halad: a koncepciószakasz vázlatos körét egyre részletesebb körök követik, és minden kör érettebb, pontosabb eredményt ad.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a cella termékszerkezete</div><div class="doboz-tartalom">
+<p>A KoboCella rendszerszintű V-jének architektúralépése öt alrendszert jelöl ki:</p>
+<ol type="1">
+<li>a kobot a megfogóval;</li>
+<li>a csavarozóegység a nyomatékszabályozással;</li>
+<li>a biztonsági rendszer (érzékelők, biztonsági vezérlő);</li>
+<li>a munkahely és az ergonómiai kialakítás;</li>
+<li>a cellavezérlés a MES-kapcsolattal.</li>
+</ol>
+<p>A csavarozóegységet a beszállító fejleszti. Neki a „8 csavar meghúzása 4,0 ± 0,2 Nm nyomatékkal, 2 másodperces csavaronkénti ciklusidővel, minden meghúzás nyomatékgörbéjének naplózásával” típusú allokált követelmények jelentik a kiindulópontot. A beszállító saját V-t jár be, a cella csapata pedig a kész egység verifikációs jegyzőkönyvét kapja meg, mielőtt integrálja.</p>
+</div></div>
+</section>
+<section id="sec-felulvizsgalatok" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-felulvizsgalatok"><span class="header-section-number">2.5.</span> Mérföldkövek, felülvizsgálatok és alapvonalak</h2>
+<p>Honnan tudjuk, hogy egy szakasz eredménye elég érett ahhoz, hogy a következőre lépjünk? Erre szolgálnak a <strong>technikai felülvizsgálatok</strong>. Ezek előre tervezett, dokumentált bizonyítékokra épülő értékelések, amelyeken az érdekelt felek és a független szakértők közösen döntik el, hogy a munka a következő szakaszba léphet-e (<a href="#fig-felulvizsgalatok" class="quarto-xref"><span>2.6</span></a>. ábra) <span class="citation" data-cites="ieee15288_2_2014">(<a href="../irodalom.html#ref-ieee15288_2_2014" role="doc-biblioref">IEEE 2014</a>)</span>. A felülvizsgálat nem formalitás: az a pont, ahol a projekt még olcsón korrigálhat.</p>
+<div id="fig-felulvizsgalatok" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-felulvizsgalatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/felulvizsgalatok.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-felulvizsgalatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.6. ábra.</span> Tipikus technikai felülvizsgálatok és alapvonalak a fejlesztés során. Az IEEE 15288.2 szabvány <span class="citation" data-cites="ieee15288_2_2014">(<a href="../irodalom.html#ref-ieee15288_2_2014" role="doc-biblioref">IEEE 2014</a>)</span> és a DAU <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001</a>)</span> gyakorlata alapján, egyszerűsítve.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-felulvizsgalatok" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[18,26,36,20]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-felulvizsgalatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.3. táblázat.</span> A technikai felülvizsgálatok áttekintése. Az elnevezések szervezetenként eltérnek; a nagy projektek további felülvizsgálatokat is alkalmaznak, például funkcionális és fizikai konfigurációs auditot <span class="citation" data-cites="ieee15288_2_2014 dau2001 nasa2016seh">(<a href="../irodalom.html#ref-ieee15288_2_2014" role="doc-biblioref">IEEE 2014</a>; <a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001</a>; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 3</a>. fejezet)</span>.
+</figcaption>
+<div aria-describedby="tbl-felulvizsgalatok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Felülvizsgálat</th>
+<th style="text-align: left;">Kulcskérdés</th>
+<th style="text-align: left;">Tipikus bizonyítékok</th>
+<th style="text-align: left;">Angol elnevezés</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Koncepció-felülvizsgálat</td>
+<td style="text-align: left;">Értjük-e a problémát, és van-e megvalósítható, megérő koncepció?</td>
+<td style="text-align: left;">Szükségletek és célok, működési koncepció, koncepcióváltozatok, előzetes költség- és kockázatbecslés</td>
+<td style="text-align: left;">Alternative Systems Review (ASR)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Követelmény-felülvizsgálat</td>
+<td style="text-align: left;">Teljesek, egyértelműek és ellenőrizhetők-e a rendszerkövetelmények?</td>
+<td style="text-align: left;">Rendszerkövetelmény-specifikáció, nyomonkövethetőség az elvárásokig, verifikációs módok</td>
+<td style="text-align: left;">System Requirements Review (SRR)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Előzetes tervfelülvizsgálat</td>
+<td style="text-align: left;">Teljesítheti-e a választott architektúra az összes követelményt elfogadható kockázattal?</td>
+<td style="text-align: left;">Architektúra, allokált követelmények, interfészek, kompromisszumelemzések, előzetes biztonsági és megbízhatósági elemzések</td>
+<td style="text-align: left;">Preliminary Design Review (PDR)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Részletes tervfelülvizsgálat</td>
+<td style="text-align: left;">Kész-e a terv a gyártásra, kódolásra és beszerzésre?</td>
+<td style="text-align: left;">Részletes tervek, tűrések, FMEA, tesztelési tervek</td>
+<td style="text-align: left;">Critical Design Review (CDR)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tesztkészültségi felülvizsgálat</td>
+<td style="text-align: left;">Felkészültünk-e a formális tesztelésre?</td>
+<td style="text-align: left;">Tesztelési eljárások, kalibrált eszközök, a tesztobjektum konfigurációja</td>
+<td style="text-align: left;">Test Readiness Review (TRR)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üzemkészségi felülvizsgálat</td>
+<td style="text-align: left;">Átadható-e a rendszer üzemeltetésre?</td>
+<td style="text-align: left;">Verifikációs és validációs eredmények, kezelési utasítások, képzés, karbantartási terv</td>
+<td style="text-align: left;">System Verification Review (SVR), Operational Readiness Review (ORR)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A felülvizsgálatok egyik legfontosabb kimenete az <strong>alapvonal</strong>. Ez a rendszer leírásának jóváhagyott állapota, amely ettől kezdve csak szabályozott változáskezeléssel módosítható. Az amerikai védelmi gyakorlat a fejlesztési szintekhez igazodva három alapvonalat különböztet meg <span class="citation" data-cites="dau2001">(<a href="../irodalom.html#ref-dau2001" role="doc-biblioref">Defense Acquisition University 2001</a>)</span>:</p>
+<ul>
+<li>a <strong>funkcionális alapvonal</strong> a rendszerszintű, teljesítményben megfogalmazott leírás;</li>
+<li>az <strong>allokált alapvonal</strong> az alrendszerek és komponensek teljesítményleírása;</li>
+<li>a <strong>termékalapvonal</strong> a gyártáshoz szükséges részletes leírás.</li>
+</ul>
+<p>Az alapvonal haszna egyszerű: mindenki ugyanarról a változatról beszél. Egy változtatási javaslat hatása (költség, ütemezés, más elemekre gyakorolt következmény) az alapvonalhoz képest értékelhető. A konfigurációkezelést a <a href="26-menedzsment.html" class="quarto-xref"><span>26</span></a>. fejezet tárgyalja részletesen.</p>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Felülvizsgálat mint előadás</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a felülvizsgálat a csapat bemutatkozó előadásává válik, ahol mindenki azt hangsúlyozza, ami jól sikerült. A felülvizsgálat akkor éri el a célját, ha <strong>előre rögzített belépési és kilépési feltételei vannak</strong> (milyen dokumentumoknak, eredményeknek kell meglenniük), a bírálók a dokumentumokat előre megkapják, és a nyitott kérdéseket felelőssel és határidővel rögzítik a jegyzőkönyvben.</p>
+</div></div>
+<p>A felülvizsgálatok száma és formalitása a projekt méretéhez igazítható. Egy féléves hallgatói projektben vagy egy kisvállalati fejlesztésben elegendő lehet három ellenőrzési pont: a koncepció és a követelmények jóváhagyása, a terv jóváhagyása, végül az átadás előtti ellenőrzés. A folyamatok projekthez igazításának (tailoring) a szabványok és a szakirodalom külön figyelmet szentel <span class="citation" data-cites="iso15288_2023 incose2023seh nasa2016seh">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>; <a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023, 4</a>. fejezet; <a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">NASA 2016, 3.11</a>. szakasz)</span>. Az elv egyszerű: a folyamat szolgálja a projektet, és ne fordítva.</p>
+</section>
+<section id="sec-v-esetek" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-v-esetek"><span class="header-section-number">2.6.</span> A három futó eset a V-modellben</h2>
+<p>Hogyan néz ki mindez a gyakorlatban? A <a href="#tbl-v-esetek" class="quarto-xref"><span>2.4</span></a>. táblázat a három futó esettanulmány néhány jellemző munkatermékét rendeli a V-modell lépéseihez. Érdemes megfigyelni, hogy a C eset, a ForgácsTech digitális átállása esetében a „rendszer” elsősorban egy szervezet és annak folyamatai. A V-modell logikája itt is ugyanúgy működik: a problémából követelmények lesznek, azokból terv, a tervből megvalósítás, a megvalósítást pedig ellenőrizni és validálni kell.</p>
+<div id="tbl-v-esetek" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[16,28,28,28]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-v-esetek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">2.4. táblázat.</span> Jellemző munkatermékek a V-modell lépéseiben a három futó esettanulmányban.
+</figcaption>
+<div aria-describedby="tbl-v-esetek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">V-lépés</th>
+<th style="text-align: left;">A: KoboCella</th>
+<th style="text-align: left;">B: VárosiBringa</th>
+<th style="text-align: left;">C: ForgácsTech</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Probléma, működési koncepció</td>
+<td style="text-align: left;">Növekvő igény, ergonómiai panaszok, utómunka; a műszak működési forgatókönyvei</td>
+<td style="text-align: left;">Rövid autós utak kiváltása dombos városban; a kölcsönzés és visszaadás forgatókönyvei</td>
+<td style="text-align: left;">Határidő-csúszások, átláthatatlan gépállapot; egy rendelés útja az üzemen át</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Érdekelt felek</td>
+<td style="text-align: left;">Operátorok, munkavédelem, vevő, integrátor</td>
+<td style="text-align: left;">Lakosok, önkormányzat, üzemeltető, közlekedési társaság</td>
+<td style="text-align: left;">Tulajdonos, gépkezelők, vevők, MES-szállító</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rendszerkövetelmények</td>
+<td style="text-align: left;">Ciklusidő, első átmenetes kihozatal, ergonómiai terhelés, nyomaték-naplózás</td>
+<td style="text-align: left;">Elérhetőség, kölcsönzési idő, áthelyezési költség, akadálymentesség</td>
+<td style="text-align: left;">Átfutási idő, adatgyűjtési lefedettség, OEE-mérés pontossága</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Architektúra</td>
+<td style="text-align: left;">Kobot, csavarozó, biztonsági rendszer, munkahely, vezérlés</td>
+<td style="text-align: left;">Kerékpár, dokkoló, alkalmazás, háttérrendszer, szerviz</td>
+<td style="text-align: left;">Gépcsatlakozások, MES, ütemező modul, terminálok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Részletes terv</td>
+<td style="text-align: left;">Megfogó, biztonsági zónák, kezelőfelület</td>
+<td style="text-align: left;">Dokkolózár, töltés, felhasználói felület</td>
+<td style="text-align: left;">Adatmodell, képernyők, munkautasítások</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Megvalósítás</td>
+<td style="text-align: left;">Cella építése, programozás</td>
+<td style="text-align: left;">Gyártás, telepítés, fejlesztés</td>
+<td style="text-align: left;">Bevezetés gépcsoportonként</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Verifikáció</td>
+<td style="text-align: left;">Nyomaték- és ciklusidő-mérés, biztonsági funkciók tesztje</td>
+<td style="text-align: left;">Kölcsönzési idő mérése, terheléses teszt</td>
+<td style="text-align: left;">Adatpontosság ellenőrzése gépnaplóval</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Validáció</td>
+<td style="text-align: left;">Próbaüzem valódi műszakban, operátori visszajelzés</td>
+<td style="text-align: left;">Próbaidőszak egy városrészben, felhasználói tesztek</td>
+<td style="text-align: left;">Próbaüzem egy gépcsoporton, gépkezelői tapasztalatok</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Üzemeltetés</td>
+<td style="text-align: left;">OEE-követés, karbantartás</td>
+<td style="text-align: left;">Kihasználtság, áthelyezés, javítás</td>
+<td style="text-align: left;">Folyamatos fejlesztés, OEE- és átfutásiidő-trendek</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Merre tart a V-modell?</div><div class="doboz-tartalom">
+<p>A V-modell logikája (meghatározni, lebontani, megvalósítani, összeépíteni, igazolni) időtálló. Megvalósítása azonban gyorsan változik. Az INCOSE 2022-ben kiadott jövőképe szerint a rendszermérnökség jövője modellalapú <span class="citation" data-cites="incose2022vision">(<a href="../irodalom.html#ref-incose2022vision" role="doc-biblioref">INCOSE 2022</a>)</span>. A dokumentumok helyett egy összefüggő rendszermodell hordozza a követelményeket, az architektúrát és az ellenőrzési eredményeket, így a V vízszintes kapcsolatai automatikusan nyomon követhetők. Ehhez kapcsolódik a digitális iker, amely az üzemeltetési adatokat visszavezeti a tervezésbe, és ezzel „bezárja” a V-t. Szintén ide tartozik a folyamatos integráció és telepítés, amely a jobb ág ellenőrzéseinek egy részét automatizálja és naponta futtatja. A nagy nyelvi modellek új lehetőségeket nyitnak a követelmények minőségének ellenőrzésében és a dokumentumok közötti nyomonkövethetőség feltárásában. Ezek eredményei azonban ugyanúgy verifikálandók, mint bármely más mérnöki munkatermék. A modellalapú megközelítést a <a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet tárgyalja.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A rendszert a teljes életciklusára tervezzük a koncepciótól a kivonásig. A korai döntések rögzítik az életciklusköltség nagy részét, és a változtatás költsége a projekt előrehaladtával nagyságrendekkel nő.</li>
+<li>Az életciklus-modell azt írja le, milyen sorrendben és visszacsatolásokkal haladunk. A vízesés egyszerű, de merev. A V-modell az ellenőrzés korai tervezésére épül. A spirálmodell a kockázatokat állítja a középpontba. Az agilis fejlesztés rövid, működő eredményt adó ciklusokkal dolgozik. A gyakorlatban gyakori a hibrid megoldás.</li>
+<li>A V-modell bal ága a problémától a részletes tervig halad, a csúcsa a megvalósítás, a jobb ága a komponens-verifikációtól az üzemeltetésig tart. Minden bal ági szinthez tartozik egy jobb ági ellenőrzés, amelynek tervét már a meghatározáskor elkészítjük.</li>
+<li>A verifikáció azt igazolja, hogy jól építettük meg a terméket, a validáció azt, hogy a jó terméket építettük meg.</li>
+<li>A V rekurzív: a rendszer minden szintjén újra lejátszódik. Iteratív is: egy szinten belül többször bejárjuk. A felülvizsgálatok és az alapvonalak teszik a haladást ellenőrizhetővé és a változtatásokat kezelhetővé.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Mit jelent az, hogy a tervezés a költségek nagy részét „elkötelezi”, de csak kis részét költi el? Adj rá saját példát!</li>
+<li>Milyen projektjellemzők szólnak a spirálmodell mellett a V-modellel szemben?</li>
+<li>Egy okosotthon-termosztát egyik követelménye: „A beállított hőmérsékletet ±0,5 °C pontossággal kell tartania.” Írj egy verifikációs és egy validációs kérdést ehhez a termékhez!</li>
+<li>Miért nevezzük a V-modell vízszintes kapcsolatait korai teszttervnek? Mi a haszna annak, ha a verifikáció módját a követelmény megfogalmazásakor rögzítjük?</li>
+<li>Mi a különbség a rekurzió és az iteráció között a rendszermérnöki folyamatban?</li>
+<li>Mi az alapvonal, és miért van rá szükség?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>A tervezési döntések (anyagválasztás, architektúra, gyártási technológia) meghatározzák a későbbi gyártási, üzemeltetési és karbantartási költségeket, bár maguk viszonylag olcsók. Példa: ha egy kerékpárdokkoló házát öntött alumíniumból tervezzük, az öntőszerszám, a darabár és a javítás módja is eldől, mielőtt egyetlen darab elkészülne.</li>
+<li>Új, kipróbálatlan technológia; nagy műszaki vagy piaci bizonytalanság; olyan kockázatok, amelyek csak prototípussal vagy kísérlettel csökkenthetők; változó vagy nehezen megfogható igények.</li>
+<li>Verifikáció: klímakamrában, adott hőterhelés mellett a termosztát a beállított értéket ±0,5 °C-on belül tartja-e? Validáció: a lakók egy téli hónap alatt kényelmesnek érzik-e a lakást, és képesek-e a programozást segítség nélkül beállítani?</li>
+<li>Mert a bal ági meghatározással egy időben dől el, hogyan igazoljuk majd a jobb ágon. Ha a verifikáció módja nem rögzíthető, a követelmény jellemzően nem elég pontos vagy nem mérhető. A korai rögzítés ezért a követelmények minőségét is javítja, és időben jelzi a szükséges tesztberendezéseket.</li>
+<li>Rekurzió: ugyanazokat a folyamatokat a termékszerkezet egymás alatti szintjein (rendszer, alrendszer, komponens) újra alkalmazzuk. Iteráció: egy szinten belül többször végigmegyünk a folyamatokon, amíg a követelmények és a terv összhangba nem kerülnek.</li>
+<li>A rendszerleírás jóváhagyott állapota, amely csak szabályozott változáskezeléssel módosítható. Ennek köszönhetően mindenki ugyanarról a változatról beszél, és a változtatások hatása az alapvonalhoz mérhető.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: a projekt V-terve</div><div class="doboz-tartalom">
+<p>Válassz egy fejlesztési feladatot a <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a> projektjavaslatai közül, vagy hozd a sajátodat. Készítsd el hozzá a projekt V-tervét:</p>
+<ul>
+<li>rajzold fel a V-t a saját rendszeredre;</li>
+<li>minden lépéshez írd fel a várható munkaterméket;</li>
+<li>minden bal ági lépés mellé írd fel, hogyan fogod a jobb ágon ellenőrizni.</li>
+</ul>
+<p>Jelölj ki legalább három felülvizsgálati pontot belépési feltételekkel. A részletes útmutatót és a sablont a Gyakorlati útmutató <em>Projekt V-terve</em> eszközlapja tartalmazza.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="incose2023seh">INCOSE (<a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">2023</a>)</span>, 2. fejezet: az életciklus-fogalmak és -modellek részletes, szabványokra épülő tárgyalása.</li>
+<li><span class="citation" data-cites="iso24748_1_2024">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso24748_1_2024" role="doc-biblioref">2024</a>)</span>: az életciklus-szakaszok és -modellek szabványos kerete.</li>
+<li><span class="citation" data-cites="sebok2025">SEBoK Editorial Board (<a href="../irodalom.html#ref-sebok2025" role="doc-biblioref">2025</a>)</span>: az életciklus-modellekről és a felülvizsgálatokról szóló, szabadon elérhető fejezetek.</li>
+<li><span class="citation" data-cites="forsberg1991">Forsberg és Mooz (<a href="../irodalom.html#ref-forsberg1991" role="doc-biblioref">1991</a>)</span>: a rendszermérnöki V-modell eredeti cikke.</li>
+<li><span class="citation" data-cites="boehm1988">B. W. Boehm (<a href="../irodalom.html#ref-boehm1988" role="doc-biblioref">1988</a>)</span>: a kockázatvezérelt spirálmodell klasszikus leírása.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 2. és 3. fejezet: a rendszermérnöki motor és a projektfázisok gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-beck2001agile" class="csl-entry" role="listitem">
+Beck, Kent és mtsai. 2001. <span>„Manifesto for Agile Software Development”</span>. <a href="https://agilemanifesto.org" class="uri">https://agilemanifesto.org</a>.
+</div>
+<div id="ref-boehm1984" class="csl-entry" role="listitem">
+Boehm, Barry W. 1984. <span>„Verifying and Validating Software Requirements and Design Specifications”</span>. <em>IEEE Software</em> 1 (1): 75–88. <a href="https://doi.org/10.1109/MS.1984.233702">https://doi.org/10.1109/MS.1984.233702</a>.
+</div>
+<div id="ref-boehm1988" class="csl-entry" role="listitem">
+———. 1988. <span>„A Spiral Model of Software Development and Enhancement”</span>. <em>Computer</em> 21 (5): 61–72. <a href="https://doi.org/10.1109/2.59">https://doi.org/10.1109/2.59</a>.
+</div>
+<div id="ref-boehm2014icsm" class="csl-entry" role="listitem">
+Boehm, Barry, Jo Ann Lane, Supannika Koolmanojwong, és Richard Turner. 2014. <em>The Incremental Commitment Spiral Model: Principles and Practices for Successful Systems and Software</em>. Upper Saddle River, NJ: Addison-Wesley.
+</div>
+<div id="ref-dau2001" class="csl-entry" role="listitem">
+Defense Acquisition University. 2001. <em>Systems Engineering Fundamentals</em>. Fort Belvoir, VA: Defense Acquisition University Press.
+</div>
+<div id="ref-forsberg1991" class="csl-entry" role="listitem">
+Forsberg, Kevin, és Harold Mooz. 1991. <span>„The Relationship of System Engineering to the Project Cycle”</span>. In <em>Proceedings of the First Annual Symposium of the National Council on Systems Engineering (NCOSE) and the American Society for Engineering Management</em>, 57–65. Chattanooga, TN.
+</div>
+<div id="ref-friedrich2009vmodellxt" class="csl-entry" role="listitem">
+Friedrich, Jan, Ulrike Hammerschall, Marco Kuhrmann, és Marc Sihling. 2009. <em>Das V-Modell XT: Für Projektleiter und QS-Verantwortliche kompakt und übersichtlich</em>. 2. kiad. Berlin: Springer.
+</div>
+<div id="ref-ieee15288_2_2014" class="csl-entry" role="listitem">
+IEEE. 2014. <span>„<span>IEEE</span> Std 15288.2-2014: <span>IEEE</span> Standard for Technical Reviews and Audits on Defense Programs”</span>. New York: Szabvány; nemzetközi változata ISO/IEC/IEEE 24748-8:2019; IEEE.
+</div>
+<div id="ref-incose2015seh" class="csl-entry" role="listitem">
+INCOSE. 2015. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Garry J. Roedler, Kevin J. Forsberg, R. Douglas Hamelin, és Thomas M. Shortell. 4. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-incose2022vision" class="csl-entry" role="listitem">
+———. 2022. <span>„Systems Engineering Vision 2035: Engineering Solutions for a Better World”</span>. International Council on Systems Engineering. <a href="https://www.incose.org/sevision">https://www.incose.org/sevision</a>.
+</div>
+<div id="ref-incose2023seh" class="csl-entry" role="listitem">
+———. 2023. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Thomas M. Shortell, Garry J. Roedler, Bernardo A. Delicado, Odile Mornas, Yew-Seng Yip, és David Endler. 5. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-iso24748_1_2024" class="csl-entry" role="listitem">
+———. 2024. <span>„<span>ISO/IEC/IEEE 24748-1:2024</span> Systems and Software Engineering – Life Cycle Management – Part 1: Guidelines for Life Cycle Management”</span>. Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-rook1986" class="csl-entry" role="listitem">
+Rook, Paul. 1986. <span>„Controlling Software Projects”</span>. <em>Software Engineering Journal</em> 1 (1): 7–16. <a href="https://doi.org/10.1049/sej.1986.0003">https://doi.org/10.1049/sej.1986.0003</a>.
+</div>
+<div id="ref-royce1970" class="csl-entry" role="listitem">
+Royce, Winston W. 1970. <span>„Managing the Development of Large Software Systems”</span>. In <em>Proceedings of IEEE WESCON</em>, 1–9.
+</div>
+<div id="ref-sebok2025" class="csl-entry" role="listitem">
+SEBoK Editorial Board. 2025. <span>„The Guide to the Systems Engineering Body of Knowledge (<span>SEBoK</span>), v. 2.13”</span>. Hoboken, NJ: The Trustees of the Stevens Institute of Technology, <a href="https://sebokwiki.org" class="uri">https://sebokwiki.org</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/01-rendszerek.html" class="pagination-link" aria-label="Rendszerek és rendszerszemlélet">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/03-modellek.html" class="pagination-link" aria-label="Modellek és modellalapú rendszermérnökség">
+        <span class="nav-page-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/02-v-modell.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/02-v-modell.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

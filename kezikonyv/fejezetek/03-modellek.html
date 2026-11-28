@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Modellek és modellalapú rendszermérnökség – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/04-problema.html" rel="next">
+<link href="../fejezetek/02-v-modell.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/03-modellek.html"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/03-modellek.html"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-modellek" class="quarto-section-identifier"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-mod-miert" id="toc-sec-mod-miert" class="nav-link active" data-scroll-target="#sec-mod-miert"><span class="header-section-number">3.1.</span> Miért modellezünk?</a></li>
+  <li><a href="#sec-mod-tipusok" id="toc-sec-mod-tipusok" class="nav-link" data-scroll-target="#sec-mod-tipusok"><span class="header-section-number">3.2.</span> Modelltípusok</a></li>
+  <li><a href="#sec-mod-kontextus" id="toc-sec-mod-kontextus" class="nav-link" data-scroll-target="#sec-mod-kontextus"><span class="header-section-number">3.3.</span> Rendszerhatár és kontextusdiagram</a>
+  <ul class="collapse">
+  <li><a href="#interfészek-és-interfészelemek" id="toc-interfészek-és-interfészelemek" class="nav-link" data-scroll-target="#interfészek-és-interfészelemek"><span class="header-section-number">3.3.1.</span> Interfészek és interfészelemek</a></li>
+  </ul></li>
+  <li><a href="#sec-mod-vv" id="toc-sec-mod-vv" class="nav-link" data-scroll-target="#sec-mod-vv"><span class="header-section-number">3.4.</span> Megbízhatunk-e a modellben?</a></li>
+  <li><a href="#sec-mod-mbse" id="toc-sec-mod-mbse" class="nav-link" data-scroll-target="#sec-mod-mbse"><span class="header-section-number">3.5.</span> A dokumentumoktól a modellekig: MBSE</a>
+  <ul class="collapse">
+  <li><a href="#nézőpontok-és-nézetek" id="toc-nézőpontok-és-nézetek" class="nav-link" data-scroll-target="#nézőpontok-és-nézetek"><span class="header-section-number">3.5.1.</span> Nézőpontok és nézetek</a></li>
+  </ul></li>
+  <li><a href="#sec-mod-sysml" id="toc-sec-mod-sysml" class="nav-link" data-scroll-target="#sec-mod-sysml"><span class="header-section-number">3.6.</span> A SysML nyelv</a>
+  <ul class="collapse">
+  <li><a href="#sysml-v2" id="toc-sysml-v2" class="nav-link" data-scroll-target="#sysml-v2"><span class="header-section-number">3.6.1.</span> SysML v2</a></li>
+  </ul></li>
+  <li><a href="#sec-mod-iker" id="toc-sec-mod-iker" class="nav-link" data-scroll-target="#sec-mod-iker"><span class="header-section-number">3.7.</span> Digitális fonal és digitális iker</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/03-modellek.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/03-modellek.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-modellek.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a modellek a V-modell minden lépését átszövik"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>megfogalmazni, mire valók a modellek a rendszermérnökségben, és miért közelítés minden modell;</li>
+<li>a feladathoz illő modelltípust választani (fizikai, fogalmi, matematikai, szimulációs, adatvezérelt);</li>
+<li>kontextusdiagrammal kijelölni egy rendszer határát, és rendszerezni a külső interfészeit;</li>
+<li>megkülönböztetni a modell verifikációját és validációját;</li>
+<li>összevetni a dokumentumközpontú és a modellalapú rendszermérnökséget, és értelmezni a nézőpont és a nézet fogalmát;</li>
+<li>megnevezni a SysML diagramtípusait és azt, hogy melyik mire való, valamint értelmezni egy egyszerű SysML v2 szöveges modellt;</li>
+<li>megkülönböztetni a digitális modellt, a digitális árnyékot és a digitális ikret.</li>
+</ul>
+</div></div>
+<p>Az előző fejezet rendszerekről szólt. Ez arról szól, hogyan gondolkodunk róluk, és hogyan beszélünk róluk egymással. A rendszermérnök nem tud egy még nem létező rendszert kipróbálni, és egy létező, nagy rendszeren sem kísérletezhet szabadon. Ezért modelleket használ: egyszerűsített leképezéseket, amelyeken kérdéseket tehet fel, és amelyek segítségével a csapat közös képet alakíthat ki a rendszerről. A V-modell bal ágán a modellek a tervezés eszközei, a jobb ágán az ellenőrzés mércéi: a mérési eredményeket a modell előrejelzéseivel vetjük össze.</p>
+<p>A fejezet négy kérdésre keresi a választ:</p>
+<ul>
+<li>Mire jó egy modell, és hogyan válasszuk ki a feladathoz illőt?</li>
+<li>Hogyan jelöljük ki a rendszer határát, és hogyan írjuk le a környezetével fennálló kapcsolatait?</li>
+<li>Honnan tudjuk, hogy egy modellben megbízhatunk?</li>
+<li>Mit jelent a modellalapú rendszermérnökség, a SysML és a digitális iker?</li>
+</ul>
+<section id="sec-mod-miert" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-mod-miert"><span class="header-section-number">3.1.</span> Miért modellezünk?</h2>
+<p>A <strong>modell</strong> egy rendszer céltudatosan egyszerűsített leképezése, amely egy meghatározott kérdés megválaszolását szolgálja. A meghatározás két kulcsszava a <em>céltudatos</em> és az <em>egyszerűsített</em>. Nincs „a” modellje egy rendszernek, csak egy adott kérdéshez illő modellje van. A KoboCella háromdimenziós CAD-modellje alkalmas arra, hogy ellenőrizzük, elér-e a robot minden csavarhoz, de semmit sem mond arról, hány motort szerel össze a cella egy műszakban. Erre egy egyszerű folyamatmodell vagy szimuláció való.</p>
+<p>George Box statisztikus sokat idézett megállapítása szerint minden modell hamis, de vannak hasznos modellek <span class="citation" data-cites="box1979">(<a href="../irodalom.html#ref-box1979" role="doc-biblioref">Box 1979</a>)</span>. A modell attól hasznos, hogy elhagyja a lényegtelent. Ha egy térkép ugyanolyan részletes lenne, mint a terep, nem lehetne vele tájékozódni. A modellező fő kérdése ezért nem az, hogy a modell „igaz-e”, hanem az, hogy elég jó-e a feltett kérdés megválaszolására.</p>
+<p>Epstein sokat idézett írásában az előrejelzés mellett tizenhat további okot sorol fel arra, miért érdemes modellezni <span class="citation" data-cites="epstein2008">(<a href="../irodalom.html#ref-epstein2008" role="doc-biblioref">Epstein 2008</a>)</span>. A rendszermérnök szempontjából ezek közül négy a legfontosabb:</p>
+<ul>
+<li><strong>Struktúrában gondolkodunk.</strong> A modellalkotás arra kényszerít, hogy azonosítsuk az elemeket, feltárjuk a kapcsolatokat, és kimondjuk a feltételezéseinket.</li>
+<li><strong>Megalapozottabban döntünk.</strong> A modellel kiszámíthatjuk, mi történne különböző döntések esetén, és összevethetjük a változatokat, mielőtt bármit megépítenénk.</li>
+<li><strong>Termékenyebbek leszünk.</strong> A modell olyan kérdéseket is felvet, amelyekre nem gondoltunk, és olyan összefüggéseket is megmutat, amelyek intuitíve nem nyilvánvalók: egyensúlyi, ciklikus, véletlenszerű vagy komplex viselkedést.</li>
+<li><strong>Óvatosságra intenek.</strong> A modell feltárja a logikai korlátokat, és megmutatja, hol bizonytalan a tudásunk.</li>
+</ul>
+<p>Ehhez jön egy ötödik, a rendszermérnökségben talán a legfontosabb szerep: a <strong>kommunikáció</strong>. Egy jó kontextusdiagram vagy állapotgép-diagram percek alatt közös képet teremt egy gépész, egy programozó, egy ergonómus és egy beszerző között. Szöveggel ehhez oldalakra volna szükség.</p>
+<div class="doboz doboz-fogalom"><div class="doboz-cim">Modell, szimuláció, digitális iker</div><div class="doboz-tartalom">
+<ul>
+<li><strong>Modell:</strong> egy rendszer céltudatosan egyszerűsített leképezése egy kérdés megválaszolására.</li>
+<li><strong>Szimuláció:</strong> a modell működtetése, jellemzően időben, hogy megfigyeljük a viselkedését. A szimuláció tehát nem modelltípus, hanem a modell használatának egy módja.</li>
+<li><strong>Digitális iker:</strong> a valós rendszerrel automatikus, kétirányú adatkapcsolatban álló digitális modell (<a href="#sec-mod-iker" class="quarto-xref"><span>3.7</span></a>. szakasz).</li>
+</ul>
+</div></div>
+</section>
+<section id="sec-mod-tipusok" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-mod-tipusok"><span class="header-section-number">3.2.</span> Modelltípusok</h2>
+<p>A rendszermérnöki gyakorlatban öt modellcsaládot érdemes megkülönböztetni (<a href="#fig-modelltipusok" class="quarto-xref"><span>3.1</span></a>. ábra).</p>
+<ul>
+<li><strong>Fizikai modellek:</strong> makettek, skálamodellek, prototípusok, próbapadok. Előnyük, hogy a valódi fizikai jelenséget hordozzák, így olyan hatásokat is megmutatnak, amelyekre nem gondoltunk. Hátrányuk, hogy drágák, és lassan módosíthatók.</li>
+<li><strong>Fogalmi, leíró modellek:</strong> kontextusdiagramok, funkcióhierarchiák, folyamatábrák, SysML-diagramok. A rendszer szerkezetét, viselkedését és kapcsolatait írják le, és elsősorban a megértést és a kommunikációt szolgálják.</li>
+<li><strong>Matematikai, analitikus modellek:</strong> egyenletek és képletek, amelyek a rendszer jellemzői közötti összefüggést írják le. Lehetnek statikusak vagy dinamikusak, determinisztikusak vagy sztochasztikusak, folytonosak vagy diszkrétek. Ide tartoznak a megbízhatósági blokkdiagramok és a sorbanállási képletek is.</li>
+<li><strong>Szimulációs modellek:</strong> a rendszer viselkedését időben játsszák le. A gyártásban és a logisztikában a diszkrét eseményes szimuláció terjedt el <span class="citation" data-cites="law2015">(<a href="../irodalom.html#ref-law2015" role="doc-biblioref">Law 2015</a>)</span>. A visszacsatolásokkal teli, stratégiai szintű kérdésekhez a rendszerdinamikai modellek valók <span class="citation" data-cites="sterman2000">(<a href="../irodalom.html#ref-sterman2000" role="doc-biblioref">Sterman 2000</a>)</span>. A sok önálló döntéshozó viselkedéséből kibontakozó mintázatokhoz az ágensalapú modellek, a bizonytalanság terjedésének vizsgálatához a Monte-Carlo-szimuláció.</li>
+<li><strong>Adatvezérelt modellek:</strong> statisztikai és gépi tanulási modellek, amelyek mért adatokból tanulják meg az összefüggéseket. Akkor hasznosak, ha a mechanizmus túl bonyolult az első elvekből történő leíráshoz, de van elég jó minőségű adat.</li>
+</ul>
+<div id="fig-modelltipusok" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modelltipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/modelltipusok.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modelltipusok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.1. ábra.</span> A modellek fő családjai és a fehér doboz–fekete doboz skála. A fehér doboz modell a belső mechanizmusra, a fekete doboz modell a mért bemenet–kimenet kapcsolatra épül.
+</figcaption>
+</figure>
+</div>
+<p>A modelleket aszerint is osztályozhatjuk, hogy mennyit tudunk a modellezett rendszer belső működéséről. Karplus klasszikus elemzése szerint a modellek egy spektrumon helyezkednek el. A spektrum egyik végén a jól ismert fizikai törvényekre épülő „fehér doboz” modellek állnak (villamos és mechanikai rendszerek), a másik végén a csak megfigyelt adatokra épülő „fekete doboz” modellek (társadalmi és gazdasági rendszerek). A spektrum fekete doboz végén a modellek legfeljebb spekulációra és előrejelzésre alkalmasak, a fehér doboz felé haladva pedig elemzésre, irányításra, végül tervezésre is <span class="citation" data-cites="karplus1977">(<a href="../irodalom.html#ref-karplus1977" role="doc-biblioref">Karplus 1977</a>)</span>. A Lakatos-jegyzet ugyanezt a spektrumot használja a rendszerek modellezhetőségének jellemzésére <span class="citation" data-cites="lakatos_rendszerek">(<a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n.</a>)</span>. A kettő között vannak a <strong>szürke doboz</strong> modellek: ezek szerkezete első elvekből adódik, paramétereiket viszont mért adatokból becsüljük.</p>
+<p>A modellválasztás a kérdésből indul ki, nem az eszközből. A <a href="#tbl-mod-valasztas" class="quarto-xref"><span>3.1</span></a>. táblázat a futó esetek néhány tipikus kérdéséhez rendel modellt.</p>
+<div id="tbl-mod-valasztas" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[40,26,34]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mod-valasztas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.1. táblázat.</span> Kérdések és modelltípusok a futó esetekben.
+</figcaption>
+<div aria-describedby="tbl-mod-valasztas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 26%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Kérdés</th>
+<th style="text-align: left;">Modelltípus</th>
+<th style="text-align: left;">Miért ez?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Elér-e a robot minden csavarhoz, és ütközik-e az operátorral? (A)</td>
+<td style="text-align: left;">fizikai és geometriai (CAD, robotszimulátor)</td>
+<td style="text-align: left;">térbeli viszonyokról szól; a kinematika ismert</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mekkora a cella ciklusideje az adott munkamegosztással? (A)</td>
+<td style="text-align: left;">analitikus (idődiagram, kritikus út)</td>
+<td style="text-align: left;">determinisztikus műveleti idők összege és átfedése</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mennyit termel a cella egy műszakban, ha a robot időnként leáll? (A)</td>
+<td style="text-align: left;">diszkrét eseményes szimuláció</td>
+<td style="text-align: left;">véletlen leállások és pufferek kölcsönhatása</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kik és milyen áramlásokkal kapcsolódnak a rendszerhez? (C)</td>
+<td style="text-align: left;">fogalmi (kontextusdiagram)</td>
+<td style="text-align: left;">a cél a határ és az interfészek tisztázása</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hogyan alakul a felhasználószám öt év alatt? (B)</td>
+<td style="text-align: left;">rendszerdinamikai</td>
+<td style="text-align: left;">visszacsatolások és késleltetések uralják</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hány kölcsönzés várható egy új állomáson? (B)</td>
+<td style="text-align: left;">adatvezérelt (regresszió hasonló állomások alapján)</td>
+<td style="text-align: left;">a mechanizmus összetett, de van adat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Milyen hatással jár egy MES-bevezetés a határidő-tartásra? (C)</td>
+<td style="text-align: left;">folyamatmodell és szimuláció</td>
+<td style="text-align: left;">sorbanállás, ütemezés, információs késleltetés</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Az eszköz választja a modellt</div><div class="doboz-tartalom">
+<p>A kezdő modellező gyakran azzal a modellel dolgozik, amelyik eszközt ismeri. Aki szimulációs programot tanult, mindent szimulálni akar. Aki táblázatkezelőben jártas, mindent táblázatban számol. A jó kérdés mindig az, hogy mi a legegyszerűbb modell, amely a feltett kérdésre elég pontos választ ad. Egy borítékhátoldali becslés sokszor többet ér egy hetekig épített szimulációnál, ha a döntéshez elég a nagyságrend.</p>
+</div></div>
+</section>
+<section id="sec-mod-kontextus" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-mod-kontextus"><span class="header-section-number">3.3.</span> Rendszerhatár és kontextusdiagram</h2>
+<p>A legelső és sokszor a legfontosabb modell a <strong>kontextusdiagram</strong>. Kossiakoff és szerzőtársai a rendszermérnök egyik legfontosabb kommunikációs eszközének tartják: megmutatja a rendszer környezetében lévő külső entitásokat és a rendszerrel folytatott kölcsönhatásaikat. A rendszert fekete dobozként ábrázolja, vagyis egyetlen alakzatként középen, belső felépítését elrejtve <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.4</a>. szakasz)</span>. A diagram három összetevőből áll:</p>
+<ol type="1">
+<li><strong>Külső entitások:</strong> minden szereplő, rendszer vagy objektum, amellyel a rendszer kapcsolatba lép. Ezek a bemenetek forrásai és a kimenetek címzettjei.</li>
+<li><strong>Kölcsönhatások:</strong> nyilak, amelyek iránya az áramlás irányát mutatja. Minden nyilat meg kell címkézni azzal, ami a határon átmegy. Kossiakoff szerint az egyirányú nyilak egyértelműbbek, és az olyan semmitmondó címkéket, mint az „adat” vagy a „kommunikáció”, kerülni kell.</li>
+<li><strong>A rendszer:</strong> egyetlen alakzat középen, csak a rendszer nevével.</li>
+</ol>
+<p>A határon áthaladó kölcsönhatások öt kategóriába sorolhatók: <strong>adat, jel, anyag, energia és tevékenység</strong> <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.4</a>. szakasz)</span>. Az adat feldolgozandó információ (egy megrendelés). A jel valamilyen állapotot vagy eseményt hordoz, amelyre reagálni kell (egy hibajelzés). Az anyag fizikai áramlás (nyersanyag, kész munkadarab, hulladék). Az energia lehet villamos, mechanikai vagy hő. A tevékenység egy külső szereplő munkája a rendszeren (javítás, kezelés).</p>
+<div id="fig-kontextus-forgacs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kontextus-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/kontextus-forgacs.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kontextus-forgacs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.2. ábra.</span> A ForgácsTech rendelésteljesítési rendszerének kontextusdiagramja. A nyilak színe és stílusa a kölcsönhatás típusát jelöli.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-pelda"><div class="doboz-cim">Kidolgozott példa: a ForgácsTech kontextusdiagramja</div><div class="doboz-tartalom">
+<p>A <a href="#fig-kontextus-forgacs" class="quarto-xref"><span>3.2</span></a>. ábra a ForgácsTech rendelésteljesítési rendszerének kontextusdiagramja. Elkészítése négy lépésből állt.</p>
+<p><strong>1. A rendszer megnevezése.</strong> A csapat szándékosan nem „MES-nek” nevezte a rendszert, hanem rendelésteljesítési rendszernek. A szoftver ugyanis csak egy eleme a rendszernek, amelyhez a gépek, az emberek és az eljárások is hozzátartoznak (<a href="01-rendszerek.html#sec-rsz-fogalom" class="quarto-xref"><span>1.1</span></a>. szakasz).</p>
+<p><strong>2. A külső entitások összegyűjtése.</strong> A csapat az érdekeltfél-listából (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet) és a meglévő folyamatok bejárásából indult ki. Hét külső entitás maradt: vevők, nyersanyag-beszállítók, könyvelőiroda, vevői auditor, gépszerviz, áramszolgáltató és hulladékkezelő.</p>
+<p><strong>3. A kölcsönhatások felrajzolása és típusba sorolása.</strong> Minden kapcsolatnál megkérdezték, mi megy át a határon, milyen irányba, és milyen típusú. A „kommunikáció a vevővel” címkéből így három nyíl lett: a megrendelés és a műhelyrajz befelé, a visszaigazolás a szállítási határidővel kifelé, a kész munkadarab a szállítólevéllel szintén kifelé.</p>
+<p><strong>4. Ellenőrzés.</strong> A csapat végignézte, van-e olyan entitás, amely csak ad, de nem kap semmit, vagy fordítva, és hogy van-e olyan bemenet, amelyből nem lesz kimenet. Kiderült, hogy a hulladékkezelő eredetileg kimaradt. A forgács és a hűtő-kenő folyadék elszállítása pedig jogszabályi nyilvántartási kötelezettséggel jár, így a rendszer információs feladatai közé is bekerült.</p>
+<p>A diagram egyetlen oldalon mutatja meg, mivel kell a rendszernek kapcsolatban állnia, és mi nem a fejlesztés tárgya. A MES-szállítóval folytatott első egyeztetésen ez lett a beszélgetés kiindulópontja.</p>
+</div></div>
+<section id="interfészek-és-interfészelemek" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="interfészek-és-interfészelemek"><span class="header-section-number">3.3.1.</span> Interfészek és interfészelemek</h3>
+<p>A kontextusdiagram nyilai a <strong>külső interfészeket</strong> mutatják. A rendszer belsejében, az alrendszerek között ugyanígy <strong>belső interfészek</strong> vannak. Kossiakoff és szerzőtársai az interfészek rendszerezett azonosításához három interfészelem-típust különböztetnek meg <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.5</a>. szakasz)</span>:</p>
+<ul>
+<li><strong>összekötők</strong> (connectors), amelyek lehetővé teszik az áram, a folyadék, az erő és más hatások átvitelét a komponensek között;</li>
+<li><strong>szigetelők</strong> (isolators), amelyek gátolják az ilyen kölcsönhatásokat;</li>
+<li><strong>átalakítók</strong> (converters), amelyek megváltoztatják a kölcsönhatást hordozó közeg formáját.</li>
+</ul>
+<div id="tbl-interfeszelemek" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[16,28,28,28]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interfeszelemek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.2. táblázat.</span> Interfészelemek a KoboCella példáján, Kossiakoff és szerzőtársai rendszerezése nyomán.
+</figcaption>
+<div aria-describedby="tbl-interfeszelemek-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Közeg</th>
+<th style="text-align: left;">Összekötő</th>
+<th style="text-align: left;">Szigetelő</th>
+<th style="text-align: left;">Átalakító</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">villamos</td>
+<td style="text-align: left;">a cellavezérlés kábelei, csatlakozói, kapcsolói</td>
+<td style="text-align: left;">a robot vezérlőszekrényének EMC-árnyékolása</td>
+<td style="text-align: left;">a nyomatékérzékelő analóg–digitális átalakítója</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mechanikai</td>
+<td style="text-align: left;">a megfogó gyorscserélő tengelykapcsolója</td>
+<td style="text-align: left;">a munkaasztal rezgéscsillapító lábai</td>
+<td style="text-align: left;">a csavarorsó bolygóműves hajtása</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pneumatikus</td>
+<td style="text-align: left;">a megfogó sűrítettlevegő-tömlője és szelepe</td>
+<td style="text-align: left;">a hengerek tömítései</td>
+<td style="text-align: left;">a nyomáscsökkentő szelep</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ember–gép</td>
+<td style="text-align: left;">a kezelőpanel és a jelzőlámpa</td>
+<td style="text-align: left;">az átlátszó védőburkolat</td>
+<td style="text-align: left;">az érintőképernyő mint beviteli eszköz</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Az interfészelemek egyszerűsége megtévesztő. Kossiakoff és szerzőtársai hangsúlyozzák, hogy a tapasztalatok szerint a rendszerhibák jelentős része az interfészeken keletkezik, és kifejezetten a rendszermérnök felelőssége, hogy az interfészek kompatibilisek és megbízhatók legyenek <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.5</a>. szakasz)</span>. A belső interfészek rendszerezett feltárásával, az N²-diagrammal és a tervezési struktúramátrixszal a <a href="08-architektura.html" class="quarto-xref"><span>8</span></a>. fejezet, az interfészek kezelésével a <a href="22-integracio.html" class="quarto-xref"><span>22</span></a>. fejezet foglalkozik.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: az elfelejtett ember–gép interfész</div><div class="doboz-tartalom">
+<p>A KoboCella első interfészlistája huszonhárom tételt tartalmazott. Volt benne minden kábel, tömlő és adatkapcsolat a robot, a csavarozó, a biztonsági vezérlés és a MES között. Az operátor egyetlen sorban szerepelt: „HMI – érintőképernyő”. Az ergonómus kérdésére derült ki, hogy az operátor valójában hat különböző módon lép kapcsolatba a cellával. Behelyezi az alkatrészt (anyag), nyugtázza a ciklus indítását (jel), leolvassa a hibakódot (adat), kiveszi és szemrevételezi a kész motort (anyag és tevékenység), feltölti a csavaradagolót (anyag), és vészleállítást kezdeményezhet (jel). Mind a hatnak saját követelményei lettek: elérési távolság, kijelzési idő, kezelőszerv-elhelyezés. Ezekkel az emberközpontú tervezés fejezete (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>. fejezet) foglalkozik.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-mod-vv" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-mod-vv"><span class="header-section-number">3.4.</span> Megbízhatunk-e a modellben?</h2>
+<p>Egy modell csak akkor segíti a döntést, ha megbízhatunk benne. A modellek hitelességét ugyanazzal a két kérdéssel vizsgáljuk, mint magát a rendszert (<a href="02-v-modell.html" class="quarto-xref"><span>2</span></a>. fejezet):</p>
+<ul>
+<li><strong>A modell verifikációja:</strong> helyesen építettük-e meg a modellt? A számítógépes modell azt csinálja-e, amit a fogalmi modell előír, azaz nincs-e programozási, képlet- vagy beállítási hiba?</li>
+<li><strong>A modell validációja:</strong> a megfelelő modellt építettük-e meg? A modell a felhasználási céljához elegendő pontossággal írja-e le a valós rendszert?</li>
+</ul>
+<p>Sargent széles körben használt keretrendszere a modellalkotás folyamatát három elem kapcsolataként írja le: a valós rendszer (a problémaentitás), a fogalmi modell és a számítógépes modell. Ezekhez négy ellenőrzési feladat tartozik (<a href="#fig-modell-vv" class="quarto-xref"><span>3.3</span></a>. ábra) <span class="citation" data-cites="sargent2013">(<a href="../irodalom.html#ref-sargent2013" role="doc-biblioref">Sargent 2013</a>)</span>:</p>
+<ul>
+<li><strong>a fogalmi modell validitása:</strong> a fogalmi modell feltételezései és elméletei helytállóak, és a modell szerkezete, logikája, okozati viszonyai a felhasználási célhoz megfelelőek;</li>
+<li><strong>a számítógépes modell verifikációja:</strong> a fogalmi modell programozása és megvalósítása helyes;</li>
+<li><strong>a működési validitás:</strong> a modell kimenete a felhasználási céljának megfelelő pontosságú a modell alkalmazási tartományában;</li>
+<li><strong>az adatvaliditás:</strong> a modell építéséhez, értékeléséhez és a kísérletekhez használt adatok megfelelőek és helyesek.</li>
+</ul>
+<div id="fig-modell-vv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-modell-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/modell-vv.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-modell-vv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.3. ábra.</span> A modell verifikációja és validációja Sargent egyszerűsített keretrendszere nyomán.
+</figcaption>
+</figure>
+</div>
+<p>Sargent egy fontos megszorítást is tesz: egy modell validitását mindig egy adott felhasználási célhoz és egy adott alkalmazási tartományhoz viszonyítva kell megítélni <span class="citation" data-cites="sargent2013">(<a href="../irodalom.html#ref-sargent2013" role="doc-biblioref">Sargent 2013</a>)</span>. A KoboCella szimulációs modellje lehet érvényes az évi 90–140 ezer darabos tartományban, de semmit sem mond arról, mi történne évi 300 ezer darabnál, amikor egészen más szűk keresztmetszetek lépnének fel.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a szimuláció validálása</div><div class="doboz-tartalom">
+<p>A KoboCella diszkrét eseményes szimulációs modelljét a robotintegrátor készítette. A rendszermérnök három lépésben ellenőrizte.</p>
+<ol type="1">
+<li><strong>Verifikáció.</strong> Determinisztikus esetben, leállások nélkül, kézzel kiszámolta a várható ciklusidőt, és összevetette a szimuláció eredményével. Egy elírás miatt a csavarozási idő a modellben kétszer szerepelt; ezt kijavították.</li>
+<li><strong>Adatvaliditás.</strong> A robot leállási adatait az integrátor egy másik ügyfelénél működő, hasonló cella egyéves naplójából vette. A rendszermérnök ellenőrizte, hogy ott is ugyanaz a csavarozó típus és hasonló darabszám volt-e. A darabszám jóval kisebb volt, ezért a leállási gyakoriságot érzékenységvizsgálattal, a duplájára növelve is kipróbálták.</li>
+<li><strong>Működési validitás.</strong> A kézi munkaállomás jelenlegi teljesítményét a modell egyszerűsített változatával is lefuttatták, és összevetették a MES-ből kinyert valós termelési adatokkal. Az eltérés 3% alatt maradt, ami a beruházási döntéshez elegendő pontosság.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Szép eredmény, ellenőrizetlen modell</div><div class="doboz-tartalom">
+<p>A modellek eredményei, különösen a színes szimulációs animációk és a sok tizedesjegyű számok, hamis biztonságérzetet keltenek. A modell nem lesz pontosabb attól, hogy szép. Minden modelleredmény mellé oda kell írni, milyen feltételezésekkel, milyen adatokkal és milyen tartományban érvényes. A modell bemeneti adatainak minőségénél soha nem lehet jobb az eredmény.</p>
+</div></div>
+</section>
+<section id="sec-mod-mbse" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-mod-mbse"><span class="header-section-number">3.5.</span> A dokumentumoktól a modellekig: MBSE</h2>
+<p>A rendszermérnökség hagyományosan dokumentumokra épült. A követelményspecifikáció, a rendszerterv, az interfészleírás, az elemzési jelentés és a tesztterv külön-külön dokumentum, amelyeket kézzel kell összhangban tartani. Ha egy követelmény megváltozik, a változást minden érintett dokumentumban át kell vezetni. Nagy rendszereknél ez szinte lehetetlen, és az ellentmondások a későbbi fázisokban drága hibákká válnak (<a href="#fig-dok-vs-modell" class="quarto-xref"><span>3.4</span></a>. ábra).</p>
+<p>Az INCOSE meghatározása szerint a <strong>modellalapú rendszermérnökség</strong> (model-based systems engineering, MBSE) a modellezés formalizált alkalmazása a rendszerkövetelmények, a tervezés, az elemzés, a verifikáció és a validáció támogatására, a koncepciótervezési fázistól kezdve a fejlesztésen át a későbbi életciklus-szakaszokig <span class="citation" data-cites="incose2007vision">(<a href="../irodalom.html#ref-incose2007vision" role="doc-biblioref">INCOSE 2007</a>)</span>. A lényeg a <em>formalizált</em> szóban van. Rajzok mindig is voltak. Az MBSE-ben azonban a rendszerről szóló információ egyetlen, egységes szabályok szerint felépített, összefüggő modellben él, és a dokumentumok, diagramok, táblázatok ennek a modellnek a <em>nézetei</em>.</p>
+<div id="fig-dok-vs-modell" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dok-vs-modell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/dok-vs-modell.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dok-vs-modell-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.4. ábra.</span> Dokumentumközpontú és modellközpontú rendszermérnökség. A modellközpontú megközelítésben a különböző nézetek egyetlen közös modellből készülnek.
+</figcaption>
+</figure>
+</div>
+<p>Az MBSE várható előnyei a következők:</p>
+<ul>
+<li><strong>Egyetlen hiteles forrás.</strong> A rendszer minden eleme egyszer szerepel a modellben, a nézetek ebből készülnek, így nem kerülhetnek ellentmondásba.</li>
+<li><strong>Hatáselemzés.</strong> Mivel a követelmények, a funkciók, a szerkezeti elemek és a tesztek össze vannak kapcsolva, egy változás hatása automatikusan nyomon követhető.</li>
+<li><strong>Korai ellenőrzés.</strong> A modell egy része végrehajtható vagy elemezhető. Az ellentmondások, a hiányzó interfészek és a teljesítményproblémák már a tervezés során kiderülhetnek.</li>
+<li><strong>Jobb kommunikáció.</strong> Minden érdekelt fél a számára releváns nézetet látja, de mindenki ugyanarról a rendszerről.</li>
+</ul>
+<p>Az MBSE nem ingyenes. Modellezési nyelvet és eszközt kell megtanulni, modellezési szabályokat kell kialakítani, és a modellt karban kell tartani. Kis projekteknél a jól szervezett táblázatok és diagramok is betölthetik ugyanezt a szerepet, ha következetesen kezelik őket. Ezt a megközelítést követi a Gyakorlati útmutató is: a sablonok összekapcsolt táblázatai egy egyszerű, de valódi rendszermodellt alkotnak.</p>
+<section id="nézőpontok-és-nézetek" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="nézőpontok-és-nézetek"><span class="header-section-number">3.5.1.</span> Nézőpontok és nézetek</h3>
+<p>Egy összetett rendszert nem lehet egyetlen ábrán teljes egészében bemutatni. Az architektúraleírás nemzetközi szabványa, az ISO/IEC/IEEE 42010:2022 ezért különbséget tesz a rendszer <strong>architektúrája</strong> (a rendszer alapvető fogalmai és tulajdonságai) és az <strong>architektúraleírás</strong> között, amely az architektúrát kifejező munkatermék <span class="citation" data-cites="iso42010_2022">(<a href="../irodalom.html#ref-iso42010_2022" role="doc-biblioref">ISO/IEC/IEEE 2022</a>)</span>. Az architektúraleírás <strong>nézetekből</strong> áll. Minden nézet egy <strong>nézőpont</strong> szerint készül, amely megadja, mely érdekelt felek mely kérdéseire (aggályaira) ad választ, és milyen modellezési technikákkal.</p>
+<p>A KoboCella architektúraleírásában például a következő nézetek szerepelhetnek:</p>
+<ul>
+<li><strong>funkcionális nézet</strong> a rendszermérnöknek és a robotintegrátornak: milyen funkciókat lát el a cella, és ezeket ki végzi;</li>
+<li><strong>biztonsági nézet</strong> a munkavédelemnek: hol és hogyan érintkezhet az ember a robottal, milyen védelmi funkciók vannak;</li>
+<li><strong>kezelői nézet</strong> az operátoroknak: mit lát, mit csinál, mire reagál az operátor egy ciklus során;</li>
+<li><strong>adatnézet</strong> az informatikának: milyen adatokat küld a cella a MES-nek, milyen gyakran és milyen formátumban.</li>
+</ul>
+<p>A nézetek nem független dokumentumok. Ugyanazon modell különböző metszetei, ezért ha a funkciómegosztás megváltozik, a biztonsági, a kezelői és az adatnézet is ennek megfelelően változik.</p>
+</section>
+</section>
+<section id="sec-mod-sysml" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-mod-sysml"><span class="header-section-number">3.6.</span> A SysML nyelv</h2>
+<p>A modellalapú rendszermérnökség legelterjedtebb nyelve a <strong>SysML</strong> (Systems Modeling Language). Az első változatot az Object Management Group (OMG) az INCOSE-zal együttműködve, a szoftverfejlesztésben használt UML nyelvre építve dolgozta ki. A SysML 1.x kilenc diagramtípust határoz meg négy csoportban (<a href="#fig-sysml-diagramok" class="quarto-xref"><span>3.5</span></a>. ábra) <span class="citation" data-cites="friedenthal2014">(<a href="../irodalom.html#ref-friedenthal2014" role="doc-biblioref">Friedenthal, Moore, és Steiner 2014</a>)</span>:</p>
+<ul>
+<li><strong>követelménydiagram:</strong> a követelmények és kapcsolataik (levezetés, teljesítés, verifikáció);</li>
+<li><strong>viselkedési diagramok:</strong> tevékenységdiagram (folyamatok, funkciók áramlása), szekvenciadiagram (üzenetváltások időrendje), állapotgép-diagram (állapotok és átmenetek), használatieset-diagram (a felhasználók céljai);</li>
+<li><strong>szerkezeti diagramok:</strong> blokkdefiníciós diagram (a rendszer elemei és hierarchiája), belső blokkdiagram (az elemek közötti kapcsolatok és interfészek), csomagdiagram (a modell szervezése);</li>
+<li><strong>paraméteres diagram:</strong> a rendszer jellemzői közötti matematikai összefüggések, amelyek mérnöki elemzésekhez kapcsolhatók.</li>
+</ul>
+<div id="fig-sysml-diagramok" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sysml-diagramok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/sysml-diagramok.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sysml-diagramok-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.5. ábra.</span> A SysML 1.x diagramtípusai Friedenthal és szerzőtársai rendszerezése nyomán.
+</figcaption>
+</figure>
+</div>
+<section id="sysml-v2" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="sysml-v2"><span class="header-section-number">3.6.1.</span> SysML v2</h3>
+<p>A SysML 1.x egyik gyengesége, hogy szemantikája nem teljesen formális, ezért a különböző eszközökben készült modellek nehezen cserélhetők és elemezhetők. Az OMG 2025 júliusában véglegesen elfogadta a nyelv új, második főváltozatát. A SysML v2 egy új, alkalmazásfüggetlen alapnyelvre, a KerML-re (Kernel Modeling Language) épül, és egy szabványos programozói felületet (Systems Modeling API and Services) is meghatároz. A formális specifikációkat 2025 szeptemberében tették közzé <span class="citation" data-cites="omg2025sysml">(<a href="../irodalom.html#ref-omg2025sysml" role="doc-biblioref">OMG 2025</a>)</span>. A SysML v2 legfontosabb újdonságai:</p>
+<ul>
+<li><strong>formális szemantika:</strong> a modell jelentése egyértelmű, ezért a modellek gépileg ellenőrizhetők és elemezhetők;</li>
+<li><strong>szöveges és grafikus jelölés:</strong> ugyanaz a modell szövegként is írható és olvasható, így verziókezelő rendszerben ugyanúgy kezelhető, mint a programkód;</li>
+<li><strong>szabványos API:</strong> a modell programokból (például Pythonból) is lekérdezhető és módosítható, így szimulációs és elemző eszközökhöz kapcsolható.</li>
+</ul>
+<p>A következő szöveges SysML v2 modell a KoboCella néhány elemét és egy követelményt írja le:</p>
+<pre class="sysml"><code>package KoboCella {
+    private import ScalarValues::Real;
+
+    part def Cella {
+        part kobot : Kobot;
+        part csavarozo : CsavarozoEgyseg;
+        part operator : Operator;
+        attribute ciklusido : Real;      // másodperc
+    }
+    part def Kobot;
+    part def Operator;
+    part def CsavarozoEgyseg {
+        attribute nyomatek : Real;       // newtonméter
+    }
+
+    requirement def CiklusidoKovetelmeny {
+        doc /* A cella ciklusideje legfeljebb 75 s. */
+        subject c : Cella;
+        require constraint { c.ciklusido &lt;= 75.0 }
+    }
+}</code></pre>
+<p>A modellben a <code>part def</code> egy rendszerelem típusát (definícióját) adja meg, a <code>part</code> egy ilyen típusú részt, az <code>attribute</code> egy jellemzőt, a <code>requirement def</code> pedig egy követelményt, amelynek alanya a cella, és amely a ciklusidőre korlátot ír elő. Ebből a szöveges leírásból a modellező eszköz blokkdefiníciós diagramot és követelménydiagramot is elő tud állítani.</p>
+<p>A SysML mellett más megközelítések is elterjedtek. Az Arcadia-módszer és a hozzá tartozó nyílt forráskódú Capella eszköz például saját, a műveleti elemzéstől a fizikai architektúráig vezető nézetrendszert kínál <span class="citation" data-cites="voirin2017">(<a href="../irodalom.html#ref-voirin2017" role="doc-biblioref">Voirin 2017</a>)</span>. A módszer és a nyelv megválasztásánál a legfontosabb szempont az, hogy a csapat és a partnerek ugyanazt használják, és a modellezésnek legyen egyértelmű célja.</p>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Nagy nyelvi modellek a modellezésben</div><div class="doboz-tartalom">
+<p>A nagy nyelvi modellek (LLM-ek) szöveges leírásokból kontextusdiagram-vázlatot, interfészlistát, sőt SysML v2 vagy BPMN szöveges modellt is tudnak javasolni. Ez gyorsítja az első vázlat elkészítését, különösen akkor, ha sok leírás, jegyzőkönyv vagy szabályzat áll rendelkezésre. A generált modell azonban csak <em>javaslat</em>. Ugyanúgy ellenőrizni kell, mint bármely más modellt. A külső entitásoknak a valóságban is létezniük kell, a nyilak irányának és tartalmának helytállónak kell lennie, és a modellnek a felhasználási céljához kell illeszkednie. A Gyakorlati útmutató mintapromptjai ezért mindig tartalmaznak ellenőrző lépést is. A modell gazdája az ember marad, a hiteles forrás pedig a csapat által jóváhagyott modell.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-mod-iker" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sec-mod-iker"><span class="header-section-number">3.7.</span> Digitális fonal és digitális iker</h2>
+<p>A modellalapú megközelítés logikus folytatása, hogy a modellek ne csak a tervezés idején éljenek, hanem az egész életcikluson át kapcsolatban maradjanak a valós rendszerrel. A <strong>digitális fonal</strong> (digital thread) az életciklus különböző szakaszaiban keletkező adatok és modellek összekapcsolt láncolatát jelenti. A követelményektől a terveken és a gyártási adatokon át az üzemeltetési mérésekig minden visszakövethető. Az INCOSE jövőképe a modellalapú, digitális mérnöki munkát a szakma egyik fő fejlődési irányaként jelöli meg <span class="citation" data-cites="incose2022vision">(<a href="../irodalom.html#ref-incose2022vision" role="doc-biblioref">INCOSE 2022</a>)</span>.</p>
+<p>A <strong>digitális iker</strong> fogalmát Grieves és Vickers írta le részletesen: virtuális információs konstrukciók együttese, amely egy tervezett vagy már létező fizikai terméket teljes körűen leír, és az életciklus során kapcsolatban áll vele. A szerzők szerint a digitális iker abban segít, hogy a nem várt és nem kívánt emergens viselkedést még a valós rendszerben való megjelenése előtt felismerjük és megelőzzük <span class="citation" data-cites="grieves2017">(<a href="../irodalom.html#ref-grieves2017" role="doc-biblioref">Grieves és Vickers 2017</a>)</span>. A kifejezést a gyakorlatban nagyon sokféle értelemben használják. Kritzinger és szerzőtársai ezért az adatkapcsolat automatizáltsága szerint három szintet különböztetnek meg (<a href="#fig-digitalis-iker" class="quarto-xref"><span>3.6</span></a>. ábra) <span class="citation" data-cites="kritzinger2018">(<a href="../irodalom.html#ref-kritzinger2018" role="doc-biblioref">Kritzinger és mtsai. 2018</a>)</span>:</p>
+<ul>
+<li><strong>Digitális modell:</strong> a fizikai és a digitális objektum között nincs automatikus adatkapcsolat. Az adatcsere kézi, a modell tervezési és elemzési célra szolgál.</li>
+<li><strong>Digitális árnyék:</strong> a fizikai objektum állapota automatikusan frissül a digitális objektumban, a visszairányú beavatkozás azonban kézi.</li>
+<li><strong>Digitális iker:</strong> az adatáramlás mindkét irányban automatikus. A digitális objektumban bekövetkező változás a fizikai objektum állapotát is módosíthatja.</li>
+</ul>
+<div id="fig-digitalis-iker" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-digitalis-iker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/digitalis-iker.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-digitalis-iker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">3.6. ábra.</span> A digitális modell, a digitális árnyék és a digitális iker megkülönböztetése az adatkapcsolat automatizáltsága szerint, Kritzinger és szerzőtársai nyomán.
+</figcaption>
+</figure>
+</div>
+<p>A gyártás területén az ISO 23247 szabványsorozat ad keretrendszert a digitális ikrekhez. Első része 2021-ben jelent meg, és a gyártási digitális ikrek áttekintését, fogalmait és általános elveit tartalmazza <span class="citation" data-cites="iso23247_2021">(<a href="../irodalom.html#ref-iso23247_2021" role="doc-biblioref">ISO 2021</a>)</span>.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: digitális iker vagy digitális árnyék?</div><div class="doboz-tartalom">
+<p>A MES-szállító ajánlatában „a teljes üzem digitális ikre” szerepelt. A rendszermérnöki átvilágítás során kiderült, hogy a rendszer valójában a következőket tudja:</p>
+<ul>
+<li>a gépek állapotát (fut, áll, hibás) és a darabszámokat percenként automatikusan gyűjti, és ebből valós idejű OEE-kijelzőt készít;</li>
+<li>a gépek programjait és beállításait nem módosítja, a beavatkozás továbbra is a gépkezelő és a termelésvezető dolga.</li>
+</ul>
+<p>Kritzinger és szerzőtársai osztályozása szerint ez <strong>digitális árnyék</strong>, és a ForgácsTech céljaihoz pontosan ez kell. A rendszer lerövidíti az irányítási kört (<a href="01-rendszerek.html#sec-rsz-muszaki-gazdasagi" class="quarto-xref"><span>1.3</span></a>. szakasz), de az ember marad a döntéshozó. Valódi digitális iker, amely például automatikusan átütemezi a gépeket, csak akkor volna indokolt, ha a gyártás jól modellezhető, nagy sorozatú és stabil lenne. A ForgácsTech egyedi és kis sorozatú gyártására ez nem igaz. A pontos szóhasználat itt nem szőrszálhasogatás: a „digitális iker” elvárás alapján a cég jóval drágább és bonyolultabb rendszert rendelt volna meg, mint amire szüksége van.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A modell egy rendszer céltudatosan egyszerűsített leképezése egy kérdés megválaszolására. Minden modell közelítés. A jó modell a feltett kérdéshez elég pontos és a lehető legegyszerűbb.</li>
+<li>Öt modellcsaládot különböztetünk meg: fizikai, fogalmi, matematikai, szimulációs és adatvezérelt modelleket. A fehér doboz modellek a mechanizmusra, a fekete doboz modellek a mért adatokra épülnek.</li>
+<li>A kontextusdiagram fekete dobozként ábrázolja a rendszert, és megmutatja a külső entitásokat és a velük folytatott, címkézett kölcsönhatásokat (adat, jel, anyag, energia, tevékenység). Az interfészelemek összekötők, szigetelők vagy átalakítók. A hibák jelentős része az interfészeken keletkezik.</li>
+<li>A modell verifikációja azt kérdezi, jól építettük-e meg a modellt, a validációja azt, hogy a megfelelő modellt építettük-e meg. A validitás mindig egy felhasználási célhoz és tartományhoz kötött.</li>
+<li>Az MBSE-ben a rendszerinformáció egyetlen, formalizált modellben él. A dokumentumok és diagramok ennek nézetei, amelyek az érdekelt felek kérdéseihez igazodó nézőpontok szerint készülnek.</li>
+<li>A SysML a legelterjedtebb rendszermodellezési nyelv. A 2025-ben elfogadott SysML v2 formális szemantikájú, szövegesen és grafikusan is írható, és szabványos API-ja van.</li>
+<li>A digitális modell, a digitális árnyék és a digitális iker az adatkapcsolat automatizáltságában különbözik. A pontos szóhasználat a követelmények és a költségek szempontjából is fontos.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Miért nincs „a” modellje egy rendszernek? Mondj két különböző kérdést a VárosiBringa esetéből, amelyekhez különböző modell kell!</li>
+<li>Melyik modellcsaládot választanád, és miért? (a) Hány dokkolóhely kell egy állomáson, hogy reggel 95% eséllyel le lehessen tenni a kerékpárt? (b) Milyen alakú legyen a kerékpár kormánya, hogy kényelmes legyen? (c) Hogyan hat a díjszabás változása a használatra három év alatt?</li>
+<li>Mi a hiba a következő kontextusdiagram-címkében: „adatcsere a bankkal”? Javíts rajta!</li>
+<li>Sorold be a következő interfészelemeket (összekötő, szigetelő, átalakító): hőszigetelő burkolat, USB-kábel, mikrofon, tengelykapcsoló, tűzgátló fal, frekvenciaváltó.</li>
+<li>Egy szimulációs modell kiválóan visszaadja a ForgácsTech tavalyi átfutási idejét. Mondhatjuk-e ebből, hogy a modell érvényes a MES bevezetése utáni helyzet előrejelzésére? Miért?</li>
+<li>Mi a különbség az architektúra és az architektúraleírás, illetve a nézőpont és a nézet között?</li>
+<li>Egy hőerőmű folyamatirányító rendszere a mért adatokból percenként frissíti a kazán szimulációs modelljét, és a modell alapján automatikusan módosítja a tüzelőanyag-adagolás alapjelét. Digitális modell, árnyék vagy iker?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Mert a modell mindig egy kérdéshez készül, és elhagyja a kérdés szempontjából lényegtelent. Például: „hol legyenek az állomások?” (térinformatikai és adatvezérelt keresletmodell), illetve „mennyi áthelyezés kell naponta?” (szimuláció vagy sorbanállási modell).</li>
+<li><ol type="a">
+<li>Sztochasztikus analitikus modell (sorbanállási vagy valószínűségi modell) vagy diszkrét eseményes szimuláció, mert véletlen érkezésekről és távozásokról van szó. (b) Fizikai modell (prototípus) felhasználói próbákkal, mert az érzékelt kényelem nehezen számítható. (c) Rendszerdinamikai modell, mert visszacsatolások és késleltetések határozzák meg a hosszú távú viselkedést.</li>
+</ol></li>
+<li>Kétirányú és semmitmondó. Helyette például két nyíl: „fizetési kérelem” a rendszertől a bank felé, és „fizetési visszaigazolás” a banktól a rendszer felé.</li>
+<li>Szigetelő: hőszigetelő burkolat, tűzgátló fal. Összekötő: USB-kábel, tengelykapcsoló. Átalakító: mikrofon (akusztikus jelet villamossá alakít), frekvenciaváltó (a villamos energia frekvenciáját alakítja át).</li>
+<li>Nem feltétlenül. A validitás egy alkalmazási tartományra vonatkozik. A MES bevezetése megváltoztatja az információáramlást és az ütemezést, ezért a modell szerkezetét is módosítani kell, és a fogalmi modell validitását az új helyzetre újra meg kell vizsgálni.</li>
+<li>Az architektúra a rendszer alapvető fogalmai és tulajdonságai, az architektúraleírás pedig az ezt kifejező munkatermék. A nézőpont egy nézet elkészítésének előírása (kinek, milyen kérdésére, milyen technikával), a nézet pedig egy adott nézőpont szerint elkészült leírás.</li>
+<li>Digitális iker, mert az adatáramlás mindkét irányban automatikus.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: kontextusdiagram</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>nevezd meg a rendszert úgy, hogy a neve a feladatát fejezze ki, ne egy megoldást;</li>
+<li>gyűjtsd össze a külső entitásokat (legalább hatot), és rajzold fel a kontextusdiagramot;</li>
+<li>minden kölcsönhatást címkézz meg konkrétan, és sorold típusba (adat, jel, anyag, energia, tevékenység);</li>
+<li>ellenőrizd, hogy minden entitásnak van-e értelmes bemenete vagy kimenete, és hogy kimaradt-e valamilyen környezeti hatás (hulladék, kibocsátás, zaj);</li>
+<li>írd le, milyen modellekkel válaszolnád meg a projekted két legfontosabb kérdését.</li>
+</ol>
+<p>Az eszközt és a sablont a Gyakorlati útmutató kontextusdiagram-eszközlapja tartalmazza.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="kossiakoff2011">Kossiakoff és mtsai. (<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">2011</a>)</span>, 3. fejezet: a rendszer környezete, a kontextusdiagram és az interfészelemek.</li>
+<li><span class="citation" data-cites="sargent2013">Sargent (<a href="../irodalom.html#ref-sargent2013" role="doc-biblioref">2013</a>)</span>: a szimulációs modellek verifikációjának és validációjának áttekintése.</li>
+<li><span class="citation" data-cites="friedenthal2014">Friedenthal, Moore, és Steiner (<a href="../irodalom.html#ref-friedenthal2014" role="doc-biblioref">2014</a>)</span>: a SysML 1.x nyelv részletes, gyakorlati bevezetője.</li>
+<li><span class="citation" data-cites="omg2025sysml">OMG (<a href="../irodalom.html#ref-omg2025sysml" role="doc-biblioref">2025</a>)</span>: a SysML v2 specifikációja és nyílt referencia-implementációja.</li>
+<li><span class="citation" data-cites="kritzinger2018">Kritzinger és mtsai. (<a href="../irodalom.html#ref-kritzinger2018" role="doc-biblioref">2018</a>)</span>: a digitális iker fogalmának rendszerezése a gyártásban.</li>
+<li><span class="citation" data-cites="iso42010_2022">ISO/IEC/IEEE (<a href="../irodalom.html#ref-iso42010_2022" role="doc-biblioref">2022</a>)</span>: az architektúraleírás fogalmai.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-box1979" class="csl-entry" role="listitem">
+Box, George E. P. 1979. <span>„Robustness in the Strategy of Scientific Model Building”</span>. In <em>Robustness in Statistics</em>, szerkesztette Robert L. Launer és Graham N. Wilkinson, 201–36. New York: Academic Press.
+</div>
+<div id="ref-epstein2008" class="csl-entry" role="listitem">
+Epstein, Joshua M. 2008. <span>„Why Model?”</span> <em>Journal of Artificial Societies and Social Simulation</em> 11 (4): 12. <a href="https://www.jasss.org/11/4/12.html">https://www.jasss.org/11/4/12.html</a>.
+</div>
+<div id="ref-friedenthal2014" class="csl-entry" role="listitem">
+Friedenthal, Sanford, Alan Moore, és Rick Steiner. 2014. <em>A Practical Guide to <span>SysML</span>: The Systems Modeling Language</em>. 3. kiad. Waltham, MA: Morgan Kaufmann.
+</div>
+<div id="ref-grieves2017" class="csl-entry" role="listitem">
+Grieves, Michael, és John Vickers. 2017. <span>„Digital Twin: Mitigating Unpredictable, Undesirable Emergent Behavior in Complex Systems”</span>. In <em>Transdisciplinary Perspectives on Complex Systems</em>, szerkesztette Franz-Josef Kahlen, Shannon Flumerfelt, és Anabela Alves, 85–113. Cham: Springer.
+</div>
+<div id="ref-incose2007vision" class="csl-entry" role="listitem">
+INCOSE. 2007. <span>„Systems Engineering Vision 2020”</span>. INCOSE-TP-2004-004-02. International Council on Systems Engineering.
+</div>
+<div id="ref-incose2022vision" class="csl-entry" role="listitem">
+———. 2022. <span>„Systems Engineering Vision 2035: Engineering Solutions for a Better World”</span>. International Council on Systems Engineering. <a href="https://www.incose.org/sevision">https://www.incose.org/sevision</a>.
+</div>
+<div id="ref-iso23247_2021" class="csl-entry" role="listitem">
+ISO. 2021. <span>„<span>ISO 23247-1:2021</span> Automation Systems and Integration – Digital Twin Framework for Manufacturing – Part 1: Overview and General Principles”</span>. Nemzetközi szabvány.
+</div>
+<div id="ref-iso42010_2022" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2022. <span>„<span>ISO/IEC/IEEE 42010:2022</span> Software, Systems and Enterprise – Architecture Description”</span>. Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-karplus1977" class="csl-entry" role="listitem">
+Karplus, Walter J. 1977. <span>„The Spectrum of Mathematical Modeling and Systems Simulation”</span>. <em>Mathematics and Computers in Simulation</em> 19 (1): 3–10.
+</div>
+<div id="ref-kossiakoff2011" class="csl-entry" role="listitem">
+Kossiakoff, Alexander, William N. Sweet, Samuel J. Seymour, és Steven M. Biemer. 2011. <em>Systems Engineering Principles and Practice</em>. 2. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-kritzinger2018" class="csl-entry" role="listitem">
+Kritzinger, Werner, Matthias Karner, Georg Traar, Jan Henjes, és Wilfried Sihn. 2018. <span>„Digital Twin in Manufacturing: A Categorical Literature Review and Classification”</span>. <em>IFAC-PapersOnLine</em> 51 (11): 1016–22.
+</div>
+<div id="ref-lakatos_rendszerek" class="csl-entry" role="listitem">
+Lakatos, Béla. é. n. <span>„Rendszerek tervezése és irányítása”</span>. Egyetemi jegyzet, Veszprémi Egyetem, Folyamatmérnöki Tanszék.
+</div>
+<div id="ref-law2015" class="csl-entry" role="listitem">
+Law, Averill M. 2015. <em>Simulation Modeling and Analysis</em>. 5. kiad. New York: McGraw-Hill.
+</div>
+<div id="ref-omg2025sysml" class="csl-entry" role="listitem">
+OMG. 2025. <span>„<span>OMG</span> Systems Modeling Language (<span>SysML</span>), Version 2.0”</span>. Object Management Group, formális specifikáció (a KerML 1.0 és a Systems Modeling API and Services 1.0 specifikációval együtt). <a href="https://www.omg.org/spec/SysML/2.0/">https://www.omg.org/spec/SysML/2.0/</a>.
+</div>
+<div id="ref-sargent2013" class="csl-entry" role="listitem">
+Sargent, Robert G. 2013. <span>„Verification and Validation of Simulation Models”</span>. <em>Journal of Simulation</em> 7 (1): 12–24.
+</div>
+<div id="ref-sterman2000" class="csl-entry" role="listitem">
+Sterman, John D. 2000. <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. Boston: Irwin/McGraw-Hill.
+</div>
+<div id="ref-voirin2017" class="csl-entry" role="listitem">
+Voirin, Jean-Luc. 2017. <em>Model-Based System and Architecture Engineering with the <span>Arcadia</span> Method</em>. London: ISTE Press – Elsevier.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/02-v-modell.html" class="pagination-link" aria-label="A rendszerfejlesztés életciklusa és a V-modell">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/04-problema.html" class="pagination-link" aria-label="A probléma meghatározása és a működési koncepció">
+        <span class="nav-page-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/03-modellek.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/03-modellek.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Rendszerek és rendszerszemlélet – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/02-v-modell.html" rel="next">
+<link href="../index.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html">I. rész – Alapok</a></li><li class="breadcrumb-item"><a href="../fejezetek/01-rendszerek.html"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-rendszerek" class="quarto-section-identifier"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-rsz-fogalom" id="toc-sec-rsz-fogalom" class="nav-link active" data-scroll-target="#sec-rsz-fogalom"><span class="header-section-number">1.1.</span> Mi a rendszer?</a>
+  <ul class="collapse">
+  <li><a href="#elemek-attribútumok-kapcsolatok" id="toc-elemek-attribútumok-kapcsolatok" class="nav-link" data-scroll-target="#elemek-attribútumok-kapcsolatok"><span class="header-section-number">1.1.1.</span> Elemek, attribútumok, kapcsolatok</a></li>
+  <li><a href="#emergens-tulajdonságok" id="toc-emergens-tulajdonságok" class="nav-link" data-scroll-target="#emergens-tulajdonságok"><span class="header-section-number">1.1.2.</span> Emergens tulajdonságok</a></li>
+  <li><a href="#a-rendszer-általános-tulajdonságai" id="toc-a-rendszer-általános-tulajdonságai" class="nav-link" data-scroll-target="#a-rendszer-általános-tulajdonságai"><span class="header-section-number">1.1.3.</span> A rendszer általános tulajdonságai</a></li>
+  </ul></li>
+  <li><a href="#sec-rsz-hierarchia" id="toc-sec-rsz-hierarchia" class="nav-link" data-scroll-target="#sec-rsz-hierarchia"><span class="header-section-number">1.2.</span> A rendszer felépítése: hierarchia és befoglaló rendszer</a>
+  <ul class="collapse">
+  <li><a href="#rendszerek-rendszere" id="toc-rendszerek-rendszere" class="nav-link" data-scroll-target="#rendszerek-rendszere"><span class="header-section-number">1.2.1.</span> Rendszerek rendszere</a></li>
+  </ul></li>
+  <li><a href="#sec-rsz-muszaki-gazdasagi" id="toc-sec-rsz-muszaki-gazdasagi" class="nav-link" data-scroll-target="#sec-rsz-muszaki-gazdasagi"><span class="header-section-number">1.3.</span> Műszaki–gazdasági rendszerek</a></li>
+  <li><a href="#sec-rsz-komplexitas" id="toc-sec-rsz-komplexitas" class="nav-link" data-scroll-target="#sec-rsz-komplexitas"><span class="header-section-number">1.4.</span> Egyszerű, bonyolult és komplex rendszerek</a>
+  <ul class="collapse">
+  <li><a href="#három-alapfeladat-elemzés-tervezés-irányítás" id="toc-három-alapfeladat-elemzés-tervezés-irányítás" class="nav-link" data-scroll-target="#három-alapfeladat-elemzés-tervezés-irányítás"><span class="header-section-number">1.4.1.</span> Három alapfeladat: elemzés, tervezés, irányítás</a></li>
+  </ul></li>
+  <li><a href="#sec-rsz-visszacsatolas" id="toc-sec-rsz-visszacsatolas" class="nav-link" data-scroll-target="#sec-rsz-visszacsatolas"><span class="header-section-number">1.5.</span> Gondolkodás visszacsatolásokban</a></li>
+  <li><a href="#sec-rsz-harom-fogalom" id="toc-sec-rsz-harom-fogalom" class="nav-link" data-scroll-target="#sec-rsz-harom-fogalom"><span class="header-section-number">1.6.</span> Rendszerszemlélet, rendszermérnökség, mérnöki rendszerek</a>
+  <ul class="collapse">
+  <li><a href="#a-kiegyensúlyozott-nézet" id="toc-a-kiegyensúlyozott-nézet" class="nav-link" data-scroll-target="#a-kiegyensúlyozott-nézet"><span class="header-section-number">1.6.1.</span> A kiegyensúlyozott nézet</a></li>
+  </ul></li>
+  <li><a href="#sec-rsz-rendszermernok" id="toc-sec-rsz-rendszermernok" class="nav-link" data-scroll-target="#sec-rsz-rendszermernok"><span class="header-section-number">1.7.</span> A rendszermérnök</a>
+  <ul class="collapse">
+  <li><a href="#milyen-a-jó-rendszermérnök" id="toc-milyen-a-jó-rendszermérnök" class="nav-link" data-scroll-target="#milyen-a-jó-rendszermérnök"><span class="header-section-number">1.7.1.</span> Milyen a jó rendszermérnök?</a></li>
+  <li><a href="#kompetenciák-és-a-t-alakú-szakember" id="toc-kompetenciák-és-a-t-alakú-szakember" class="nav-link" data-scroll-target="#kompetenciák-és-a-t-alakú-szakember"><span class="header-section-number">1.7.2.</span> Kompetenciák és a T alakú szakember</a></li>
+  </ul></li>
+  <li><a href="#sec-rsz-ipar50" id="toc-sec-rsz-ipar50" class="nav-link" data-scroll-target="#sec-rsz-ipar50"><span class="header-section-number">1.8.</span> Az Ipar 4.0-tól az Ipar 5.0-ig</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/01-rendszerek.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/01-rendszerek.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-rendszerek.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet a teljes V-modellt megalapozó fogalmakkal foglalkozik"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>meghatározni, mi a rendszer, és felismerni egy rendszer elemeit, attribútumait, kapcsolatait, határát és környezetét;</li>
+<li>megmagyarázni, mit jelent az emergens tulajdonság, és miért nem vezethető le egy rendszer viselkedése pusztán az elemeiből;</li>
+<li>egy rendszert hierarchikus szintekre bontani, és elhelyezni egy befoglaló rendszerben;</li>
+<li>a műszaki–gazdasági rendszereket alrendszereikkel és irányítási szerkezetükkel leírni;</li>
+<li>megkülönböztetni az egyszerű, a bonyolult és a komplex rendszereket, valamint a rendszerelemzés, a rendszertervezés és a rendszerirányítás feladatát;</li>
+<li>ok-okozati hurokdiagrammal ábrázolni egy rendszer visszacsatolásait;</li>
+<li>elhatárolni egymástól a rendszerszemléletet, a rendszermérnökséget és a mérnöki rendszereket, és leírni a rendszermérnök szerepét és kompetenciáit.</li>
+</ul>
+</div></div>
+<p>Ez a fejezet a könyv szókincsét alapozza meg. A V-modell minden lépése (<a href="02-v-modell.html#fig-v" class="quarto-xref"><span>2.4</span></a>. ábra) rendszerekről szól: a bal ágon egy még nem létező rendszert írunk le egyre részletesebben, a csúcson megépítjük az elemeit, a jobb ágon pedig ellenőrizzük, hogy az összerakott egész azt teszi-e, amit vártunk tőle. Ehhez közös nyelv kell. Mit nevezünk rendszernek? Hol van a határa? Miért viselkedik másként az egész, mint a részei? És mit csinál ebben a rendszermérnök?</p>
+<p>A fejezet öt kérdésre épül:</p>
+<ul>
+<li>Mi a rendszer, és milyen általános tulajdonságai vannak?</li>
+<li>Hogyan épül fel egy rendszer, és hogyan illeszkedik nagyobb rendszerekbe?</li>
+<li>Miben különbözik egy gyártócella egy városi közlekedési szolgáltatástól, és mit jelent ez a tervezésre nézve?</li>
+<li>Miért kell a visszacsatolásokban gondolkodni?</li>
+<li>Mi a rendszermérnökség, és milyen szakember a jó rendszermérnök?</li>
+</ul>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Bemelegítő: a kilenc pont feladványa</div><div class="doboz-tartalom">
+<p>Rajzolj fel kilenc pontot három sorban, három oszlopban. Kösd össze mind a kilencet négy egyenes vonallal úgy, hogy közben nem emeled fel a tollat. A legtöbben először sikertelenül próbálkoznak, mert hallgatólagosan feltételezik, hogy a vonalak nem léphetnek ki a pontok alkotta négyzetből. Ezt a feladat nem mondja. Amint elvetjük a képzelt határt, a megoldás kézenfekvő. Ha már ez megvan, próbáld meg három vonallal is!</p>
+<p>A tanulság a rendszermérnökség egyik alapgondolata. A probléma határát mindig tudatosan kell kijelölni. Ha ezt nem tesszük meg, a fejünkben lévő, ki nem mondott határ korlátozza a megoldások körét. A rendszerhatár meghúzásával a <a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet és a <a href="04-problema.html" class="quarto-xref"><span>4</span></a>. fejezet részletesen foglalkozik.</p>
+</div></div>
+<section id="sec-rsz-fogalom" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-rsz-fogalom"><span class="header-section-number">1.1.</span> Mi a rendszer?</h2>
+<p>A „rendszer” szót mindenki használja, és mindenki mást ért rajta. A mérnöki gyakorlatban ezért pontos meghatározásokra támaszkodunk. A rendszer- és szoftvermérnöki életciklus-folyamatok nemzetközi szabványa szerint a rendszer egymással kölcsönhatásban álló elemek olyan együttese, amely egy vagy több kitűzött cél elérésére szerveződik. A szabvány azt is kiemeli, hogy az elemek sokfélék lehetnek: hardver, szoftver, adat, ember, folyamat, eljárás, létesítmény és anyag <span class="citation" data-cites="iso15288_2023">(<a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>.</p>
+<p>A meghatározás fontos részlete, hogy az <em>emberek</em> és az <em>eljárások</em> is a rendszer elemei. Egy kollaboratív robotcella nem csak a robotból, a csavarozóból és a vezérlésből áll. Az operátor, a munkautasítás és a karbantartási eljárás ugyanúgy része, mint a szervomotor. Ha az embert a rendszer környezetének tekintjük, a tervezés éppen azt a kölcsönhatást hagyja ki, amelyen a teljesítmény sokszor múlik. Ezzel a gondolattal a könyv emberközpontú fejezetei (<a href="11-emberkozpontu.html" class="quarto-xref"><span>11</span></a>–<a href="13-emberi-hiba.html" class="quarto-xref"><span>13</span></a>. fejezet) részletesen foglalkoznak.</p>
+<p>A Nemzetközi Rendszermérnöki Szövetség (INCOSE) 2019-ben két szinten fogalmazta meg a fogalmat <span class="citation" data-cites="incose2019def">(<a href="../irodalom.html#ref-incose2019def" role="doc-biblioref">INCOSE 2019</a>)</span>. Az <em>általános</em> meghatározás szerint a rendszer részek vagy elemek olyan elrendeződése, amely együtt olyan viselkedést vagy jelentést mutat, amilyet az egyes összetevők külön nem. A <em>mérnöki rendszer</em> pedig olyan rendszer, amelyet úgy terveztek vagy alakítottak ki, hogy egy várható működési környezettel kölcsönhatásban egy vagy több kitűzött célt érjen el, miközben megfelel a rá vonatkozó korlátoknak. A mérnöki rendszer nem feltétlenül technikai: egy szolgáltatás vagy egy szervezet is lehet az, ha tudatosan, rendszermérnöki módszerekkel alakítják ki.</p>
+<section id="elemek-attribútumok-kapcsolatok" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="elemek-attribútumok-kapcsolatok"><span class="header-section-number">1.1.1.</span> Elemek, attribútumok, kapcsolatok</h3>
+<p>Blanchard és Fabrycky klasszikus tankönyve a rendszert három építőelemmel írja le <span class="citation" data-cites="blanchard2011">(<a href="../irodalom.html#ref-blanchard2011" role="doc-biblioref">Blanchard és Fabrycky 2011</a>)</span>:</p>
+<ul>
+<li><strong>Komponensek (elemek):</strong> a rendszer működő részei. Lehetnek fizikai tárgyak (motor, szenzor), szoftvermodulok, emberek vagy eljárások.</li>
+<li><strong>Attribútumok:</strong> a komponensek és a rendszer jellemzői, amelyek leírják és mérhetővé teszik őket (tömeg, ciklusidő, megbízhatóság, ár, kezelhetőség).</li>
+<li><strong>Kapcsolatok:</strong> a komponensek közötti kölcsönhatások. Ezeken keresztül áramlik az anyag, az energia és az információ.</li>
+</ul>
+<p>A rendszert a <strong>határa</strong> választja el a <strong>környezetétől</strong>. A környezet az, amire a rendszer hat, és ami a rendszerre hat, de amit a fejlesztés során nem tervezünk meg. A határon lépnek be a <strong>bemenetek</strong> (anyag, energia, információ, munkaerő), és lépnek ki a <strong>kimenetek</strong> (termékek, szolgáltatások, érték, de melléktermékek és kibocsátások is). A környezet felől <strong>zavarok</strong> érik a rendszert, a rendszer pedig maga is hat a környezetére (<a href="#fig-rendszer-kornyezet" class="quarto-xref"><span>1.1</span></a>. ábra). A rendszer belső leírásához a Lakatos-jegyzet három fogalmat használ: a <strong>struktúra</strong> az elemek és kapcsolataik elrendeződése, az <strong>állapot</strong> a rendszer pillanatnyi helyzetét leíró változók összessége, a <strong>paraméterek</strong> pedig a működést meghatározó, (közel) állandó jellemzők <span class="citation" data-cites="lakatos_rendszerek">(<a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n.</a>)</span>.</p>
+<div id="fig-rendszer-kornyezet" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rendszer-kornyezet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/rendszer-kornyezet.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rendszer-kornyezet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.1. ábra.</span> A rendszer és környezete. A rendszerhatárt mi jelöljük ki; a határon át lépnek be a bemenetek és lépnek ki a kimenetek, a környezet felől zavarok érik a rendszert. Az emergens tulajdonságok csak az egész rendszeren figyelhetők meg.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: mi a rendszer és mi a környezet?</div><div class="doboz-tartalom">
+<p>A ForgácsTech digitális átállásánál az első vita arról szólt, mi tartozik a fejlesztendő rendszerhez. A tulajdonos szerint „a MES-szoftver”. A termelésvezető szerint „az egész műhely”. A beszélgetés végére a csapat a következő határt húzta meg:</p>
+<ul>
+<li><strong>A rendszer része:</strong> a rendelés felvételétől a kész munkadarab kiszállításáig tartó információs és anyagáramlás. Ebbe beletartoznak a CNC-gépek adatkapcsolatai, a gyártáselőkészítés, a gépkezelők munkautasításai és a MES-szoftver.</li>
+<li><strong>A környezet része:</strong> a vevők megrendelési rendszerei, a könyvelőiroda, a nyersanyag-beszállítók és a szerszámgépek gyártói. Ezekkel a rendszernek kapcsolatban kell állnia, de nem tervezzük újra őket.</li>
+</ul>
+<p>A határ meghúzása döntés, nem felfedezés. Ugyanazt a műhelyt más fejlesztési célhoz másként határolnánk le. Egy energiahatékonysági projektben például a sűrítettlevegő-hálózat lenne a rendszer, a MES pedig a környezet.</p>
+</div></div>
+</section>
+<section id="emergens-tulajdonságok" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="emergens-tulajdonságok"><span class="header-section-number">1.1.2.</span> Emergens tulajdonságok</h3>
+<p>A rendszerszemlélet talán legfontosabb gondolata, hogy az egész több, mint a részek összege. Maier és Rechtin rendszerarchitektúráról szóló könyvének egyik alapgondolata, hogy a rendszer hozzáadott értéke, amely túlmutat a részek önálló hozzájárulásán, elsősorban a részek közötti kapcsolatokból születik, vagyis abból, ahogyan a részeket összekapcsoljuk <span class="citation" data-cites="maier2009">(<a href="../irodalom.html#ref-maier2009" role="doc-biblioref">Maier és Rechtin 2009</a>)</span>. Az olyan tulajdonságot, amely csak az egész rendszeren jelenik meg, és egyik elemnek sincs meg külön, <strong>emergens tulajdonságnak</strong> nevezzük.</p>
+<p>Néhány példa a futó esetekből:</p>
+<ul>
+<li>A KoboCella <strong>ciklusideje</strong> nem a robot sebességéből és nem az operátor ügyességéből adódik, hanem abból, hogyan osztják meg és hangolják össze a munkát. Egy gyorsabb robot semmit sem javít, ha az operátorra kell várnia.</li>
+<li>A VárosiBringa <strong>elérhetősége</strong> (van-e kerékpár a közelben, amikor kell) nem egy kerékpár vagy egy dokkoló tulajdonsága. A flotta, az állomáshálózat, a felhasználói viselkedés és az áthelyező szolgálat együttes eredménye.</li>
+<li>A <strong>biztonság</strong> is emergens tulajdonság. Egy alkatrész lehet megbízható, a rendszer mégis veszélyes lehet, ha az elemek kölcsönhatása váratlan állapotba viszi. Ezzel a gondolattal a <a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet foglalkozik.</li>
+</ul>
+<p>Az emergencia két irányban is figyelmeztet. A kívánt tulajdonságokat (teljesítmény, használhatóság, biztonság) nem lehet egy-egy elemre „rátervezni”: az elemek kapcsolatait kell tudatosan alakítani. A nem kívánt tulajdonságok (rezgés, holtpont, túlterhelt operátor) pedig gyakran csak az integráció során bukkannak fel. Ezért kell a V-modell jobb ágán lépésről lépésre integrálni és verifikálni (<a href="22-integracio.html" class="quarto-xref"><span>22</span></a>. fejezet).</p>
+</section>
+<section id="a-rendszer-általános-tulajdonságai" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="a-rendszer-általános-tulajdonságai"><span class="header-section-number">1.1.3.</span> A rendszer általános tulajdonságai</h3>
+<p>A rendszerelméleti szakirodalom a rendszerek néhány általános tulajdonságát emeli ki <span class="citation" data-cites="bertalanffy1968 lakatos_rendszerek">(<a href="../irodalom.html#ref-bertalanffy1968" role="doc-biblioref">Bertalanffy 1968</a>; <a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n.</a>)</span>. Ezek egyben gondolkodási szabályok is a tervező számára.</p>
+<ul>
+<li><strong>A rendszer célorientált egység.</strong> Van egy rendszeralkotó tényező, amelynek megvalósulása érdekében a rendszer működik. Mérnöki rendszernél ez a kitűzött cél. Ha a cél nem világos, a rendszer sem lesz az.</li>
+<li><strong>A rendszer egyszerre autonóm és heteronóm.</strong> Vannak saját belső törvényszerűségei (autonóm), de működését a környezet is befolyásolja, és ő maga is hat a környezetére (heteronóm).</li>
+<li><strong>A rendszer tagolt egész.</strong> Alrendszerekre és elemekre bontható, ezekből összeépíthető, és az elemek külön is vizsgálhatók. Az elemek tulajdonságai megjelennek a rendszerben, de az egésznek vannak olyan tulajdonságai is, amelyek csak rá jellemzők.</li>
+<li><strong>A rendszer kölcsönhatásban álló elemek összessége.</strong> Nem bontható két részre úgy, hogy a két rész között ne maradjon legalább egy értelmezett kapcsolat. Ha egy „rendszer” két, egymással semmilyen kapcsolatban nem álló részből áll, akkor valójában két rendszerről van szó.</li>
+<li><strong>A rendszer hierarchikus jellegű.</strong> Maga is alrendszerekből áll, és ő maga is egy nagyobb rendszer része. Ebből adódik a <em>hierarchiaparadoxon</em>: egy rendszert akkor tudunk leírni, ha egy magasabb szintű rendszer elemeként írjuk le, ehhez azonban önmagában, alacsonyabb szintű elemek egészeként is le kell tudnunk írni. A gyakorlatban a paradoxont iterációval oldjuk fel: felülről lefelé és alulról felfelé is többször végigmegyünk a hierarchián. A V-modell rekurzív alkalmazása (<a href="02-v-modell.html#sec-rekurzio" class="quarto-xref"><span>2.4</span></a>. szakasz) éppen ezt teszi.</li>
+</ul>
+<p>A Lakatos-jegyzet a rendszereket megjelenési formájuk, keletkezésük, a környezethez való viszonyuk és további szempontok szerint is osztályozza (<a href="#tbl-rsz-osztalyozas" class="quarto-xref"><span>1.1</span></a>. táblázat). A táblázat jól mutatja, hogy egy rendszer leírásakor sok döntést hozunk. Egy gyártócellát a ciklusidő számításakor determinisztikusnak és statikusnak tekinthetünk, a sorbanállás és a meghibásodások elemzésekor viszont sztochasztikus, dinamikus rendszerként kell kezelnünk.</p>
+<div id="tbl-rsz-osztalyozas" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[24,38,38]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rsz-osztalyozas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.1. táblázat.</span> A rendszerek morfológiai osztályozása a Lakatos-jegyzet nyomán, a futó esetek példáival.
+</figcaption>
+<div aria-describedby="tbl-rsz-osztalyozas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 38%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Szempont</th>
+<th style="text-align: left;">Egyik végpont (példa)</th>
+<th style="text-align: left;">Másik végpont (példa)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Megjelenési forma</td>
+<td style="text-align: left;">konkrét (a KoboCella hardvere)</td>
+<td style="text-align: left;">absztrakt (a cella vezérlőprogramja)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Keletkezés</td>
+<td style="text-align: left;">természetes (egy folyó vízgyűjtője)</td>
+<td style="text-align: left;">mesterséges (egy szennyvíztisztító)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kapcsolat a környezettel</td>
+<td style="text-align: left;">zárt (közelítőleg egy lezárt tartály)</td>
+<td style="text-align: left;">nyitott (minden szolgáltatás)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Időbeli viselkedés</td>
+<td style="text-align: left;">statikus (egy rácsos tartó)</td>
+<td style="text-align: left;">dinamikus (egy szabályozott hajtás)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Meghatározottság</td>
+<td style="text-align: left;">determinisztikus (egy fogaskerékhajtás)</td>
+<td style="text-align: left;">sztochasztikus (a kölcsönzési igények)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Struktúra</td>
+<td style="text-align: left;">merev (egy célgép)</td>
+<td style="text-align: left;">rugalmas (egy átállítható robotcella)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Elemek és kapcsolatok száma</td>
+<td style="text-align: left;">kevés, egyszerű (egy csavarozó egység)</td>
+<td style="text-align: left;">nagyon sok, komplex (egy városi közlekedési hálózat)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+</section>
+<section id="sec-rsz-hierarchia" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-rsz-hierarchia"><span class="header-section-number">1.2.</span> A rendszer felépítése: hierarchia és befoglaló rendszer</h2>
+<p>Kossiakoff és szerzőtársai rámutatnak, hogy a „rendszer” fogalma az aggregáció bármely szintjén értelmezhető. Egy telefonközpont a hozzá tartozó vonalakkal rendszer, de egyben a városi telefonhálózat alrendszere is. Minden rendszer egy magasabb szintű rendszer alrendszere, és minden alrendszer maga is tekinthető rendszernek <span class="citation" data-cites="kossiakoff2011">(<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">Kossiakoff és mtsai. 2011, 3.2</a>. szakasz)</span>. A komplex rendszerek ezért hierarchikus felépítésűek. Néhány fő, egymással kölcsönhatásban álló elemből, alrendszerből állnak. Ezek egyszerűbb funkcionális egységekből épülnek fel, és így tovább egészen az olyan elemi részekig, mint egy fogaskerék vagy egy izzó.</p>
+<p>A hierarchia szintjeinek megnevezése szakterületenként eltér. A könyvben a következő szinteket használjuk (<a href="#fig-rendszerhierarchia" class="quarto-xref"><span>1.2</span></a>. ábra):</p>
+<ul>
+<li><strong>befoglaló rendszer:</strong> az a nagyobb rendszer, amelynek a mi rendszerünk egy eleme;</li>
+<li><strong>rendszer:</strong> a fejlesztés tárgya, amelynek a követelményeit mi határozzuk meg;</li>
+<li><strong>alrendszer:</strong> a rendszer egy fő funkcionális egysége, gyakran külön csapat vagy beszállító felelőssége;</li>
+<li><strong>komponens:</strong> önállóan specifikálható, beszerezhető vagy gyártható egység;</li>
+<li><strong>alkatrész:</strong> a tovább már nem bontott elemi rész.</li>
+</ul>
+<p>A gyakorlatban a hierarchiát termékszerkezetként (product breakdown structure, PBS) rögzítjük. A követelményeket a termékszerkezet szintjeihez rendeljük, és a munkalebontási struktúra (WBS) is erre épül, mert termékorientált <span class="citation" data-cites="pmi2019wbs milstd881f">(<a href="../irodalom.html#ref-pmi2019wbs" role="doc-biblioref">Project Management Institute 2019</a>; <a href="../irodalom.html#ref-milstd881f" role="doc-biblioref">U.S. Department of Defense 2022</a>)</span>. A munkalebontással a <a href="26-menedzsment.html" class="quarto-xref"><span>26</span></a>. fejezet foglalkozik.</p>
+<div id="fig-rendszerhierarchia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rendszerhierarchia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/rendszerhierarchia.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rendszerhierarchia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.2. ábra.</span> A KoboCella rendszerhierarchiája. A befoglaló rendszer a gyár termelési rendszere; a csavarozó egység példáján a lebontás egészen az alkatrészekig látható. Az operátor a rendszer eleme.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: miért kell ismerni a befoglaló rendszert?</div><div class="doboz-tartalom">
+<p>A KoboCella fejlesztőcsapata az első hetekben csak a cellával foglalkozott. A befoglaló rendszer, vagyis a gyár termelési rendszere csak az első tervfelülvizsgálaton került elő, amikor a logisztikai vezető megkérdezte: honnan és milyen gyakran érkeznek a motorfedelek a cellához? Kiderült, hogy a cellát ellátó anyagmozgatás jelenleg óránként egyszer, 120 darabos ládákban szállít. Ez egy 75 másodperces ciklusidejű cellánál mintegy két és fél óra anyagot jelent, amit a cella mellett tárolni kell. A tervezett, kis alapterületű elrendezés ezzel nem fért össze.</p>
+<p>A tanulság: a rendszer bemeneteit és kimeneteit a befoglaló rendszer határozza meg. A befoglaló rendszert nem tervezzük újra, de a kapcsolódási pontjait (<a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet) már az első lépésben ismerni kell.</p>
+</div></div>
+<section id="rendszerek-rendszere" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="rendszerek-rendszere"><span class="header-section-number">1.2.1.</span> Rendszerek rendszere</h3>
+<p>Vannak rendszerek, amelyek elemei maguk is önálló, működőképes rendszerek. Ezeket <strong>rendszerek rendszerének</strong> (system of systems, SoS) nevezzük. Maier klasszikus cikke szerint egy együttes akkor tekinthető rendszerek rendszerének, ha elemei működésükben és irányításukban is függetlenek: önállóan is ellátják a feladatukat, és saját tulajdonosuk, saját céljaik szerint működnek, miközben együttesen olyan képességet adnak, amelyet egyikük sem tud egyedül <span class="citation" data-cites="maier1998">(<a href="../irodalom.html#ref-maier1998" role="doc-biblioref">Maier 1998</a>)</span>.</p>
+<p>A VárosiBringa jó példa erre. A kerékpárrendszer önállóan is működik, de a valódi értéket akkor teremti, ha a helyi buszhálózattal, a városi kártyarendszerrel, az egyetem beléptetőrendszerével és a navigációs alkalmazásokkal együtt működik. Ezek a rendszerek más tulajdonosok kezében vannak, és nem a VárosiBringa kedvéért változnak. A tervezőnek ezért nem utasítania kell őket, hanem tárgyalnia velük, és szabványos, stabil interfészekre kell építenie. Az érdekeltfél-elemzés (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet) itt szó szerint rendszerszintű kérdés.</p>
+</section>
+</section>
+<section id="sec-rsz-muszaki-gazdasagi" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-rsz-muszaki-gazdasagi"><span class="header-section-number">1.3.</span> Műszaki–gazdasági rendszerek</h2>
+<p>A mérnöki munka tárgya legtöbbször nem pusztán műszaki rendszer. A Lakatos-jegyzet meghatározása szerint a műszaki–gazdasági rendszer bonyolult, nagyon sok elemből és kapcsolatból álló, heterogén összetételű ember–gép szervezet, amelynek célja termékek vagy szolgáltatások előállítása. Különböző természetű alrendszerekből áll, és műszaki alrendszerei dinamikus rendszerek <span class="citation" data-cites="lakatos_rendszerek">(<a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n., 1.2</a>. szakasz)</span>.</p>
+<p>A rendszertechnika az ilyen rendszereket kétféleképpen bontja fel (<a href="#fig-muszaki-gazdasagi" class="quarto-xref"><span>1.3</span></a>. ábra):</p>
+<ul>
+<li><strong>A tevékenység jellege szerint</strong> műszaki, gazdasági és információs alrendszerre. A műszaki alrendszerben anyag és energia előállítása, átvitele, tárolása, átalakítása és felhasználása folyik. A gazdasági alrendszer az értéket, az árut és a szolgáltatást állítja elő. Az információs alrendszer az információt állítja elő és használja fel.</li>
+<li><strong>Irányítási szempontból</strong> irányítási és irányított alrendszerre. Az irányítási alrendszer információt dolgoz fel, és beavatkozik az irányított alrendszer működésébe. Az irányított alrendszer visszajelzései alapján pedig korrigálja a beavatkozást.</li>
+</ul>
+<div id="fig-muszaki-gazdasagi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-muszaki-gazdasagi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/muszaki-gazdasagi.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-muszaki-gazdasagi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.3. ábra.</span> A műszaki–gazdasági rendszer kétféle felbontása a Lakatos-jegyzet nyomán: a) műszaki, gazdasági és információs alrendszerek; b) irányítási és irányított alrendszer.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: hol szakad meg az irányítási kör?</div><div class="doboz-tartalom">
+<p>A ForgácsTech műszaki alrendszere (a gépek, a szerszámok, az anyagmozgatás) jól működik, a gépek korszerűek. A gazdasági alrendszer is rendben van: a cég nyereséges, a vevők elégedettek a minőséggel. A gond az információs alrendszerben van. A termelésvezető hétfő reggel papíron osztja ki a heti munkát, de csak péntek délután tudja meg, mi készült el valójában. Az irányítási kör tehát egyhetes késleltetéssel zárul, és a beavatkozások mindig egy hetet késnek.</p>
+<p>Ebből a nézőpontból a MES-bevezetés lényege nem egy szoftver telepítése, hanem az irányítási kör lerövidítése: a visszajelzés napi, sőt valós idejű legyen. Ez pontosabb célt ad a fejlesztésnek, mint a kezdeti „kell egy MES” megfogalmazás. A visszacsatolás késleltetésének hatásaival a <a href="#sec-rsz-visszacsatolas" class="quarto-xref"><span>1.5</span></a>. szakasz foglalkozik.</p>
+</div></div>
+</section>
+<section id="sec-rsz-komplexitas" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-rsz-komplexitas"><span class="header-section-number">1.4.</span> Egyszerű, bonyolult és komplex rendszerek</h2>
+<p>A KoboCella és a VárosiBringa egyaránt rendszer, de nagyon különböző tervezési helyzetet jelentenek. A cella határai jól kijelölhetők, a hasonló cellákról van tapasztalat, a lehetséges megoldások száma korlátos, és ha elkészül, kipróbálható: méréssel eldönthető, hogy teljesíti-e a 75 másodperces ciklusidőt. A városi kerékpárrendszer határa elmosódott. Sok, egymásnak ellentmondó célú érdekelt fél van, a viselkedés a felhasználók döntésein múlik, és nincs egyértelműen „jó” megoldás, csak többé-kevésbé elfogadható.</p>
+<p>Snowden és Boone döntéshozatali keretrendszere (a Cynefin-keret) a helyzeteket aszerint sorolja kategóriákba, hogy mennyire ismerhető meg bennük az ok-okozati kapcsolat <span class="citation" data-cites="snowden2007">(<a href="../irodalom.html#ref-snowden2007" role="doc-biblioref">Snowden és Boone 2007</a>)</span>. A keret fogalmait a rendszerekre alkalmazva hasznos megkülönböztetést kapunk (<a href="#tbl-komplexitas" class="quarto-xref"><span>1.2</span></a>. táblázat).</p>
+<ul>
+<li><strong>Egyszerű</strong> helyzetben az ok és az okozat mindenki számára nyilvánvaló, a jó gyakorlat ismert, és alkalmazni kell.</li>
+<li><strong>Bonyolult</strong> helyzetben az ok-okozati kapcsolat megismerhető, de szakértői elemzés kell hozzá. Több jó megoldás is lehetséges, és ezek elemzéssel összevethetők.</li>
+<li><strong>Komplex</strong> helyzetben az ok-okozati kapcsolat csak utólag ismerhető fel. A jó megoldást nem lehet előre kielemezni: biztonságosan elbukható kísérletekkel kell kitapogatni, és a felbukkanó mintázatokra kell építeni.</li>
+<li><strong>Kaotikus</strong> helyzetben nincs felismerhető ok-okozati kapcsolat. Először cselekedni kell, hogy a helyzet stabilizálódjon. Ez a válságkezelés világa.</li>
+</ul>
+<div id="tbl-komplexitas" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,40,40]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-komplexitas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.2. táblázat.</span> A bonyolult és a komplex rendszerek tervezési helyzetének összevetése. Saját összeállítás a Cynefin-keret fogalmaira építve <span class="citation" data-cites="snowden2007">(<a href="../irodalom.html#ref-snowden2007" role="doc-biblioref">Snowden és Boone 2007</a>)</span>.
+</figcaption>
+<div aria-describedby="tbl-komplexitas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 40%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Jellemző</th>
+<th style="text-align: left;">Bonyolult műszaki rendszer (pl. KoboCella)</th>
+<th style="text-align: left;">Komplex sociotechnikai rendszer (pl. VárosiBringa)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Határ</td>
+<td style="text-align: left;">jól kijelölhető, izolálható</td>
+<td style="text-align: left;">elmosódott, vitatható</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tapasztalat</td>
+<td style="text-align: left;">hasonló rendszerekről van</td>
+<td style="text-align: left;">minden helyzet némileg egyedi</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Megoldások köre</td>
+<td style="text-align: left;">korlátos, elemzéssel bejárható</td>
+<td style="text-align: left;">nagyon nagy, előre nem bejárható</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Érdekelt felek</td>
+<td style="text-align: left;">kevés, jól azonosítható</td>
+<td style="text-align: left;">sok, egymásnak ellentmondó célokkal</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Viselkedés</td>
+<td style="text-align: left;">modellekkel jól előrejelezhető</td>
+<td style="text-align: left;">nehezen előrejelezhető, emergens mintázatok</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ellenőrizhetőség</td>
+<td style="text-align: left;">kipróbálható, mérhető</td>
+<td style="text-align: left;">csak részben tesztelhető, a hatás késve jelentkezik</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jó tervezési stratégia</td>
+<td style="text-align: left;">elemzés, optimalizálás, alapos verifikáció</td>
+<td style="text-align: left;">kis lépések, kísérletek, gyors visszacsatolás, rugalmasság</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A különbségtétel a módszerválasztást is meghatározza. Bonyolult rendszereknél a V-modell klasszikus, előre tervező szemlélete jól működik. Komplex rendszereknél is a V-modell mentén haladunk, de rövidebb ciklusokban, inkrementálisan, mérhető kísérletekkel (<a href="02-v-modell.html#sec-eletciklus-modellek" class="quarto-xref"><span>2.2</span></a>. szakasz). A VárosiBringa ezért nem 30 állomással indul egyszerre. Először nyolc állomással próbaüzem fut, és a kölcsönzési adatok alapján bővül a hálózat.</p>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Komplex probléma bonyolultként kezelve</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy egy komplex helyzetet bonyolultnak tekintünk, és azt hisszük, hogy elég alapos elemzéssel előre megtalálható a jó megoldás. Ilyenkor hónapokig készül a „tökéletes” terv, amely az első valós használat után összeomlik, mert a felhasználók másként viselkednek, mint feltételeztük. Az ellenkező hiba is előfordul: egy jól elemezhető, bonyolult műszaki feladatot „próbálgatással” oldanak meg, és drága prototípusok sorát építik meg ott, ahol egy számítás elég lett volna.</p>
+</div></div>
+<section id="három-alapfeladat-elemzés-tervezés-irányítás" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="három-alapfeladat-elemzés-tervezés-irányítás"><span class="header-section-number">1.4.1.</span> Három alapfeladat: elemzés, tervezés, irányítás</h3>
+<p>A bemenet, a rendszer és a kimenet hármasából három alapfeladat adódik, aszerint, hogy melyik ismeretlen (<a href="#fig-harom-feladat" class="quarto-xref"><span>1.4</span></a>. ábra) <span class="citation" data-cites="lakatos_rendszerek">(<a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n., 3.1</a>. szakasz)</span>:</p>
+<ol type="1">
+<li><strong>Rendszerelemzés (direkt feladat):</strong> adott a bemenet és a rendszer, a kimenetet keressük. Mennyit termel a meglévő cella, ha ennyi rendelés érkezik?</li>
+<li><strong>Rendszertervezés, rendszerszervezés (első inverz feladat):</strong> adott a bemenet és a kívánt kimenet, a rendszert keressük. Milyen cella képes évi 140 ezer motort összeszerelni?</li>
+<li><strong>Rendszerirányítás (második inverz feladat):</strong> adott a rendszer és a kívánt kimenet, a bemenetet keressük. Hogyan ütemezzük a rendeléseket, hogy a határidők teljesüljenek?</li>
+</ol>
+<div id="fig-harom-feladat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-harom-feladat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/harom-feladat.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-harom-feladat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.4. ábra.</span> A rendszerrel kapcsolatos három alapfeladat. Narancs színnel a keresett elem látható.
+</figcaption>
+</figure>
+</div>
+<p>A rendszermérnökség középpontjában az első inverz feladat, a tervezés áll. Az inverz feladatok általában nem egyértelműek: ugyanazt a kimenetet sokféle rendszer előállíthatja. A Lakatos-jegyzet szerint a tervezés a célok és a lehetőségek közötti keresési folyamat, amely funkcionális, teljesítmény- és esztétikai követelmények teljesítésére irányul. A gondos tervező a lehetséges változatokat számba veszi, és közülük választ <span class="citation" data-cites="lakatos_rendszerek">(<a href="../irodalom.html#ref-lakatos_rendszerek" role="doc-biblioref">Lakatos, é. n., 3.1</a>. szakasz)</span>. A változatok előállításával a <a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. fejezet, a közöttük való választással a <a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet foglalkozik. A tervezés közben azonban folyamatosan direkt feladatokat is megoldunk: minden változatot elemzünk, hogy lássuk, mit tudna.</p>
+</section>
+</section>
+<section id="sec-rsz-visszacsatolas" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sec-rsz-visszacsatolas"><span class="header-section-number">1.5.</span> Gondolkodás visszacsatolásokban</h2>
+<p>A rendszerszemlélet nem csak a részek és az egész viszonyáról szól, hanem az időbeli viselkedésről is. Bertalanffy általános rendszerelmélete óta tudjuk, hogy a nyitott rendszerek viselkedését a környezettel folytatott csere és a belső visszacsatolások alakítják <span class="citation" data-cites="bertalanffy1968">(<a href="../irodalom.html#ref-bertalanffy1968" role="doc-biblioref">Bertalanffy 1968</a>)</span>. Donella Meadows rendszergondolkodási bevezetője szerint a rendszer viselkedésének kulcsa a szerkezete: a készletek, az áramlások és a visszacsatolási hurkok. Ugyanaz a szerkezet hasonló viselkedést eredményez, akárkik is a szereplők <span class="citation" data-cites="meadows2008">(<a href="../irodalom.html#ref-meadows2008" role="doc-biblioref">Meadows 2008</a>)</span>.</p>
+<p>Két alapvető visszacsatolási típust különböztetünk meg:</p>
+<ul>
+<li><strong>Megerősítő (pozitív) visszacsatolás:</strong> a változás önmagát erősíti. Több felhasználó több bevételt hoz, abból több kerékpár lesz, ami még több felhasználót vonz. Az ilyen hurok növekedést vagy összeomlást okoz.</li>
+<li><strong>Kiegyenlítő (negatív) visszacsatolás:</strong> a változás önmagát korlátozza, és a rendszert egy cél vagy egyensúly felé tereli. Egy termosztát, egy szabályozott hajtás vagy egy árképzési szabály így működik.</li>
+</ul>
+<p>A visszacsatolásokat <strong>ok-okozati hurokdiagrammal</strong> ábrázoljuk. A nyilak ok-okozati hatást jelölnek. A „+” jel azt jelenti, hogy a két változó azonos irányba mozdul, a „−” azt, hogy ellentétes irányba. A hurok megerősítő (R), ha páros számú negatív kapcsolat van benne, és kiegyenlítő (B), ha páratlan <span class="citation" data-cites="sterman2000">(<a href="../irodalom.html#ref-sterman2000" role="doc-biblioref">Sterman 2000</a>)</span>.</p>
+<div id="fig-okhurok-bringa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-okhurok-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/okhurok-bringa.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-okhurok-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">1.5. ábra.</span> A VárosiBringa ok-okozati hurokdiagramja. Az R hurok a növekedést hajtja; a B1 hurok azt mutatja, hogy a használat a domborzat miatt maga rontja az elérhetőséget; a B2 hurok az áthelyező szolgálat beavatkozása.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-pelda"><div class="doboz-cim">Kidolgozott példa: a VárosiBringa visszacsatolásai</div><div class="doboz-tartalom">
+<p>A <a href="#fig-okhurok-bringa" class="quarto-xref"><span>1.5</span></a>. ábra a VárosiBringa három hurkát mutatja.</p>
+<p><strong>R – növekedés.</strong> Ha nő a felhasználók száma, nő a díjbevétel. Ebből a konzorcium bővítheti a flottát és a dokkolóhálózatot, ami javítja az elérhetőséget, és ez újabb felhasználókat vonz. A hurok minden kapcsolata pozitív, tehát megerősítő.</p>
+<p><strong>B1 – önkorlátozás.</strong> Bakonyvár dombos város. A felhasználók szívesen gurulnak le a dombról, de kevésbé szívesen tekernek fel, még elektromos rásegítéssel sem. Ha nő a használat, a dombtetői dokkolók kiürülnek, a völgyiek megtelnek. Ez rontja az elérhetőséget: fent nincs kerékpár, lent nincs hova letenni. A rosszabb elérhetőség csökkenti a felhasználók számát. A hurokban egy negatív kapcsolat van, tehát kiegyenlítő: a rendszer maga korlátozza a növekedését.</p>
+<p><strong>B2 – beavatkozás.</strong> Minél nagyobb a kiegyensúlyozatlanság, annál több áthelyezésre van szükség, és az áthelyezés csökkenti a kiegyensúlyozatlanságot. Ez a hurok is kiegyenlítő, de pénzbe kerül.</p>
+<p><strong>Mit tanul ebből a tervező?</strong> Ha csak az R hurkot látja, arra jut, hogy minél több kerékpár, annál jobb. A B1 hurok felismerése után más kérdések kerülnek előtérbe. Hogyan lehet a kiegyensúlyozatlanságot olcsóbban kezelni, például díjkedvezménnyel azoknak, akik felfelé visznek kerékpárt? Hol legyenek az állomások, hogy a forgalom kiegyensúlyozottabb legyen? Az áthelyezési költség az üzleti modell egyik fő tétele lesz, amelyet a sorbanállási és szimulációs modellekkel (<a href="21-utemezes.html" class="quarto-xref"><span>21</span></a>. fejezet) becsülünk.</p>
+</div></div>
+<p>A visszacsatolási hurkok három jellegzetes csapdát rejtenek, amelyekre a rendszermérnöknek figyelnie kell.</p>
+<ul>
+<li><strong>Késleltetés.</strong> Ha a visszajelzés késve érkezik, a beavatkozás túllő a célon, és lengés alakul ki. A ForgácsTech egyhetes információs késleltetése miatt a termelésvezető mindig a múlt heti helyzetre reagál.</li>
+<li><strong>Nem szándékolt következmények.</strong> Egy beavatkozás a rendszer egy másik pontján, más hurkon keresztül ellentétes hatást válthat ki. Ha a VárosiBringa díjemeléssel finanszírozná az áthelyezést, az R hurok gyengülne.</li>
+<li><strong>Tüneti kezelés.</strong> A gyors, tüneti megoldás gyakran elnyomja a valódi okot. Ha a ForgácsTech túlórával pótolja a késéseket, a határidők rövid távon teljesülnek, de az ütemezési probléma rejtve marad. A tüneti kezelésről és a gyökérok-elemzésről a <a href="25-uzemeltetes.html" class="quarto-xref"><span>25</span></a>. fejezet szól.</li>
+</ul>
+</section>
+<section id="sec-rsz-harom-fogalom" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="sec-rsz-harom-fogalom"><span class="header-section-number">1.6.</span> Rendszerszemlélet, rendszermérnökség, mérnöki rendszerek</h2>
+<p>Három, hasonlóan hangzó fogalmat érdemes pontosan elhatárolni:</p>
+<ul>
+<li><strong>A rendszerszemlélet</strong> (systems thinking) általános gondolkodásmód. A világot összefüggő rendszerek hálózataként látja, és az elemek helyett a kölcsönhatásokra, a visszacsatolásokra és az egész viselkedésére figyel. Bárki alkalmazhatja: a vezető, az orvos, a közgazdász és a mérnök is.</li>
+<li><strong>A rendszermérnökség</strong> (systems engineering) a rendszerszemlélet gyakorlati, mérnöki alkalmazása konkrét rendszerek létrehozására. Módszertan és szakma, amely egy rendszert a teljes életciklusán át a megfogalmazott igénytől a kivonásig kísér.</li>
+<li><strong>A mérnöki rendszerek</strong> (engineering systems) kifejezés azokra a nagy, technológiai, társadalmi és gazdasági szempontból egyaránt összetett rendszerekre utal, amelyek a mérnöki munka tárgyai: energiahálózatok, közlekedési infrastruktúrák, egészségügyi ellátórendszerek. De Weck, Roos és Magee könyve szerint ezek vizsgálata önálló tudományterület, amely a műszaki, a menedzsment- és a társadalomtudományi nézőpontot egyesíti <span class="citation" data-cites="deweck2011">(<a href="../irodalom.html#ref-deweck2011" role="doc-biblioref">Weck, Roos, és Magee 2011</a>)</span>.</li>
+</ul>
+<p>A rendszermérnökségnek több hivatalos meghatározása ismert. Az INCOSE 2019-ben megfogalmazott, az ISO/IEC/IEEE 15288 szabvány 2023-as kiadásában is szereplő meghatározása szerint a rendszermérnökség transzdiszciplináris és integratív megközelítés, amely rendszerelvek és -fogalmak, valamint tudományos, technológiai és menedzsmentmódszerek alkalmazásával teszi lehetővé mérnöki rendszerek sikeres megvalósítását, használatát és kivonását <span class="citation" data-cites="incose2019def iso15288_2023">(<a href="../irodalom.html#ref-incose2019def" role="doc-biblioref">INCOSE 2019</a>; <a href="../irodalom.html#ref-iso15288_2023" role="doc-biblioref">ISO/IEC/IEEE 2023</a>)</span>. A <em>transzdiszciplináris</em> jelző azt jelenti, hogy a rendszermérnökség nem egyszerűen több szakterület együttműködése. Közös célt, közös fogalmakat és közös gondolkodásmódot teremt, amely túllép az egyes szakterületek határain. Blanchard és Fabrycky klasszikus tankönyve a teljes életciklust helyezi a középpontba: a rendszert a koncepciótól a kivonásig, az életciklus-költségekkel együtt kell tervezni <span class="citation" data-cites="blanchard2011">(<a href="../irodalom.html#ref-blanchard2011" role="doc-biblioref">Blanchard és Fabrycky 2011</a>)</span>.</p>
+<section id="a-kiegyensúlyozott-nézet" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="a-kiegyensúlyozott-nézet"><span class="header-section-number">1.6.1.</span> A kiegyensúlyozott nézet</h3>
+<p>Michael Griffin, a NASA egykori vezetője egy 2007-es előadásában a rendszermérnökséget olyan működőképes rendszer létrehozásának művészeteként és tudományaként írta le, amely gyakran egymásnak ellentmondó korlátok között teljesíti a követelményeket. Szerinte a rendszermérnökség egészben gondolkodó, integráló szakterület: a gépész-, villamos-, szoftver-, ergonómiai és más szakterületek hozzájárulását egymással szemben mérlegeli, hogy olyan összefüggő egész jöjjön létre, amelyet egyetlen szakterület nézőpontja sem ural <span class="citation" data-cites="griffin2007">(<a href="../irodalom.html#ref-griffin2007" role="doc-biblioref">Griffin 2007</a>)</span>.</p>
+<p>A rendszermérnök feladatát Boehm klasszikus kérdéspárja foglalja össze a legtömörebben. Nem elég, ha <em>jól építjük meg a terméket</em> (teljesíti a követelményeket); azt is el kell érni, hogy <em>a jó terméket építsük meg</em> (szolgálja a működési célokat, és megfeleljen az érdekelt felek elvárásainak) <span class="citation" data-cites="boehm1984">(<a href="../irodalom.html#ref-boehm1984" role="doc-biblioref">Boehm 1984</a>)</span>. Az első kérdésre a verifikáció, a másodikra a validáció ad választ a V-modell jobb ágán (<a href="23-verifikacio.html" class="quarto-xref"><span>23</span></a>. és <a href="24-validacio.html" class="quarto-xref"><span>24</span></a>. fejezet).</p>
+<p>A rendszermérnökség szorosan összefonódik a projektmenedzsmenttel. A rendszermérnök a döntések műszaki tartalmáért felel, beleértve azok költség- és ütemezési következményeit is; a projektvezető a költségekért, az ütemtervért, az erőforrásokért és a szerződéses kapcsolatokért. A két szerepkör feladatai sok ponton átfedik egymást: közös terület a tervezés, az érdekelt felek kezelése, a kockázat- és a konfigurációkezelés, valamint a felülvizsgálatok <span class="citation" data-cites="sebok2025 incose2023seh">(<a href="../irodalom.html#ref-sebok2025" role="doc-biblioref">SEBoK Editorial Board 2025</a>; <a href="../irodalom.html#ref-incose2023seh" role="doc-biblioref">INCOSE 2023</a>)</span>. Jól működő projektben a kettő kiegészíti egymást, és egyik sem dönt a másik szempontjainak ismerete nélkül.</p>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">„Elég jó” tervezés</div><div class="doboz-tartalom">
+<p>Gyakran elhangzó mondás, hogy a rendszermérnökség az <em>éppen elég jó</em> tervezésének művészete. A gondolat Simon „kielégítő megoldás” (satisficing) fogalmával rokon: összetett helyzetben a döntéshozó nem a matematikai optimumot keresi, hanem olyan megoldást, amely minden lényeges szempontból elég jó <span class="citation" data-cites="simon1956">(<a href="../irodalom.html#ref-simon1956" role="doc-biblioref">Simon 1956</a>)</span>. A mondás nem a hanyagságot dicséri. Azt fejezi ki, hogy egy rendszer nem egyetlen mutatóra optimalizál, hanem a teljesítmény, a költség, a kockázat, az ütemterv, az emberi tényezők és a fenntarthatóság között egyensúlyoz. Egy alrendszer túltervezése, például egy feleslegesen gyors robot, pénzt és időt von el máshonnan, és a rendszer egészét nem javítja. Ezt nevezi a szakirodalom részoptimalizálásnak: az egész rendszert kell optimalizálni, nem egy-egy alrendszert a többi rovására <span class="citation" data-cites="blanchard2011">(<a href="../irodalom.html#ref-blanchard2011" role="doc-biblioref">Blanchard és Fabrycky 2011</a>)</span>.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-rsz-rendszermernok" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="sec-rsz-rendszermernok"><span class="header-section-number">1.7.</span> A rendszermérnök</h2>
+<p>Ki a rendszermérnök, és mit csinál? Sheard a szakirodalom több mint hatvan szerepleírásából tizenkét jellegzetes rendszermérnöki szerepet gyűjtött össze <span class="citation" data-cites="sheard1996">(<a href="../irodalom.html#ref-sheard1996" role="doc-biblioref">Sheard 1996</a>)</span>. A legfontosabbak:</p>
+<ul>
+<li><strong>a követelmények gazdája:</strong> az érdekelt felek igényeiből rendszer- és alrendszer-követelményeket vezet le, és karbantartja őket;</li>
+<li><strong>a rendszer tervezője:</strong> felel a rendszer egészének architektúrájáért;</li>
+<li><strong>elemző:</strong> modellekkel és számításokkal igazolja, hogy a terv teljesítheti a követelményeket;</li>
+<li><strong>verifikációs és validációs mérnök:</strong> megtervezi és értékeli az ellenőrzéseket;</li>
+<li><strong>üzemeltetési és logisztikai mérnök:</strong> a használat, a karbantartás, a képzés és a kivonás szempontjait képviseli;</li>
+<li><strong>az alrendszerek „ragasztója”:</strong> az interfészek gazdája, aki a csapatok közötti ellentmondásokat feloldja;</li>
+<li><strong>kapcsolattartó</strong> a megrendelővel és a felhasználókkal;</li>
+<li><strong>műszaki vezető:</strong> tervezi és követi a műszaki munkát, kezeli a kockázatokat.</li>
+</ul>
+<p>A szerepek nem munkakörök. Egy nagy projektben külön emberek látják el őket, egy kis projektben egyetlen mérnök, vagy éppen a projektvezető. A lényeg az, hogy a rendszermérnöki funkciókat valakinek el kell végeznie.</p>
+<p>A rendszermérnök napi munkája ennek megfelelően sokszínű:</p>
+<ul>
+<li>elemzi és pontosítja a követelményeket, és tárgyal róluk az érdekelt felekkel;</li>
+<li>frissíti a rendszertervet, és nyomon követi a változások hatását;</li>
+<li>összehangolja a szakterületi csapatok (gépész, villamos, szoftveres, ergonómus) munkáját;</li>
+<li>interfészeket egyeztet, és feloldja a csapatok közötti ellentmondásokat;</li>
+<li>kockázatokat azonosít, és kompromisszumos döntéseket készít elő;</li>
+<li>teszteket tervez és értékel, hibákat követ nyomon;</li>
+<li>kommunikál a megrendelővel és a felhasználókkal.</li>
+</ul>
+<section id="milyen-a-jó-rendszermérnök" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="milyen-a-jó-rendszermérnök"><span class="header-section-number">1.7.1.</span> Milyen a jó rendszermérnök?</h3>
+<p>Williams és Derro 2008-ban a NASA-nál 37 olyan rendszermérnököt vizsgált, akiket kollégáik kiemelkedőnek tartottak. Interjúkkal, megfigyeléssel és munkaárnyékolással azt kutatták, milyen viselkedésformák különböztetik meg őket <span class="citation" data-cites="williams2008">(<a href="../irodalom.html#ref-williams2008" role="doc-biblioref">Williams és Derro 2008</a>)</span>. A vizsgálat öt nagy témakört azonosított: a vezetést, a hozzáállást és személyes jellemzőket, a kommunikációt, a problémamegoldást és rendszergondolkodást, valamint a műszaki jártasságot. A tanulmány a kiemelkedő rendszermérnökök jellemzői között a következőket sorolja fel <span class="citation" data-cites="williams2008">(<a href="../irodalom.html#ref-williams2008" role="doc-biblioref">Williams és Derro 2008</a>)</span>:</p>
+<ul>
+<li><strong>szellemi kíváncsiság:</strong> az új ismeretek elsajátításának vágya és képessége;</li>
+<li><strong>az egész látása a részletek elvesztése nélkül:</strong> képes a rendszert egészében látni, mégis elmerülni a részletekben;</li>
+<li><strong>a változások rugalmas kezelése</strong> és a bizonytalanság elviselése;</li>
+<li><strong>kivételes kétirányú kommunikáció:</strong> tud figyelni és érthetően magyarázni;</li>
+<li><strong>sokrétű műszaki jártasság és józan ítélőképesség;</strong></li>
+<li><strong>rendszerszintű kapcsolatok kiépítése:</strong> felismeri, hogy egy döntés hol és kit érint;</li>
+<li><strong>megfelelő mértékű „paranoia”:</strong> a legjobbat várja, de a legrosszabbra is felkészül;</li>
+<li><strong>jó csapatjátékos és vezető;</strong></li>
+<li><strong>magabiztos és döntésképes, de nem arrogáns.</strong></li>
+</ul>
+<p>A cél tehát nem a mindentudó mérnök. A jó rendszermérnök rendszerszinten gondolkodik, kommunikál és dönt, és tudja, mikor kell szakértőt bevonnia.</p>
+</section>
+<section id="kompetenciák-és-a-t-alakú-szakember" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="kompetenciák-és-a-t-alakú-szakember"><span class="header-section-number">1.7.2.</span> Kompetenciák és a T alakú szakember</h3>
+<p>Az INCOSE 2018-ban kiadott kompetenciakerete 36 rendszermérnöki kompetenciát ír le öt csoportban, mindegyiket öt jártassági szinten <span class="citation" data-cites="incose2018comp">(<a href="../irodalom.html#ref-incose2018comp" role="doc-biblioref">INCOSE 2018</a>)</span>:</p>
+<ul>
+<li><strong>alapkompetenciák</strong> (például rendszergondolkodás, életciklusok, képességalapú tervezés, kritikai gondolkodás);</li>
+<li><strong>szakmai, viselkedési kompetenciák</strong> (például kommunikáció, etika, vezetés, tárgyalás, csapatmunka);</li>
+<li><strong>műszaki kompetenciák</strong>, amelyek a rendszermérnöki műszaki folyamatokhoz kapcsolódnak (követelmények, architektúra, integráció, verifikáció, validáció és a többi);</li>
+<li><strong>rendszermérnöki menedzsmentkompetenciák</strong> (tervezés, nyomon követés, döntéskezelés, kockázatkezelés, konfigurációkezelés és a többi);</li>
+<li><strong>integráló kompetenciák</strong>, amelyekkel mások nézőpontját egységes képbe lehet foglalni (projektmenedzsment, logisztika, minőség, pénzügy).</li>
+</ul>
+<p>A rendszermérnöki pályát gyakran a <strong>T alakú szakember</strong> képével írják le. A T függőleges szára egy szakterület mély ismerete: a gépészeté, az irányítástechnikáé, az informatikáé vagy a logisztikáé. A vízszintes szár a széles, rendszerszintű látásmód: a többi szakterület nyelvének megértése, a kommunikáció, a menedzsment és az üzleti szemlélet. A pályakezdő mérnök jellemzően a függőleges szárral kezdi, és a tapasztalattal szélesedik a vízszintes szár. A műszaki menedzser és a mechatronikai mérnök képzés éppen ezt a kettősséget célozza.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: ki a rendszermérnök?</div><div class="doboz-tartalom">
+<p>A Kobold Hajtástechnika nem alkalmaz „rendszermérnök” nevű munkakört. A KoboCella-projektben a rendszermérnöki feladatokat egy mechatronikai mérnök, a gyártástechnológiai osztály fiatal munkatársa kapta meg, a projektvezető pedig a gyártási igazgató. A mérnök feladata nem az volt, hogy maga tervezze meg a robotpályát vagy a biztonsági vezérlést: ezeket a robotintegrátor és a villamos tervező végezte. Az ő dolga az volt, hogy</p>
+<ul>
+<li>mindenki ugyanazokat a követelményeket ismerje és értse;</li>
+<li>a robotintegrátor, a munkavédelem és az operátorok szempontjai ütközzenek, és az ütközésekből döntések szülessenek;</li>
+<li>minden interfész (mechanikai, villamos, adat- és emberi interfész) gazdája ismert legyen;</li>
+<li>az átadáskor bizonyítani lehessen, hogy a cella teljesíti a vállalt célokat.</li>
+</ul>
+<p>Fél év múlva így foglalta össze a tapasztalatait: „Kevesebbet számoltam, mint gondoltam, de sokkal többet beszélgettem. A legfontosabb eszközöm a követelménytáblázat és a felülvizsgálati jegyzőkönyv lett.”</p>
+</div></div>
+</section>
+</section>
+<section id="sec-rsz-ipar50" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="sec-rsz-ipar50"><span class="header-section-number">1.8.</span> Az Ipar 4.0-tól az Ipar 5.0-ig</h2>
+<p>A rendszermérnökség céljai a technológiai és társadalmi környezettel együtt változnak. Az Ipar 4.0 a gyártás digitalizálását, a kiberfizikai rendszereket, az összekapcsolt gépeket és az adatvezérelt döntéseket helyezte előtérbe. Az Európai Bizottság 2021-es jelentése az Ipar 5.0 fogalmával kiegészíti ezt a paradigmát. A jelentés szerint az ipar akkor lehet a jólét ellenálló forrása, ha a technológiai átalakulás három érték köré szerveződik <span class="citation" data-cites="breque2021">(<a href="../irodalom.html#ref-breque2021" role="doc-biblioref">Breque, De Nul, és Petridis 2021</a>)</span>:</p>
+<ul>
+<li><strong>emberközpontúság:</strong> a technológia az embert szolgálja, a munkavállaló képességeit támogatja, és biztonságosabb, kielégítőbb munkakörnyezetet teremt, nem pedig egyszerűen helyettesíti az embert;</li>
+<li><strong>fenntarthatóság:</strong> a termelés tiszteletben tartja a bolygó határait, körforgásos és erőforrás-hatékony;</li>
+<li><strong>reziliencia (ellenállóképesség):</strong> a rendszerek képesek ellenállni a zavaroknak, és helyreállni utánuk, legyen szó ellátási lánc megszakadásáról vagy energiaválságról.</li>
+</ul>
+<p>Az Ipar 5.0 tehát nem új technológiák listája, hanem értékválasztás. A technológiák nagyrészt ugyanazok, mint az Ipar 4.0-ban, de a tervezés kiindulópontja a társadalmi és környezeti érték. Ez a rendszermérnök számára konkrét feladatokat jelent. Az érdekelt felek körébe bele kell venni a munkavállalókat és a jövő nemzedékeit (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet). A funkciómegosztásnál az ember képességeinek támogatására kell törekedni (<a href="12-automatizalas.html" class="quarto-xref"><span>12</span></a>. fejezet). A kockázatelemzésnek pedig a rendszer ellenállóképességére is ki kell terjednie (<a href="14-kockazat.html" class="quarto-xref"><span>14</span></a>. fejezet).</p>
+<p>Az INCOSE a rendszermérnökség jövőképét felvázoló dokumentumában hasonló irányokat jelöl ki. A jövő rendszereinek a társadalmi igények egyre szélesebb körére kell reagálniuk, okosabbnak, fenntarthatóbbnak, robusztusabbnak és biztonságosabbnak kell lenniük, a fejlesztést pedig egyre inkább modellekre és digitális eszközökre kell építeni <span class="citation" data-cites="incose2022vision">(<a href="../irodalom.html#ref-incose2022vision" role="doc-biblioref">INCOSE 2022</a>)</span>. A modellalapú megközelítéssel a következő fejezet foglalkozik.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: Ipar 4.0 vagy Ipar 5.0?</div><div class="doboz-tartalom">
+<p>A KoboCella első, belső változatú célkitűzése így szólt: „A kézi munkaállomást automatizált cellával váltjuk ki, a létszámot a felére csökkentjük.” Ez tipikus Ipar 4.0-s megfogalmazás. Az üzemi tanács és a munkavédelem bevonása után a célkitűzés megváltozott: „A cella a növekvő igényt az operátorok ergonómiai terhelésének csökkentésével és a minőség javításával szolgálja ki. Az operátor a cella irányítója és minőségellenőre lesz.” A műszaki megoldás, egy kollaboratív robot, mindkét esetben ugyanaz lehet. A követelmények, a funkciómegosztás, a kezelőfelület és a képzési terv azonban egészen másként alakul.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A rendszer egymással kölcsönhatásban álló elemek célra szerveződött együttese. Elemei közé az emberek és az eljárások is beletartoznak. Leírásához elemeket, attribútumokat, kapcsolatokat, határt és környezetet használunk.</li>
+<li>A rendszer hozzáadott értéke főként az elemek kapcsolataiból születik. Az emergens tulajdonságok, mint a ciklusidő, az elérhetőség vagy a biztonság, csak az egészen jelennek meg.</li>
+<li>A rendszerek hierarchikusak: minden rendszer egy befoglaló rendszer része, és alrendszerekre bontható. A befoglaló rendszert ismerni kell, mert az határozza meg a bemeneteket és a kimeneteket. A rendszerek rendszere önálló tulajdonosú, önállóan működő rendszerekből áll.</li>
+<li>A műszaki–gazdasági rendszerek műszaki, gazdasági és információs alrendszerekből, illetve irányítási és irányított alrendszerből állnak.</li>
+<li>A bonyolult rendszerek elemzéssel tervezhetők. A komplex rendszereknél kis lépésekre, kísérletekre és gyors visszacsatolásra van szükség. A tervezés inverz feladat, amelynek általában sok megoldása van.</li>
+<li>A rendszer viselkedését a visszacsatolási hurkok alakítják. A késleltetés, a nem szándékolt következmények és a tüneti kezelés a rendszerszemlélet jellegzetes csapdái.</li>
+<li>A rendszerszemlélet gondolkodásmód, a rendszermérnökség ennek mérnöki alkalmazása, a mérnöki rendszerek pedig a nagy sociotechnikai rendszerek. A rendszermérnök a teljes rendszert látja, kiegyensúlyoz, kommunikál és dönt.</li>
+<li>Az Ipar 5.0 az emberközpontúságot, a fenntarthatóságot és az ellenállóképességet teszi a tervezés kiindulópontjává.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Miért fontos, hogy a szabványos rendszerdefiníció az embereket és az eljárásokat is a rendszer elemei közé sorolja? Mondj egy példát a KoboCella esetéből, amikor ennek elhanyagolása hibához vezetne!</li>
+<li>Mondj egy-egy emergens tulajdonságot a ForgácsTech üzeméből és a saját környezetedből!</li>
+<li>Egy mobilalkalmazás fejlesztésekor mi lehet a befoglaló rendszer, a rendszer, egy alrendszer és egy komponens?</li>
+<li>A következő feladatok közül melyik elemzés, melyik tervezés és melyik irányítás? (a) Milyen gyakorisággal kell az áthelyező autónak körbejárnia, hogy a dombtetői állomások ne ürüljenek ki? (b) Hány kerékpár lesz átlagosan egy állomáson reggel 8-kor, ha ismerjük az igényeket és a flottát? (c) Hány állomás és mekkora flotta kell, hogy a kölcsönzések 95%-a sikeres legyen?</li>
+<li>Rajzold fel a következő hurkot, és döntsd el, megerősítő vagy kiegyenlítő! Ha nő a ForgácsTech határidő-csúszása, nő a túlóra; a túlóra növeli a fáradtságot; a fáradtság növeli a selejtet; a selejt növeli a határidő-csúszást.</li>
+<li>Miben különbözik a rendszerszemlélet és a rendszermérnökség?</li>
+<li>Miért nem elegendő, ha egy kollaboratív robotcella célkitűzése a létszám csökkentése? Melyik Ipar 5.0-s értékre hivatkoznál?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Mert a rendszer teljesítménye a technikai elemek és az emberek kölcsönhatásán múlik. Ha az operátort a környezet részének tekintjük, a tervezés kihagyhatja például azt, hogy az alkatrész behelyezése mennyi ideig tart, milyen testhelyzetben végzik, és mit kell az operátornak a kijelzőn látnia. Így a ciklusidő és az ergonómiai célok sem teljesülnek.</li>
+<li>ForgácsTech: a rendelések átfutási ideje, amely a gépek, az ütemezés, az anyagmozgatás és az információáramlás együtteséből adódik. Saját példa lehet egy csapat hangulata vagy egy városrész forgalmi dugója.</li>
+<li>Például: befoglaló rendszer a bank teljes ügyfélkiszolgálási rendszere; rendszer a mobilbanki alkalmazás a háttérszolgáltatásaival; alrendszer a bejelentkezési és azonosítási modul; komponens az ujjlenyomat-olvasást kezelő könyvtár.</li>
+<li><ol type="a">
+<li>irányítás (adott a rendszer és a kívánt állapot, a beavatkozást keressük); (b) elemzés (adott a rendszer és a bemenet, a kimenetet keressük); (c) tervezés (a rendszert keressük).</li>
+</ol></li>
+<li>A hurokban minden kapcsolat pozitív (csúszás → túlóra → fáradtság → selejt → csúszás), tehát megerősítő. A túlóra hosszabb távon rontja a helyzetet; ez a tüneti kezelés csapdájának tipikus esete.</li>
+<li>A rendszerszemlélet általános gondolkodásmód, amely bármely területen alkalmazható. A rendszermérnökség ennek gyakorlati, mérnöki alkalmazása egy konkrét rendszer életciklusán át, saját folyamatokkal, módszerekkel és felelősségekkel.</li>
+<li>Mert a cél kizárólag a költségre összpontosít, és figyelmen kívül hagyja a munkavállalókat mint érdekelt feleket. Az emberközpontúság elve szerint a technológiának az ember képességeit kell támogatnia, és biztonságosabb, kielégítőbb munkát kell teremtenie.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: a fejlesztési feladat megfogalmazása</div><div class="doboz-tartalom">
+<p>A félév során egy saját fejlesztési feladaton haladsz végig a V-modell lépésein (lásd a Gyakorlati útmutató projektfeladatát). Az első lépésben:</p>
+<ol type="1">
+<li>válassz egy (elképzelt) szervezetet és egy fejlesztési feladatot a „zöld és digitális átállás” témakörében;</li>
+<li>írd le néhány mondatban a problémát, a fejlesztés relevanciáját és a várható hozadékot;</li>
+<li>jelöld ki a fejlesztendő rendszert és a befoglaló rendszert; sorolj fel legalább öt alrendszert;</li>
+<li>nevezz meg legalább két emergens tulajdonságot, amelyen a fejlesztés sikere múlik;</li>
+<li>rajzold fel a rendszer legfontosabb visszacsatolási hurkát ok-okozati hurokdiagrammal.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="sebok2025">SEBoK Editorial Board (<a href="../irodalom.html#ref-sebok2025" role="doc-biblioref">2025</a>)</span>: a rendszermérnökség szabadon elérhető tudásbázisa; bevezetés a rendszerfogalomba és a rendszermérnöki szerepekbe.</li>
+<li><span class="citation" data-cites="sheard1996">Sheard (<a href="../irodalom.html#ref-sheard1996" role="doc-biblioref">1996</a>)</span>: a tizenkét rendszermérnöki szerep.</li>
+<li><span class="citation" data-cites="incose2019def">INCOSE (<a href="../irodalom.html#ref-incose2019def" role="doc-biblioref">2019</a>)</span>: az INCOSE rendszer- és rendszermérnökség-definíciói magyarázatokkal.</li>
+<li><span class="citation" data-cites="kossiakoff2011">Kossiakoff és mtsai. (<a href="../irodalom.html#ref-kossiakoff2011" role="doc-biblioref">2011</a>)</span>, 1–3. fejezet: a komplex rendszerek felépítése és a rendszermérnök feladatai.</li>
+<li><span class="citation" data-cites="meadows2008">Meadows (<a href="../irodalom.html#ref-meadows2008" role="doc-biblioref">2008</a>)</span>: olvasmányos bevezetés a rendszergondolkodásba és a visszacsatolási hurkokba.</li>
+<li><span class="citation" data-cites="deweck2011">Weck, Roos, és Magee (<a href="../irodalom.html#ref-deweck2011" role="doc-biblioref">2011</a>)</span>: a mérnöki rendszerek mint tudományterület.</li>
+<li><span class="citation" data-cites="breque2021">Breque, De Nul, és Petridis (<a href="../irodalom.html#ref-breque2021" role="doc-biblioref">2021</a>)</span>: az Európai Bizottság Ipar 5.0-jelentése.</li>
+<li><span class="citation" data-cites="nasa2016seh">NASA (<a href="../irodalom.html#ref-nasa2016seh" role="doc-biblioref">2016</a>)</span>, 2. fejezet: a rendszer és a rendszermérnökség meghatározása, a rendszermérnök szerepe.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-bertalanffy1968" class="csl-entry" role="listitem">
+Bertalanffy, Ludwig von. 1968. <em>General System Theory: Foundations, Development, Applications</em>. New York: George Braziller.
+</div>
+<div id="ref-blanchard2011" class="csl-entry" role="listitem">
+Blanchard, Benjamin S., és Wolter J. Fabrycky. 2011. <em>Systems Engineering and Analysis</em>. 5. kiad. Upper Saddle River, NJ: Prentice Hall.
+</div>
+<div id="ref-boehm1984" class="csl-entry" role="listitem">
+Boehm, Barry W. 1984. <span>„Verifying and Validating Software Requirements and Design Specifications”</span>. <em>IEEE Software</em> 1 (1): 75–88. <a href="https://doi.org/10.1109/MS.1984.233702">https://doi.org/10.1109/MS.1984.233702</a>.
+</div>
+<div id="ref-breque2021" class="csl-entry" role="listitem">
+Breque, Maija, Lars De Nul, és Athanasios Petridis. 2021. <span>„Industry 5.0: Towards a Sustainable, Human-Centric and Resilient <span>European</span> Industry”</span>. Luxembourg: European Commission, Directorate-General for Research; Innovation.
+</div>
+<div id="ref-griffin2007" class="csl-entry" role="listitem">
+Griffin, Michael D. 2007. <span>„System Engineering and the <span>»Two Cultures«</span> of Engineering”</span>. Boeing Lecture, Purdue University, West Lafayette, IN.
+</div>
+<div id="ref-incose2018comp" class="csl-entry" role="listitem">
+INCOSE. 2018. <span>„<span>INCOSE</span> Systems Engineering Competency Framework”</span>. INCOSE-TP-2018-002-01.0. International Council on Systems Engineering.
+</div>
+<div id="ref-incose2019def" class="csl-entry" role="listitem">
+———. 2019. <span>„Systems Engineering and System Definitions”</span>. International Council on Systems Engineering, technikai termék. <a href="https://www.incose.org/about-systems-engineering/system-and-se-definitions">https://www.incose.org/about-systems-engineering/system-and-se-definitions</a>.
+</div>
+<div id="ref-incose2022vision" class="csl-entry" role="listitem">
+———. 2022. <span>„Systems Engineering Vision 2035: Engineering Solutions for a Better World”</span>. International Council on Systems Engineering. <a href="https://www.incose.org/sevision">https://www.incose.org/sevision</a>.
+</div>
+<div id="ref-incose2023seh" class="csl-entry" role="listitem">
+———. 2023. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide for System Life Cycle Processes and Activities</em>. Szerkesztette David D. Walden, Thomas M. Shortell, Garry J. Roedler, Bernardo A. Delicado, Odile Mornas, Yew-Seng Yip, és David Endler. 5. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2023. <span>„<span>ISO/IEC/IEEE 15288:2023</span> Systems and Software Engineering – System Life Cycle Processes”</span>. Nemzetközi szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-kossiakoff2011" class="csl-entry" role="listitem">
+Kossiakoff, Alexander, William N. Sweet, Samuel J. Seymour, és Steven M. Biemer. 2011. <em>Systems Engineering Principles and Practice</em>. 2. kiad. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-lakatos_rendszerek" class="csl-entry" role="listitem">
+Lakatos, Béla. é. n. <span>„Rendszerek tervezése és irányítása”</span>. Egyetemi jegyzet, Veszprémi Egyetem, Folyamatmérnöki Tanszék.
+</div>
+<div id="ref-maier1998" class="csl-entry" role="listitem">
+Maier, Mark W. 1998. <span>„Architecting Principles for Systems-of-Systems”</span>. <em>Systems Engineering</em> 1 (4): 267–84.
+</div>
+<div id="ref-maier2009" class="csl-entry" role="listitem">
+Maier, Mark W., és Eberhardt Rechtin. 2009. <em>The Art of Systems Architecting</em>. 3. kiad. Boca Raton, FL: CRC Press.
+</div>
+<div id="ref-meadows2008" class="csl-entry" role="listitem">
+Meadows, Donella H. 2008. <em>Thinking in Systems: A Primer</em>. White River Junction, VT: Chelsea Green Publishing.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+NASA. 2016. <span>„NASA Systems Engineering Handbook”</span>. NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space Administration.
+</div>
+<div id="ref-pmi2019wbs" class="csl-entry" role="listitem">
+Project Management Institute. 2019. <em>Practice Standard for Work Breakdown Structures</em>. 3. kiad. Newtown Square, PA: Project Management Institute.
+</div>
+<div id="ref-sebok2025" class="csl-entry" role="listitem">
+SEBoK Editorial Board. 2025. <span>„The Guide to the Systems Engineering Body of Knowledge (<span>SEBoK</span>), v. 2.13”</span>. Hoboken, NJ: The Trustees of the Stevens Institute of Technology, <a href="https://sebokwiki.org" class="uri">https://sebokwiki.org</a>.
+</div>
+<div id="ref-sheard1996" class="csl-entry" role="listitem">
+Sheard, Sarah A. 1996. <span>„Twelve Systems Engineering Roles”</span>. In <em>Proceedings of the 6th Annual International Symposium of INCOSE</em>. Boston, MA.
+</div>
+<div id="ref-simon1956" class="csl-entry" role="listitem">
+Simon, Herbert A. 1956. <span>„Rational Choice and the Structure of the Environment”</span>. <em>Psychological Review</em> 63 (2): 129–38. <a href="https://doi.org/10.1037/h0042769">https://doi.org/10.1037/h0042769</a>.
+</div>
+<div id="ref-snowden2007" class="csl-entry" role="listitem">
+Snowden, David J., és Mary E. Boone. 2007. <span>„A Leader’s Framework for Decision Making”</span>. <em>Harvard Business Review</em> 85 (11): 68–76.
+</div>
+<div id="ref-sterman2000" class="csl-entry" role="listitem">
+Sterman, John D. 2000. <em>Business Dynamics: Systems Thinking and Modeling for a Complex World</em>. Boston: Irwin/McGraw-Hill.
+</div>
+<div id="ref-milstd881f" class="csl-entry" role="listitem">
+U.S. Department of Defense. 2022. <span>„<span>MIL-STD-881F</span>: Work Breakdown Structures for Defense Materiel Items”</span>. Szabvány.
+</div>
+<div id="ref-deweck2011" class="csl-entry" role="listitem">
+Weck, Olivier L. de, Daniel Roos, és Christopher L. Magee. 2011. <em>Engineering Systems: Meeting Human Needs in a Complex Technological World</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-williams2008" class="csl-entry" role="listitem">
+Williams, Christine, és Mary-Ellen Derro. 2008. <span>„<span>NASA</span> Systems Engineering Behavior Study”</span>. NASA Office of the Chief Engineer. <a href="https://appel.nasa.gov/critical-knowledge/case-studies/nasa-systems-engineering-behavior-study/">https://appel.nasa.gov/critical-knowledge/case-studies/nasa-systems-engineering-behavior-study/</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Előszó">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Előszó</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/02-v-modell.html" class="pagination-link" aria-label="A rendszerfejlesztés életciklusa és a V-modell">
+        <span class="nav-page-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/01-rendszerek.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/01-rendszerek.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

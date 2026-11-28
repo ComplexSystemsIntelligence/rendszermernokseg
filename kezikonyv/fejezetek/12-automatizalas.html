@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>12&nbsp; Funkciómegosztás és automatizálás – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/13-emberi-hiba.html" rel="next">
+<link href="../fejezetek/11-emberkozpontu.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/12-automatizalas.html"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/12-automatizalas.html"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-automatizalas" class="quarto-section-identifier"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-auto-feladat" id="toc-sec-auto-feladat" class="nav-link active" data-scroll-target="#sec-auto-feladat"><span class="header-section-number">12.1.</span> A funkciómegosztás feladata</a>
+  <ul class="collapse">
+  <li><a href="#a-fitts-lista" id="toc-a-fitts-lista" class="nav-link" data-scroll-target="#a-fitts-lista"><span class="header-section-number">12.1.1.</span> A Fitts-lista</a></li>
+  <li><a href="#megosztási-kritériumok" id="toc-megosztási-kritériumok" class="nav-link" data-scroll-target="#megosztási-kritériumok"><span class="header-section-number">12.1.2.</span> Megosztási kritériumok</a></li>
+  </ul></li>
+  <li><a href="#sec-auto-szintek" id="toc-sec-auto-szintek" class="nav-link" data-scroll-target="#sec-auto-szintek"><span class="header-section-number">12.2.</span> Az automatizálás szintjei és típusai</a></li>
+  <li><a href="#sec-auto-buktatok" id="toc-sec-auto-buktatok" class="nav-link" data-scroll-target="#sec-auto-buktatok"><span class="header-section-number">12.3.</span> Az automatizálás iróniái és buktatói</a></li>
+  <li><a href="#sec-auto-kobot" id="toc-sec-auto-kobot" class="nav-link" data-scroll-target="#sec-auto-kobot"><span class="header-section-number">12.4.</span> Ember–robot együttműködés</a></li>
+  <li><a href="#sec-auto-dinamikus" id="toc-sec-auto-dinamikus" class="nav-link" data-scroll-target="#sec-auto-dinamikus"><span class="header-section-number">12.5.</span> Statikus és dinamikus megosztás</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/12-automatizalas.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/12-automatizalas.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-automatizalas.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>leírni a funkciómegosztás lépéseit, és megindokolni, miért „inkább művészet, mint tudomány”;</li>
+<li>alkalmazni a Fitts-listát és a megosztási kritériumokat, és megnevezni a módszer korlátait;</li>
+<li>az automatizálás szintjét Sheridan és Verplank tízfokú skáláján, az automatizálás típusát Parasuraman, Sheridan és Wickens négy szakasza szerint meghatározni;</li>
+<li>felismerni az automatizálás iróniáit és buktatóit (a helyzettudatosság elvesztése, a túlzott és a hiányos bizalom);</li>
+<li>ismertetni az ember–robot együttműködés módjait és biztonsági alapelveit;</li>
+<li>statikus és dinamikus (adaptív) funkciómegosztást tervezni, a leromlott üzemmódokat is beleértve.</li>
+</ul>
+</div></div>
+<p>Az architektúra kialakításakor a funkciókat a forma elemeihez rendeltük (<a href="08-architektura.html#sec-arch-allokacio" class="quarto-xref"><span>8.5</span></a>. szakasz). Ezek között az elemek között ott van az ember is: a kezelő, a karbantartó, a felhasználó. Az emberi rendszerintegráció egyik alapeszköze éppen a funkciók egyértelmű elosztása a rendszer elemei, vagyis a hardver, a szoftver és az ember között (<a href="11-emberkozpontu.html#sec-ek-hsi" class="quarto-xref"><span>11.2</span></a>. szakasz). Melyik funkciót végezze az ember, melyiket a gép, és melyiket együtt? Ez a kérdés minden automatizálási projekt középpontjában áll, a KoboCella kobotjától a ForgácsTech ütemezőjéig.</p>
+<p>A kérdésre csábító egyszerű választ adni: „amit lehet, automatizáljunk”. A tapasztalat azonban azt mutatja, hogy az automatizálás nem egyszerűen átveszi az ember feladatait, hanem meg is változtatja azokat. Új feladatokat (felügyelet, beavatkozás, hibaelhárítás) hoz létre, és ezek gyakran nehezebbek, mint a régiek voltak. Ez a fejezet a funkciómegosztás módszereit és az automatizálás emberi következményeit tárgyalja.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Milyen elvek alapján osszuk meg a funkciókat ember és gép között?</li>
+<li>Hogyan írható le az automatizálás szintje és típusa?</li>
+<li>Milyen buktatói vannak az automatizálásnak?</li>
+<li>Hogyan működhet együtt biztonságosan az ember és a robot?</li>
+</ul>
+<section id="sec-auto-feladat" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="sec-auto-feladat"><span class="header-section-number">12.1.</span> A funkciómegosztás feladata</h2>
+<p>A funkciómegosztásra nincs mechanikus eljárás, a tervezői ítéletnek itt különösen nagy a szerepe. A munka lépései:</p>
+<ol type="1">
+<li>a funkciók azonosítása (a funkcióelemzésből, a használati esetekből, interjúkból és a vevői elvárásokból);</li>
+<li>annak azonosítása, ki a legmegfelelőbb az adott funkcióra: ember, automatika vagy a kettő együtt;</li>
+<li>annak eldöntése, hogy a megosztás statikus (a tervezéskor rögzített) vagy dinamikus, adaptív (a terheléstől és a helyzettől függően változó) legyen.</li>
+</ol>
+<p>A funkciómegosztás a funkciófára épül (<a href="08-architektura.html#sec-arch-funkcioelemzes" class="quarto-xref"><span>8.3</span></a>. szakasz), és eredménye az allokációs táblázatban jelenik meg (<a href="08-architektura.html#sec-arch-allokacio" class="quarto-xref"><span>8.5</span></a>. szakasz). A különbség az, hogy itt kifejezetten azt vizsgáljuk, mit jelent egy-egy döntés az emberre nézve: milyen feladatai maradnak, mennyire terhelt, érti-e, mit csinál a gép, és be tud-e avatkozni, ha kell.</p>
+<section id="a-fitts-lista" class="level3" data-number="12.1.1">
+<h3 data-number="12.1.1" class="anchored" data-anchor-id="a-fitts-lista"><span class="header-section-number">12.1.1.</span> A Fitts-lista</h3>
+<p>A funkciómegosztás klasszikus eszköze a <strong>Fitts-lista</strong>, amely Fitts 1951-es, a légiforgalmi irányítás emberi tényezőiről szóló jelentéséből származik <span class="citation" data-cites="fitts1951">(<a href="../irodalom.html#ref-fitts1951" role="doc-biblioref">Fitts 1951</a>)</span>. A lista összeveti, miben jobb az ember és miben a gép. A <a href="#tbl-fitts" class="quarto-xref"><span>12.1</span></a>. táblázat a lista szellemében, mai példákkal kiegészítve foglalja össze az összevetést.</p>
+<div id="tbl-fitts" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[20,38,42]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-fitts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">12.1. táblázat.</span> Az ember és a gép erősségei a Fitts-lista <span class="citation" data-cites="fitts1951">(<a href="../irodalom.html#ref-fitts1951" role="doc-biblioref">Fitts 1951</a>)</span> szellemében, saját összeállítás.
+</figcaption>
+<div aria-describedby="tbl-fitts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 38%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tulajdonság</th>
+<th style="text-align: left;">Gép</th>
+<th style="text-align: left;">Ember</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sebesség</td>
+<td style="text-align: left;">kiváló</td>
+<td style="text-align: left;">viszonylag lassú</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kimenő teljesítmény</td>
+<td style="text-align: left;">kiváló, állandó</td>
+<td style="text-align: left;">viszonylag gyenge</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">következetesség</td>
+<td style="text-align: left;">ideális, ismétlődő eseményeknél</td>
+<td style="text-align: left;">megbízhatatlan; a tanulás és a kifáradás befolyásolja</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">információs kapacitás</td>
+<td style="text-align: left;">többcsatornás</td>
+<td style="text-align: left;">elsősorban egycsatornás</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">emlékezet</td>
+<td style="text-align: left;">pontos, szó szerinti felidézés, korlátozott hozzáférés</td>
+<td style="text-align: left;">elvek és stratégiák jobb felidézése, sokoldalú hozzáférés, innováció</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">logikai számítás</td>
+<td style="text-align: left;">deduktív, bonyolult program, gyors és alapos, gyenge hibajavítás</td>
+<td style="text-align: left;">induktív, egyszerűbb program, lassú, pontos, jó hibajavítás</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">érzékelés</td>
+<td style="text-align: left;">jó mennyiségi értékelés, gyenge mintafelismerés</td>
+<td style="text-align: left;">széles hatókör, sokoldalúság, ítélőképesség</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">észlelés</td>
+<td style="text-align: left;">a változatossággal nehezen birkózik, zajérzékeny</td>
+<td style="text-align: left;">a változásokkal jobban megbirkózik, zajérzékeny</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A Fitts-listát sokan kritizálták. A leggyakoribb ellenvetés, hogy a lista az embert és a gépet egymás helyettesítőiként kezeli, holott a jó rendszerekben kiegészítik egymást, és hogy a gépek képességei azóta jelentősen változtak. De Winter és Dodou mégis amellett érvelnek, hogy a lista azért maradt fenn hét évtizeden át, mert lényegi megállapításai, például hogy a gép a gyorsaságban, a pontosságban és az ismétlődő feladatokban, az ember az ítéletalkotásban, az alkalmazkodásban és a váratlan helyzetek kezelésében erősebb, ma is többnyire érvényesek, és a lista jó kiindulópontot ad a tervezői gondolkodáshoz <span class="citation" data-cites="dewinter2014">(<a href="../irodalom.html#ref-dewinter2014" role="doc-biblioref">Winter és Dodou 2014</a>)</span>.</p>
+</section>
+<section id="megosztási-kritériumok" class="level3" data-number="12.1.2">
+<h3 data-number="12.1.2" class="anchored" data-anchor-id="megosztási-kritériumok"><span class="header-section-number">12.1.2.</span> Megosztási kritériumok</h3>
+<p>Price az ember és a gép relatív képességei alapján hat esetet különít el <span class="citation" data-cites="price1985">(<a href="../irodalom.html#ref-price1985" role="doc-biblioref">Price 1985</a>)</span>:</p>
+<ol type="1">
+<li>nincs különbség az emberi és a gépi képességek között;</li>
+<li>az ember teljesítménye jobb;</li>
+<li>a gép teljesítménye jobb;</li>
+<li>a gép teljesítménye olyan gyenge, hogy a funkciót az embernek kell kiosztani;</li>
+<li>az ember teljesítménye olyan gyenge, hogy a funkciót a gépnek kell kiosztani;</li>
+<li>sem az ember, sem a gép teljesítménye nem elfogadható.</li>
+</ol>
+<p>A 4. és az 5. eset egyértelmű. A 6. esetben a funkciót vagy a rendszert újra kell gondolni (a funkció megoldássemleges megfogalmazásától kezdve, <a href="08-architektura.html#sec-arch-alapfogalmak" class="quarto-xref"><span>8.1</span></a>. szakasz). Az 1–3. esetben a döntés nem csak a képességeken múlik. Price ezért további megosztási szempontokat is megnevez <span class="citation" data-cites="price1985">(<a href="../irodalom.html#ref-price1985" role="doc-biblioref">Price 1985</a>)</span>: az <strong>érték-egyensúlyt</strong> (mi a jó az emberi munka minősége szempontjából), a <strong>haszonelvű és költségalapú</strong> megosztást (mi a gazdaságos), és az érzelmi vagy kognitív támogatást szolgáló megosztást (mit fogadnak el és mit értenek az érintettek). A gyakorlatban mindhárom számít: egy technikailag és gazdaságilag indokolt automatizálás is megbukhat, ha az érintettek nem fogadják el, vagy ha az ember számára értelmetlen, monoton maradékfeladatot hagy.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: ki mit csinál?</div><div class="doboz-tartalom">
+<p>A KoboCella csapata a funkciófa tizenhárom részfunkcióján végigment a Fitts-lista és a megosztási kritériumok szerint. A csavar meghúzása és a nyomaték mérése egyértelműen gépi funkció lett (3. és 5. eset: következetesség, pontosság, naplózhatóság). A motorház befogása az emberé maradt: a különböző változatok kezelése, a sérült alkatrész felismerése ítélőképességet igényel, és a gépi megoldás aránytalanul drága lett volna (2. eset, költségalapú szempont). A hibás darab jelölése megosztott funkció lett: a gép jelzi a tűrésen kívüli nyomatékot, az ember dönt a további teendőről (javítás vagy selejt). A csapat külön megvizsgálta az érzelmi szempontot is: az operátorokkal folytatott interjúk szerint a kezelők attól tartottak, hogy „a robot mellett csak adogatók lesznek”. Ezért a cella kezelőjének feladatai közé bekerült a minőségi ellenőrzés és a változatváltás is, a HMI pedig minden ciklusban visszajelzést ad a kezelőnek a kötés minőségéről.</p>
+</div></div>
+</section>
+</section>
+<section id="sec-auto-szintek" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="sec-auto-szintek"><span class="header-section-number">12.2.</span> Az automatizálás szintjei és típusai</h2>
+<p>Az automatizálás nem kétállású kapcsoló (ember vagy gép), hanem fokozatos. Sheridan és Verplank tízfokú skálája a döntés és a cselekvés kiválasztásának automatizálását írja le (<a href="#tbl-loa" class="quarto-xref"><span>12.2</span></a>. táblázat) <span class="citation" data-cites="sheridan1978">(<a href="../irodalom.html#ref-sheridan1978" role="doc-biblioref">Sheridan és Verplank 1978</a>)</span>.</p>
+<div id="tbl-loa" class="quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[10,90]">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-loa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">12.2. táblázat.</span> Az automatizálás tíz szintje Sheridan és Verplank alapján <span class="citation" data-cites="sheridan1978">(<a href="../irodalom.html#ref-sheridan1978" role="doc-biblioref">Sheridan és Verplank 1978</a>)</span>, saját fordítás.
+</figcaption>
+<div aria-describedby="tbl-loa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 90%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Szint</th>
+<th style="text-align: left;">Az automatika szerepe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">a számítógép nem ad segítséget: mindenről az ember dönt, és ő cselekszik</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">a számítógép a döntési vagy cselekvési alternatívák teljes körét felkínálja, vagy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">leszűkíti a választékot néhány lehetőségre, vagy</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">egy alternatívát javasol, és</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">végrehajtja a javaslatot, ha az ember jóváhagyja, vagy</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">korlátozott ideig lehetőséget ad az embernek a vétóra, mielőtt automatikusan végrehajtja, vagy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">automatikusan végrehajtja, majd szükségszerűen tájékoztatja az embert, és</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">csak akkor tájékoztatja az embert, ha az kérdezi, vagy</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">csak akkor tájékoztatja az embert, ha az automatika úgy dönt,</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">a számítógép mindenről dönt, önállóan cselekszik, és figyelmen kívül hagyja az embert</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Parasuraman, Sheridan és Wickens ezt a gondolatot továbbfejlesztették. Szerintük az automatizálás nem egyetlen szinttel, hanem négy információfeldolgozási szakasz mentén írható le: az <strong>információgyűjtés</strong> (érzékelés, adatgyűjtés), az <strong>információelemzés</strong> (feldolgozás, következtetés, előrejelzés), a <strong>döntés és választás</strong>, valamint a <strong>végrehajtás</strong>. A négy szakaszban az automatizálás szintje egymástól függetlenül változhat <span class="citation" data-cites="parasuraman2000">(<a href="../irodalom.html#ref-parasuraman2000" role="doc-biblioref">Parasuraman, Sheridan, és Wickens 2000</a>)</span>. Egy rendszer így jellemezhető egy négyelemű <strong>automatizálási profillal</strong>. A szerzők azt is javasolják, hogy a megfelelő szintet szakaszonként az emberi teljesítményre gyakorolt hatás (terhelés, helyzettudatosság, beidegződés, készségek leépülése) és a megbízhatóság, valamint a döntési hibák költsége alapján válasszuk meg <span class="citation" data-cites="parasuraman2000">(<a href="../irodalom.html#ref-parasuraman2000" role="doc-biblioref">Parasuraman, Sheridan, és Wickens 2000</a>)</span>.</p>
+<div id="fig-loa-profil" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-loa-profil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/loa-profil.svg" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loa-profil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">12.1. ábra.</span> A három futó eset egy-egy kulcsfunkciójának automatizálási profilja a négy információfeldolgozási szakaszban.
+</figcaption>
+</figure>
+</div>
+<p>A <a href="#fig-loa-profil" class="quarto-xref"><span>12.1</span></a>. ábra a három eset egy-egy funkciójának profilját mutatja. A KoboCella csavarozása mind a négy szakaszban magas szintű: a gép gyűjti az adatokat, értékeli a nyomatékot, dönt a megfelelőségről és végre is hajtja a műveletet (a kezelőt tájékoztatja). A ForgácsTech ütemezése az információgyűjtésben és -elemzésben magas, a döntésben viszont szándékosan alacsonyabb szintű (4: egy javaslatot ad), a végrehajtásban pedig a műszakvezetőé a szó. A VárosiBringa áthelyezése hasonló: az áthelyezés-tervező javaslatot tesz a következő útvonalra, de a fizikai végrehajtás teljes egészében emberi.</p>
+<div class="doboz doboz-esetC"><div class="doboz-cim">ForgácsTech: miért nem dönt az ütemező?</div><div class="doboz-tartalom">
+<p>A ForgácsTech MES-ütemezőmodulja technikailag képes lenne önállóan átsorolni a rendeléseket egy gépleállás után (7-es szint). A csapat mégis a 4-es szint mellett döntött: az ütemező egy átsorolási javaslatot ad a várható késésekkel, és a műszakvezető hagyja jóvá vagy módosítja. Az indoklás három pontból állt. Először: a műszakvezető olyan információkat is ismer, amelyek a rendszerben nincsenek meg (például hogy egy vevő elfogad-e részszállítást). Másodszor: a döntési hibák költsége magas, egy rossz átsorolás a két legnagyobb vevő egyikét is érintheti. Harmadszor: a névleges csoportos elemzés (<a href="09-kreativitas.html#sec-kre-csoport" class="quarto-xref"><span>9.3</span></a>. szakasz) szerint a késések első számú oka a szóbeli előresorolás volt; ha az ütemező teljesen automatikusan dönt, a műszakvezetők a rendszert megkerülve folytatnák a régi gyakorlatot. A jóváhagyási lépés az átsorolást láthatóvá és naplózottá teszi. A csapat rögzítette, hogy egy év üzemi tapasztalat után a szint emelését újra megvizsgálja.</p>
+</div></div>
+</section>
+<section id="sec-auto-buktatok" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="sec-auto-buktatok"><span class="header-section-number">12.3.</span> Az automatizálás iróniái és buktatói</h2>
+<p>Bainbridge nagy hatású tanulmánya az automatizálás <strong>iróniáit</strong> írta le <span class="citation" data-cites="bainbridge1983">(<a href="../irodalom.html#ref-bainbridge1983" role="doc-biblioref">Bainbridge 1983</a>)</span>. Az első irónia, hogy a tervezők, akik az embert megbízhatatlannak tartják, és ezért automatizálnak, maguk is emberek, és a tervezési hibáik az automatikában jelennek meg. A második, hogy az automatizálás után az embernek azok a feladatok maradnak, amelyeket a tervezők nem tudtak automatizálni: a ritka, váratlan, nehéz helyzetek kezelése. Ehhez azonban gyakorlat és naprakész helyzetismeret kellene, amelyet az ember éppen az automatizálás miatt veszít el. Aki csak felügyeli a gépet, annak kézi készségei leépülnek, és a beavatkozás pillanatában nem érti pontosan, mi történik.</p>
+<p>Parasuraman és Riley az automatizálás négy problémás használati módját különítették el <span class="citation" data-cites="parasuraman1997">(<a href="../irodalom.html#ref-parasuraman1997" role="doc-biblioref">Parasuraman és Riley 1997</a>)</span>:</p>
+<ul>
+<li><strong>helyes használat</strong> (use): az ember akkor támaszkodik az automatikára, amikor kell;</li>
+<li><strong>túlzott támaszkodás</strong> (misuse): az ember akkor is az automatikára hagyatkozik, amikor nem kellene, például nem veszi észre a hibáit (automatizálási torzítás, elkényelmesedés);</li>
+<li><strong>mellőzés</strong> (disuse): az ember nem használja az automatikát, például a túl gyakori téves riasztások miatt figyelmen kívül hagyja a jelzéseit;</li>
+<li><strong>visszaélés</strong> (abuse): a tervezők vagy a vezetők anélkül automatizálnak, hogy figyelembe vennék a következményeket az ember teljesítményére.</li>
+</ul>
+<p>A középpontban a <strong>bizalom</strong> áll. Lee és See áttekintése szerint a cél nem a bizalom maximalizálása, hanem a <strong>kalibrált bizalom</strong>: az ember bizalma igazodjon az automatika tényleges képességeihez. A túlzott bizalom túlzott támaszkodáshoz, a hiányos bizalom mellőzéshez vezet. A kalibrált bizalmat az segíti, ha az automatika átlátható: a kezelő látja, mit csinál, miért, és mennyire biztos benne <span class="citation" data-cites="lee2004">(<a href="../irodalom.html#ref-lee2004" role="doc-biblioref">Lee és See 2004</a>)</span>.</p>
+<p>A buktatók elleni tervezési elvek:</p>
+<ul>
+<li><strong>tartsd a hurokban az embert:</strong> a felügyeleti feladat mellett maradjanak aktív feladatai, és a kijelzők a helyzettudatosság mindhárom szintjét támogassák (<a href="11-emberkozpontu.html#sec-ek-kepessegek" class="quarto-xref"><span>11.4</span></a>. szakasz);</li>
+<li><strong>tedd átláthatóvá az automatikát:</strong> a kezelő lássa az automatika állapotát, szándékát és bizonytalanságát;</li>
+<li><strong>kezeld a téves riasztásokat:</strong> a túl sok téves riasztás mellőzéshez vezet; a riasztási küszöböket a téves és az elmulasztott riasztások költségének egyensúlya alapján kell beállítani;</li>
+<li><strong>gyakoroltasd a kézi üzemet:</strong> ha az automatika kieshet, az embernek gyakorlatban kell maradnia a kézi működtetésben.</li>
+</ul>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a nyugtázás csapdája</div><div class="doboz-tartalom">
+<p>A KoboCella első HMI-tervében a kezelőnek minden tűrésen kívüli nyomaték után egy gombnyomással kellett nyugtáznia a hibajelzést. A próbaüzemben kiderült, hogy a kezelők a második-harmadik nap után rutinszerűen, a jelzés elolvasása nélkül nyomták meg a gombot: a nyugtázás a mozdulatsor része lett (túlzott támaszkodás, Parasuraman és Riley kategóriájában). A csapat két változtatást vezetett be. A hibás darab nem kerülhet a kiadóba, amíg a kezelő nem helyezte át a selejtdobozba, amit érzékelő ellenőriz (a nyugtázás helyett fizikai cselekvés). A HMI pedig a hiba helyét is megmutatja (melyik csavar), így a kezelő ténylegesen ellenőrizni tudja a darabot. A leromlott üzemmódra (UM-7) a csapat negyedéves kézi gyakorlást írt elő, hogy a kézi szerelési készség ne vesszen el.</p>
+</div></div>
+</section>
+<section id="sec-auto-kobot" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="sec-auto-kobot"><span class="header-section-number">12.4.</span> Ember–robot együttműködés</h2>
+<p>Az együttműködő robotok (kobotok) a funkciómegosztás egy különleges formáját teszik lehetővé: az ember és a robot közös munkaterületen, védőkerítés nélkül dolgozik. Az ipari robotok biztonsági követelményeit az ISO 10218 szabványsorozat rögzíti: az 1. rész a robotokra, a 2. rész a robotalkalmazásokra és robotcellákra vonatkozik <span class="citation" data-cites="iso10218_1_2025 iso10218_2_2025">(<a href="../irodalom.html#ref-iso10218_1_2025" role="doc-biblioref">ISO 2025a</a>, <a href="../irodalom.html#ref-iso10218_2_2025" role="doc-biblioref">2025b</a>)</span>. A 2025-ös kiadás beépítette az együttműködő alkalmazások korábban külön műszaki specifikációban (ISO/TS 15066) rögzített biztonsági követelményeit is.</p>
+<p>Az együttműködő működésnek négy alapvető módja van:</p>
+<ul>
+<li><strong>biztonsági felügyelt megállás:</strong> a robot megáll, amikor az ember belép a közös munkaterületre, és csak akkor folytatja, amikor kilépett;</li>
+<li><strong>kézi vezetés:</strong> az ember közvetlenül, kézzel vezeti a robotot (például betanításkor);</li>
+<li><strong>sebesség- és távolságfelügyelet:</strong> a robot sebességét az ember távolságától függően csökkentik, és a robot megáll, mielőtt a távolság egy kritikus érték alá csökkenne;</li>
+<li><strong>teljesítmény- és erőkorlátozás:</strong> a robot tervezése és vezérlése korlátozza az érintkezéskor fellépő erőket és nyomásokat, így az érintkezés nem okoz sérülést.</li>
+</ul>
+<p>A módok kiválasztása a kockázatértékelés eredménye (<a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet), és egy cellán belül többféle mód is alkalmazható.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a választott együttműködési mód</div><div class="doboz-tartalom">
+<p>A KoboCella koncepciójában a védőzónát lézerszkenner figyeli, sebességkorlátozással (<a href="09-kreativitas.html#sec-kre-morfologia" class="quarto-xref"><span>9.4</span></a>. szakasz). Ez a sebesség- és távolságfelügyelet módja: amikor a kezelő belép a közös zónába, a kobot csökkentett sebességre vált (R-11: legfeljebb 250 mm/s), és ha a kezelő a kritikus távolságon belülre kerül, megáll. A csapat azért nem a teljesítmény- és erőkorlátozást választotta egyedüli védelemként, mert a csavarozó fej éles bitbetétje a kezelő keze közelében mozog, és ennél a szerszámnál az érintkezés még korlátozott erő mellett is sérülést okozhatna. A választást a kockázatértékelés indokolja, amelyet a <a href="17-biztonsag.html" class="quarto-xref"><span>17</span></a>. fejezet mutat be.</p>
+</div></div>
+</section>
+<section id="sec-auto-dinamikus" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="sec-auto-dinamikus"><span class="header-section-number">12.5.</span> Statikus és dinamikus megosztás</h2>
+<p>A <strong>statikus megosztás</strong> a tervezéskor rögzíti, ki mit csinál. Egyszerű, kiszámítható és könnyen betanítható, de nem alkalmazkodik a változó helyzetekhez. A <strong>dinamikus</strong> vagy <strong>adaptív megosztás</strong> a helyzettől függően változtatja a feladatok elosztását: nagy terhelésnél több feladatot vesz át az automatika, kis terhelésnél vagy az automatika meghibásodásakor több marad az emberé.</p>
+<p>A dinamikus megosztás legfontosabb gyakorlati formája a <strong>leromlott üzemmód</strong>: ha egy automatikus funkció kiesik, a rendszer csökkentett képességgel, nagyobb emberi részvétellel tovább működik. Ezt a működési koncepcióban kell megtervezni (<a href="04-problema.html#sec-pr-conops" class="quarto-xref"><span>4.4</span></a>. szakasz), mert minden leromlott üzemmód új követelményeket szül: az embernek képesnek kell lennie átvenni a funkciót, a kezelőfelületnek támogatnia kell az átvételt, és az átvételt gyakorolni kell.</p>
+<p>A dinamikus megosztás kockázata a <strong>módzavar</strong>: a kezelő nem tudja pontosan, melyik üzemmódban van a rendszer, és ennek megfelelően rosszul cselekszik. Ezért minden üzemmódváltásnak egyértelműen jelzettnek kell lennie, és az átmeneteket a forgatókönyvekben végig kell gondolni.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: amikor az áthelyezés-tervező téved</div><div class="doboz-tartalom">
+<p>A VárosiBringa áthelyezés-tervezője a kölcsönzési adatokból előrejelzi, melyik állomás fog kiürülni vagy megtelni, és javaslatot tesz a furgonos áthelyezés útvonalára. A csapat a forgatókönyvek elemzésekor felismerte, hogy rendezvények, útlezárások vagy hirtelen időjárás-változás esetén az előrejelzés megbízhatatlan. Ezért két üzemmódot terveztek: normál üzemben a sofőr a javasolt útvonalat követi (5-ös szint: a rendszer javasol, az ember jóváhagyja), rendkívüli helyzetben pedig a diszpécser kézi üzemmódra válthat, amelyben a rendszer csak az állomások aktuális állapotát mutatja, és az útvonalat a diszpécser állítja össze (2–3-as szint). Az üzemmód a sofőr kijelzőjén mindig látható, és minden váltást naplóznak, hogy utólag elemezni lehessen, mikor és miért tért el az ember a javaslattól.</p>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Mesterséges intelligencia a döntési szakaszban</div><div class="doboz-tartalom">
+<p>A gépi tanulási és nyelvi modelleken alapuló döntéstámogató rendszerek egyre gyakrabban az információelemzés és a döntés szakaszában jelennek meg: hibát diagnosztizálnak, ütemezést javasolnak, karbantartást ütemeznek. A Parasuraman–Sheridan–Wickens-modell erre is jól alkalmazható. Különösen fontos a kalibrált bizalom: a modellek hibái gyakran nem szembetűnők, és a felhasználó a meggyőzően megfogalmazott javaslatot hajlamos ellenőrzés nélkül elfogadni. A tervezési elvek ugyanazok: átláthatóság (miért ezt javasolja, mennyire biztos benne), a döntési jogkör egyértelmű kijelölése, és annak megtervezése, mi történik, ha a javaslat téves.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Automatizáljunk mindent, amit lehet</div><div class="doboz-tartalom">
+<p>A „technológiai imperatívusz” az a hozzáállás, hogy mindent automatizálni kell, ami technikailag automatizálható, és az embernek a maradék jut. Ez Bainbridge iróniájához vezet: az ember feladatai töredezettek, monotonok és ritkán gyakorolt vészhelyzeti beavatkozásokból állnak. A funkciómegosztást az ember szempontjából is meg kell tervezni: a megmaradó feladatoknak együtt értelmes, kezelhető és gyakorolható munkát kell alkotniuk.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A funkciómegosztás eldönti, mit végezzen az ember, mit a gép és mit együtt. Lépései a funkciók azonosítása, a legalkalmasabb végrehajtó kiválasztása és a statikus vagy dinamikus megosztás eldöntése.</li>
+<li>A Fitts-lista az ember és a gép relatív erősségeit veti össze. Kritikusai szerint a kettőt helyettesítőként kezeli, mégis máig hasznos kiindulópont. A képességek mellett az érték-egyensúly, a költség és az elfogadottság is megosztási szempont.</li>
+<li>Sheridan és Verplank tíz szintje a döntés és a cselekvés automatizálásának fokát írja le. Parasuraman, Sheridan és Wickens szerint az automatizálás négy szakaszban (információgyűjtés, -elemzés, döntés, végrehajtás) eltérő szintű lehet.</li>
+<li>Az automatizálás iróniája, hogy az embernek a legnehezebb, legritkább feladatok maradnak, miközben készségei és helyzettudatossága leépül. A túlzott támaszkodás, a mellőzés és a visszaélés elkerülésének kulcsa a kalibrált bizalom és az átlátható automatika.</li>
+<li>Az együttműködő robotok biztonságát az ISO 10218 szabványsorozat szabályozza; a négy együttműködési mód a felügyelt megállás, a kézi vezetés, a sebesség- és távolságfelügyelet, valamint a teljesítmény- és erőkorlátozás.</li>
+<li>A dinamikus megosztás legfontosabb formája a leromlott üzemmód, amelyet a működési koncepcióban kell megtervezni. Az üzemmódokat egyértelműen jelezni kell a módzavar elkerülésére.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Miért mondják a funkciómegosztásra, hogy „inkább művészet, mint tudomány”?</li>
+<li>Hogyan osztanád meg a Fitts-lista alapján egy raktári komissiózás két funkcióját: (a) a megfelelő tétel kiválasztása egy polcról, (b) a kiszedett mennyiség ellenőrzése?</li>
+<li>Melyik Sheridan–Verplank-szinten működik egy navigációs alkalmazás, amely útvonalat javasol, és csak akkor indul, ha a felhasználó jóváhagyja? És egy autó vészfékasszisztense?</li>
+<li>Írd fel egy laboratóriumi mintaelemző automata automatizálási profilját a négy szakaszban!</li>
+<li>Mi Bainbridge második iróniája? Mivel csökkenthető a hatása?</li>
+<li>Mi a különbség a túlzott támaszkodás és a mellőzés között? Mi okozhatja az utóbbit egy riasztórendszernél?</li>
+<li>Miért nem elég a KoboCellánál a teljesítmény- és erőkorlátozás?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>Mert a döntés sok, egymással nehezen összemérhető szemponton múlik: a képességeken, a költségen, az érintettek elfogadásán, a munka minőségén és a ritka helyzetek kezelésén, és ezekre nincs egyetlen, mechanikusan alkalmazható szabály.</li>
+<li><ol type="a">
+<li>A változatos tételek felismerése és megfogása mintafelismerést és ügyességet igényel; ez hagyományosan az ember erőssége (bár a gépi látás fejlődik). (b) A mennyiség ellenőrzése pontosságot és következetességet igényel; ez a gépé (mérleg vagy vonalkód-olvasás).</li>
+</ol></li>
+<li>A navigációs alkalmazás az 5-ös szinten működik (végrehajtja, ha az ember jóváhagyja). A vészfékasszisztens a 7-es szint körül (automatikusan végrehajtja, majd tájékoztat), mert a reakcióidő nem teszi lehetővé az emberi jóváhagyást.</li>
+<li>Például: információgyűjtés 9 (a minták automatikus azonosítása és mérése), elemzés 8 (az eredmények automatikus értékelése a referenciatartományokhoz), döntés 4 (a kóros eredményt a rendszer jelzi, a szakember dönt), végrehajtás 7 (a jóváhagyott eredmény automatikusan továbbítódik, a rendszer tájékoztat).</li>
+<li>Az automatizálás után az embernek a ritka, váratlan, nehéz helyzetek kezelése marad, miközben az ehhez szükséges gyakorlata és helyzetismerete éppen az automatizálás miatt leépül. Csökkenthető rendszeres gyakorlással (szimuláció, kézi üzem), aktív feladatokkal a felügyelet mellett és átlátható kijelzőkkel.</li>
+<li>Túlzott támaszkodásnál az ember akkor is az automatikára hagyatkozik, amikor nem kellene (nem veszi észre a hibáit); mellőzésnél nem használja, amikor kellene. Riasztórendszernél a mellőzés gyakori oka a sok téves riasztás: a kezelő megtanulja figyelmen kívül hagyni a jelzéseket.</li>
+<li>Mert a csavarozó fej éles bitbetétje a kezelő keze közelében mozog, és ennél a szerszámnál az érintkezés korlátozott erő mellett is sérülést okozhat. Ezért sebesség- és távolságfelügyelet kell, amely megakadályozza az érintkezést.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: funkciómegosztás</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>válaszd ki a funkciófa legalább hat funkcióját, és osszd meg őket ember, gép vagy együttes végrehajtás között a Fitts-lista és a megosztási kritériumok alapján, indoklással;</li>
+<li>a két legfontosabb automatizált funkcióhoz határozd meg az automatizálási profilt a négy szakaszban;</li>
+<li>írd le, milyen feladatai maradnak az embernek, és értelmes, gyakorolható munkát alkotnak-e;</li>
+<li>tervezz legalább egy leromlott üzemmódot, és írd le, milyen követelményeket szül.</li>
+</ol>
+<p>A funkciómegosztás sablonja és notebookja a Gyakorlati útmutatóban található.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="parasuraman2000">Parasuraman, Sheridan, és Wickens (<a href="../irodalom.html#ref-parasuraman2000" role="doc-biblioref">2000</a>)</span>: az automatizálás típusainak és szintjeinek modellje; a funkciómegosztás egyik legtöbbet hivatkozott tanulmánya.</li>
+<li><span class="citation" data-cites="bainbridge1983">Bainbridge (<a href="../irodalom.html#ref-bainbridge1983" role="doc-biblioref">1983</a>)</span>: az automatizálás iróniái; rövid, ma is aktuális klasszikus.</li>
+<li><span class="citation" data-cites="parasuraman1997">Parasuraman és Riley (<a href="../irodalom.html#ref-parasuraman1997" role="doc-biblioref">1997</a>)</span> és <span class="citation" data-cites="lee2004">Lee és See (<a href="../irodalom.html#ref-lee2004" role="doc-biblioref">2004</a>)</span>: az automatizálás használata, a visszaélések és a kalibrált bizalom.</li>
+<li><span class="citation" data-cites="dewinter2014">Winter és Dodou (<a href="../irodalom.html#ref-dewinter2014" role="doc-biblioref">2014</a>)</span>: a Fitts-lista kritikája és tartós érvényességének magyarázata.</li>
+<li><span class="citation" data-cites="iso10218_2_2025">ISO (<a href="../irodalom.html#ref-iso10218_2_2025" role="doc-biblioref">2025b</a>)</span>: az együttműködő robotalkalmazások biztonsági követelményei.</li>
+<li><span class="citation" data-cites="nasa2015hsi">NASA (<a href="../irodalom.html#ref-nasa2015hsi" role="doc-biblioref">2015</a>)</span>: az emberi rendszerintegráció gyakorlati útmutatója, a funkciómegosztás és a feladatelemzés helyével a fejlesztésben.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-bainbridge1983" class="csl-entry" role="listitem">
+Bainbridge, Lisanne. 1983. <span>„Ironies of Automation”</span>. <em>Automatica</em> 19 (6): 775–79. <a href="https://doi.org/10.1016/0005-1098(83)90046-8">https://doi.org/10.1016/0005-1098(83)90046-8</a>.
+</div>
+<div id="ref-fitts1951" class="csl-entry" role="listitem">
+Fitts, Paul M., szerk. 1951. <span>„Human Engineering for an Effective Air-Navigation and Traffic-Control System”</span>. Washington, DC: National Research Council.
+</div>
+<div id="ref-iso10218_1_2025" class="csl-entry" role="listitem">
+ISO. 2025a. <span>„<span>ISO</span> 10218-1:2025 Robotics – Safety Requirements – Part 1: Industrial Robots”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso10218_2_2025" class="csl-entry" role="listitem">
+———. 2025b. <span>„<span>ISO</span> 10218-2:2025 Robotics – Safety Requirements – Part 2: Industrial Robot Applications and Robot Cells”</span>. International Organization for Standardization, Genf.
+</div>
+<div id="ref-lee2004" class="csl-entry" role="listitem">
+Lee, John D., és Katrina A. See. 2004. <span>„Trust in Automation: Designing for Appropriate Reliance”</span>. <em>Human Factors</em> 46 (1): 50–80. <a href="https://doi.org/10.1518/hfes.46.1.50_30392">https://doi.org/10.1518/hfes.46.1.50_30392</a>.
+</div>
+<div id="ref-nasa2015hsi" class="csl-entry" role="listitem">
+NASA. 2015. <span>„Human Systems Integration (<span>HSI</span>) Practitioner’s Guide”</span>. NASA/SP-2015-3709. National Aeronautics; Space Administration.
+</div>
+<div id="ref-parasuraman1997" class="csl-entry" role="listitem">
+Parasuraman, Raja, és Victor Riley. 1997. <span>„Humans and Automation: Use, Misuse, Disuse, Abuse”</span>. <em>Human Factors</em> 39 (2): 230–53. <a href="https://doi.org/10.1518/001872097778543886">https://doi.org/10.1518/001872097778543886</a>.
+</div>
+<div id="ref-parasuraman2000" class="csl-entry" role="listitem">
+Parasuraman, Raja, Thomas B. Sheridan, és Christopher D. Wickens. 2000. <span>„A Model for Types and Levels of Human Interaction with Automation”</span>. <em>IEEE Transactions on Systems, Man, and Cybernetics – Part A: Systems and Humans</em> 30 (3): 286–97. <a href="https://doi.org/10.1109/3468.844354">https://doi.org/10.1109/3468.844354</a>.
+</div>
+<div id="ref-price1985" class="csl-entry" role="listitem">
+Price, Harold E. 1985. <span>„The Allocation of Functions in Systems”</span>. <em>Human Factors</em> 27 (1): 33–45. <a href="https://doi.org/10.1177/001872088502700104">https://doi.org/10.1177/001872088502700104</a>.
+</div>
+<div id="ref-sheridan1978" class="csl-entry" role="listitem">
+Sheridan, Thomas B., és William L. Verplank. 1978. <span>„Human and Computer Control of Undersea Teleoperators”</span>. Cambridge, MA: MIT Man-Machine Systems Laboratory.
+</div>
+<div id="ref-dewinter2014" class="csl-entry" role="listitem">
+Winter, J. C. F. de, és D. Dodou. 2014. <span>„Why the <span>Fitts</span> List Has Persisted throughout the History of Function Allocation”</span>. <em>Cognition, Technology &amp; Work</em> 16 (1): 1–11. <a href="https://doi.org/10.1007/s10111-011-0188-1">https://doi.org/10.1007/s10111-011-0188-1</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/11-emberkozpontu.html" class="pagination-link" aria-label="Emberközpontú tervezés és emberi rendszerintegráció (HSI)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/13-emberi-hiba.html" class="pagination-link" aria-label="Emberi teljesítmény és emberi hiba">
+        <span class="nav-page-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/12-automatizalas.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/12-automatizalas.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Irodalom – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./fuggelek/a-esettanulmanyok.html" rel="next">
+<link href="./fejezetek/26-menedzsment.html" rel="prev">
+<link href="./assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="./rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./irodalom.html">Irodalom</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Irodalom</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="./assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./irodalom.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-vanderaalst2016" class="csl-entry" role="listitem">
+Aalst, Wil M. P. van der. 2016. <em>Process Mining: Data Science in
+Action</em>. 2nd ed. Berlin: Springer. <a href="https://doi.org/10.1007/978-3-662-49851-4">https://doi.org/10.1007/978-3-662-49851-4</a>.
+</div>
+<div id="ref-abonyi2022qfd" class="csl-entry" role="listitem">
+Abonyi, János, and Tímea Czvetkó. 2022. <span>“Hypergraph and Network
+Flow-Based Quality Function Deployment.”</span> <em>Heliyon</em> 8 (12):
+e12263. <a href="https://doi.org/10.1016/j.heliyon.2022.e12263">https://doi.org/10.1016/j.heliyon.2022.e12263</a>.
+</div>
+<div id="ref-ackermann2011" class="csl-entry" role="listitem">
+Ackermann, Fran, and Colin Eden. 2011. <span>“Strategic Management of
+Stakeholders: Theory and Practice.”</span> <em>Long Range Planning</em>
+44 (3): 179–96. <a href="https://doi.org/10.1016/j.lrp.2010.08.001">https://doi.org/10.1016/j.lrp.2010.08.001</a>.
+</div>
+<div id="ref-agresti1998" class="csl-entry" role="listitem">
+Agresti, Alan, and Brent A. Coull. 1998. <span>“Approximate Is Better
+Than <span>‘Exact’</span> for Interval Estimation of Binomial
+Proportions.”</span> <em>The American Statistician</em> 52 (2): 119–26.
+<a href="https://doi.org/10.1080/00031305.1998.10480550">https://doi.org/10.1080/00031305.1998.10480550</a>.
+</div>
+<div id="ref-aiagvda2019" class="csl-entry" role="listitem">
+AIAG, and VDA. 2019. <em>Failure Mode and Effects Analysis – FMEA
+Handbook</em>. 1st ed. Southfield, MI: Automotive Industry Action Group.
+</div>
+<div id="ref-akao1990" class="csl-entry" role="listitem">
+Akao, Yoji. 1990. <em>Quality Function Deployment: Integrating Customer
+Requirements into Product Design</em>. Cambridge, MA: Productivity
+Press.
+</div>
+<div id="ref-alexander2005" class="csl-entry" role="listitem">
+Alexander, Ian F. 2005. <span>“A Taxonomy of Stakeholders: Human Roles
+in System Development.”</span> <em>International Journal of Technology
+and Human Interaction</em> 1 (1): 23–59. <a href="https://doi.org/10.4018/jthi.2005010102">https://doi.org/10.4018/jthi.2005010102</a>.
+</div>
+<div id="ref-altshuller1984" class="csl-entry" role="listitem">
+Altshuller, Genrich S. 1984. <em>Creativity as an Exact Science: The
+Theory of the Solution of Inventive Problems</em>. New York: Gordon;
+Breach.
+</div>
+<div id="ref-annett1967" class="csl-entry" role="listitem">
+Annett, John, and Keith D. Duncan. 1967. <span>“Task Analysis and
+Training Design.”</span> <em>Occupational Psychology</em> 41: 211–21.
+</div>
+<div id="ref-arrow1951" class="csl-entry" role="listitem">
+Arrow, Kenneth J. 1951. <em>Social Choice and Individual Values</em>.
+New York: Wiley.
+</div>
+<div id="ref-asmey145_2018" class="csl-entry" role="listitem">
+ASME. 2018. <span>“<span>ASME</span> Y14.5-2018 Dimensioning and
+Tolerancing.”</span> American Society of Mechanical Engineers, New York.
+</div>
+<div id="ref-avizienis2004" class="csl-entry" role="listitem">
+Avižienis, Algirdas, Jean-Claude Laprie, Brian Randell, and Carl
+Landwehr. 2004. <span>“Basic Concepts and Taxonomy of Dependable and
+Secure Computing.”</span> <em>IEEE Transactions on Dependable and Secure
+Computing</em> 1 (1): 11–33. <a href="https://doi.org/10.1109/TDSC.2004.2">https://doi.org/10.1109/TDSC.2004.2</a>.
+</div>
+<div id="ref-eu2017eqf" class="csl-entry" role="listitem">
+Az Európai Unió Tanácsa. 2017. <span>“A Tanács Ajánlása (2017. Május
+22.) Az Egész Életen Át Tartó Tanulás Európai Képesítési
+Keretrendszeréről És a 2008. Április 23-i Európai Parlamenti És Tanácsi
+Ajánlás Hatályon Kívül Helyezéséről (2017/c 189/03).”</span> Az Európai
+Unió Hivatalos Lapja, C 189, 2017. 6. 15., 15–28. o.
+</div>
+<div id="ref-bainbridge1983" class="csl-entry" role="listitem">
+Bainbridge, Lisanne. 1983. <span>“Ironies of Automation.”</span>
+<em>Automatica</em> 19 (6): 775–79. <a href="https://doi.org/10.1016/0005-1098(83)90046-8">https://doi.org/10.1016/0005-1098(83)90046-8</a>.
+</div>
+<div id="ref-baldwin2000" class="csl-entry" role="listitem">
+Baldwin, Carliss Y., and Kim B. Clark. 2000. <em>Design Rules, Volume 1:
+The Power of Modularity</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-bangor2008" class="csl-entry" role="listitem">
+Bangor, Aaron, Philip T. Kortum, and James T. Miller. 2008. <span>“An
+Empirical Evaluation of the System Usability Scale.”</span>
+<em>International Journal of Human-Computer Interaction</em> 24 (6):
+574–94. <a href="https://doi.org/10.1080/10447310802205776">https://doi.org/10.1080/10447310802205776</a>.
+</div>
+<div id="ref-bangor2009" class="csl-entry" role="listitem">
+Bangor, Aaron, Philip Kortum, and James Miller. 2009. <span>“Determining
+What Individual <span>SUS</span> Scores Mean: Adding an Adjective Rating
+Scale.”</span> <em>Journal of Usability Studies</em> 4 (3): 114–23.
+</div>
+<div id="ref-beck2001agile" class="csl-entry" role="listitem">
+Beck, Kent et al. 2001. <span>“Manifesto for Agile Software
+Development.”</span> <a href="https://agilemanifesto.org" class="uri">https://agilemanifesto.org</a>.
+</div>
+<div id="ref-belton1983" class="csl-entry" role="listitem">
+Belton, Valerie, and Tony Gear. 1983. <span>“On a Short-Coming of <span class="nocase">Saaty’s</span> Method of Analytic Hierarchies.”</span>
+<em>Omega</em> 11 (3): 228–30. <a href="https://doi.org/10.1016/0305-0483(83)90047-6">https://doi.org/10.1016/0305-0483(83)90047-6</a>.
+</div>
+<div id="ref-benakiva1985" class="csl-entry" role="listitem">
+Ben-Akiva, Moshe, and Steven R. Lerman. 1985. <em>Discrete Choice
+Analysis: Theory and Application to Travel Demand</em>. Cambridge, MA:
+MIT Press.
+</div>
+<div id="ref-berger1993" class="csl-entry" role="listitem">
+Berger, Charles, Robert Blauth, David Boger, Christopher Bolster, Gary
+Burchill, William DuMouchel, Fred Pouliot, et al. 1993. <span>“Kano’s
+Methods for Understanding Customer-Defined Quality.”</span> <em>Center
+for Quality of Management Journal</em> 2 (4): 3–36.
+</div>
+<div id="ref-bertalanffy1968" class="csl-entry" role="listitem">
+Bertalanffy, Ludwig von. 1968. <em>General System Theory: Foundations,
+Development, Applications</em>. New York: George Braziller.
+</div>
+<div id="ref-asknature" class="csl-entry" role="listitem">
+Biomimicry Institute. 2026. <span>“<span>AskNature</span>: Innovation
+Inspired by Nature.”</span> <a href="https://asknature.org" class="uri">https://asknature.org</a>.
+</div>
+<div id="ref-blanchard2011" class="csl-entry" role="listitem">
+Blanchard, Benjamin S., and Wolter J. Fabrycky. 2011. <em>Systems
+Engineering and Analysis</em>. 5th ed. Upper Saddle River, NJ: Prentice
+Hall.
+</div>
+<div id="ref-boardman2018" class="csl-entry" role="listitem">
+Boardman, Anthony E., David H. Greenberg, Aidan R. Vining, and David L.
+Weimer. 2018. <em>Cost-Benefit Analysis: Concepts and Practice</em>. 5th
+ed. Cambridge: Cambridge University Press.
+</div>
+<div id="ref-boehm1984" class="csl-entry" role="listitem">
+Boehm, Barry W. 1984. <span>“Verifying and Validating Software
+Requirements and Design Specifications.”</span> <em>IEEE Software</em> 1
+(1): 75–88. <a href="https://doi.org/10.1109/MS.1984.233702">https://doi.org/10.1109/MS.1984.233702</a>.
+</div>
+<div id="ref-boehm1988" class="csl-entry" role="listitem">
+———. 1988. <span>“A Spiral Model of Software Development and
+Enhancement.”</span> <em>Computer</em> 21 (5): 61–72. <a href="https://doi.org/10.1109/2.59">https://doi.org/10.1109/2.59</a>.
+</div>
+<div id="ref-boehm2014icsm" class="csl-entry" role="listitem">
+Boehm, Barry, Jo Ann Lane, Supannika Koolmanojwong, and Richard Turner.
+2014. <em>The Incremental Commitment Spiral Model: Principles and
+Practices for Successful Systems and Software</em>. Upper Saddle River,
+NJ: Addison-Wesley.
+</div>
+<div id="ref-debono1985" class="csl-entry" role="listitem">
+Bono, Edward de. 1985. <em>Six Thinking Hats</em>. Boston: Little,
+Brown.
+</div>
+<div id="ref-booher2003" class="csl-entry" role="listitem">
+Booher, Harold R., ed. 2003. <em>Handbook of Human Systems
+Integration</em>. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-bowles2003" class="csl-entry" role="listitem">
+Bowles, John B. 2003. <span>“An Assessment of RPN Prioritization in a
+Failure Modes Effects and Criticality Analysis.”</span> In <em>Annual
+Reliability and Maintainability Symposium, 2003 Proceedings</em>,
+380–86. <a href="https://doi.org/10.1109/RAMS.2003.1182019">https://doi.org/10.1109/RAMS.2003.1182019</a>.
+</div>
+<div id="ref-box1979" class="csl-entry" role="listitem">
+Box, George E. P. 1979. <span>“Robustness in the Strategy of Scientific
+Model Building.”</span> In <em>Robustness in Statistics</em>, edited by
+Robert L. Launer and Graham N. Wilkinson, 201–36. New York: Academic
+Press.
+</div>
+<div id="ref-braglia2021ole" class="csl-entry" role="listitem">
+Braglia, Marcello, Davide Castellano, Marco Frosolini, Mosè Gallo, and
+Leonardo Marrazzini. 2021. <span>“Revised Overall Labour
+Effectiveness.”</span> <em>International Journal of Productivity and
+Performance Management</em> 70 (6): 1317–35. <a href="https://doi.org/10.1108/IJPPM-08-2019-0368">https://doi.org/10.1108/IJPPM-08-2019-0368</a>.
+</div>
+<div id="ref-breque2021" class="csl-entry" role="listitem">
+Breque, Maija, Lars De Nul, and Athanasios Petridis. 2021.
+<span>“Industry 5.0: Towards a Sustainable, Human-Centric and Resilient
+<span>European</span> Industry.”</span> Luxembourg: European Commission,
+Directorate-General for Research; Innovation.
+</div>
+<div id="ref-brooke1996" class="csl-entry" role="listitem">
+Brooke, John. 1996. <span>“<span>SUS</span>: A <span>‘Quick and
+Dirty’</span> Usability Scale.”</span> In <em>Usability Evaluation in
+Industry</em>, edited by Patrick W. Jordan, B. Thomas, Bernard A.
+Weerdmeester, and Ian L. McClelland, 189–94. London: Taylor &amp;
+Francis.
+</div>
+<div id="ref-browning2001" class="csl-entry" role="listitem">
+Browning, Tyson R. 2001. <span>“Applying the Design Structure Matrix to
+System Decomposition and Integration Problems: A Review and New
+Directions.”</span> <em>IEEE Transactions on Engineering Management</em>
+48 (3): 292–306.
+</div>
+<div id="ref-butler1997" class="csl-entry" role="listitem">
+Butler, John, Jianmin Jia, and James Dyer. 1997. <span>“Simulation
+Techniques for the Sensitivity Analysis of Multi-Criteria Decision
+Models.”</span> <em>European Journal of Operational Research</em> 103
+(3): 531–46. <a href="https://doi.org/10.1016/S0377-2217(96)00307-4">https://doi.org/10.1016/S0377-2217(96)00307-4</a>.
+</div>
+<div id="ref-cachon2013" class="csl-entry" role="listitem">
+Cachon, Gérard, and Christian Terwiesch. 2013. <em>Matching Supply with
+Demand: An Introduction to Operations Management</em>. 3rd ed. New York:
+McGraw-Hill/Irwin.
+</div>
+<div id="ref-en13306_2017" class="csl-entry" role="listitem">
+CEN. 2017. <span>“<span>EN</span> 13306:2017 Maintenance – Maintenance
+Terminology.”</span> European Committee for Standardization, Brüsszel.
+</div>
+<div id="ref-ccps2001" class="csl-entry" role="listitem">
+Center for Chemical Process Safety. 2001. <em>Layer of Protection
+Analysis: Simplified Process Risk Assessment</em>. New York: American
+Institute of Chemical Engineers.
+</div>
+<div id="ref-chan2002qfd" class="csl-entry" role="listitem">
+Chan, Lai-Kow, and Ming-Lu Wu. 2002. <span>“Quality Function Deployment:
+A Literature Review.”</span> <em>European Journal of Operational
+Research</em> 143 (3): 463–97. <a href="https://doi.org/10.1016/S0377-2217(02)00178-9">https://doi.org/10.1016/S0377-2217(02)00178-9</a>.
+</div>
+<div id="ref-chase1991" class="csl-entry" role="listitem">
+Chase, Kenneth W., and Alan R. Parkinson. 1991. <span>“A Survey of
+Research in the Application of Tolerance Analysis to the Design of
+Mechanical Assemblies.”</span> <em>Research in Engineering Design</em> 3
+(1): 23–37. <a href="https://doi.org/10.1007/BF01580066">https://doi.org/10.1007/BF01580066</a>.
+</div>
+<div id="ref-cockburn2001" class="csl-entry" role="listitem">
+Cockburn, Alistair. 2001. <em>Writing Effective Use Cases</em>. Boston:
+Addison-Wesley.
+</div>
+<div id="ref-conway1968" class="csl-entry" role="listitem">
+Conway, Melvin E. 1968. <span>“How Do Committees Invent?”</span>
+<em>Datamation</em> 14 (4): 28–31.
+</div>
+<div id="ref-cowan2001" class="csl-entry" role="listitem">
+Cowan, Nelson. 2001. <span>“The Magical Number 4 in Short-Term Memory: A
+Reconsideration of Mental Storage Capacity.”</span> <em>Behavioral and
+Brain Sciences</em> 24 (1): 87–114. <a href="https://doi.org/10.1017/S0140525X01003922">https://doi.org/10.1017/S0140525X01003922</a>.
+</div>
+<div id="ref-cox2008" class="csl-entry" role="listitem">
+Cox, Louis Anthony. 2008. <span>“What’s Wrong with Risk
+Matrices?”</span> <em>Risk Analysis</em> 28 (2): 497–512. <a href="https://doi.org/10.1111/j.1539-6924.2008.01030.x">https://doi.org/10.1111/j.1539-6924.2008.01030.x</a>.
+</div>
+<div id="ref-crawley2016" class="csl-entry" role="listitem">
+Crawley, Edward, Bruce Cameron, and Daniel Selva. 2016. <em>System
+Architecture: Strategy and Product Development for Complex Systems</em>.
+Hoboken, NJ: Pearson.
+</div>
+<div id="ref-czvetko2025" class="csl-entry" role="listitem">
+Czvetkó, Tímea, Viktor Sebestyén, and János Abonyi. 2025. <span>“Key
+Factors of Industry 5.0-Based Organizational Sustainability.”</span>
+<em>Technology in Society</em> 83: 102966. <a href="https://doi.org/10.1016/j.techsoc.2025.102966">https://doi.org/10.1016/j.techsoc.2025.102966</a>.
+</div>
+<div id="ref-dalkey1963" class="csl-entry" role="listitem">
+Dalkey, Norman, and Olaf Helmer. 1963. <span>“An Experimental
+Application of the <span>Delphi</span> Method to the Use of
+Experts.”</span> <em>Management Science</em> 9 (3): 458–67. <a href="https://doi.org/10.1287/mnsc.9.3.458">https://doi.org/10.1287/mnsc.9.3.458</a>.
+</div>
+<div id="ref-deb2002" class="csl-entry" role="listitem">
+Deb, Kalyanmoy, Amrit Pratap, Sameer Agarwal, and T. Meyarivan. 2002.
+<span>“A Fast and Elitist Multiobjective Genetic Algorithm:
+<span>NSGA-II</span>.”</span> <em>IEEE Transactions on Evolutionary
+Computation</em> 6 (2): 182–97.
+</div>
+<div id="ref-dau2001" class="csl-entry" role="listitem">
+Defense Acquisition University. 2001. <em>Systems Engineering
+Fundamentals</em>. Fort Belvoir, VA: Defense Acquisition University
+Press.
+</div>
+<div id="ref-dekker2014" class="csl-entry" role="listitem">
+Dekker, Sidney. 2014. <em>The Field Guide to Understanding <span>“Human
+Error”</span></em>. 3rd ed. Farnham: Ashgate.
+</div>
+<div id="ref-delbecq1971" class="csl-entry" role="listitem">
+Delbecq, Andre L., and Andrew H. Van de Ven. 1971. <span>“A Group
+Process Model for Problem Identification and Program Planning.”</span>
+<em>The Journal of Applied Behavioral Science</em> 7 (4): 466–92. <a href="https://doi.org/10.1177/002188637100700404">https://doi.org/10.1177/002188637100700404</a>.
+</div>
+<div id="ref-deming1986" class="csl-entry" role="listitem">
+Deming, W. Edwards. 1986. <em>Out of the Crisis</em>. Cambridge, MA: MIT
+Center for Advanced Engineering Study.
+</div>
+<div id="ref-designcouncil2019" class="csl-entry" role="listitem">
+Design Council. 2019. <span>“Framework for Innovation: Design Council’s
+Evolved Double Diamond.”</span> Design Council, London (a Double Diamond
+modell első változata: 2005). <a href="https://www.designcouncil.org.uk/our-resources/the-double-diamond/">https://www.designcouncil.org.uk/our-resources/the-double-diamond/</a>.
+</div>
+<div id="ref-diehl1987" class="csl-entry" role="listitem">
+Diehl, Michael, and Wolfgang Stroebe. 1987. <span>“Productivity Loss in
+Brainstorming Groups: Toward the Solution of a Riddle.”</span>
+<em>Journal of Personality and Social Psychology</em> 53 (3): 497–509.
+</div>
+<div id="ref-doran1981" class="csl-entry" role="listitem">
+Doran, George T. 1981. <span>“There’s a <span>S.M.A.R.T.</span> Way to
+Write Management’s Goals and Objectives.”</span> <em>Management
+Review</em> 70 (11): 35–36.
+</div>
+<div id="ref-dorofee1996" class="csl-entry" role="listitem">
+Dorofee, Audrey J., Julie A. Walker, Christopher J. Alberts, Ronald P.
+Higuera, Richard L. Murphy, and Ray C. Williams. 1996. <em>Continuous
+Risk Management Guidebook</em>. Pittsburgh, PA: Software Engineering
+Institute, Carnegie Mellon University.
+</div>
+<div id="ref-doshi2024" class="csl-entry" role="listitem">
+Doshi, Anil R., and Oliver P. Hauser. 2024. <span>“Generative
+<span>AI</span> Enhances Individual Creativity but Reduces the
+Collective Diversity of Novel Content.”</span> <em>Science Advances</em>
+10 (28): eadn5290. <a href="https://doi.org/10.1126/sciadv.adn5290">https://doi.org/10.1126/sciadv.adn5290</a>.
+</div>
+<div id="ref-dumas2018" class="csl-entry" role="listitem">
+Dumas, Marlon, Marcello La Rosa, Jan Mendling, and Hajo A. Reijers.
+2018. <em>Fundamentals of Business Process Management</em>. 2nd ed.
+Berlin: Springer.
+</div>
+<div id="ref-ecss2018ver" class="csl-entry" role="listitem">
+ECSS. 2018. <span>“<span>ECSS-E-ST-10-02C Rev.1</span> Space Engineering
+– Verification.”</span> European Cooperation for Space Standardization,
+ESA-ESTEC, Noordwijk.
+</div>
+<div id="ref-eden1998" class="csl-entry" role="listitem">
+Eden, Colin, and Fran Ackermann. 1998. <em>Making Strategy: The Journey
+of Strategic Management</em>. London: Sage.
+</div>
+<div id="ref-edwards1994" class="csl-entry" role="listitem">
+Edwards, Ward, and F. Hutton Barron. 1994. <span>“<span>SMARTS</span>
+and <span>SMARTER</span>: Improved Simple Methods for Multiattribute
+Utility Measurement.”</span> <em>Organizational Behavior and Human
+Decision Processes</em> 60 (3): 306–25.
+</div>
+<div id="ref-endsley1995" class="csl-entry" role="listitem">
+Endsley, Mica R. 1995. <span>“Toward a Theory of Situation Awareness in
+Dynamic Systems.”</span> <em>Human Factors</em> 37 (1): 32–64. <a href="https://doi.org/10.1518/001872095779049543">https://doi.org/10.1518/001872095779049543</a>.
+</div>
+<div id="ref-engel2010" class="csl-entry" role="listitem">
+Engel, Avner. 2010. <em>Verification, Validation, and Testing of
+Engineered Systems</em>. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-eppinger2012" class="csl-entry" role="listitem">
+Eppinger, Steven D., and Tyson R. Browning. 2012. <em>Design Structure
+Matrix Methods and Applications</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-epstein2008" class="csl-entry" role="listitem">
+Epstein, Joshua M. 2008. <span>“Why Model?”</span> <em>Journal of
+Artificial Societies and Social Simulation</em> 11 (4): 12. <a href="https://www.jasss.org/11/4/12.html">https://www.jasss.org/11/4/12.html</a>.
+</div>
+<div id="ref-ericson2015" class="csl-entry" role="listitem">
+Ericson, Clifton A., II. 2015. <em>Hazard Analysis Techniques for System
+Safety</em>. 2nd ed. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-eu2023_1542" class="csl-entry" role="listitem">
+Európai Parlament és a Tanács. 2023. <span>“Az <span>(EU)</span>
+2023/1542 Rendelet (2023. Július 12.) Az Elemekről És a
+Hulladékelemekről.”</span> Az Európai Unió Hivatalos Lapja, L 191.
+</div>
+<div id="ref-ec2004pcm" class="csl-entry" role="listitem">
+European Commission. 2004. <span>“Aid Delivery Methods, Volume 1:
+Project Cycle Management Guidelines.”</span> Brussels: European
+Commission, EuropeAid Cooperation Office.
+</div>
+<div id="ref-fagan1976" class="csl-entry" role="listitem">
+Fagan, Michael E. 1976. <span>“Design and Code Inspections to Reduce
+Errors in Program Development.”</span> <em>IBM Systems Journal</em> 15
+(3): 182–211.
+</div>
+<div id="ref-fitts1951" class="csl-entry" role="listitem">
+Fitts, Paul M., ed. 1951. <span>“Human Engineering for an Effective
+Air-Navigation and Traffic-Control System.”</span> Washington, DC:
+National Research Council.
+</div>
+<div id="ref-fleming2010" class="csl-entry" role="listitem">
+Fleming, Quentin W., and Joel M. Koppelman. 2010. <em>Earned Value
+Project Management</em>. 4th ed. Newtown Square, PA: Project Management
+Institute.
+</div>
+<div id="ref-forsberg1991" class="csl-entry" role="listitem">
+Forsberg, Kevin, and Harold Mooz. 1991. <span>“The Relationship of
+System Engineering to the Project Cycle.”</span> In <em>Proceedings of
+the First Annual Symposium of the National Council on Systems
+Engineering (NCOSE) and the American Society for Engineering
+Management</em>, 57–65. Chattanooga, TN.
+</div>
+<div id="ref-freeman1984" class="csl-entry" role="listitem">
+Freeman, R. Edward. 1984. <em>Strategic Management: A Stakeholder
+Approach</em>. Boston: Pitman.
+</div>
+<div id="ref-friedenthal2014" class="csl-entry" role="listitem">
+Friedenthal, Sanford, Alan Moore, and Rick Steiner. 2014. <em>A
+Practical Guide to <span>SysML</span>: The Systems Modeling
+Language</em>. 3rd ed. Waltham, MA: Morgan Kaufmann.
+</div>
+<div id="ref-friedrich2009vmodellxt" class="csl-entry" role="listitem">
+Friedrich, Jan, Ulrike Hammerschall, Marco Kuhrmann, and Marc Sihling.
+2009. <em>Das v-Modell XT: Für Projektleiter Und QS-Verantwortliche
+Kompakt Und Übersichtlich</em>. 2nd ed. Berlin: Springer.
+</div>
+<div id="ref-gilb2005" class="csl-entry" role="listitem">
+Gilb, Tom. 2005. <em>Competitive Engineering: A Handbook for Systems
+Engineering, Requirements Engineering, and Software Engineering Using
+Planguage</em>. Oxford: Elsevier Butterworth-Heinemann.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, and L.
+Stout. 1994. <span>“System Engineering <span>‘Toolbox’</span> for
+Design-Oriented Engineers.”</span> NASA Reference Publication 1358. NASA
+Marshall Space Flight Center.
+</div>
+<div id="ref-goldratt1984" class="csl-entry" role="listitem">
+Goldratt, Eliyahu M., and Jeff Cox. 1984. <em>The Goal: A Process of
+Ongoing Improvement</em>. Great Barrington, MA: North River Press.
+</div>
+<div id="ref-grieves2017" class="csl-entry" role="listitem">
+Grieves, Michael, and John Vickers. 2017. <span>“Digital Twin:
+Mitigating Unpredictable, Undesirable Emergent Behavior in Complex
+Systems.”</span> In <em>Transdisciplinary Perspectives on Complex
+Systems</em>, edited by Franz-Josef Kahlen, Shannon Flumerfelt, and
+Anabela Alves, 85–113. Cham: Springer.
+</div>
+<div id="ref-griffin2007" class="csl-entry" role="listitem">
+Griffin, Michael D. 2007. <span>“System Engineering and the <span>‘Two
+Cultures’</span> of Engineering.”</span> Boeing Lecture, Purdue
+University, West Lafayette, IN.
+</div>
+<div id="ref-grohs2024" class="csl-entry" role="listitem">
+Grohs, Michael, Luka Abb, Nourhan Elsayed, and Jana-Rebecca Rehse. 2024.
+<span>“Large Language Models Can Accomplish Business Process Management
+Tasks.”</span> In <em>Business Process Management Workshops (BPM
+2023)</em>, 492:453–65. Lecture Notes in Business Information
+Processing. Cham: Springer. <a href="https://doi.org/10.1007/978-3-031-50974-2_34">https://doi.org/10.1007/978-3-031-50974-2_34</a>.
+</div>
+<div id="ref-guilford1950" class="csl-entry" role="listitem">
+Guilford, J. P. 1950. <span>“Creativity.”</span> <em>American
+Psychologist</em> 5 (9): 444–54.
+</div>
+<div id="ref-haddon1973" class="csl-entry" role="listitem">
+Haddon, William. 1973. <span>“Energy Damage and the Ten Countermeasure
+Strategies.”</span> <em>Journal of Trauma</em> 13 (4): 321–31. <a href="https://doi.org/10.1097/00005373-197304000-00011">https://doi.org/10.1097/00005373-197304000-00011</a>.
+</div>
+<div id="ref-hart2006" class="csl-entry" role="listitem">
+Hart, Sandra G. 2006. <span>“<span>NASA</span>-Task Load Index
+(<span>NASA-TLX</span>); 20 Years Later.”</span> In <em>Proceedings of
+the Human Factors and Ergonomics Society Annual Meeting</em>, 50:904–8.
+9. <a href="https://doi.org/10.1177/154193120605000909">https://doi.org/10.1177/154193120605000909</a>.
+</div>
+<div id="ref-hart1988" class="csl-entry" role="listitem">
+Hart, Sandra G., and Lowell E. Staveland. 1988. <span>“Development of
+<span>NASA-TLX</span> (Task Load Index): Results of Empirical and
+Theoretical Research.”</span> In <em>Human Mental Workload</em>, edited
+by Peter A. Hancock and Najmedin Meshkati, 52:139–83. Advances in
+Psychology. Amsterdam: North-Holland. <a href="https://doi.org/10.1016/S0166-4115(08)62386-9">https://doi.org/10.1016/S0166-4115(08)62386-9</a>.
+</div>
+<div id="ref-hauser1988" class="csl-entry" role="listitem">
+Hauser, John R., and Don Clausing. 1988. <span>“The House of
+Quality.”</span> <em>Harvard Business Review</em> 66 (3): 63–73.
+</div>
+<div id="ref-hse2001" class="csl-entry" role="listitem">
+Health and Safety Executive. 2001. <em>Reducing Risks, Protecting
+People: HSE’s Decision-Making Process</em>. Sudbury: HSE Books.
+</div>
+<div id="ref-hignett2000" class="csl-entry" role="listitem">
+Hignett, Sue, and Lynn McAtamney. 2000. <span>“Rapid Entire Body
+Assessment (<span>REBA</span>).”</span> <em>Applied Ergonomics</em> 31
+(2): 201–5. <a href="https://doi.org/10.1016/S0003-6870(99)00039-3">https://doi.org/10.1016/S0003-6870(99)00039-3</a>.
+</div>
+<div id="ref-holland1975" class="csl-entry" role="listitem">
+Holland, John H. 1975. <em>Adaptation in Natural and Artificial
+Systems</em>. Ann Arbor: University of Michigan Press.
+</div>
+<div id="ref-hopp2008" class="csl-entry" role="listitem">
+Hopp, Wallace J., and Mark L. Spearman. 2008. <em>Factory Physics</em>.
+3rd ed. New York: McGraw-Hill/Irwin.
+</div>
+<div id="ref-iec61025_2006" class="csl-entry" role="listitem">
+IEC. 2006. <span>“<span>IEC</span> 61025:2006 Fault Tree Analysis
+(FTA).”</span> International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec61508_2010" class="csl-entry" role="listitem">
+———. 2010a. <span>“<span>IEC</span> 61508-1:2010 Functional Safety of
+Electrical/Electronic/Programmable Electronic Safety-Related Systems –
+Part 1: General Requirements.”</span> International Electrotechnical
+Commission, Genf.
+</div>
+<div id="ref-iec62502_2010" class="csl-entry" role="listitem">
+———. 2010b. <span>“<span>IEC</span> 62502:2010 Analysis Techniques for
+Dependability – Event Tree Analysis (ETA).”</span> International
+Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec62264_2013" class="csl-entry" role="listitem">
+———. 2013. <span>“<span>IEC</span> 62264-1:2013 Enterprise-Control
+System Integration – Part 1: Models and Terminology.”</span>
+International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec62366_2015" class="csl-entry" role="listitem">
+———. 2015. <span>“<span>IEC 62366-1:2015</span> Medical Devices – Part
+1: Application of Usability Engineering to Medical Devices.”</span>
+Nemzetközi szabvány; módosítás: AMD1:2020.
+</div>
+<div id="ref-iec61078_2016" class="csl-entry" role="listitem">
+———. 2016a. <span>“<span>IEC</span> 61078:2016 Reliability Block
+Diagrams.”</span> International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec61511_2016" class="csl-entry" role="listitem">
+———. 2016b. <span>“<span>IEC</span> 61511-1:2016 Functional Safety –
+Safety Instrumented Systems for the Process Industry Sector – Part 1:
+Framework, Definitions, System, Hardware and Application Programming
+Requirements.”</span> International Electrotechnical Commission, Genf.
+</div>
+<div id="ref-iec60812_2018" class="csl-entry" role="listitem">
+———. 2018. <span>“<span>IEC</span> 60812:2018 Failure Modes and Effects
+Analysis (FMEA and FMECA).”</span> International Electrotechnical
+Commission, Genf.
+</div>
+<div id="ref-ieee1362_1998" class="csl-entry" role="listitem">
+IEEE. 1998. <span>“<span>IEEE Std 1362-1998</span> <span>IEEE</span>
+Guide for Information Technology – System Definition – Concept of
+Operations (<span>ConOps</span>) Document.”</span> Institute of
+Electrical and Electronics Engineers, New York.
+</div>
+<div id="ref-ieee1028_2008" class="csl-entry" role="listitem">
+———. 2008. <span>“<span>IEEE</span> Std 1028-2008: <span>IEEE</span>
+Standard for Software Reviews and Audits.”</span> New York: IEEE.
+</div>
+<div id="ref-ieee15288_2_2014" class="csl-entry" role="listitem">
+———. 2014. <span>“<span>IEEE</span> Std 15288.2-2014: <span>IEEE</span>
+Standard for Technical Reviews and Audits on Defense Programs.”</span>
+New York: Szabvány; nemzetközi változata ISO/IEC/IEEE 24748-8:2019;
+IEEE.
+</div>
+<div id="ref-ieee1012_2024" class="csl-entry" role="listitem">
+———. 2024. <span>“<span>IEEE Std 1012-2024</span> <span>IEEE</span>
+Standard for System, Software, and Hardware Verification and
+Validation.”</span> Szabvány, IEEE Standards Association.
+</div>
+<div id="ref-ilevbare2013" class="csl-entry" role="listitem">
+Ilevbare, Imoh M., David Probert, and Robert Phaal. 2013. <span>“A
+Review of <span>TRIZ</span>, and Its Benefits and Challenges in
+Practice.”</span> <em>Technovation</em> 33 (2–3): 30–37. <a href="https://doi.org/10.1016/j.technovation.2012.11.003">https://doi.org/10.1016/j.technovation.2012.11.003</a>.
+</div>
+<div id="ref-incose2007vision" class="csl-entry" role="listitem">
+INCOSE. 2007. <span>“Systems Engineering Vision 2020.”</span>
+INCOSE-TP-2004-004-02. International Council on Systems Engineering.
+</div>
+<div id="ref-incose2015seh" class="csl-entry" role="listitem">
+———. 2015. <em><span>INCOSE</span> Systems Engineering Handbook: A Guide
+for System Life Cycle Processes and Activities</em>. Edited by David D.
+Walden, Garry J. Roedler, Kevin J. Forsberg, R. Douglas Hamelin, and
+Thomas M. Shortell. 4th ed. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-incose2018comp" class="csl-entry" role="listitem">
+———. 2018. <span>“<span>INCOSE</span> Systems Engineering Competency
+Framework.”</span> INCOSE-TP-2018-002-01.0. International Council on
+Systems Engineering.
+</div>
+<div id="ref-incose2019def" class="csl-entry" role="listitem">
+———. 2019. <span>“Systems Engineering and System Definitions.”</span>
+International Council on Systems Engineering, technikai termék. <a href="https://www.incose.org/about-systems-engineering/system-and-se-definitions">https://www.incose.org/about-systems-engineering/system-and-se-definitions</a>.
+</div>
+<div id="ref-incose2022vision" class="csl-entry" role="listitem">
+———. 2022. <span>“Systems Engineering Vision 2035: Engineering Solutions
+for a Better World.”</span> International Council on Systems
+Engineering. <a href="https://www.incose.org/sevision">https://www.incose.org/sevision</a>.
+</div>
+<div id="ref-incose2023gtwr" class="csl-entry" role="listitem">
+———. 2023a. <span>“Guide to Writing Requirements.”</span>
+INCOSE-TP-2010-006-04, Rev. 4. International Council on Systems
+Engineering, Requirements Working Group.
+</div>
+<div id="ref-incose2023seh" class="csl-entry" role="listitem">
+———. 2023b. <em><span>INCOSE</span> Systems Engineering Handbook: A
+Guide for System Life Cycle Processes and Activities</em>. Edited by
+David D. Walden, Thomas M. Shortell, Garry J. Roedler, Bernardo A.
+Delicado, Odile Mornas, Yew-Seng Yip, and David Endler. 5th ed. Hoboken,
+NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-ishikawa1982" class="csl-entry" role="listitem">
+Ishikawa, Kaoru. 1982. <em>Guide to Quality Control</em>. 2nd ed. Tokyo:
+Asian Productivity Organization.
+</div>
+<div id="ref-iso11226_2000" class="csl-entry" role="listitem">
+ISO. 2000. <span>“<span>ISO</span> 11226:2000 Ergonomics – Evaluation of
+Static Working Postures.”</span> International Organization for
+Standardization, Genf.
+</div>
+<div id="ref-iso12100_2010" class="csl-entry" role="listitem">
+———. 2010. <span>“<span>ISO</span> 12100:2010 Safety of Machinery –
+General Principles for Design – Risk Assessment and Risk
+Reduction.”</span> International Organization for Standardization, Genf.
+</div>
+<div id="ref-isoguide51_2014" class="csl-entry" role="listitem">
+———. 2014. <span>“<span>ISO/IEC</span> Guide 51:2014 Safety Aspects –
+Guidelines for Their Inclusion in Standards.”</span> International
+Organization for Standardization, Genf.
+</div>
+<div id="ref-isots15066_2016" class="csl-entry" role="listitem">
+———. 2016. <span>“<span>ISO/TS</span> 15066:2016 Robots and Robotic
+Devices – Collaborative Robots.”</span> International Organization for
+Standardization, Genf.
+</div>
+<div id="ref-iso10007_2017" class="csl-entry" role="listitem">
+———. 2017. <span>“<span>ISO</span> 10007:2017 Quality Management –
+Guidelines for Configuration Management.”</span> Nemzetközi szabvány.
+</div>
+<div id="ref-iso26262_2018" class="csl-entry" role="listitem">
+———. 2018a. <span>“<span>ISO</span> 26262-3:2018 Road Vehicles –
+Functional Safety – Part 3: Concept Phase.”</span> International
+Organization for Standardization, Genf.
+</div>
+<div id="ref-iso31000_2018" class="csl-entry" role="listitem">
+———. 2018b. <span>“<span>ISO</span> 31000:2018 Risk Management –
+Guidelines.”</span> International Organization for Standardization,
+Genf.
+</div>
+<div id="ref-iso9241_11_2018" class="csl-entry" role="listitem">
+———. 2018c. <span>“<span>ISO</span> 9241-11:2018 Ergonomics of
+Human-System Interaction – Part 11: Usability: Definitions and
+Concepts.”</span> International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso9241_210_2019" class="csl-entry" role="listitem">
+———. 2019. <span>“<span>ISO</span> 9241-210:2019 Ergonomics of
+Human-System Interaction – Part 210: Human-Centred Design for
+Interactive Systems.”</span> International Organization for
+Standardization, Genf.
+</div>
+<div id="ref-iso23247_2021" class="csl-entry" role="listitem">
+———. 2021. <span>“<span>ISO 23247-1:2021</span> Automation Systems and
+Integration – Digital Twin Framework for Manufacturing – Part 1:
+Overview and General Principles.”</span> Nemzetközi szabvány.
+</div>
+<div id="ref-iso13849_2023" class="csl-entry" role="listitem">
+———. 2023. <span>“<span>ISO</span> 13849-1:2023 Safety of Machinery –
+Safety-Related Parts of Control Systems – Part 1: General Principles for
+Design.”</span> International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso10218_1_2025" class="csl-entry" role="listitem">
+———. 2025a. <span>“<span>ISO</span> 10218-1:2025 Robotics – Safety
+Requirements – Part 1: Industrial Robots.”</span> International
+Organization for Standardization, Genf.
+</div>
+<div id="ref-iso10218_2_2025" class="csl-entry" role="listitem">
+———. 2025b. <span>“<span>ISO</span> 10218-2:2025 Robotics – Safety
+Requirements – Part 2: Industrial Robot Applications and Robot
+Cells.”</span> International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso19510_2013" class="csl-entry" role="listitem">
+ISO/IEC. 2013. <span>“<span>ISO/IEC</span> 19510:2013 Information
+Technology – Object Management Group Business Process Model and
+Notation.”</span> International Organization for Standardization, Genf.
+</div>
+<div id="ref-iso25010_2023" class="csl-entry" role="listitem">
+———. 2023. <span>“<span>ISO/IEC 25010:2023</span> Systems and Software
+Engineering – Systems and Software Quality Requirements and Evaluation
+(<span>SQuaRE</span>) – Product Quality Model.”</span> Nemzetközi
+szabvány.
+</div>
+<div id="ref-iso29148_2018" class="csl-entry" role="listitem">
+ISO/IEC/IEEE. 2018. <span>“<span>ISO/IEC/IEEE 29148:2018</span> Systems
+and Software Engineering – Life Cycle Processes – Requirements
+Engineering.”</span> Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-iso42010_2022" class="csl-entry" role="listitem">
+———. 2022. <span>“<span>ISO/IEC/IEEE 42010:2022</span> Software, Systems
+and Enterprise – Architecture Description.”</span> Nemzetközi szabvány,
+2. kiadás.
+</div>
+<div id="ref-iso15288_2023" class="csl-entry" role="listitem">
+———. 2023. <span>“<span>ISO/IEC/IEEE 15288:2023</span> Systems and
+Software Engineering – System Life Cycle Processes.”</span> Nemzetközi
+szabvány, 2. kiadás; ISO, IEC és IEEE.
+</div>
+<div id="ref-iso24748_1_2024" class="csl-entry" role="listitem">
+———. 2024. <span>“<span>ISO/IEC/IEEE 24748-1:2024</span> Systems and
+Software Engineering – Life Cycle Management – Part 1: Guidelines for
+Life Cycle Management.”</span> Nemzetközi szabvány, 2. kiadás.
+</div>
+<div id="ref-jansson1991" class="csl-entry" role="listitem">
+Jansson, David G., and Steven M. Smith. 1991. <span>“Design
+Fixation.”</span> <em>Design Studies</em> 12 (1): 3–11. <a href="https://doi.org/10.1016/0142-694X(91)90003-F">https://doi.org/10.1016/0142-694X(91)90003-F</a>.
+</div>
+<div id="ref-johnson2003" class="csl-entry" role="listitem">
+Johnson, Eric J., and Daniel Goldstein. 2003. <span>“Do Defaults Save
+Lives?”</span> <em>Science</em> 302 (5649): 1338–39.
+</div>
+<div id="ref-johnson1954" class="csl-entry" role="listitem">
+Johnson, S. M. 1954. <span>“Optimal Two- and Three-Stage Production
+Schedules with Setup Times Included.”</span> <em>Naval Research
+Logistics Quarterly</em> 1 (1): 61–68. <a href="https://doi.org/10.1002/nav.3800010110">https://doi.org/10.1002/nav.3800010110</a>.
+</div>
+<div id="ref-kano1984" class="csl-entry" role="listitem">
+Kano, Noriaki, Nobuhiku Seraku, Fumio Takahashi, and Shinichi Tsuji.
+1984. <span>“Attractive Quality and Must-Be Quality.”</span>
+<em>Hinshitsu (Journal of the Japanese Society for Quality Control)</em>
+14 (2): 39–48.
+</div>
+<div id="ref-kaplan1981" class="csl-entry" role="listitem">
+Kaplan, Stanley, and B. John Garrick. 1981. <span>“On the Quantitative
+Definition of Risk.”</span> <em>Risk Analysis</em> 1 (1): 11–27. <a href="https://doi.org/10.1111/j.1539-6924.1981.tb01350.x">https://doi.org/10.1111/j.1539-6924.1981.tb01350.x</a>.
+</div>
+<div id="ref-karplus1977" class="csl-entry" role="listitem">
+Karplus, Walter J. 1977. <span>“The Spectrum of Mathematical Modeling
+and Systems Simulation.”</span> <em>Mathematics and Computers in
+Simulation</em> 19 (1): 3–10.
+</div>
+<div id="ref-keeney2005attr" class="csl-entry" role="listitem">
+Keeney, Ralph L., and Robin S. Gregory. 2005. <span>“Selecting
+Attributes to Measure the Achievement of Objectives.”</span>
+<em>Operations Research</em> 53 (1): 1–11. <a href="https://doi.org/10.1287/opre.1040.0158">https://doi.org/10.1287/opre.1040.0158</a>.
+</div>
+<div id="ref-keeney1976" class="csl-entry" role="listitem">
+Keeney, Ralph L., and Howard Raiffa. 1976. <em>Decisions with Multiple
+Objectives: Preferences and Value Tradeoffs</em>. New York: Wiley.
+</div>
+<div id="ref-kelley1959" class="csl-entry" role="listitem">
+Kelley, James E., and Morgan R. Walker. 1959. <span>“Critical-Path
+Planning and Scheduling.”</span> In <em>Papers Presented at the December
+1–3, 1959, Eastern Joint IRE-AIEE-ACM Computer Conference</em>, 160–73.
+New York: ACM. <a href="https://doi.org/10.1145/1460299.1460318">https://doi.org/10.1145/1460299.1460318</a>.
+</div>
+<div id="ref-kendall1953" class="csl-entry" role="listitem">
+Kendall, David G. 1953. <span>“Stochastic Processes Occurring in the
+Theory of Queues and Their Analysis by the Method of the Imbedded
+<span>Markov</span> Chain.”</span> <em>The Annals of Mathematical
+Statistics</em> 24 (3): 338–54. <a href="https://doi.org/10.1214/aoms/1177728975">https://doi.org/10.1214/aoms/1177728975</a>.
+</div>
+<div id="ref-kennedy1995" class="csl-entry" role="listitem">
+Kennedy, James, and Russell Eberhart. 1995. <span>“Particle Swarm
+Optimization.”</span> In <em>Proceedings of ICNN’95 – International
+Conference on Neural Networks</em>, 4:1942–48. IEEE.
+</div>
+<div id="ref-kepner1965" class="csl-entry" role="listitem">
+Kepner, Charles H., and Benjamin B. Tregoe. 1965. <em>The Rational
+Manager: A Systematic Approach to Problem Solving and Decision
+Making</em>. New York: McGraw-Hill.
+</div>
+<div id="ref-kingman1961" class="csl-entry" role="listitem">
+Kingman, J. F. C. 1961. <span>“The Single Server Queue in Heavy
+Traffic.”</span> <em>Mathematical Proceedings of the Cambridge
+Philosophical Society</em> 57 (4): 902–4. <a href="https://doi.org/10.1017/S0305004100036094">https://doi.org/10.1017/S0305004100036094</a>.
+</div>
+<div id="ref-kirchherr2017" class="csl-entry" role="listitem">
+Kirchherr, Julian, Denise Reike, and Marko Hekkert. 2017.
+<span>“Conceptualizing the Circular Economy: An Analysis of 114
+Definitions.”</span> <em>Resources, Conservation and Recycling</em> 127:
+221–32. <a href="https://doi.org/10.1016/j.resconrec.2017.09.005">https://doi.org/10.1016/j.resconrec.2017.09.005</a>.
+</div>
+<div id="ref-kirwan1994" class="csl-entry" role="listitem">
+Kirwan, Barry. 1994. <em>A Guide to Practical Human Reliability
+Assessment</em>. London: Taylor &amp; Francis.
+</div>
+<div id="ref-knight2002" class="csl-entry" role="listitem">
+Knight, John C. 2002. <span>“Safety Critical Systems: Challenges and
+Directions.”</span> In <em>Proceedings of the 24th International
+Conference on Software Engineering (ICSE 2002)</em>, 547–50. New York:
+ACM.
+</div>
+<div id="ref-kossiakoff2011" class="csl-entry" role="listitem">
+Kossiakoff, Alexander, William N. Sweet, Samuel J. Seymour, and Steven
+M. Biemer. 2011. <em>Systems Engineering Principles and Practice</em>.
+2nd ed. Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-kourani2024" class="csl-entry" role="listitem">
+Kourani, Humam, Alessandro Berti, Daniel Schuster, and Wil M. P. van der
+Aalst. 2024. <span>“Process Modeling with Large Language Models.”</span>
+In <em>Enterprise, Business-Process and Information Systems Modeling
+(BPMDS 2024, EMMSAD 2024)</em>, 229–44. Lecture Notes in Business
+Information Processing. Cham: Springer. <a href="https://doi.org/10.1007/978-3-031-61007-3_18">https://doi.org/10.1007/978-3-031-61007-3_18</a>.
+</div>
+<div id="ref-kritzinger2018" class="csl-entry" role="listitem">
+Kritzinger, Werner, Matthias Karner, Georg Traar, Jan Henjes, and
+Wilfried Sihn. 2018. <span>“Digital Twin in Manufacturing: A Categorical
+Literature Review and Classification.”</span> <em>IFAC-PapersOnLine</em>
+51 (11): 1016–22.
+</div>
+<div id="ref-lakatos_rendszerek" class="csl-entry" role="listitem">
+Lakatos, Béla. n.d.a. <span>“Rendszerek Tervezése És Irányítása.”</span>
+Egyetemi jegyzet, Veszprémi Egyetem, Folyamatmérnöki Tanszék.
+</div>
+<div id="ref-lakatos_termelesi" class="csl-entry" role="listitem">
+———. n.d.b. <span>“Termelési Rendszerek.”</span> Egyetemi jegyzet,
+Veszprémi Egyetem, Folyamatmérnöki Tanszék.
+</div>
+<div id="ref-lano1977" class="csl-entry" role="listitem">
+Lano, Robert J. 1977. <span>“The <span>N</span>2 Chart.”</span> Redondo
+Beach, CA: TRW Software Series.
+</div>
+<div id="ref-law2015" class="csl-entry" role="listitem">
+Law, Averill M. 2015. <em>Simulation Modeling and Analysis</em>. 5th ed.
+New York: McGraw-Hill.
+</div>
+<div id="ref-lee2004" class="csl-entry" role="listitem">
+Lee, John D., and Katrina A. See. 2004. <span>“Trust in Automation:
+Designing for Appropriate Reliance.”</span> <em>Human Factors</em> 46
+(1): 50–80. <a href="https://doi.org/10.1518/hfes.46.1.50_30392">https://doi.org/10.1518/hfes.46.1.50_30392</a>.
+</div>
+<div id="ref-leveson2011" class="csl-entry" role="listitem">
+Leveson, Nancy G. 2011. <em>Engineering a Safer World: Systems Thinking
+Applied to Safety</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-leveson2018" class="csl-entry" role="listitem">
+Leveson, Nancy G., and John P. Thomas. 2018. <span>“STPA
+Handbook.”</span> Cambridge, MA: Massachusetts Institute of Technology.
+</div>
+<div id="ref-little1961" class="csl-entry" role="listitem">
+Little, John D. C. 1961. <span>“A Proof for the Queuing Formula: <span class="math inline"><em>L</em> = <em>λ</em><em>W</em></span>.”</span>
+<em>Operations Research</em> 9 (3): 383–87. <a href="https://doi.org/10.1287/opre.9.3.383">https://doi.org/10.1287/opre.9.3.383</a>.
+</div>
+<div id="ref-little2011" class="csl-entry" role="listitem">
+———. 2011. <span>“Little’s Law as Viewed on Its 50th
+Anniversary.”</span> <em>Operations Research</em> 59 (3): 536–49. <a href="https://doi.org/10.1287/opre.1110.0940">https://doi.org/10.1287/opre.1110.0940</a>.
+</div>
+<div id="ref-liu2013fmea" class="csl-entry" role="listitem">
+Liu, Hu-Chen, Long Liu, and Nan Liu. 2013. <span>“Risk Evaluation
+Approaches in Failure Mode and Effects Analysis: A Literature
+Review.”</span> <em>Expert Systems with Applications</em> 40 (2):
+828–38. <a href="https://doi.org/10.1016/j.eswa.2012.08.010">https://doi.org/10.1016/j.eswa.2012.08.010</a>.
+</div>
+<div id="ref-lofgren2011" class="csl-entry" role="listitem">
+Löfgren, Martin, Lars Witell, and Anders Gustafsson. 2011. <span>“Theory
+of Attractive Quality and Life Cycles of Quality Attributes.”</span>
+<em>The TQM Journal</em> 23 (2): 235–46.
+</div>
+<div id="ref-mkkr2012" class="csl-entry" role="listitem">
+Magyarország Kormánya. 2012. <span>“1229/2012. (<span>VII</span>. 6.)
+Korm. Határozat a Magyar Képesítési Keretrendszer Bevezetéséhez
+Kapcsolódó Feladatokról.”</span> Melléklet: A Magyar Képesítési
+Keretrendszer szintjei.
+</div>
+<div id="ref-maier1998" class="csl-entry" role="listitem">
+Maier, Mark W. 1998. <span>“Architecting Principles for
+Systems-of-Systems.”</span> <em>Systems Engineering</em> 1 (4): 267–84.
+</div>
+<div id="ref-maier2009" class="csl-entry" role="listitem">
+Maier, Mark W., and Eberhardt Rechtin. 2009. <em>The Art of Systems
+Architecting</em>. 3rd ed. Boca Raton, FL: CRC Press.
+</div>
+<div id="ref-matzler1998" class="csl-entry" role="listitem">
+Matzler, Kurt, and Hans H. Hinterhuber. 1998. <span>“How to Make Product
+Development Projects More Successful by Integrating <span class="nocase">Kano’s</span> Model of Customer Satisfaction into Quality
+Function Deployment.”</span> <em>Technovation</em> 18 (1): 25–38.
+</div>
+<div id="ref-mavin2009" class="csl-entry" role="listitem">
+Mavin, Alistair, Philip Wilkinson, Adrian Harwood, and Mark Novak. 2009.
+<span>“Easy Approach to Requirements Syntax (<span>EARS</span>).”</span>
+In <em>Proceedings of the 17th IEEE International Requirements
+Engineering Conference (RE’09)</em>, 317–22. IEEE. <a href="https://doi.org/10.1109/RE.2009.9">https://doi.org/10.1109/RE.2009.9</a>.
+</div>
+<div id="ref-mcatamney1993" class="csl-entry" role="listitem">
+McAtamney, Lynn, and E. Nigel Corlett. 1993. <span>“<span>RULA</span>: A
+Survey Method for the Investigation of Work-Related Upper Limb
+Disorders.”</span> <em>Applied Ergonomics</em> 24 (2): 91–99. <a href="https://doi.org/10.1016/0003-6870(93)90080-S">https://doi.org/10.1016/0003-6870(93)90080-S</a>.
+</div>
+<div id="ref-meadows2008" class="csl-entry" role="listitem">
+Meadows, Donella H. 2008. <em>Thinking in Systems: A Primer</em>. White
+River Junction, VT: Chelsea Green Publishing.
+</div>
+<div id="ref-mendelow1981" class="csl-entry" role="listitem">
+Mendelow, Aubrey L. 1981. <span>“Environmental Scanning: The Impact of
+the Stakeholder Concept.”</span> In <em>Proceedings of the Second
+International Conference on Information Systems (ICIS 1981)</em>.
+Cambridge, MA.
+</div>
+<div id="ref-mendling2010" class="csl-entry" role="listitem">
+Mendling, Jan, Hajo A. Reijers, and Wil M. P. van der Aalst. 2010.
+<span>“Seven Process Modeling Guidelines (<span>7PMG</span>).”</span>
+<em>Information and Software Technology</em> 52 (2): 127–36. <a href="https://doi.org/10.1016/j.infsof.2009.08.004">https://doi.org/10.1016/j.infsof.2009.08.004</a>.
+</div>
+<div id="ref-miller1956" class="csl-entry" role="listitem">
+Miller, George A. 1956. <span>“The Magical Number Seven, Plus or Minus
+Two: Some Limits on Our Capacity for Processing Information.”</span>
+<em>Psychological Review</em> 63 (2): 81–97.
+</div>
+<div id="ref-mitchell1997" class="csl-entry" role="listitem">
+Mitchell, Ronald K., Bradley R. Agle, and Donna J. Wood. 1997.
+<span>“Toward a Theory of Stakeholder Identification and Salience:
+Defining the Principle of Who and What Really Counts.”</span>
+<em>Academy of Management Review</em> 22 (4): 853–86. <a href="https://doi.org/10.5465/amr.1997.9711022105">https://doi.org/10.5465/amr.1997.9711022105</a>.
+</div>
+<div id="ref-montgomery2017" class="csl-entry" role="listitem">
+Montgomery, Douglas C. 2017. <em>Design and Analysis of
+Experiments</em>. 9th ed. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-montgomery2020sqc" class="csl-entry" role="listitem">
+———. 2020. <em>Introduction to Statistical Quality Control</em>. 8th ed.
+Hoboken, NJ: Wiley.
+</div>
+<div id="ref-muchiri2008" class="csl-entry" role="listitem">
+Muchiri, Peter, and Liliane Pintelon. 2008. <span>“Performance
+Measurement Using Overall Equipment Effectiveness (<span>OEE</span>):
+Literature Review and Practical Application Discussion.”</span>
+<em>International Journal of Production Research</em> 46 (13): 3517–35.
+<a href="https://doi.org/10.1080/00207540601142645">https://doi.org/10.1080/00207540601142645</a>.
+</div>
+<div id="ref-mullen1991" class="csl-entry" role="listitem">
+Mullen, Brian, Craig Johnson, and Eduardo Salas. 1991.
+<span>“Productivity Loss in Brainstorming Groups: A Meta-Analytic
+Integration.”</span> <em>Basic and Applied Social Psychology</em> 12
+(1): 3–23. <a href="https://doi.org/10.1207/s15324834basp1201_1">https://doi.org/10.1207/s15324834basp1201_1</a>.
+</div>
+<div id="ref-nakajima1988" class="csl-entry" role="listitem">
+Nakajima, Seiichi. 1988. <em>Introduction to TPM: Total Productive
+Maintenance</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-nasa2015hsi" class="csl-entry" role="listitem">
+NASA. 2015. <span>“Human Systems Integration (<span>HSI</span>)
+Practitioner’s Guide.”</span> NASA/SP-2015-3709. National Aeronautics;
+Space Administration.
+</div>
+<div id="ref-nasa2016seh" class="csl-entry" role="listitem">
+———. 2016. <span>“NASA Systems Engineering Handbook.”</span>
+NASA/SP-2016-6105 Rev2. Washington, DC: National Aeronautics; Space
+Administration.
+</div>
+<div id="ref-vonneumann1944" class="csl-entry" role="listitem">
+Neumann, John von, and Oskar Morgenstern. 1944. <em>Theory of Games and
+Economic Behavior</em>. Princeton: Princeton University Press.
+</div>
+<div id="ref-newman2006" class="csl-entry" role="listitem">
+Newman, M. E. J. 2006. <span>“Modularity and Community Structure in
+Networks.”</span> <em>Proceedings of the National Academy of
+Sciences</em> 103 (23): 8577–82. <a href="https://doi.org/10.1073/pnas.0601602103">https://doi.org/10.1073/pnas.0601602103</a>.
+</div>
+<div id="ref-nielsen1993" class="csl-entry" role="listitem">
+Nielsen, Jakob, and Thomas K. Landauer. 1993. <span>“A Mathematical
+Model of the Finding of Usability Problems.”</span> In <em>Proceedings
+of the INTERACT ’93 and CHI ’93 Conference on Human Factors in Computing
+Systems</em>, 206–13. New York: ACM. <a href="https://doi.org/10.1145/169059.169166">https://doi.org/10.1145/169059.169166</a>.
+</div>
+<div id="ref-fips183" class="csl-entry" role="listitem">
+NIST. 1993. <span>“Integration Definition for Function Modeling
+(<span>IDEF0</span>).”</span> Federal Information Processing Standards
+Publication 183.
+</div>
+<div id="ref-norman2013" class="csl-entry" role="listitem">
+Norman, Don. 2013. <em>The Design of Everyday Things</em>. Revised and
+expanded. New York: Basic Books.
+</div>
+<div id="ref-oconnor2012" class="csl-entry" role="listitem">
+O’Connor, Patrick D. T., and Andre Kleyner. 2012. <em>Practical
+Reliability Engineering</em>. 5th ed. Chichester: Wiley.
+</div>
+<div id="ref-omg2011bpmn" class="csl-entry" role="listitem">
+Object Management Group. 2011. <span>“Business Process Model and
+Notation (<span>BPMN</span>), Version 2.0.”</span> OMG Document
+formal/2011-01-03.
+</div>
+<div id="ref-ohno1988" class="csl-entry" role="listitem">
+Ohno, Taiichi. 1988. <em>Toyota Production System: Beyond Large-Scale
+Production</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-omg2025sysml" class="csl-entry" role="listitem">
+OMG. 2025. <span>“<span>OMG</span> Systems Modeling Language
+(<span>SysML</span>), Version 2.0.”</span> Object Management Group,
+formális specifikáció (a KerML 1.0 és a Systems Modeling API and
+Services 1.0 specifikációval együtt). <a href="https://www.omg.org/spec/SysML/2.0/">https://www.omg.org/spec/SysML/2.0/</a>.
+</div>
+<div id="ref-osborn1953" class="csl-entry" role="listitem">
+Osborn, Alex F. 1953. <em>Applied Imagination: Principles and Procedures
+of Creative Thinking</em>. New York: Scribner.
+</div>
+<div id="ref-pahl2007" class="csl-entry" role="listitem">
+Pahl, Gerhard, Wolfgang Beitz, Jörg Feldhusen, and Karl-Heinrich Grote.
+2007. <em>Engineering Design: A Systematic Approach</em>. 3rd ed.
+London: Springer. <a href="https://doi.org/10.1007/978-1-84628-319-2">https://doi.org/10.1007/978-1-84628-319-2</a>.
+</div>
+<div id="ref-parasuraman1997" class="csl-entry" role="listitem">
+Parasuraman, Raja, and Victor Riley. 1997. <span>“Humans and Automation:
+Use, Misuse, Disuse, Abuse.”</span> <em>Human Factors</em> 39 (2):
+230–53. <a href="https://doi.org/10.1518/001872097778543886">https://doi.org/10.1518/001872097778543886</a>.
+</div>
+<div id="ref-parasuraman2000" class="csl-entry" role="listitem">
+Parasuraman, Raja, Thomas B. Sheridan, and Christopher D. Wickens. 2000.
+<span>“A Model for Types and Levels of Human Interaction with
+Automation.”</span> <em>IEEE Transactions on Systems, Man, and
+Cybernetics – Part A: Systems and Humans</em> 30 (3): 286–97. <a href="https://doi.org/10.1109/3468.844354">https://doi.org/10.1109/3468.844354</a>.
+</div>
+<div id="ref-parnell2017" class="csl-entry" role="listitem">
+Parnell, Gregory S., ed. 2017. <em>Trade-Off Analytics: Creating and
+Exploring the System Tradespace</em>. Hoboken, NJ: John Wiley &amp;
+Sons.
+</div>
+<div id="ref-parnell2013" class="csl-entry" role="listitem">
+Parnell, Gregory S., Terry A. Bresnick, Steven N. Tani, and Eric R.
+Johnson. 2013. <em>Handbook of Decision Analysis</em>. Hoboken, NJ: John
+Wiley &amp; Sons.
+</div>
+<div id="ref-phadke1989" class="csl-entry" role="listitem">
+Phadke, Madhav S. 1989. <em>Quality Engineering Using Robust
+Design</em>. Englewood Cliffs, NJ: Prentice Hall.
+</div>
+<div id="ref-pinedo2022" class="csl-entry" role="listitem">
+Pinedo, Michael L. 2022. <em>Scheduling: Theory, Algorithms, and
+Systems</em>. 6th ed. Cham: Springer. <a href="https://doi.org/10.1007/978-3-031-05921-6">https://doi.org/10.1007/978-3-031-05921-6</a>.
+</div>
+<div id="ref-price1985" class="csl-entry" role="listitem">
+Price, Harold E. 1985. <span>“The Allocation of Functions in
+Systems.”</span> <em>Human Factors</em> 27 (1): 33–45. <a href="https://doi.org/10.1177/001872088502700104">https://doi.org/10.1177/001872088502700104</a>.
+</div>
+<div id="ref-pmi2019wbs" class="csl-entry" role="listitem">
+Project Management Institute. 2019. <em>Practice Standard for Work
+Breakdown Structures</em>. 3rd ed. Newtown Square, PA: Project
+Management Institute.
+</div>
+<div id="ref-pugh1991" class="csl-entry" role="listitem">
+Pugh, Stuart. 1991. <em>Total Design: Integrated Methods for Successful
+Product Engineering</em>. Wokingham: Addison-Wesley.
+</div>
+<div id="ref-rasmussen1983" class="csl-entry" role="listitem">
+Rasmussen, Jens. 1983. <span>“Skills, Rules, and Knowledge; Signals,
+Signs, and Symbols, and Other Distinctions in Human Performance
+Models.”</span> <em>IEEE Transactions on Systems, Man, and
+Cybernetics</em> SMC-13 (3): 257–66. <a href="https://doi.org/10.1109/TSMC.1983.6313160">https://doi.org/10.1109/TSMC.1983.6313160</a>.
+</div>
+<div id="ref-reason1990" class="csl-entry" role="listitem">
+Reason, James. 1990. <em>Human Error</em>. Cambridge: Cambridge
+University Press.
+</div>
+<div id="ref-reason2000" class="csl-entry" role="listitem">
+———. 2000. <span>“Human Error: Models and Management.”</span>
+<em>BMJ</em> 320 (7237): 768–70. <a href="https://doi.org/10.1136/bmj.320.7237.768">https://doi.org/10.1136/bmj.320.7237.768</a>.
+</div>
+<div id="ref-rittel1973" class="csl-entry" role="listitem">
+Rittel, Horst W. J., and Melvin M. Webber. 1973. <span>“Dilemmas in a
+General Theory of Planning.”</span> <em>Policy Sciences</em> 4 (2):
+155–69.
+</div>
+<div id="ref-roedler2005" class="csl-entry" role="listitem">
+Roedler, Garry J., and Cheryl Jones. 2005. <span>“Technical Measurement:
+A Collaborative Project of <span>PSM</span>, <span>INCOSE</span>, and
+Industry.”</span> INCOSE-TP-2003-020-01. San Diego, CA: International
+Council on Systems Engineering.
+</div>
+<div id="ref-rohrbach1969" class="csl-entry" role="listitem">
+Rohrbach, Bernd. 1969. <span>“Kreativ Nach <span>Regeln</span> –
+<span>Methode</span> 635, Eine Neue <span>Technik</span> Zum
+<span>Lösen</span> von <span>Problemen</span>.”</span>
+<em>Absatzwirtschaft</em> 12: 73–76.
+</div>
+<div id="ref-rook1986" class="csl-entry" role="listitem">
+Rook, Paul. 1986. <span>“Controlling Software Projects.”</span>
+<em>Software Engineering Journal</em> 1 (1): 7–16. <a href="https://doi.org/10.1049/sej.1986.0003">https://doi.org/10.1049/sej.1986.0003</a>.
+</div>
+<div id="ref-rother1999" class="csl-entry" role="listitem">
+Rother, Mike, and John Shook. 1999. <em>Learning to See: Value Stream
+Mapping to Add Value and Eliminate MUDA</em>. Brookline, MA: Lean
+Enterprise Institute.
+</div>
+<div id="ref-rowe1999" class="csl-entry" role="listitem">
+Rowe, Gene, and George Wright. 1999. <span>“The <span>Delphi</span>
+Technique as a Forecasting Tool: Issues and Analysis.”</span>
+<em>International Journal of Forecasting</em> 15 (4): 353–75. <a href="https://doi.org/10.1016/S0169-2070(99)00018-7">https://doi.org/10.1016/S0169-2070(99)00018-7</a>.
+</div>
+<div id="ref-royce1970" class="csl-entry" role="listitem">
+Royce, Winston W. 1970. <span>“Managing the Development of Large
+Software Systems.”</span> In <em>Proceedings of IEEE WESCON</em>, 1–9.
+</div>
+<div id="ref-rubin2008" class="csl-entry" role="listitem">
+Rubin, Jeffrey, and Dana Chisnell. 2008. <em>Handbook of Usability
+Testing: How to Plan, Design, and Conduct Effective Tests</em>. 2nd ed.
+Indianapolis: Wiley.
+</div>
+<div id="ref-saaty1980" class="csl-entry" role="listitem">
+Saaty, Thomas L. 1980. <em>The Analytic Hierarchy Process</em>. New
+York: McGraw-Hill.
+</div>
+<div id="ref-saaty1990" class="csl-entry" role="listitem">
+———. 1990. <span>“How to Make a Decision: The Analytic Hierarchy
+Process.”</span> <em>European Journal of Operational Research</em> 48
+(1): 9–26.
+</div>
+<div id="ref-saltelli2008" class="csl-entry" role="listitem">
+Saltelli, Andrea, Marco Ratto, Terry Andres, Francesca Campolongo,
+Jessica Cariboni, Debora Gatelli, Michaela Saisana, and Stefano
+Tarantola. 2008. <em>Global Sensitivity Analysis: The Primer</em>.
+Chichester: John Wiley &amp; Sons.
+</div>
+<div id="ref-sargent2013" class="csl-entry" role="listitem">
+Sargent, Robert G. 2013. <span>“Verification and Validation of
+Simulation Models.”</span> <em>Journal of Simulation</em> 7 (1): 12–24.
+</div>
+<div id="ref-sauro2016" class="csl-entry" role="listitem">
+Sauro, Jeff, and James R. Lewis. 2016. <em>Quantifying the User
+Experience: Practical Statistics for User Research</em>. 2nd ed.
+Cambridge, MA: Morgan Kaufmann.
+</div>
+<div id="ref-scholl2006" class="csl-entry" role="listitem">
+Scholl, Armin, and Christian Becker. 2006. <span>“State-of-the-Art Exact
+and Heuristic Solution Procedures for Simple Assembly Line
+Balancing.”</span> <em>European Journal of Operational Research</em> 168
+(3): 666–93. <a href="https://doi.org/10.1016/j.ejor.2004.07.022">https://doi.org/10.1016/j.ejor.2004.07.022</a>.
+</div>
+<div id="ref-schroeder2008" class="csl-entry" role="listitem">
+Schroeder, Roger G., Kevin Linderman, Charles Liedtke, and Adrian S.
+Choo. 2008. <span>“Six Sigma: Definition and Underlying Theory.”</span>
+<em>Journal of Operations Management</em> 26 (4): 536–54. <a href="https://doi.org/10.1016/j.jom.2007.06.007">https://doi.org/10.1016/j.jom.2007.06.007</a>.
+</div>
+<div id="ref-schwaber2020" class="csl-entry" role="listitem">
+Schwaber, Ken, and Jeff Sutherland. 2020. <span>“The Scrum Guide: The
+Definitive Guide to Scrum: The Rules of the Game.”</span>
+scrumguides.org.
+</div>
+<div id="ref-sebok2025" class="csl-entry" role="listitem">
+SEBoK Editorial Board. 2025. <span>“The Guide to the Systems Engineering
+Body of Knowledge (<span>SEBoK</span>), v. 2.13.”</span> Hoboken, NJ:
+The Trustees of the Stevens Institute of Technology, <a href="https://sebokwiki.org" class="uri">https://sebokwiki.org</a>.
+</div>
+<div id="ref-shah2003" class="csl-entry" role="listitem">
+Shah, Jami J., Steve M. Smith, and Noe Vargas-Hernandez. 2003.
+<span>“Metrics for Measuring Ideation Effectiveness.”</span> <em>Design
+Studies</em> 24 (2): 111–34. <a href="https://doi.org/10.1016/S0142-694X(02)00034-0">https://doi.org/10.1016/S0142-694X(02)00034-0</a>.
+</div>
+<div id="ref-sheard1996" class="csl-entry" role="listitem">
+Sheard, Sarah A. 1996. <span>“Twelve Systems Engineering Roles.”</span>
+In <em>Proceedings of the 6th Annual International Symposium of
+INCOSE</em>. Boston, MA.
+</div>
+<div id="ref-sheridan1978" class="csl-entry" role="listitem">
+Sheridan, Thomas B., and William L. Verplank. 1978. <span>“Human and
+Computer Control of Undersea Teleoperators.”</span> Cambridge, MA: MIT
+Man-Machine Systems Laboratory.
+</div>
+<div id="ref-shewhart1931" class="csl-entry" role="listitem">
+Shewhart, Walter A. 1931. <em>Economic Control of Quality of
+Manufactured Product</em>. New York: Van Nostrand.
+</div>
+<div id="ref-shingo1985" class="csl-entry" role="listitem">
+Shingo, Shigeo. 1985. <em>A Revolution in Manufacturing: The SMED
+System</em>. Stamford, CT: Productivity Press.
+</div>
+<div id="ref-shingo1986" class="csl-entry" role="listitem">
+———. 1986. <em>Zero Quality Control: Source Inspection and the Poka-Yoke
+System</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-silver2016" class="csl-entry" role="listitem">
+Silver, Edward A., David F. Pyke, and Douglas J. Thomas. 2016.
+<em>Inventory and Production Management in Supply Chains</em>. 4th ed.
+Boca Raton: CRC Press. <a href="https://doi.org/10.1201/9781315374406">https://doi.org/10.1201/9781315374406</a>.
+</div>
+<div id="ref-simon1956" class="csl-entry" role="listitem">
+Simon, Herbert A. 1956. <span>“Rational Choice and the Structure of the
+Environment.”</span> <em>Psychological Review</em> 63 (2): 129–38. <a href="https://doi.org/10.1037/h0042769">https://doi.org/10.1037/h0042769</a>.
+</div>
+<div id="ref-simon1962" class="csl-entry" role="listitem">
+———. 1962. <span>“The Architecture of Complexity.”</span>
+<em>Proceedings of the American Philosophical Society</em> 106 (6):
+467–82.
+</div>
+<div id="ref-snowden2007" class="csl-entry" role="listitem">
+Snowden, David J., and Mary E. Boone. 2007. <span>“A Leader’s Framework
+for Decision Making.”</span> <em>Harvard Business Review</em> 85 (11):
+68–76.
+</div>
+<div id="ref-sosa2004" class="csl-entry" role="listitem">
+Sosa, Manuel E., Steven D. Eppinger, and Craig M. Rowles. 2004.
+<span>“The Misalignment of Product Architecture and Organizational
+Structure in Complex Product Development.”</span> <em>Management
+Science</em> 50 (12): 1674–89. <a href="https://doi.org/10.1287/mnsc.1040.0289">https://doi.org/10.1287/mnsc.1040.0289</a>.
+</div>
+<div id="ref-stanton2006" class="csl-entry" role="listitem">
+Stanton, Neville A. 2006. <span>“Hierarchical Task Analysis:
+Developments, Applications, and Extensions.”</span> <em>Applied
+Ergonomics</em> 37 (1): 55–79. <a href="https://doi.org/10.1016/j.apergo.2005.06.003">https://doi.org/10.1016/j.apergo.2005.06.003</a>.
+</div>
+<div id="ref-sterman2000" class="csl-entry" role="listitem">
+Sterman, John D. 2000. <em>Business Dynamics: Systems Thinking and
+Modeling for a Complex World</em>. Boston: Irwin/McGraw-Hill.
+</div>
+<div id="ref-steward1981" class="csl-entry" role="listitem">
+Steward, Donald V. 1981. <span>“The Design Structure System: A Method
+for Managing the Design of Complex Systems.”</span> <em>IEEE
+Transactions on Engineering Management</em> EM-28 (3): 71–74.
+</div>
+<div id="ref-sullivan2019" class="csl-entry" role="listitem">
+Sullivan, William G., Elin M. Wicks, and C. Patrick Koelling. 2019.
+<em>Engineering Economy</em>. 17th ed. Hoboken, NJ: Pearson.
+</div>
+<div id="ref-swain1983" class="csl-entry" role="listitem">
+Swain, Alan D., and H. E. Guttmann. 1983. <span>“Handbook of Human
+Reliability Analysis with Emphasis on Nuclear Power Plant
+Applications.”</span> NUREG/CR-1278. Washington, DC: U.S. Nuclear
+Regulatory Commission.
+</div>
+<div id="ref-taguchi2005" class="csl-entry" role="listitem">
+Taguchi, Genichi, Subir Chowdhury, and Yuin Wu. 2005. <em>Taguchi’s
+Quality Engineering Handbook</em>. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-tversky1974" class="csl-entry" role="listitem">
+Tversky, Amos, and Daniel Kahneman. 1974. <span>“Judgment Under
+Uncertainty: Heuristics and Biases.”</span> <em>Science</em> 185 (4157):
+1124–31.
+</div>
+<div id="ref-ulrich1995" class="csl-entry" role="listitem">
+Ulrich, Karl. 1995. <span>“The Role of Product Architecture in the
+Manufacturing Firm.”</span> <em>Research Policy</em> 24 (3): 419–40.
+</div>
+<div id="ref-milstd1629a" class="csl-entry" role="listitem">
+U.S. Department of Defense. 1980. <span>“<span>MIL-STD</span>-1629A
+Procedures for Performing a Failure Mode, Effects and Criticality
+Analysis.”</span> U.S. Department of Defense, Washington, DC.
+</div>
+<div id="ref-milstd46855a" class="csl-entry" role="listitem">
+———. 2011. <span>“<span>MIL-STD-46855A</span> Department of Defense
+Standard Practice: Human Engineering Requirements for Military Systems,
+Equipment, and Facilities.”</span> U.S. Department of Defense,
+Washington, DC.
+</div>
+<div id="ref-milstd882e" class="csl-entry" role="listitem">
+———. 2012. <span>“<span>MIL-STD</span>-882E Department of Defense
+Standard Practice: System Safety.”</span> U.S. Department of Defense,
+Washington, DC.
+</div>
+<div id="ref-milhdbk61b" class="csl-entry" role="listitem">
+———. 2020. <span>“<span>MIL-HDBK-61B</span>: Configuration Management
+Guidance.”</span> Kézikönyv.
+</div>
+<div id="ref-milstd881f" class="csl-entry" role="listitem">
+———. 2022. <span>“<span>MIL-STD-881F</span>: Work Breakdown Structures
+for Defense Materiel Items.”</span> Szabvány.
+</div>
+<div id="ref-vda2018_8d" class="csl-entry" role="listitem">
+VDA QMC. 2018. <span>“8D – Problem Solving in 8 Disciplines: Method,
+Process, Report.”</span> Verband der Automobilindustrie, Qualitäts
+Management Center, Berlin, 1. kiadás.
+</div>
+<div id="ref-vesely1981" class="csl-entry" role="listitem">
+Vesely, William E., Francine F. Goldberg, Norman H. Roberts, and David
+F. Haasl. 1981. <span>“Fault Tree Handbook.”</span> NUREG-0492.
+Washington, DC: U.S. Nuclear Regulatory Commission.
+</div>
+<div id="ref-vincent2006" class="csl-entry" role="listitem">
+Vincent, Julian F. V., Olga A. Bogatyreva, Nikolaj R. Bogatyrev, Adrian
+Bowyer, and Anja-Karina Pahl. 2006. <span>“Biomimetics: Its Practice and
+Theory.”</span> <em>Journal of the Royal Society Interface</em> 3 (9):
+471–82.
+</div>
+<div id="ref-virzi1992" class="csl-entry" role="listitem">
+Virzi, Robert A. 1992. <span>“Refining the Test Phase of Usability
+Evaluation: How Many Subjects Is Enough?”</span> <em>Human Factors</em>
+34 (4): 457–68. <a href="https://doi.org/10.1177/001872089203400407">https://doi.org/10.1177/001872089203400407</a>.
+</div>
+<div id="ref-vogel1998" class="csl-entry" role="listitem">
+Vogel, Steven. 1998. <em>Cats’ Paws and Catapults: Mechanical Worlds of
+Nature and People</em>. New York: W. W. Norton.
+</div>
+<div id="ref-voirin2017" class="csl-entry" role="listitem">
+Voirin, Jean-Luc. 2017. <em>Model-Based System and Architecture
+Engineering with the <span>Arcadia</span> Method</em>. London: ISTE
+Press – Elsevier.
+</div>
+<div id="ref-wallas1926" class="csl-entry" role="listitem">
+Wallas, Graham. 1926. <em>The Art of Thought</em>. New York: Harcourt,
+Brace; Company.
+</div>
+<div id="ref-deweck2011" class="csl-entry" role="listitem">
+Weck, Olivier L. de, Daniel Roos, and Christopher L. Magee. 2011.
+<em>Engineering Systems: Meeting Human Needs in a Complex Technological
+World</em>. Cambridge, MA: MIT Press.
+</div>
+<div id="ref-weibull1951" class="csl-entry" role="listitem">
+Weibull, Waloddi. 1951. <span>“A Statistical Distribution Function of
+Wide Applicability.”</span> <em>Journal of Applied Mechanics</em> 18
+(3): 293–97.
+</div>
+<div id="ref-incose2024nrm" class="csl-entry" role="listitem">
+Wheatcraft, Louis S., Michael J. Ryan, and Tami Edner Katz. 2025.
+<em><span>INCOSE</span> Needs and Requirements Manual: Needs,
+Requirements, Verification, Validation Across the Lifecycle</em>.
+Hoboken, NJ: John Wiley &amp; Sons.
+</div>
+<div id="ref-williams2008" class="csl-entry" role="listitem">
+Williams, Christine, and Mary-Ellen Derro. 2008.
+<span>“<span>NASA</span> Systems Engineering Behavior Study.”</span>
+NASA Office of the Chief Engineer. <a href="https://appel.nasa.gov/critical-knowledge/case-studies/nasa-systems-engineering-behavior-study/">https://appel.nasa.gov/critical-knowledge/case-studies/nasa-systems-engineering-behavior-study/</a>.
+</div>
+<div id="ref-williams1988" class="csl-entry" role="listitem">
+Williams, J. C. 1988. <span>“A Data-Based Method for Assessing and
+Reducing Human Error to Improve Operational Performance.”</span> In
+<em>Proceedings of the IEEE Fourth Conference on Human Factors and Power
+Plants</em>, 436–50. Monterey, CA.
+</div>
+<div id="ref-wilson2003" class="csl-entry" role="listitem">
+Wilson, James M. 2003. <span>“Gantt Charts: A Centenary
+Appreciation.”</span> <em>European Journal of Operational Research</em>
+149 (2): 430–37. <a href="https://doi.org/10.1016/S0377-2217(02)00769-5">https://doi.org/10.1016/S0377-2217(02)00769-5</a>.
+</div>
+<div id="ref-dewinter2014" class="csl-entry" role="listitem">
+Winter, J. C. F. de, and D. Dodou. 2014. <span>“Why the
+<span>Fitts</span> List Has Persisted Throughout the History of Function
+Allocation.”</span> <em>Cognition, Technology &amp; Work</em> 16 (1):
+1–11. <a href="https://doi.org/10.1007/s10111-011-0188-1">https://doi.org/10.1007/s10111-011-0188-1</a>.
+</div>
+<div id="ref-zwicky1969" class="csl-entry" role="listitem">
+Zwicky, Fritz. 1969. <em>Discovery, Invention, Research Through the
+Morphological Approach</em>. New York: Macmillan.
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./fejezetek/26-menedzsment.html" class="pagination-link" aria-label="Technikai tervezés és irányítás">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./fuggelek/a-esettanulmanyok.html" class="pagination-link" aria-label="A futó esettanulmányok">
+        <span class="nav-page-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/irodalom.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/irodalom.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

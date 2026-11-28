@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>18&nbsp; Robusztus tervezés és tűrések – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/19-folyamatelemzes.html" rel="next">
+<link href="../fejezetek/17-biztonsag.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/18-robusztus.html"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/18-robusztus.html"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-robusztus" class="quarto-section-identifier"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-rob-erzekenyseg" id="toc-sec-rob-erzekenyseg" class="nav-link active" data-scroll-target="#sec-rob-erzekenyseg"><span class="header-section-number">18.1.</span> Érzékenységvizsgálat</a></li>
+  <li><a href="#sec-rob-turesek" id="toc-sec-rob-turesek" class="nav-link" data-scroll-target="#sec-rob-turesek"><span class="header-section-number">18.2.</span> Méretezés és tűréslánc</a></li>
+  <li><a href="#sec-rob-taguchi" id="toc-sec-rob-taguchi" class="nav-link" data-scroll-target="#sec-rob-taguchi"><span class="header-section-number">18.3.</span> A minőségi veszteségfüggvény</a></li>
+  <li><a href="#sec-rob-doe" id="toc-sec-rob-doe" class="nav-link" data-scroll-target="#sec-rob-doe"><span class="header-section-number">18.4.</span> Kísérlettervezés</a></li>
+  <li><a href="#sec-rob-valoszinusegi" id="toc-sec-rob-valoszinusegi" class="nav-link" data-scroll-target="#sec-rob-valoszinusegi"><span class="header-section-number">18.5.</span> Valószínűségi tervezés</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/18-robusztus.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/18-robusztus.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-robusztus.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a fejezet helye a rendszerfejlesztés folyamatában"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>érzékenységvizsgálattal azonosítani a rendszer teljesítményét leginkább befolyásoló paramétereket;</li>
+<li>tűrésláncot számítani legrosszabb eset, négyzetes összegzés (RSS) és Monte Carlo-szimuláció alapján, és megítélni a módszerek feltevéseit;</li>
+<li>elmagyarázni a Taguchi-féle minőségi veszteségfüggvényt, és kiszámítani a várható veszteséget;</li>
+<li>teljes faktoros kísérletet tervezni és kiértékelni, főhatásokat és kölcsönhatásokat értelmezni;</li>
+<li>megkülönböztetni a tervezési és a zajtényezőket, és kölcsönhatásuk kihasználásával robusztus beállítást választani;</li>
+<li>terhelés–szilárdság interferenciával megbízhatóságot becsülni, és összevetni a biztonsági tényező szemléletével.</li>
+</ul>
+</div></div>
+<p>A korábbi fejezetek a meghibásodással foglalkoztak: mi romolhat el, milyen valószínűséggel, és mi a következménye. A minőségi problémák nagy része azonban nem meghibásodásból, hanem <strong>szórásból</strong> fakad: az alkatrészek méretei, az anyagjellemzők, a környezeti feltételek és a használat módja ingadozik, és a rendszer teljesítménye ezzel együtt ingadozik. A <strong>robusztus tervezés</strong> célja olyan rendszer, amelynek teljesítménye a lehető legkevésbé érzékeny ezekre az ingadozásokra. A fejezet a robusztus tervezés legfontosabb eszközeit mutatja be: az érzékenységvizsgálatot, a méretezést és a tűrésláncot, a minőségi veszteségfüggvényt, a kísérlettervezést és a valószínűségi tervezést <span class="citation" data-cites="phadke1989 taguchi2005 goldberg1994toolbox">(<a href="../irodalom.html#ref-phadke1989" role="doc-biblioref">Phadke 1989</a>; <a href="../irodalom.html#ref-taguchi2005" role="doc-biblioref">Taguchi, Chowdhury, és Wu 2005</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 4</a>. fejezet)</span>.</p>
+<p>A fejezet négy kérdésre épül:</p>
+<ul>
+<li>Melyik paraméter számít igazán?</li>
+<li>Hogyan halmozódnak az alkatrészek tűrései az összeállításban?</li>
+<li>Mennyibe kerül az eltérés a célértéktől, és hogyan csökkenthető a szórás érzékenysége?</li>
+<li>Hogyan becsülhető a tönkremenetel valószínűsége a biztonsági tényező helyett?</li>
+</ul>
+<section id="sec-rob-erzekenyseg" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="sec-rob-erzekenyseg"><span class="header-section-number">18.1.</span> Érzékenységvizsgálat</h2>
+<p>Az <strong>érzékenységvizsgálat</strong> (paraméteres elemzés) azt vizsgálja, hogyan változik a rendszer egy jellemzője, ha egy tervezési paraméter megváltozik <span class="citation" data-cites="saltelli2008">(<a href="../irodalom.html#ref-saltelli2008" role="doc-biblioref">Saltelli és mtsai. 2008</a>)</span>. Legegyszerűbb formája az egyparaméteres változtatás: a többi paramétert névleges értékén tartva egyet változtatunk, és figyeljük a kimenetet. A paraméterek összevetéséhez a <strong>relatív érzékenység</strong> (rugalmasság) a hasznos:</p>
+<p><span id="eq-rugalmassag"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><mi>x</mi></msub><mo>=</mo><mfrac><mrow><mi>∂</mi><mi>y</mi></mrow><mrow><mi>∂</mi><mi>x</mi></mrow></mfrac><mo>⋅</mo><mfrac><mi>x</mi><mi>y</mi></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>18.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+E_x = \frac{\partial y}{\partial x} \cdot \frac{x}{y},
+ \qquad(18.1)</annotation></semantics></math></span></p>
+<p>amely megmutatja, hogy a paraméter 1%-os változása hány százalékkal változtatja a kimenetet. A KoboCella soros ciklusideje (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>=</mo><mn>58</mn><mo>,</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">T = 58{,}6</annotation></semantics></math> s, <a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet) például a nyolc csavar meghúzási idejétől <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25</mn><mo>,</mo><mn>6</mn><mi>/</mi><mn>58</mn><mo>,</mo><mn>6</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>44</mn></mrow><annotation encoding="application/x-tex">25{,}6/58{,}6 = 0{,}44</annotation></semantics></math>, a kezelő idejétől <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>18</mn><mi>/</mi><mn>58</mn><mo>,</mo><mn>6</mn><mo>=</mo><mn>0</mn><mo>,</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">18/58{,}6 = 0{,}31</annotation></semantics></math> rugalmassággal függ: a csavarozás 10%-os gyorsítása 4,4%-kal rövidíti a ciklust, a kezelő 10%-kal gyorsabb munkája csak 3,1%-kal. Az érzékenységvizsgálat ezzel megmutatja, hova érdemes a fejlesztési erőforrást összpontosítani; a döntéselemzésben a súlyok érzékenységét ugyanígy vizsgáltuk (<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet).</p>
+<p>Az egyparaméteres vizsgálat nem mutatja meg a paraméterek kölcsönhatását: két paraméter együttes változásának hatása eltérhet az egyenkénti hatások összegétől. Ezt a kísérlettervezés és a Monte Carlo-szimuláció tárja fel (lásd alább).</p>
+</section>
+<section id="sec-rob-turesek" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="sec-rob-turesek"><span class="header-section-number">18.2.</span> Méretezés és tűréslánc</h2>
+<p>Minden gyártott méret ingadozik, ezért a rajzon a névleges érték mellett a megengedett eltérést, a <strong>tűrést</strong> is meg kell adni. A méretezés és a tűrésmegadás szabályait (beleértve a geometriai tűréseket: alak, helyzet, irány) szabvány rögzíti <span class="citation" data-cites="asmey145_2018">(<a href="../irodalom.html#ref-asmey145_2018" role="doc-biblioref">ASME 2018</a>)</span>. Összeállításban az alkatrészek tűrései <strong>tűrésláncot</strong> alkotnak: egy funkcionálisan fontos méret (rés, átfedés, összenyomódás) több alkatrész méretének összegeként vagy különbségeként adódik. A tűrésláncot két klasszikus módon számolják <span class="citation" data-cites="chase1991">(<a href="../irodalom.html#ref-chase1991" role="doc-biblioref">Chase és Parkinson 1991</a>)</span>:</p>
+<ul>
+<li><strong>Legrosszabb eset:</strong> az eredő tűrés a tagok tűréseinek összege, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>Z</mi></msub><mo>=</mo><mo>∑</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi>a</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><msub><mi>T</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">T_Z = \sum |a_i| T_i</annotation></semantics></math>, ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>a</mi><mi>i</mi></msub><annotation encoding="application/x-tex">a_i</annotation></semantics></math> a tag érzékenysége (lineáris láncnál <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 1</annotation></semantics></math>). Garantálja, hogy minden összeállítás a határon belül marad, de sok tagnál nagyon szoros, drága alkatrésztűréseket követel.</li>
+<li><strong>Statisztikus (négyzetes) összegzés (RSS):</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>Z</mi></msub><mo>=</mo><msqrt><mrow><mo>∑</mo><msubsup><mi>a</mi><mi>i</mi><mn>2</mn></msubsup><msubsup><mi>T</mi><mi>i</mi><mn>2</mn></msubsup></mrow></msqrt></mrow><annotation encoding="application/x-tex">T_Z = \sqrt{\sum a_i^2 T_i^2}</annotation></semantics></math>. Feltételezi, hogy a tagok egymástól függetlenek, normális eloszlásúak, a tűrésmező közepére szórnak, és a tűrés például <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>3</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\pm 3\sigma</annotation></semantics></math>-nak felel meg. Ekkor a szélső értékek együttes előfordulása nagyon valószínűtlen, és lazább alkatrésztűrések is elegendők.</li>
+</ul>
+<p>Ha a feltevések nem teljesülnek (eltolt középérték, nem normális eloszlás, összefüggő tagok, nemlineáris lánc), a <strong>Monte Carlo-szimuláció</strong> ad megbízható eredményt: a tagokat a tényleges eloszlásukból mintázzuk, és az eredő méret eloszlását közvetlenül számoljuk <span class="citation" data-cites="chase1991">(<a href="../irodalom.html#ref-chase1991" role="doc-biblioref">Chase és Parkinson 1991</a>)</span>.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a fedéltömítés összenyomódása</div><div class="doboz-tartalom">
+<p>A fordított fedél hibamódja után (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet) a csapat a helyesen felhelyezett fedél tömítését is megvizsgálta. A tömítés akkor zár megbízhatóan, ha összenyomódása 0,40 és 0,80 mm között van. Az összenyomódás négy méretből adódik: a tömítés vastagsága (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>50</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>08</mn></mrow><annotation encoding="application/x-tex">2{,}50 \pm 0{,}08</annotation></semantics></math> mm, +), a fedél horonymélysége (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>20</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>05</mn></mrow><annotation encoding="application/x-tex">2{,}20 \pm 0{,}05</annotation></semantics></math> mm, −), a motorház tömítőperemének magassága (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>30</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>06</mn></mrow><annotation encoding="application/x-tex">0{,}30 \pm 0{,}06</annotation></semantics></math> mm, +) és a fedél síklapúsági eltérése (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>05</mn></mrow><annotation encoding="application/x-tex">0 \pm 0{,}05</annotation></semantics></math> mm, −). A névleges összenyomódás 0,60 mm.</p>
+<p>A legrosszabb eset szerint az eredő tűrés <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0</mn><mo>,</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">\pm 0{,}24</annotation></semantics></math> mm, így az összenyomódás 0,36 és 0,84 mm között lehet: a követelmény nem teljesül. Az RSS szerint az eredő tűrés <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0</mn><mo>,</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">\pm 0{,}12</annotation></semantics></math> mm (0,48–0,72 mm), és ha a tűrések <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>3</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">\pm 3\sigma</annotation></semantics></math>-nak felelnek meg, az összenyomódás szórása 0,041 mm, a folyamatképesség <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>p</mi></msub><mo>=</mo><mn>1</mn><mo>,</mo><mn>63</mn></mrow><annotation encoding="application/x-tex">C_p = 1{,}63</annotation></semantics></math> (<a href="#fig-tureslanc" class="quarto-xref"><span>18.1</span></a>. ábra). A csapat a statisztikus méretezést fogadta el, mert napi mintegy 610 motornál a nagy darabszám indokolja, és a beszállítók folyamatképessége mérésekkel igazolható. Kikötötte viszont, hogy a tömítés vastagságát és a horonymélységet a beszállítók statisztikai folyamatszabályozással felügyeljék, mert a középérték eltolódása a statisztikus számítás legfontosabb feltevését rontaná. A Gyakorlati útmutató notebookja Monte Carlo-szimulációval azt is megmutatja, mekkora eltolódás fér bele a követelménybe.</p>
+<div id="fig-tureslanc" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tureslanc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/tureslanc.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tureslanc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">18.1. ábra.</span> A tömítés összenyomódásának eloszlása az RSS-feltevések mellett, a legrosszabb eset és az RSS-tartomány a követelmény határaival.
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="sec-rob-taguchi" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="sec-rob-taguchi"><span class="header-section-number">18.3.</span> A minőségi veszteségfüggvény</h2>
+<p>A hagyományos minőségszemlélet szerint a tűrésmezőn belüli termék jó, a kívüli rossz („kapufa-szemlélet”). Taguchi szerint azonban a célértéktől való minden eltérés veszteséget okoz a társadalomnak: a vevőnek, a gyártónak és a környezetnek, és ez a veszteség a célértéktől távolodva négyzetesen nő <span class="citation" data-cites="taguchi2005">(<a href="../irodalom.html#ref-taguchi2005" role="doc-biblioref">Taguchi, Chowdhury, és Wu 2005</a>)</span> (<a href="#fig-taguchi-veszteseg" class="quarto-xref"><span>18.2</span></a>. ábra):</p>
+<p><span id="eq-veszteseg"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>k</mi><mspace width="0.167em"></mspace><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>−</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo><mspace width="2.0em"></mspace><mi>k</mi><mo>=</mo><mfrac><msub><mi>A</mi><mn>0</mn></msub><msubsup><mi>Δ</mi><mn>0</mn><mn>2</mn></msubsup></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>18.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+L(y) = k\,(y - m)^2, \qquad k = \frac{A_0}{\Delta_0^2},
+ \qquad(18.2)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> a célérték, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Δ</mi><mn>0</mn></msub><annotation encoding="application/x-tex">\Delta_0</annotation></semantics></math> az a funkcionális eltérés, amelynél a termék már nem teljesíti a funkcióját, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mn>0</mn></msub><annotation encoding="application/x-tex">A_0</annotation></semantics></math> pedig az ekkor fellépő veszteség (javítás, csere, reklamáció). Egy <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> középértékű, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> szórású folyamat darabonkénti várható vesztesége:</p>
+<p><span id="eq-varhato-veszteseg"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>L</mi><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mi>k</mi><mrow><mo stretchy="true" form="prefix">[</mo><msup><mi>σ</mi><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>μ</mi><mo>−</mo><mi>m</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>18.3</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\mathrm{E}[L] = k\left[\sigma^2 + (\mu - m)^2\right].
+ \qquad(18.3)</annotation></semantics></math></span></p>
+<p>A képlet a robusztus tervezés két irányát mutatja: a középértéket a célértékre kell állítani, és a szórást kell csökkenteni. Mindkettő pénzben kifejezhető, így az intézkedések költsége összevethető a veszteségcsökkentéssel.</p>
+<div id="fig-taguchi-veszteseg" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-taguchi-veszteseg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/taguchi-veszteseg.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-taguchi-veszteseg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">18.2. ábra.</span> A tűrésmezős szemlélet és a Taguchi-féle négyzetes veszteségfüggvény a csavarkötés nyomatékára.
+</figcaption>
+</figure>
+</div>
+<p>Ha például a KoboCella csavarkötésének nyomatéka <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>,</mo><mn>0</mn><mo>±</mo><mn>0</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">4{,}0 \pm 0{,}2</annotation></semantics></math> Nm, és a tűréshatáron egy motor javítása 1000 Ft-ba kerül, akkor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1000</mn><mi>/</mi><mn>0</mn><mo>,</mo><msup><mn>2</mn><mn>2</mn></msup><mo>=</mo><mn>25</mn><mspace width="0.167em"></mspace><mn>000</mn></mrow><annotation encoding="application/x-tex">k = 1000/0{,}2^2 = 25\,000</annotation></semantics></math> Ft/Nm². A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>4</mn><mo>,</mo><mn>02</mn></mrow><annotation encoding="application/x-tex">\mu = 4{,}02</annotation></semantics></math> Nm középértékű, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>05</mn></mrow><annotation encoding="application/x-tex">\sigma = 0{,}05</annotation></semantics></math> Nm szórású folyamat várható vesztesége <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>25</mn><mspace width="0.167em"></mspace><mn>000</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>0025</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>0004</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>72</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">25\,000 \cdot (0{,}0025 + 0{,}0004) = 72{,}5</annotation></semantics></math> Ft darabonként, évi 140 000 motornál mintegy 10 MFt. Ha a szórás 0,03 Nm-re csökken, és a középérték a célértékre kerül, a veszteség 22,5 Ft-ra, évente 3,2 MFt-ra csökken, pedig a tűrésmezős szemlélet szerint mindkét folyamat „hibátlan” termékeket gyárt.</p>
+</section>
+<section id="sec-rob-doe" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="sec-rob-doe"><span class="header-section-number">18.4.</span> Kísérlettervezés</h2>
+<p>A kísérlettervezés (design of experiments, DoE) arra szolgál, hogy a lehető legkevesebb kísérlettel megtudjuk, mely tényezők és milyen kölcsönhatásaik befolyásolják a vizsgált jellemzőt <span class="citation" data-cites="montgomery2017">(<a href="../irodalom.html#ref-montgomery2017" role="doc-biblioref">Montgomery 2017</a>)</span>. A „egyszerre egy tényező” módszerrel szemben a faktoros kísérlet minden tényezőt egyszerre változtat, így kevesebb kísérletből több információt ad, és a kölcsönhatásokat is feltárja.</p>
+<p>A <strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mi>k</mi></msup><annotation encoding="application/x-tex">2^k</annotation></semantics></math> teljes faktoros kísérletben</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> tényező mindegyikét két szinten (kódolva <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">-1</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">+1</annotation></semantics></math>) vizsgáljuk, minden kombinációban. Egy tényező <strong>főhatása</strong> a válasz átlaga a felső szinten mínusz az átlag az alsó szinten; két tényező <strong>kölcsönhatása</strong> azt mutatja, mennyiben függ az egyik hatása a másik szintjétől. Montgomery a kísérletezés három alapelvét emeli ki: a <strong>véletlen sorrendet</strong> (hogy az időben változó zavaró hatások ne torzítsák az eredményt), az <strong>ismétlést</strong> (a kísérleti hiba becslésére) és a <strong>blokkosítást</strong> (az ismert zavaró tényezők kiszűrésére) <span class="citation" data-cites="montgomery2017">(<a href="../irodalom.html#ref-montgomery2017" role="doc-biblioref">Montgomery 2017</a>)</span>. Sok tényezőnél a <strong>részfaktoros</strong> tervek a kombinációk egy jól választott részhalmazával dolgoznak, a magasabb rendű kölcsönhatások összemosása árán.</p>
+<p>Taguchi <strong>paramétertervezése</strong> a kísérletezést a robusztusság szolgálatába állítja. Megkülönbözteti a <strong>tervezési tényezőket</strong>, amelyeket a tervező szabadon beállíthat, és a <strong>zajtényezőket</strong>, amelyek a gyártásban vagy a használatban ingadoznak, és nem, vagy csak drágán szabályozhatók (környezeti hőmérséklet, anyagingadozás, kopás). A cél olyan tervezési beállítás, amelynél a zajtényezők hatása a legkisebb, és ehhez éppen a tervezési és a zajtényezők közötti kölcsönhatást használja ki <span class="citation" data-cites="phadke1989 taguchi2005">(<a href="../irodalom.html#ref-phadke1989" role="doc-biblioref">Phadke 1989</a>; <a href="../irodalom.html#ref-taguchi2005" role="doc-biblioref">Taguchi, Chowdhury, és Wu 2005</a>)</span>. Taguchi a robusztusságot jel–zaj viszonnyal méri; Montgomery szerint ugyanez a cél általában hatékonyabban elérhető, ha a választ a tervezési és a zajtényezők függvényeként modellezzük, és a modellből választjuk ki a robusztus beállítást <span class="citation" data-cites="montgomery2017">(<a href="../irodalom.html#ref-montgomery2017" role="doc-biblioref">Montgomery 2017</a>)</span>.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: robusztus csavarozási stratégia</div><div class="doboz-tartalom">
+<p>A QFD-ből tudjuk (<a href="07-qfd.html" class="quarto-xref"><span>7</span></a>. fejezet), hogy a nyomaték pontosságát a bitbetét kopása erősen befolyásolja. A csapat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>2</mn><mn>3</mn></msup><annotation encoding="application/x-tex">2^3</annotation></semantics></math> teljes faktoros kísérletet végzett két ismétléssel (16 csavarozás véletlen sorrendben). Tényezők: A a végső fordulatszám (alacsony, magas), B a csavarozási stratégia (egylépcsős, kétlépcsős: gyors előhúzás, majd lassú meghúzás), C a bitbetét állapota (új, kopott). Az A és a B tervezési tényező, a C zajtényező: a kopás a gyártásban elkerülhetetlen.</p>
+<p>A főhatások: A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>0</mn><mo>,</mo><mn>086</mn></mrow><annotation encoding="application/x-tex">+0{,}086</annotation></semantics></math> Nm, C <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mn>0</mn><mo>,</mo><mn>092</mn></mrow><annotation encoding="application/x-tex">-0{,}092</annotation></semantics></math> Nm, B elhanyagolható; a legnagyobb kölcsönhatás a B×C (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>+</mi><mn>0</mn><mo>,</mo><mn>065</mn></mrow><annotation encoding="application/x-tex">+0{,}065</annotation></semantics></math> Nm). A kölcsönhatás a robusztusság kulcsa (<a href="#fig-doe-kolcsonhatas" class="quarto-xref"><span>18.3</span></a>. ábra): egylépcsős stratégiánál a kopott bitbetét <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>157</mn></mrow><annotation encoding="application/x-tex">0{,}157</annotation></semantics></math> Nm-rel csökkenti a nyomatékot, kétlépcsősnél csak <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>028</mn></mrow><annotation encoding="application/x-tex">0{,}028</annotation></semantics></math> Nm-rel. A kétlépcsős stratégia tehát a zajtényezőre majdnem érzéketlen. A csapat ezt választotta, a fordulatszámmal pedig a középértéket állította a célértékre. A bitcsere-tervet (<a href="15-fmea.html" class="quarto-xref"><span>15</span></a>. fejezet) megtartotta, de a cseréket ritkíthatta.</p>
+<div id="fig-doe-kolcsonhatas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-doe-kolcsonhatas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/doe-kolcsonhatas.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-doe-kolcsonhatas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">18.3. ábra.</span> A bitbetét állapotának hatása a nyomatékra a két csavarozási stratégiánál (B×C kölcsönhatás).
+</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="sec-rob-valoszinusegi" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="sec-rob-valoszinusegi"><span class="header-section-number">18.5.</span> Valószínűségi tervezés</h2>
+<p>A hagyományos méretezés <strong>biztonsági tényezővel</strong> dolgozik: az alkatrész szilárdsága legyen a várható terhelés valahányszorosa. A biztonsági tényező azonban nem mondja meg, mekkora a tönkremenetel valószínűsége, mert sem a terhelés, sem a szilárdság szórását nem veszi figyelembe. A <strong>valószínűségi tervezés</strong> mindkettőt valószínűségi változóként kezeli, és a tönkremenetel valószínűségét az eloszlásaik átfedéséből (<strong>terhelés–szilárdság interferencia</strong>) számítja <span class="citation" data-cites="oconnor2012 goldberg1994toolbox">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>; <a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">Goldberg és mtsai. 1994, 3.14</a>. szakasz)</span>. Normális eloszlású, független terhelés (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>) és szilárdság (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>) esetén:</p>
+<p><span id="eq-interferencia"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>P</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo>&gt;</mo><mi>L</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>Φ</mi><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><msub><mi>μ</mi><mi>S</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>L</mi></msub></mrow><msqrt><mrow><msubsup><mi>σ</mi><mi>S</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>σ</mi><mi>L</mi><mn>2</mn></msubsup></mrow></msqrt></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>18.4</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+R = P(S &gt; L) = \Phi\!\left(\frac{\mu_S - \mu_L}{\sqrt{\sigma_S^2 + \sigma_L^2}}\right),
+ \qquad(18.4)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Φ</mi><annotation encoding="application/x-tex">\Phi</annotation></semantics></math> a standard normális eloszlásfüggvény. A módszer a biztonsági tényezők gyakorlati alternatívája, de jelentős statisztikai tapasztalatot kíván. Eredménye erősen függ az eloszlások szélétől, ezért csak akkor megbízható, ha a felhasznált adatok a tervezett populációra érvényesek <span class="citation" data-cites="oconnor2012">(<a href="../irodalom.html#ref-oconnor2012" role="doc-biblioref">O’Connor és Kleyner 2012</a>)</span>.</p>
+<div class="doboz doboz-esetB"><div class="doboz-cim">VárosiBringa: elég erős-e a reteszcsap?</div><div class="doboz-tartalom">
+<p>A VárosiBringa dokkolójának reteszcsapja nyírószilárdságának várható értéke 12 kN, szórása 0,8 kN. A csapat a próbaüzem rángatási és vandalizmusadataiból a nagy terheléses események erejét 6 kN várható értékűnek és 1,5 kN szórásúnak becsülte. A biztonsági tényező 2, ami első ránézésre bőségesnek tűnik. Az interferenciaszámítás szerint (<a href="#fig-terheles-szilardsag" class="quarto-xref"><span>18.4</span></a>. ábra) egy ilyen esemény <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>,</mo><mn>53</mn></mrow><annotation encoding="application/x-tex">3{,}53</annotation></semantics></math> szórásnyi távolságra van, a tönkremenetel valószínűsége eseményenként <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mn>1</mn><mo>⋅</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2{,}1 \cdot 10^{-4}</annotation></semantics></math>. Ha a 300 dokkolóhely mindegyikét évente 20 ilyen esemény éri, az évente átlagosan 1,25 tönkrement reteszcsapot jelent. A csapat a csap anyagának erősítése helyett a terhelés szórását csökkentette: a dokkoló bevezető íve a kerékpárt rángatáskor megtámasztja, így a csapra jutó erő csúcsai kisebbek lettek.</p>
+<div id="fig-terheles-szilardsag" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-terheles-szilardsag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/terheles-szilardsag.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-terheles-szilardsag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">18.4. ábra.</span> A terhelés és a szilárdság eloszlása; az átfedés a tönkremenetel lehetőségét mutatja.
+</figcaption>
+</figure>
+</div>
+</div></div>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Bizonytalanság a teljes rendszerben</div><div class="doboz-tartalom">
+<p>A tűrés, a veszteségfüggvény, a kísérlettervezés és az interferencia ugyanannak a gondolatnak a változatai: a tervezési döntéseket a bizonytalanság ismeretében kell meghozni, nem a névleges értékek alapján. Ugyanez a gondolat jelent meg a döntéselemzés Monte Carlo-vizsgálataiban (<a href="10-dontes.html" class="quarto-xref"><span>10</span></a>. fejezet) és a megbízhatósági szimulációban (<a href="16-megbizhatosag.html" class="quarto-xref"><span>16</span></a>. fejezet). A modellalapú fejlesztésben (<a href="03-modellek.html" class="quarto-xref"><span>3</span></a>. fejezet) a rendszermodell paramétereihez eloszlás rendelhető, és a bizonytalanság a teljes modellen végigterjeszthető; a szimulációval kapott eloszlás mutatja meg, mekkora tartalékkal teljesülnek a követelmények.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">Névleges értékre tervezni</div><div class="doboz-tartalom">
+<p>Gyakori hiba, hogy a tervezés a névleges méretekkel és anyagjellemzőkkel számol, és a tűréseket a végén, a rajzkészítéskor, szokásértékekkel adja meg. Ilyenkor az összeállítás egy része nem működik, vagy a tűrések feleslegesen szigorúak és drágák. A funkcionálisan fontos méretláncokat már a részletes tervezés elején azonosítani kell, és a tűréseket a lánc elemzése alapján kell elosztani.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>Az érzékenységvizsgálat megmutatja, mely paraméterek befolyásolják leginkább a teljesítményt; a relatív érzékenység (rugalmasság) a paraméterek összevetésére alkalmas.</li>
+<li>A tűréslánc legrosszabb esetre számolva mindig biztonságos, de drága; az RSS-számítás függetlenséget, normális eloszlást és központosított folyamatot feltételez. A feltevések sérülésekor Monte Carlo-szimuláció kell.</li>
+<li>Taguchi veszteségfüggvénye szerint a célértéktől való minden eltérés veszteség; a várható veszteség a szórás és a középérték-eltérés négyzetével arányos.</li>
+<li>A faktoros kísérlet egyszerre változtatja a tényezőket, így a főhatások mellett a kölcsönhatásokat is feltárja; alapelvei a véletlen sorrend, az ismétlés és a blokkosítás.</li>
+<li>A robusztus tervezés a tervezési és a zajtényezők kölcsönhatását használja ki: olyan beállítást keres, amelynél a zaj hatása a legkisebb.</li>
+<li>A valószínűségi tervezés a terhelés és a szilárdság szórásából számítja a tönkremenetel valószínűségét; azonos biztonsági tényező mellett is nagyon különböző lehet a kockázat.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Egy rendszer kimenete <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><msubsup><mi>x</mi><mn>2</mn><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">y = x_1 x_2^2</annotation></semantics></math>. Mekkora a relatív érzékenység <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> szerint?</li>
+<li>Egy háromtagú lineáris lánc tűrései <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0</mn><mo>,</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 0{,}1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\pm 0{,}2</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>0</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\pm 0{,}2</annotation></semantics></math> mm. Mennyi az eredő tűrés legrosszabb esetre és RSS szerint?</li>
+<li>Milyen feltevésekre épül az RSS-számítás? Mi történik, ha egy tag középértéke a tűrésmező szélére tolódik?</li>
+<li>Egy jellemző célértéke 10, a funkcionális határ <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>±</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">\pm 1</annotation></semantics></math>, a határon a veszteség 500 Ft. Mennyi a darabonkénti várható veszteség, ha <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>10</mn><mo>,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\mu = 10{,}2</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>0</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\sigma = 0{,}3</annotation></semantics></math>?</li>
+<li>Mi a különbség a főhatás és a kölcsönhatás között? Miért nem tárja fel a kölcsönhatást az egyszerre egy tényezőt változtató kísérlet?</li>
+<li>Mi a tervezési és a zajtényező? Adj példát mindkettőre egy háztartási gépnél!</li>
+<li>Egy alkatrész szilárdsága <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>S</mi></msub><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">\mu_S = 100</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>S</mi></msub><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\sigma_S = 5</annotation></semantics></math>, a terhelés <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>L</mi></msub><mo>=</mo><mn>70</mn></mrow><annotation encoding="application/x-tex">\mu_L = 70</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>L</mi></msub><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\sigma_L = 10</annotation></semantics></math> (azonos egységben). Mennyi a biztonsági tényező, és mennyi a tönkremenetel valószínűsége?</li>
+<li>Miért mondhatjuk, hogy a biztonsági tényező önmagában nem jellemzi a kockázatot?</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><msub><mi>x</mi><mn>1</mn></msub></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">E_{x_1} = 1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>E</mi><msub><mi>x</mi><mn>2</mn></msub></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">E_{x_2} = 2</annotation></semantics></math>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math> 1%-os változása kétszer akkora relatív változást okoz.</li>
+<li>Legrosszabb eset: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>,</mo><mn>1</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>2</mn><mo>=</mo><mi>±</mi><mn>0</mn><mo>,</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">0{,}1 + 0{,}2 + 0{,}2 = \pm 0{,}5</annotation></semantics></math> mm; RSS: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><mn>0</mn><mo>,</mo><mn>01</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>04</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>04</mn></mrow></msqrt><mo>=</mo><mi>±</mi><mn>0</mn><mo>,</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">\sqrt{0{,}01 + 0{,}04 + 0{,}04} = \pm 0{,}3</annotation></semantics></math> mm.</li>
+<li>A tagok függetlenek, normális eloszlásúak, a tűrésmező közepére szórnak, és a tűrés ismert szórásnak (például <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mi>σ</mi></mrow><annotation encoding="application/x-tex">3\sigma</annotation></semantics></math>) felel meg. Ha egy tag középértéke eltolódik, az eredő méret középértéke is eltolódik, és a határon kívül eső összeállítások aránya jelentősen nőhet; ilyenkor Monte Carlo-szimuláció vagy az eltolódást figyelembe vevő számítás kell.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>500</mn><mi>/</mi><msup><mn>1</mn><mn>2</mn></msup><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">k = 500/1^2 = 500</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">E</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>L</mi><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mn>500</mn><mo>⋅</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>09</mn><mo>+</mo><mn>0</mn><mo>,</mo><mn>04</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>65</mn></mrow><annotation encoding="application/x-tex">\mathrm{E}[L] = 500 \cdot (0{,}09 + 0{,}04) = 65</annotation></semantics></math> Ft/db.</li>
+<li>A főhatás egy tényező átlagos hatása; a kölcsönhatás azt mutatja, hogy egy tényező hatása függ egy másik tényező szintjétől. Az egyszerre egy tényezőt változtató kísérlet a többi tényezőt egy rögzített szinten tartja, így nem látja, hogyan változna a hatás más szinteken.</li>
+<li>A tervezési tényezőt a tervező beállítja (például egy mosógép dobfordulatszáma vagy a programidő), a zajtényező ingadozik, és nem szabályozható (például a víz keménysége, a ruha mennyisége és anyaga, a hálózati feszültség).</li>
+<li>A biztonsági tényező <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>100</mn><mi>/</mi><mn>70</mn><mo>=</mo><mn>1</mn><mo>,</mo><mn>43</mn></mrow><annotation encoding="application/x-tex">100/70 = 1{,}43</annotation></semantics></math>; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mn>30</mn><mi>/</mi><msqrt><mrow><mn>25</mn><mo>+</mo><mn>100</mn></mrow></msqrt><mo>=</mo><mn>2</mn><mo>,</mo><mn>68</mn></mrow><annotation encoding="application/x-tex">z = 30/\sqrt{25 + 100} = 2{,}68</annotation></semantics></math>; a tönkremenetel valószínűsége <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Φ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>−</mi><mn>2</mn><mo>,</mo><mn>68</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>≈</mo><mn>0</mn><mo>,</mo><mn>0037</mn></mrow><annotation encoding="application/x-tex">\Phi(-2{,}68) \approx 0{,}0037</annotation></semantics></math>.</li>
+<li>Mert ugyanaz a biztonsági tényező kis szórásnál elhanyagolható, nagy szórásnál jelentős tönkremeneteli valószínűséget jelenthet; a kockázatot a középértékek különbsége és a szórások együtt határozzák meg.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: robusztusság</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz:</p>
+<ol type="1">
+<li>végezz érzékenységvizsgálatot a legfontosabb teljesítményjellemzőre (MOP vagy TPM), és rangsorold a paramétereket relatív érzékenységük szerint;</li>
+<li>ha a rendszerben van funkcionálisan fontos méretlánc (rés, illesztés, összenyomódás), számítsd ki legrosszabb esetre, RSS szerint és Monte Carlo-szimulációval;</li>
+<li>tervezz egy legalább három tényezős faktoros kísérletet (tényezők, szintek, válasz, ismétlések, sorrend), és jelöld a tervezési és a zajtényezőket;</li>
+<li>használd a Gyakorlati útmutató tűréslánc- és kísérlettervezési eszközlapját.</li>
+</ol>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="montgomery2017">Montgomery (<a href="../irodalom.html#ref-montgomery2017" role="doc-biblioref">2017</a>)</span>: a kísérlettervezés alapvető tankönyve, a robusztus tervezés válaszfelület-alapú megközelítésével.</li>
+<li><span class="citation" data-cites="taguchi2005">Taguchi, Chowdhury, és Wu (<a href="../irodalom.html#ref-taguchi2005" role="doc-biblioref">2005</a>)</span> és <span class="citation" data-cites="phadke1989">Phadke (<a href="../irodalom.html#ref-phadke1989" role="doc-biblioref">1989</a>)</span>: a Taguchi-módszer, a veszteségfüggvény és a paramétertervezés.</li>
+<li><span class="citation" data-cites="chase1991">Chase és Parkinson (<a href="../irodalom.html#ref-chase1991" role="doc-biblioref">1991</a>)</span>: a tűrésanalízis módszereinek áttekintése.</li>
+<li><span class="citation" data-cites="saltelli2008">Saltelli és mtsai. (<a href="../irodalom.html#ref-saltelli2008" role="doc-biblioref">2008</a>)</span>: az érzékenységvizsgálat módszereinek bevezető kézikönyve.</li>
+<li><span class="citation" data-cites="goldberg1994toolbox">Goldberg és mtsai. (<a href="../irodalom.html#ref-goldberg1994toolbox" role="doc-biblioref">1994</a>)</span>, 3.14., 4.1–4.3., 7.5. és 7.13. szakasz: a valószínűségi tervezés, az érzékenységvizsgálat, a tűrések, a kísérlettervezés és a veszteségfüggvény gyakorlati leírása.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-asmey145_2018" class="csl-entry" role="listitem">
+ASME. 2018. <span>„<span>ASME</span> Y14.5-2018 Dimensioning and Tolerancing”</span>. American Society of Mechanical Engineers, New York.
+</div>
+<div id="ref-chase1991" class="csl-entry" role="listitem">
+Chase, Kenneth W., és Alan R. Parkinson. 1991. <span>„A Survey of Research in the Application of Tolerance Analysis to the Design of Mechanical Assemblies”</span>. <em>Research in Engineering Design</em> 3 (1): 23–37. <a href="https://doi.org/10.1007/BF01580066">https://doi.org/10.1007/BF01580066</a>.
+</div>
+<div id="ref-goldberg1994toolbox" class="csl-entry" role="listitem">
+Goldberg, B. E., K. Everhart, R. Stevens, N. Babbitt, P. Clemens, és L. Stout. 1994. <span>„System Engineering <span>»Toolbox«</span> for Design-Oriented Engineers”</span>. NASA Reference Publication 1358. NASA Marshall Space Flight Center.
+</div>
+<div id="ref-montgomery2017" class="csl-entry" role="listitem">
+Montgomery, Douglas C. 2017. <em>Design and Analysis of Experiments</em>. 9. kiad. Hoboken, NJ: Wiley.
+</div>
+<div id="ref-oconnor2012" class="csl-entry" role="listitem">
+O’Connor, Patrick D. T., és Andre Kleyner. 2012. <em>Practical Reliability Engineering</em>. 5. kiad. Chichester: Wiley.
+</div>
+<div id="ref-phadke1989" class="csl-entry" role="listitem">
+Phadke, Madhav S. 1989. <em>Quality Engineering Using Robust Design</em>. Englewood Cliffs, NJ: Prentice Hall.
+</div>
+<div id="ref-saltelli2008" class="csl-entry" role="listitem">
+Saltelli, Andrea, Marco Ratto, Terry Andres, Francesca Campolongo, Jessica Cariboni, Debora Gatelli, Michaela Saisana, és Stefano Tarantola. 2008. <em>Global Sensitivity Analysis: The Primer</em>. Chichester: John Wiley &amp; Sons.
+</div>
+<div id="ref-taguchi2005" class="csl-entry" role="listitem">
+Taguchi, Genichi, Subir Chowdhury, és Yuin Wu. 2005. <em>Taguchi’s Quality Engineering Handbook</em>. Hoboken, NJ: Wiley.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/17-biztonsag.html" class="pagination-link" aria-label="Biztonságkritikus rendszerek">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/19-folyamatelemzes.html" class="pagination-link" aria-label="Folyamatelemzés és hatékonyság">
+        <span class="nav-page-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/18-robusztus.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/18-robusztus.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

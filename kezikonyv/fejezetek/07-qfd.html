@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="hu" xml:lang="hu"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; A vevő hangja a tervezésben: QFD és a minőségház – Rendszermérnöki ismeretek és módszerek</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../fejezetek/08-architektura.html" rel="next">
+<link href="../fejezetek/06-kovetelmenyek.html" rel="prev">
+<link href="../assets/logo/favicon-64.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-43cc0736598c80e0e0de29c38bf45170.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba39ca516548d75c066a3fda7b600ff5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nincs találat",
+    "search-matching-documents-text": "találat",
+    "search-copy-link-title": "Keresési hivatkozás másolása",
+    "search-hide-matches-text": "További találatok elrejtése",
+    "search-more-match-text": "további találat ebben a fejezetben",
+    "search-more-matches-text": "további találat ebben a fejezetben",
+    "search-clear-button-title": "Törlés",
+    "search-text-placeholder": "Keresés a könyvben",
+    "search-detached-cancel-button-title": "Mégse",
+    "search-submit-button-title": "Keresés",
+    "search-label": "Keresés"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #FFFFFF;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #FFFFFF;
+      }
+</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="https://complexsystemsintelligence.github.io/rendszermernokseg/">
+    <span class="navbar-title">Rendszermérnöki ismeretek és módszerek</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Keresés"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navigáció ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Kézikönyv</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/"> 
+<span class="menu-text">Gyakorlati útmutató</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://complexsystemsintelligence.github.io/#textbooks"> 
+<span class="menu-text">Összes tankönyv</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/tree/main/kezikonyv/" title="Forráskód" class="quarto-navigation-tool px-1" aria-label="Forráskód"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Letöltés" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Letöltés"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Letöltés PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="../rendszermernokseg-kezikonyv.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Letöltés ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/07-qfd.html"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Oldalsáv ki/be" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fejezetek/04-problema.html">II. rész – A V bal ága: a problémától a tervig</a></li><li class="breadcrumb-item"><a href="../fejezetek/07-qfd.html"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></a></li></ol></nav>
+      <h1 class="title"><span id="sec-qfd" class="quarto-section-identifier"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://complexsystemsintelligence.github.io/rendszermernokseg/" class="sidebar-logo-link">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Előszó</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">I. rész – Alapok</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/01-rendszerek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1.</span>&nbsp; <span class="chapter-title">Rendszerek és rendszerszemlélet</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/02-v-modell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2.</span>&nbsp; <span class="chapter-title">A rendszerfejlesztés életciklusa és a V-modell</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/03-modellek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3.</span>&nbsp; <span class="chapter-title">Modellek és modellalapú rendszermérnökség</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">II. rész – A V bal ága: a problémától a tervig</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/04-problema.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4.</span>&nbsp; <span class="chapter-title">A probléma meghatározása és a működési koncepció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/05-erdekelt-felek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5.</span>&nbsp; <span class="chapter-title">Érdekelt felek elemzése</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/06-kovetelmenyek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/07-qfd.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7.</span>&nbsp; <span class="chapter-title">A vevő hangja a tervezésben: QFD és a minőségház</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/08-architektura.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/09-kreativitas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9.</span>&nbsp; <span class="chapter-title">Koncepciógenerálás és kreatív problémamegoldás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/10-dontes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10.</span>&nbsp; <span class="chapter-title">Koncepció-kiválasztás és döntéstámogatás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/11-emberkozpontu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11.</span>&nbsp; <span class="chapter-title">Emberközpontú tervezés és emberi rendszerintegráció (HSI)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/12-automatizalas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12.</span>&nbsp; <span class="chapter-title">Funkciómegosztás és automatizálás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/13-emberi-hiba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13.</span>&nbsp; <span class="chapter-title">Emberi teljesítmény és emberi hiba</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/14-kockazat.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14.</span>&nbsp; <span class="chapter-title">Kockázatkezelés</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/15-fmea.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15.</span>&nbsp; <span class="chapter-title">Hibamód- és hatáselemzés (FMEA)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/16-megbizhatosag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16.</span>&nbsp; <span class="chapter-title">Megbízhatóság és rendelkezésre állás</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/17-biztonsag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17.</span>&nbsp; <span class="chapter-title">Biztonságkritikus rendszerek</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/18-robusztus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18.</span>&nbsp; <span class="chapter-title">Robusztus tervezés és tűrések</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">III. rész – A V csúcsa: megvalósítás és folyamattervezés</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/19-folyamatelemzes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19.</span>&nbsp; <span class="chapter-title">Folyamatelemzés és hatékonyság</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/20-bpmn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20.</span>&nbsp; <span class="chapter-title">Folyamatmodellezés BPMN-nel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/21-utemezes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21.</span>&nbsp; <span class="chapter-title">Ütemezés, készlet és sorbanállás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">IV. rész – A V jobb ága: integrációtól az üzemeltetésig</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/22-integracio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22.</span>&nbsp; <span class="chapter-title">Integráció és interfészmenedzsment</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/23-verifikacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23.</span>&nbsp; <span class="chapter-title">Verifikáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/24-validacio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24.</span>&nbsp; <span class="chapter-title">Validáció</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/25-uzemeltetes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25.</span>&nbsp; <span class="chapter-title">Átadás, üzemeltetés és folyamatos fejlesztés</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">V. rész – Átívelő technikai menedzsment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fejezetek/26-menedzsment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26.</span>&nbsp; <span class="chapter-title">Technikai tervezés és irányítás</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../irodalom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Irodalom</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Függelékek</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Szakasz ki/be">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/a-esettanulmanyok.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A.</span>&nbsp; <span class="chapter-title">A futó esettanulmányok</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fuggelek/b-szoszedet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B.</span>&nbsp; <span class="chapter-title">Magyar–angol szószedet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ezen az oldalon</h2>
+   
+  <ul>
+  <li><a href="#sec-qfd-eredet" id="toc-sec-qfd-eredet" class="nav-link active" data-scroll-target="#sec-qfd-eredet"><span class="header-section-number">7.1.</span> A QFD eredete és célja</a></li>
+  <li><a href="#sec-qfd-haz" id="toc-sec-qfd-haz" class="nav-link" data-scroll-target="#sec-qfd-haz"><span class="header-section-number">7.2.</span> A minőségház felépítése</a>
+  <ul class="collapse">
+  <li><a href="#a-műszaki-fontosság-kiszámítása" id="toc-a-műszaki-fontosság-kiszámítása" class="nav-link" data-scroll-target="#a-műszaki-fontosság-kiszámítása"><span class="header-section-number">7.2.1.</span> A műszaki fontosság kiszámítása</a></li>
+  </ul></li>
+  <li><a href="#sec-qfd-pelda" id="toc-sec-qfd-pelda" class="nav-link" data-scroll-target="#sec-qfd-pelda"><span class="header-section-number">7.3.</span> Kidolgozott példa: a VárosiBringa minőségháza</a></li>
+  <li><a href="#sec-qfd-teto" id="toc-sec-qfd-teto" class="nav-link" data-scroll-target="#sec-qfd-teto"><span class="header-section-number">7.4.</span> A tető: ellentmondások és kompromisszumok</a></li>
+  <li><a href="#sec-qfd-kano" id="toc-sec-qfd-kano" class="nav-link" data-scroll-target="#sec-qfd-kano"><span class="header-section-number">7.5.</span> A Kano-modell és a QFD</a></li>
+  <li><a href="#sec-qfd-fazisok" id="toc-sec-qfd-fazisok" class="nav-link" data-scroll-target="#sec-qfd-fazisok"><span class="header-section-number">7.6.</span> A négyfázisú QFD</a></li>
+  <li><a href="#sec-qfd-korlatok" id="toc-sec-qfd-korlatok" class="nav-link" data-scroll-target="#sec-qfd-korlatok"><span class="header-section-number">7.7.</span> Korlátok és újabb kiterjesztések</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/07-qfd.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/07-qfd.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="vterkep">
+<p><img src="../abrak/gen/vterkep-qfd.svg" class="img-fluid" style="width:62.0%" alt="V-térkép: a QFD az érdekelt felek elvárásait köti össze a rendszerkövetelményekkel"></p>
+</div>
+<div class="doboz doboz-cel"><div class="doboz-cim">Tanulási eredmények</div><div class="doboz-tartalom">
+<p>A fejezet feldolgozása után képes leszel:</p>
+<ul>
+<li>elmagyarázni, mire való a minőségfunkció-telepítés (QFD), és hol a helye a V-modellben;</li>
+<li>felépíteni a minőségházat: vevői elvárások és fontosságuk, műszaki jellemzők, kapcsolati mátrix, tető, versenytárs-értékelés, műszaki fontosság és célértékek;</li>
+<li>kiszámítani a műszaki jellemzők abszolút és relatív fontosságát, és értelmezni az eredményt;</li>
+<li>a tetőmátrix alapján felismerni a műszaki jellemzők közötti ellentmondásokat, és kompromisszumot vagy innovatív megoldást keresni;</li>
+<li>a Kano-modell eredményeit beépíteni a minőségházba;</li>
+<li>leírni a négyfázisú QFD-t, és megnevezni a módszer korlátait és újabb, hálózatalapú kiterjesztéseit.</li>
+</ul>
+</div></div>
+<p>Az érdekelt felek elvárásai (<a href="05-erdekelt-felek.html" class="quarto-xref"><span>5</span></a>. fejezet) a vevő nyelvén szólnak: „mindig legyen kerékpár a közelben”, „ne kelljen hajolgatni”. A követelmények (<a href="06-kovetelmenyek.html" class="quarto-xref"><span>6</span></a>. fejezet) a mérnök nyelvén: állomássűrűség, ciklusidő, munkamagasság. A kettő közötti fordítás nem magától értetődő. Melyik műszaki jellemző hat leginkább a vevői elégedettségre? Melyikre érdemes a legtöbb fejlesztési erőforrást fordítani? Mekkora legyen a célérték, hogy versenyképesek legyünk? Hol ütköznek egymással a műszaki jellemzők?</p>
+<p>A minőségfunkció-telepítés (quality function deployment, QFD) erre a fordításra ad rendszerezett eljárást. Egyetlen táblázatban kapcsolja össze a piac elvárásait, a kielégítésüket befolyásoló műszaki jellemzőket és a versenytársak termékeinek színvonalát. Segít az új termék műszaki paramétereinek meghatározásában, és dokumentációs eszköz is: utólag is áttekinthető marad belőle, hogyan és miért születtek a tervezési döntések.</p>
+<p>A fejezet három kérdésre épül:</p>
+<ul>
+<li>Hogyan épül fel és hogyan készül a minőségház?</li>
+<li>Hogyan értelmezzük az eredményét, és hogyan jutunk el belőle a célértékekig?</li>
+<li>Mik a módszer korlátai, és hogyan bővíthető?</li>
+</ul>
+<section id="sec-qfd-eredet" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-qfd-eredet"><span class="header-section-number">7.1.</span> A QFD eredete és célja</h2>
+<p>Akao Jodzsi, a módszer egyik megalkotója szerint a QFD olyan módszer, amely a vevő elégedettségét célzó tervezési minőséget fejleszti ki, és a vevő igényeit tervezési célokká és a gyártás során alkalmazandó fő minőségbiztosítási pontokká fordítja le <span class="citation" data-cites="akao1990">(<a href="../irodalom.html#ref-akao1990" role="doc-biblioref">Akao 1990</a>)</span>. A módszer az 1970-es évek elején Japánban született. Hauser és Clausing nagy hatású cikke szerint a minőségház első alkalmazása 1972-re, a Mitsubishi kobei hajógyárára tehető, a Toyota és beszállítói pedig sokféle irányban továbbfejlesztették <span class="citation" data-cites="hauser1988">(<a href="../irodalom.html#ref-hauser1988" role="doc-biblioref">Hauser és Clausing 1988</a>)</span>. A cikk egy szemléletes adatot is közöl: a Toyota karosszériagyártó vállalatánál az új modellek gyártásindítási és előgyártási költségei 1977 januárja és 1984 áprilisa között, a QFD bevezetésével párhuzamosan, a korábbi szint 39%-ára csökkentek <span class="citation" data-cites="hauser1988">(<a href="../irodalom.html#ref-hauser1988" role="doc-biblioref">Hauser és Clausing 1988</a>)</span>.</p>
+<p>A QFD középpontjában a <strong>minőségház</strong> (house of quality) áll. Hauser és Clausing szerint a minőségház a marketing és a mérnöki tervezés közötti kommunikáció eszköze: olyan közös térkép, amelyen a különböző felelősségű szakemberek a bizonyítékok mintázatára hivatkozva vitathatják meg a tervezési prioritásokat <span class="citation" data-cites="hauser1988">(<a href="../irodalom.html#ref-hauser1988" role="doc-biblioref">Hauser és Clausing 1988</a>)</span>.</p>
+<p>Chan és Wu irodalmi áttekintése szerint a módszer előnyei és hátrányai a következőkben foglalhatók össze <span class="citation" data-cites="chan2002qfd">(<a href="../irodalom.html#ref-chan2002qfd" role="doc-biblioref">Chan és Wu 2002</a>)</span>:</p>
+<ul>
+<li><strong>Előnyök:</strong> rendszerezett felépítés, amelyet a minőségtervezésben érdekelt minden vállalati terület használhat; a termék tulajdonságai jól lefedik a vevő követelményeit; a fejlesztési erőforrások a vevő számára fontos jellemzőkre összpontosulnak; a területek közötti kommunikáció javul.</li>
+<li><strong>Hátrányok:</strong> a szakértői csapat idő- és költségigényes egyeztetést igényel; a minőségház már viszonylag egyszerű terméknél is bonyolulttá válhat; a súlyok és a kapcsolati erősségek szubjektív becslések.</li>
+</ul>
+</section>
+<section id="sec-qfd-haz" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-qfd-haz"><span class="header-section-number">7.2.</span> A minőségház felépítése</h2>
+<p>A minőségház hét „helyiségből” áll (<a href="#fig-minoseg-haza" class="quarto-xref"><span>7.1</span></a>. ábra). A számozás egyben a kitöltés sorrendje is.</p>
+<div id="fig-minoseg-haza" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-minoseg-haza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/minoseg-haza.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-minoseg-haza-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">7.1. ábra.</span> A minőségház felépítése. A számok a kitöltés javasolt sorrendjét jelölik.
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li><strong>Vevői elvárások (MIT?) és fontosságuk.</strong> A ház bal oldala. Az elvárásokat a vevő nyelvén, de már rendezetten soroljuk fel, jellemzően 5–15 tételt. Mindegyikhez fontossági súly tartozik, amelyet felmérésből, interjúkból vagy a Kano-elemzésből (<a href="05-erdekelt-felek.html#sec-ef-kano" class="quarto-xref"><span>5.5</span></a>. szakasz) határozunk meg.</li>
+<li><strong>Műszaki jellemzők (HOGYAN?).</strong> A ház „mennyezete”. Mérhető, a megoldástól lehetőleg független jellemzők mértékegységgel és a javulás irányával (nagyobb vagy kisebb a jobb). Ezek a leendő MOP-ok (<a href="06-kovetelmenyek.html#sec-kov-mertekek" class="quarto-xref"><span>6.4</span></a>. szakasz).</li>
+<li><strong>Kapcsolati mátrix.</strong> A ház közepe. Minden elvárás–jellemző párra megállapítjuk, mennyire hat a műszaki jellemző az elvárás teljesülésére. A szokásos skála: erős (9), közepes (3), gyenge (1) vagy nincs kapcsolat (üres).</li>
+<li><strong>Versenytársak vevői értékelése.</strong> A ház jobb oldala. A vevők hogyan értékelik a saját (vagy tervezett) termékünket és a versenytársakét az egyes elvárások szerint, 1–5 skálán. Ebből látszik, hol vagyunk lemaradásban, és hol tudunk kitűnni.</li>
+<li><strong>Tető: a műszaki jellemzők kölcsönhatása.</strong> A tetőmátrix azt mutatja, hogy egy műszaki jellemző javítása segíti (+) vagy rontja (−) egy másik jellemző teljesítését.</li>
+<li><strong>Műszaki fontosság és műszaki összevetés.</strong> A ház alja. A műszaki jellemzők fontossága a kapcsolati mátrixból számítható. Ide kerülhet a saját és a versenytárs termékek mért műszaki értékeinek összevetése is.</li>
+<li><strong>Célértékek.</strong> Az elemzés eredménye: minden műszaki jellemzőhöz egy célérték, amely a fejlesztés követelménye lesz.</li>
+</ol>
+<section id="a-műszaki-fontosság-kiszámítása" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="a-műszaki-fontosság-kiszámítása"><span class="header-section-number">7.2.1.</span> A műszaki fontosság kiszámítása</h3>
+<p>A <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>-edik műszaki jellemző <strong>abszolút fontossága</strong> az elvárások fontosságával súlyozott kapcsolati erősségek összege:</p>
+<p><span id="eq-qfd-fontossag"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>j</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>w</mi><mi>i</mi></msub><mspace width="0.167em"></mspace><msub><mi>r</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>,</mo><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>7.1</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+F_j = \sum_{i=1}^{n} w_i \, r_{ij},
+ \qquad(7.1)</annotation></semantics></math></span></p>
+<p>ahol <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>w</mi><mi>i</mi></msub><annotation encoding="application/x-tex">w_i</annotation></semantics></math> az <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>-edik vevői elvárás fontossága, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>9</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">r_{ij} \in \{0, 1, 3, 9\}</annotation></semantics></math> pedig a kapcsolat erőssége. A <strong>relatív fontosság</strong> az abszolút fontosság aránya az összeghez:</p>
+<p><span id="eq-qfd-relativ"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mi>j</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow></msubsup><mo>=</mo><mfrac><msub><mi>F</mi><mi>j</mi></msub><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>m</mi></munderover><msub><mi>F</mi><mi>k</mi></msub></mrow></mfrac><mo>⋅</mo><mn>100</mn><mi>%</mi><mi>.</mi><mspace width="2.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>7.2</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+F_j^{\mathrm{rel}} = \frac{F_j}{\sum_{k=1}^{m} F_k} \cdot 100\%.
+ \qquad(7.2)</annotation></semantics></math></span></p>
+<p>A 9–3–1 skála szándékosan aszimmetrikus: az erős kapcsolatokat jobban kiemeli, mint egy 3–2–1 skála, és így élesebben elkülönülnek a valóban fontos műszaki jellemzők.</p>
+</section>
+</section>
+<section id="sec-qfd-pelda" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-qfd-pelda"><span class="header-section-number">7.3.</span> Kidolgozott példa: a VárosiBringa minőségháza</h2>
+<p>A VárosiBringa csapata a Kano-felmérés és a fókuszcsoportok alapján hat vevői elvárást választott ki, és kilenc műszaki jellemzőt rendelt hozzájuk. A kész minőségházat a <a href="#fig-qfd-bringa" class="quarto-xref"><span>7.2</span></a>. ábra mutatja.</p>
+<div id="fig-qfd-bringa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qfd-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/qfd-bringa.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qfd-bringa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">7.2. ábra.</span> A VárosiBringa minőségháza. A versenytársak: A – a szomszédos város hagyományos (nem elektromos) közösségi kerékpárrendszere; B – szabadon parkoló elektromos roller szolgáltatás.
+</figcaption>
+</figure>
+</div>
+<div class="doboz doboz-pelda"><div class="doboz-cim">A számítás lépésről lépésre</div><div class="doboz-tartalom">
+<p><strong>Az elvárások fontossága.</strong> A csapat a 120 fős felmérés 1–5 skálájú fontossági értékeléseit kerekítette. A legfontosabb az elérhetőség (E1) és a dombos terep leküzdése (E4), mindkettő 5. A Kano-elemzés megerősítette ezt: az elérhetőség egydimenziós, a zár alapvető jellemző.</p>
+<p><strong>A kapcsolati mátrix.</strong> A csapat soronként haladt, és minden cellánál megkérdezte: ha ezt a műszaki jellemzőt jelentősen javítjuk, mennyivel javul az elvárás teljesülése? Az elérhetőségre (E1) az állomássűrűség (M1), az állomásonkénti kerékpárszám (M2) és az áthelyezési körök száma (M6) hat erősen (9). Az akkumulátor-hatótáv (M4) közepesen (3) hat, mert a lemerült kerékpár nem kölcsönözhető.</p>
+<p><strong>A műszaki fontosság.</strong> Az állomássűrűség (M1) abszolút fontossága az <a href="#eq-qfd-fontossag" class="quarto-xref"><span>7.1</span></a>. egyenlet szerint:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>1</mn></mrow></msub><mo>=</mo><mn>5</mn><mo>⋅</mo><mn>9</mn><mo>+</mo><mn>4</mn><mo>⋅</mo><mn>3</mn><mo>+</mo><mn>3</mn><mo>⋅</mo><mn>1</mn><mo>=</mo><mn>45</mn><mo>+</mo><mn>12</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>60</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+F_{M1} = 5 \cdot 9 + 4 \cdot 3 + 3 \cdot 1 = 45 + 12 + 3 = 60.
+</annotation></semantics></math></p>
+<p>Ugyanígy <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>4</mn></mrow></msub><mo>=</mo><mn>5</mn><mo>⋅</mo><mn>3</mn><mo>+</mo><mn>5</mn><mo>⋅</mo><mn>9</mn><mo>=</mo><mn>60</mn></mrow><annotation encoding="application/x-tex">F_{M4} = 5 \cdot 3 + 5 \cdot 9 = 60</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>2</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>M</mi><mn>6</mn></mrow></msub><mo>=</mo><mn>54</mn></mrow><annotation encoding="application/x-tex">F_{M2} = F_{M6} = 54</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>5</mn></mrow></msub><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">F_{M5} = 45</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>3</mn></mrow></msub><mo>=</mo><msub><mi>F</mi><mrow><mi>M</mi><mn>7</mn></mrow></msub><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">F_{M3} = F_{M7} = 40</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>9</mn></mrow></msub><mo>=</mo><mn>36</mn></mrow><annotation encoding="application/x-tex">F_{M9} = 36</annotation></semantics></math> és <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>8</mn></mrow></msub><mo>=</mo><mn>27</mn></mrow><annotation encoding="application/x-tex">F_{M8} = 27</annotation></semantics></math>. Az összeg 416, így a relatív fontosság például <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>F</mi><mrow><mi>M</mi><mn>1</mn></mrow><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">l</mi></mrow></msubsup><mo>=</mo><mn>60</mn><mi>/</mi><mn>416</mn><mo>≈</mo><mn>14</mn><mo>,</mo><mn>4</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">F_{M1}^{\mathrm{rel}} = 60/416 \approx 14{,}4\%</annotation></semantics></math>.</p>
+<p><strong>Értelmezés.</strong> A két legfontosabb műszaki jellemző az állomássűrűség és az akkumulátor-hatótáv (14,4–14,4%), őket az állomásonkénti kerékpárszám és az áthelyezés követi (13,0–13,0%). A rendszer sikerét tehát elsősorban a hálózat és a kerékpárok energiaellátása határozza meg, nem a kerékpár tömege vagy a zár feltörési ellenállása. Ez nem jelenti, hogy a zár nem fontos. Alapvető jellemzőként teljesítenie kell egy elfogadható szintet, de azon túl a fejlesztése nem növeli számottevően az elégedettséget.</p>
+<p><strong>A versenytársak értékelése.</strong> A vevők a tervezett rendszert az elérhetőségben (2) mindkét versenytársnál gyengébbnek látják, a díj és a zár szempontjából viszont jobbnak. A domb leküzdésében az elektromos roller (B) a mérce (5). A stratégiai következtetés: a nyitó hálózatnak elég sűrűnek kell lennie, a rásegítés teljesítményének pedig el kell érnie a roller szintjét.</p>
+<p><strong>A tető.</strong> A tetőmátrix két jelentős ellentmondást mutat. A hatótáv növelése nagyobb akkumulátort, így nagyobb tömeget jelent (M4–M8, erősen gyengíti). Az erősebb rásegítés növeli a fogyasztást, így csökkenti a hatótávot (M5–M4), és a motor tömege is nő (M5–M8). Ezek a <a href="#sec-qfd-teto" class="quarto-xref"><span>7.4</span></a>. szakaszban tárgyalt kompromisszumok.</p>
+<p><strong>A célértékek.</strong> Az elemzés alapján a csapat kilenc célértéket rögzített (a ház alsó sora), amelyek a rendszerkövetelmények közé kerültek. Például: belvárosi állomássűrűség legalább 3 állomás/km², akkumulátor-hatótáv legalább 50 km, rásegítési nyomaték legalább 50 Nm, tömeg legfeljebb 25 kg.</p>
+</div></div>
+</section>
+<section id="sec-qfd-teto" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sec-qfd-teto"><span class="header-section-number">7.4.</span> A tető: ellentmondások és kompromisszumok</h2>
+<p>A tetőmátrix a minőségház talán legértékesebb, mégis gyakran elhanyagolt része. Megmutatja, hogy a műszaki jellemzők nem függetlenek egymástól: mely paraméterek gyengítik, és melyek erősítik egymást.</p>
+<p>A negatív kapcsolatokkal háromféleképpen bánhatunk:</p>
+<ol type="1">
+<li><strong>Kompromisszum.</strong> A két jellemző közül a fontosabbnak adunk elsőbbséget, és a másikra elfogadható célértéket szabunk. A VárosiBringánál a hatótáv relatív fontossága (14,4%) jóval nagyobb a tömegénél (6,5%), ezért a csapat inkább a nagyobb akkumulátort választotta, és a tömegre 25 kg-os felső határt szabott.</li>
+<li><strong>Rendszerszintű megoldás.</strong> A konfliktust a rendszer egy másik szintjén oldjuk fel. A hatótáv–tömeg ellentmondás enyhíthető úgy is, hogy az akkumulátort nem kell nagyra méretezni, mert a dokkolók töltenek. A követelmény így „napi 50 km” helyett „két dokkolás között 50 km” lehet.</li>
+<li><strong>Innovatív megoldás.</strong> Az ellentmondás egy új műszaki elvvel megszüntethető. A TRIZ-módszertan (<a href="09-kreativitas.html" class="quarto-xref"><span>9</span></a>. fejezet) éppen az ilyen műszaki ellentmondások rendszerezett feloldására való. A tetőmátrix negatív kapcsolatai ezért közvetlen bemenetei a koncepcióalkotásnak.</li>
+</ol>
+<p>A pozitív kapcsolatok is fontosak, mert egymást erősítő hatást jeleznek. A VárosiBringánál a sűrűbb állomáshálózat (M1) rövidebb áthelyezési utakat jelent, így ugyanakkora áthelyezési kapacitással több kör tehető meg (M6).</p>
+</section>
+<section id="sec-qfd-kano" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-qfd-kano"><span class="header-section-number">7.5.</span> A Kano-modell és a QFD</h2>
+<p>A minőségház bal oldalán a vevői elvárások fontossága áll. Egyszerűbb esetben ezt közvetlenül egy felmérés fontossági értékeléseiből vesszük. A Kano-modell (<a href="05-erdekelt-felek.html#sec-ef-kano" class="quarto-xref"><span>5.5</span></a>. szakasz) azonban rámutat, hogy a fontosság és az elégedettségre gyakorolt hatás nem ugyanaz. Az alapvető jellemzők hiánya erős elégedetlenséget okoz, de a teljesítésükön túli javítás alig növeli az elégedettséget. A vonzó jellemzők viszont a vevő által kimondottan nem kért, mégis nagy elégedettséget okozó lehetőségek.</p>
+<p>Matzler és Hinterhuber javasolta, hogy a Kano-modell eredményeit építsük be a QFD-be <span class="citation" data-cites="matzler1998">(<a href="../irodalom.html#ref-matzler1998" role="doc-biblioref">Matzler és Hinterhuber 1998</a>)</span>. A gyakorlatban ez három dolgot jelent:</p>
+<ul>
+<li><strong>Az alapvető jellemzőkre</strong> elég a versenyképes, elfogadható szintet célozni. Ezeket nem érdemes a fontossági súlyok alapján túlfejleszteni.</li>
+<li><strong>Az egydimenziós jellemzőkben</strong> érdemes a versenytársak fölé célozni, mert itt a teljesítmény arányosan növeli az elégedettséget.</li>
+<li><strong>A vonzó jellemzők</strong> a megkülönböztetés lehetőségei. A minőségházban akkor is érdemes szerepeltetni őket, ha a felmérésben kimondott fontosságuk alacsony.</li>
+</ul>
+<p>A VárosiBringánál ezért került be a vevői elvárások közé a közös bérlet (E5). A felmérésben mért fontossága közepes (3) volt, de a Kano-elemzés vonzó jellemzőként azonosította, és a helyi közlekedési társasággal kötött megállapodás olcsón megvalósíthatóvá tette.</p>
+</section>
+<section id="sec-qfd-fazisok" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="sec-qfd-fazisok"><span class="header-section-number">7.6.</span> A négyfázisú QFD</h2>
+<p>A minőségház csak az első lépés. Hauser és Clausing leírása szerint a házak egymáshoz kapcsolhatók: az egyik ház „hogyan”-jai a következő ház „mit”-jeivé válnak. Így a vevő hangja egészen a gyártásig eljut (<a href="#fig-qfd-negy-fazis" class="quarto-xref"><span>7.3</span></a>. ábra) <span class="citation" data-cites="hauser1988">(<a href="../irodalom.html#ref-hauser1988" role="doc-biblioref">Hauser és Clausing 1988</a>)</span>:</p>
+<ol type="1">
+<li><strong>terméktervezés:</strong> vevői elvárások → műszaki jellemzők (a minőségház);</li>
+<li><strong>alkatrész-lebontás:</strong> műszaki jellemzők → az alkatrészek jellemzői;</li>
+<li><strong>folyamattervezés:</strong> alkatrész-jellemzők → kritikus folyamatlépések és paramétereik;</li>
+<li><strong>gyártástervezés:</strong> folyamatlépések → gyártási előírások, ellenőrzési tervek.</li>
+</ol>
+<div id="fig-qfd-negy-fazis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qfd-negy-fazis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../abrak/gen/qfd-negy-fazis.svg" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qfd-negy-fazis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<span class="abraszam">7.3. ábra.</span> A négyfázisú QFD: az egymáshoz kapcsolt házak a vevői elvárásokat lépésről lépésre a gyártási előírásokig vezetik.
+</figcaption>
+</figure>
+</div>
+<p>A négy fázis jól illeszkedik a V-modell bal ágához. Az első ház a rendszerkövetelmények szintje, a második az alrendszerek és komponensek allokációja (<a href="06-kovetelmenyek.html#sec-kov-lebontas" class="quarto-xref"><span>6.5</span></a>. szakasz), a harmadik és a negyedik pedig a V csúcsa, a megvalósítás és a gyártás. A gyakorlatban ritkán készül mind a négy ház teljes részletességgel. Gyakoribb, hogy a minőségház mellett csak a kritikus műszaki jellemzőkre készül alkatrész- vagy folyamatszintű lebontás.</p>
+<div class="doboz doboz-esetA"><div class="doboz-cim">KoboCella: a második ház</div><div class="doboz-tartalom">
+<p>A KoboCella minőségházában a csavarkötés minősége (a nyomaték pontossága) lett a legfontosabb műszaki jellemző, mert erősen hat a vevő minőségi elvárására és a selejtcsökkentésre is. A csapat erre az egy jellemzőre elkészítette a második házat. Ebben a nyomatékpontosság a „mit”, a csavarozó egység alkatrészjellemzői (az orsó fordulatszám-szabályozása, a nyomatékérzékelő pontossága, a bitbetét kopásállósága, a csavaradagolás megbízhatósága) pedig a „hogyan”. Kiderült, hogy a nyomatékérzékelő pontossága és a bitbetét kopása együtt határozza meg a nyomatékszórást. Ezért a bitbetét cseréjének gyakorisága a karbantartási terv kritikus eleme lett. Ilyen összefüggés a rendszerszintű minőségházból nem látszott volna.</p>
+</div></div>
+</section>
+<section id="sec-qfd-korlatok" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="sec-qfd-korlatok"><span class="header-section-number">7.7.</span> Korlátok és újabb kiterjesztések</h2>
+<p>A QFD széles körben elterjedt, de a gyakorlatban több korlátja is ismert:</p>
+<ul>
+<li><strong>Szubjektivitás.</strong> A kapcsolati erősségek és a fontossági súlyok csapatbecslések. Kis eltérések megváltoztathatják a rangsort, ezért érdemes érzékenységvizsgálatot végezni. Az egyenlő fontosságú jellemzők között a rangsort csak óvatosan szabad értelmezni.</li>
+<li><strong>Méret.</strong> Sok elvárásnál és jellemzőnél a mátrix gyorsan átláthatatlanná válik, akár egy viszonylag egyszerű terméknél is. Ilyenkor az elvárásokat hierarchiába kell rendezni, és csak a legfontosabbakkal kell dolgozni.</li>
+<li><strong>A tető kihasználatlansága.</strong> Az egyszerű összegzés (<a href="#eq-qfd-fontossag" class="quarto-xref"><span>7.1</span></a>. egyenlet) nem veszi figyelembe a műszaki jellemzők közötti kölcsönhatásokat, így a közvetett hatások rejtve maradnak.</li>
+<li><strong>Költségvakság.</strong> A műszaki fontosság nem mond semmit arról, mennyibe kerül egy jellemző javítása. Egy kevésbé fontos jellemző olcsó javítása több elégedettséget hozhat egységnyi ráfordításra, mint egy fontos jellemző drága javítása.</li>
+</ul>
+<div class="doboz doboz-kitekintes"><div class="doboz-cim">Hálózatalapú QFD</div><div class="doboz-tartalom">
+<p>Az utóbbi két korlátra a hálózattudomány és az optimalizálás eszközei adnak választ. Abonyi és Czvetkó tanulmánya a QFD két új megfogalmazását javasolta <span class="citation" data-cites="abonyi2022qfd">(<a href="../irodalom.html#ref-abonyi2022qfd" role="doc-biblioref">Abonyi és Czvetkó 2022</a>)</span>. Az első a QFD-t hálózati folyamproblémaként írja fel, két céllal: lineáris optimalizálással a vevői igények kielégítéséből származó hasznot maximalizálja, illetve minimális költségű folyamként a vevői követelmények teljesítéséhez szükséges intézkedések összköltségét minimalizálja. A második a QFD-t hipergráfként ábrázolja, amely egyszerre képes leírni a kapcsolati és a korrelációs (tető-) mátrix kölcsönhatásait, és a legnagyobb hatású tényezőket centralitási mérőszámokkal azonosítja. A szerzők eredményei szerint a hipergráf-alapú ábrázolás feltárta a fejlesztési paraméterek és a vevői követelmények közötti közvetett kölcsönhatásokat is.</p>
+<p>A szervezeti fenntarthatóság és az Ipar 5.0-megoldások összekapcsolására ugyanez a kutatócsoport hálózat- és QFD-alapú keretrendszert dolgozott ki. Ez azt segíti eldönteni, mely Ipar 5.0-megoldások járulnak hozzá leginkább a fenntarthatósági teljesítmény javításához <span class="citation" data-cites="czvetko2025">(<a href="../irodalom.html#ref-czvetko2025" role="doc-biblioref">Czvetkó, Sebestyén, és Abonyi 2025</a>)</span>. A Gyakorlati útmutató QFD-notebookja a tetőmátrixot is figyelembe vevő, közvetett hatásokat számító egyszerű kiterjesztést mutat be.</p>
+</div></div>
+<div class="doboz doboz-hiba"><div class="doboz-cim">A minőségház mint űrlap</div><div class="doboz-tartalom">
+<p>A minőségház értéke nem a kitöltött táblázat, hanem az a vita, amely a kitöltése közben zajlik. Ha egy ember egyedül, egy délután alatt kitölti, a ház a saját előfeltevéseit rögzíti, és hamis tudományosságot kölcsönöz nekik. A kapcsolati mátrixot és a tetőt mindig vegyes csapat (marketing, tervezés, gyártás, szerviz) töltse ki, és minden vitás cellánál rögzítsék az indoklást.</p>
+</div></div>
+<div class="doboz doboz-osszefoglalo"><div class="doboz-cim">Összefoglalás</div><div class="doboz-tartalom">
+<ul>
+<li>A QFD a vevő hangját fordítja le műszaki jellemzőkre és célértékekre. Központi eszköze a minőségház, amely a marketing és a mérnöki tervezés közös térképe.</li>
+<li>A minőségház hét része: vevői elvárások és fontosságuk, műszaki jellemzők, kapcsolati mátrix (9–3–1), versenytárs-értékelés, tető, műszaki fontosság és célértékek.</li>
+<li>A műszaki jellemzők abszolút fontossága a fontossággal súlyozott kapcsolati erősségek összege, a relatív fontosság ennek százalékos aránya. Az eredmény megmutatja, hova érdemes a fejlesztési erőforrásokat összpontosítani.</li>
+<li>A tető negatív kapcsolatai ellentmondásokat jeleznek. Ezek kompromisszummal, rendszerszintű megoldással vagy innovációval (TRIZ) oldhatók fel.</li>
+<li>A Kano-modell segít a célértékek megválasztásában: az alapvető jellemzőknél elég az elfogadható szint, az egydimenziósaknál a versenytársak fölé kell célozni, a vonzók a megkülönböztetés lehetőségei.</li>
+<li>A négyfázisú QFD a vevő hangját a gyártási előírásokig vezeti. A módszer korlátai a szubjektivitás, a méret, a közvetett hatások figyelmen kívül hagyása és a költségvakság. A hálózatalapú kiterjesztések ezek egy részére adnak választ.</li>
+</ul>
+</div></div>
+<div class="doboz doboz-onell"><div class="doboz-cim">Önellenőrzés</div><div class="doboz-tartalom">
+<ol type="1">
+<li>Mi a különbség a vevői elvárás és a műszaki jellemző között? Melyik kerül a minőségház bal oldalára, és melyik a mennyezetére?</li>
+<li>Számítsd ki az M5 (rásegítés nyomatéka) és az M8 (tömeg) abszolút fontosságát a VárosiBringa minőségházából!</li>
+<li>Ha az E3 (megbízható zár) fontosságát 4-ről 5-re emelnénk, hogyan változna az M7 abszolút és relatív fontossága?</li>
+<li>A tetőmátrixban az M3 (kölcsönzési idő) és az M7 (zár feltörési ellenállása) között negatív kapcsolat van. Mi lehet ennek a műszaki oka, és hogyan oldanád fel?</li>
+<li>Miért nem érdemes egy alapvető jellemzőt a minőségház fontossági súlya alapján túlfejleszteni?</li>
+<li>Mi a szerepe a második, alkatrész-szintű háznak? Adj példát a ForgácsTech esetéből!</li>
+</ol>
+<details class="megoldas"><summary>Megoldás</summary>
+<ol type="1">
+<li>A vevői elvárás a vevő nyelvén fogalmazott kívánság (például „gyors kölcsönzés”), a bal oldalra kerül. A műszaki jellemző mérhető, mértékegységgel és iránnyal rendelkező mennyiség (például „a kölcsönzés átfutási ideje, s, kisebb a jobb”), a mennyezetre kerül.</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>5</mn></mrow></msub><mo>=</mo><mn>5</mn><mo>⋅</mo><mn>9</mn><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">F_{M5} = 5 \cdot 9 = 45</annotation></semantics></math> (csak az E4-gyel van erős kapcsolata). <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>8</mn></mrow></msub><mo>=</mo><mn>5</mn><mo>⋅</mo><mn>3</mn><mo>+</mo><mn>4</mn><mo>⋅</mo><mn>3</mn><mo>=</mo><mn>27</mn></mrow><annotation encoding="application/x-tex">F_{M8} = 5 \cdot 3 + 4 \cdot 3 = 27</annotation></semantics></math> (E4 és E6 közepes kapcsolattal).</li>
+<li><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mrow><mi>M</mi><mn>7</mn></mrow></msub><mo>=</mo><mn>4</mn><mo>⋅</mo><mn>1</mn><mo>+</mo><mn>5</mn><mo>⋅</mo><mn>9</mn><mo>=</mo><mn>49</mn></mrow><annotation encoding="application/x-tex">F_{M7} = 4 \cdot 1 + 5 \cdot 9 = 49</annotation></semantics></math> lenne (a korábbi 40 helyett). Az összeg 416-ról 426-ra nő (az M7-é 9-cel, az M3-é 1-gyel, 41-re nő), így az M7 relatív fontossága <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>49</mn><mi>/</mi><mn>426</mn><mo>≈</mo><mn>11</mn><mo>,</mo><mn>5</mn><mi>%</mi></mrow><annotation encoding="application/x-tex">49/426 \approx 11{,}5\%</annotation></semantics></math> lenne a korábbi 9,6% helyett.</li>
+<li>Egy erősebb, összetettebb zár (például több reteszelési pont, mechanikus kulcs mellett elektronikus azonosítás) lassabb nyitást és több hibalehetőséget jelenthet. Feloldás lehet a gyorsan nyitó elektromechanikus zár és a fizikai feltöréssel szembeni ellenállás szétválasztása: a zárszerkezet edzett, a kioldás elektronikus és gyors. A rendszerszintű megoldás a lopás utólagos felderítése (helymeghatározás), így a zárra kisebb terhelés jut.</li>
+<li>Mert az alapvető jellemzők elégedettségre gyakorolt hatása telítődik: a hiányuk nagy elégedetlenséget okoz, de az elfogadható szinten túli javításuk alig növeli az elégedettséget. A ráfordítás jobb helyen van az egydimenziós vagy a vonzó jellemzőknél.</li>
+<li>A második ház a rendszerszintű műszaki jellemzőket az alkatrészek vagy alrendszerek jellemzőire bontja le, és megmutatja, melyik alkatrészjellemző a kritikus. A ForgácsTech-nél például a „gépállapot-adatok késleltetése” műszaki jellemzőt a gépvezérlő adatkapcsolata, a hálózati infrastruktúra és a MES adatgyűjtő moduljának jellemzőire lehetne lebontani.</li>
+</ol>
+</details>
+</div></div>
+<div class="doboz doboz-projekt"><div class="doboz-cim">Projektlépés: a minőségház</div><div class="doboz-tartalom">
+<p>Saját fejlesztési feladatodhoz készíts minőségházat:</p>
+<ol type="1">
+<li>válassz ki 5–8 vevői elvárást, és rendelj hozzájuk fontossági súlyt (lehetőleg felmérés vagy Kano-elemzés alapján);</li>
+<li>határozz meg 5–8 mérhető műszaki jellemzőt mértékegységgel és iránnyal;</li>
+<li>töltsd ki a kapcsolati mátrixot és a tetőt, és rögzítsd a vitás cellák indoklását;</li>
+<li>értékeld a saját koncepciódat és legalább egy versenytárs megoldását a vevő szemével;</li>
+<li>számítsd ki a műszaki fontosságot, és határozz meg célértékeket;</li>
+<li>írd le a két legfontosabb tanulságot és a tető egy ellentmondásának feloldási javaslatát.</li>
+</ol>
+<p>A sablon és a notebook a Gyakorlati útmutató QFD-eszközlapján található.</p>
+</div></div>
+<div class="doboz doboz-forras"><div class="doboz-cim">Továbbolvasás</div><div class="doboz-tartalom">
+<ul>
+<li><span class="citation" data-cites="hauser1988">Hauser és Clausing (<a href="../irodalom.html#ref-hauser1988" role="doc-biblioref">1988</a>)</span>: a minőségház klasszikus, ma is olvasmányos bemutatása.</li>
+<li><span class="citation" data-cites="akao1990">Akao (<a href="../irodalom.html#ref-akao1990" role="doc-biblioref">1990</a>)</span>: a QFD módszertanának alapműve a módszer egyik megalkotójától.</li>
+<li><span class="citation" data-cites="matzler1998">Matzler és Hinterhuber (<a href="../irodalom.html#ref-matzler1998" role="doc-biblioref">1998</a>)</span>: a Kano-modell beépítése a QFD-be.</li>
+<li><span class="citation" data-cites="abonyi2022qfd">Abonyi és Czvetkó (<a href="../irodalom.html#ref-abonyi2022qfd" role="doc-biblioref">2022</a>)</span>: a QFD hálózati folyam- és hipergráf-alapú megfogalmazása.</li>
+<li><span class="citation" data-cites="czvetko2025">Czvetkó, Sebestyén, és Abonyi (<a href="../irodalom.html#ref-czvetko2025" role="doc-biblioref">2025</a>)</span>: hálózat- és QFD-alapú keretrendszer az Ipar 5.0 és a szervezeti fenntarthatóság kapcsolatára.</li>
+</ul>
+</div></div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-abonyi2022qfd" class="csl-entry" role="listitem">
+Abonyi, János, és Tímea Czvetkó. 2022. <span>„Hypergraph and Network Flow-Based Quality Function Deployment”</span>. <em>Heliyon</em> 8 (12): e12263. <a href="https://doi.org/10.1016/j.heliyon.2022.e12263">https://doi.org/10.1016/j.heliyon.2022.e12263</a>.
+</div>
+<div id="ref-akao1990" class="csl-entry" role="listitem">
+Akao, Yoji. 1990. <em>Quality Function Deployment: Integrating Customer Requirements into Product Design</em>. Cambridge, MA: Productivity Press.
+</div>
+<div id="ref-chan2002qfd" class="csl-entry" role="listitem">
+Chan, Lai-Kow, és Ming-Lu Wu. 2002. <span>„Quality Function Deployment: A Literature Review”</span>. <em>European Journal of Operational Research</em> 143 (3): 463–97. <a href="https://doi.org/10.1016/S0377-2217(02)00178-9">https://doi.org/10.1016/S0377-2217(02)00178-9</a>.
+</div>
+<div id="ref-czvetko2025" class="csl-entry" role="listitem">
+Czvetkó, Tímea, Viktor Sebestyén, és János Abonyi. 2025. <span>„Key Factors of Industry 5.0-Based Organizational Sustainability”</span>. <em>Technology in Society</em> 83: 102966. <a href="https://doi.org/10.1016/j.techsoc.2025.102966">https://doi.org/10.1016/j.techsoc.2025.102966</a>.
+</div>
+<div id="ref-hauser1988" class="csl-entry" role="listitem">
+Hauser, John R., és Don Clausing. 1988. <span>„The House of Quality”</span>. <em>Harvard Business Review</em> 66 (3): 63–73.
+</div>
+<div id="ref-matzler1998" class="csl-entry" role="listitem">
+Matzler, Kurt, és Hans H. Hinterhuber. 1998. <span>„How to Make Product Development Projects More Successful by Integrating <span>Kano’s</span> Model of Customer Satisfaction into Quality Function Deployment”</span>. <em>Technovation</em> 18 (1): 25–38.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Másolva!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Másolva!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/complexsystemsintelligence\.github\.io\/rendszermernokseg\/kezikonyv\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../fejezetek/06-kovetelmenyek.html" class="pagination-link" aria-label="Követelmények meghatározása">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6.</span>&nbsp; <span class="chapter-title">Követelmények meghatározása</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../fejezetek/08-architektura.html" class="pagination-link" aria-label="Funkció, forma, koncepció: a rendszer architektúrája">
+        <span class="nav-page-text"><span class="chapter-number">8.</span>&nbsp; <span class="chapter-title">Funkció, forma, koncepció: a rendszer architektúrája</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/edit/main/kezikonyv/fejezetek/07-qfd.qmd" class="toc-action"><i class="bi bi-github"></i>Oldal szerkesztése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/issues/new" class="toc-action"><i class="bi empty"></i>Hiba vagy javaslat bejelentése</a></li><li><a href="https://github.com/ComplexSystemsIntelligence/rendszermernokseg/blob/main/kezikonyv/fejezetek/07-qfd.qmd" class="toc-action"><i class="bi empty"></i>Forrás megtekintése</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p><a href="https://complexsystemsintelligence.github.io/rendszermernokseg/gyakorlat/">Gyakorlati útmutató</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
