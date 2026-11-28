@@ -1,0 +1,25 @@
+/*-- scss:defaults --*/
+// A ComplexSystemsIntelligence nyílt tankönyvsorozat közös felső navigációs sávja.
+// Ugyanez a fájl él minden könyv tárolójában; a sáv a könyv nyitóoldalára,
+// a kötetekre és a sorozat főoldalára vezet.
+$navbar-bg: #285780;
+$navbar-fg: #FFFFFF;
+$navbar-hl: #FFFFFF;
+
+/*-- scss:rules --*/
+// a korábbi vékony arculati csík a sáv alsó élére kerül
+body::before { display: none !important; }
+#quarto-header .navbar {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(100deg, #1B3A57 0 70%, #E07B39 70% 72%, #1B3A57 72% 100%) 1;
+  padding-top: .25rem; padding-bottom: .25rem;
+}
+#quarto-header .navbar-brand .navbar-title {
+  font-family: "Raleway", "IBM Plex Sans", sans-serif; font-weight: 800; letter-spacing: -0.01em;
+}
+#quarto-header .navbar-nav .nav-link { font-size: .95rem; opacity: .9; }
+#quarto-header .navbar-nav .nav-link:hover, #quarto-header .navbar-nav .nav-link:focus { opacity: 1; text-decoration: underline; text-underline-offset: .3em; }
+#quarto-header .navbar-nav .nav-link.active { opacity: 1; font-weight: 600; }
+// a sorozat főoldalára mutató hivatkozás kiemelése a jobb oldalon
+#quarto-header .navbar-nav.ms-auto .nav-link .menu-text { border: 1px solid rgba(255,255,255,.55); border-radius: 3px; padding: .15rem .55rem; }

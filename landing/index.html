@@ -37,8 +37,19 @@ main { padding:2rem 8vw 3rem; display:grid; grid-template-columns:repeat(auto-fi
 footer { padding:1.5rem 8vw 3rem; font-size:.9rem; color:#52606D; border-top:1px solid #E4E7EB; line-height:1.6; }
 footer a { color:var(--kek); }
 </style>
+<style>
+/* Közös sorozatsáv – ugyanaz a felső navigáció, mint a kötetek webes változatában */
+.sorozatsav{background:#285780;color:#fff;font-family:'IBM Plex Sans',system-ui,sans-serif;border-bottom:4px solid transparent;border-image:linear-gradient(100deg,#1B3A57 0 70%,#E07B39 70% 72%,#1B3A57 72% 100%) 1}
+.sorozatsav .belso-sav{max-width:1180px;margin:0 auto;padding:.55rem 1.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1.4rem}
+.sorozatsav a{color:#fff;text-decoration:none;font-size:.95rem;opacity:.9}
+.sorozatsav a:hover,.sorozatsav a:focus{opacity:1;text-decoration:underline;text-underline-offset:.3em}
+.sorozatsav .sav-cim{font-family:'Raleway','IBM Plex Sans',sans-serif;font-weight:800;font-size:1.15rem;opacity:1;margin-right:.4rem}
+.sorozatsav .sav-fo{margin-left:auto;border:1px solid rgba(255,255,255,.55);border-radius:3px;padding:.15rem .55rem}
+@media (max-width:640px){.sorozatsav .sav-fo{margin-left:0}}
+</style>
 </head>
 <body>
+<nav class="sorozatsav" aria-label="Sorozatnavigáció"><div class="belso-sav"><a class="sav-cim" href="./" aria-current="page">Rendszermérnöki ismeretek és módszerek</a><a href="kezikonyv/">Kézikönyv</a><a href="gyakorlat/">Gyakorlati útmutató</a><a class="sav-fo" href="https://complexsystemsintelligence.github.io/#textbooks">Összes tankönyv</a></div></nav>
 <header>
   <a href="https://uni-pannon.hu/"><img class="pelogo" src="kezikonyv/assets/logo/PE_cimer_nevjel_fekvo_kek.svg" alt="Pannon Egyetem"></a>
   <h1>Rendszermérnöki ismeretek és módszerek</h1>

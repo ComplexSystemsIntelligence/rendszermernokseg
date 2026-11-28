@@ -23,11 +23,24 @@ book:
   favicon: assets/logo/favicon-64.png
   cover-image: assets/borito.png
   cover-image-alt: "A kötet borítója a Pannon Egyetem címerével és névjelével"
+  # Közös sorozatsáv: cím → a könyv nyitóoldala, a két kötet, jobbra a sorozat főoldala
+  navbar:
+    title: "Rendszermérnöki ismeretek és módszerek"
+    logo-href: https://complexsystemsintelligence.github.io/rendszermernokseg/
+    left:
+      - text: "Kézikönyv"
+        href: https://complexsystemsintelligence.github.io/rendszermernokseg/kezikonyv/
+      - text: "Gyakorlati útmutató"
+        href: index.qmd
+    right:
+      - text: "Összes tankönyv"
+        href: https://complexsystemsintelligence.github.io/#textbooks
   sidebar:
     style: docked
     collapse-level: 1
     logo: assets/logo/PE_cimer_nevjel_fekvo_kek.svg
     logo-alt: "Pannon Egyetem"
+    logo-href: https://complexsystemsintelligence.github.io/rendszermernokseg/
   page-navigation: true
   page-footer:
     left: "© 2026 Abonyi János · Pannon Egyetem · CC BY-NC-SA 4.0"
@@ -117,7 +130,7 @@ format:
   html:
     html-math-method: mathml
     theme:
-      light: [cosmo, ../_shared/pe.scss]
+      light: [cosmo, ../_shared/pe.scss, ../_shared/sorozat.scss]
     toc: true
     toc-depth: 3
     toc-title: "Ezen az oldalon"
